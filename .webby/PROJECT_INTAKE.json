@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "status": "INTAKE_COMPLETE",
+  "updatedAt": "2026-08-12T17:42:00+07:00",
+  "project": {
+    "name": "NDTHICH",
+    "businessOrOffer": "Website bất động sản của Công ty TNHH Đầu tư & Kinh doanh Nguyễn Đắc Thích: BĐS cho thuê + dự án công ty, có khả năng mở rộng sang bán dự án BĐS.",
+    "projectType": "WEBSITE"
+  },
+  "goal": {
+    "primary": "Giúp khách tìm BĐS cho thuê, giới thiệu dự án và tăng uy tín thương hiệu.",
+    "conversion": "Gọi điện, nhắn Zalo, đặt lịch xem nhà hoặc yêu cầu tư vấn dự án."
+  },
+  "audience": {
+    "primary": "Sinh viên, người đi làm, gia đình và nhà đầu tư.",
+    "needs": ["Tìm theo khu vực/giá/loại/diện tích/phòng ngủ", "Xem công khai giá và diện tích", "Xem ảnh/video/maps", "Liên hệ nhanh"],
+    "trustSignals": ["Dự án công ty", "Hình ảnh thực tế", "Thông tin doanh nghiệp", "Google Maps", "Đánh giá khách hàng"]
+  },
+  "brand": {
+    "visualDirection": "Bất động sản chuyên nghiệp, hiện đại, sang trọng vừa phải",
+    "colors": ["#8B1E1E", "#FFFFFF", "#1B1B1B", "#C98A2E"],
+    "typography": "Be Vietnam Pro"
+  },
+  "content": {
+    "propertyTypes": ["Phòng trọ / phòng cho thuê", "Căn hộ dịch vụ", "Văn phòng / mặt bằng"],
+    "projectModule": true,
+    "newsModule": true,
+    "contactPhones": ["0986602203", "0985551396"]
+  },
+  "assets": [],
+  "references": [{"type": "CLIENT_APPROVED_DIRECTION", "note": "GĐ1 direction approved by client before GĐ2 master production."}],
+  "scope": {
+    "routes": ["/", "/cho-thue", "/cho-thue/[slug]", "/du-an", "/du-an/[slug]"],
+    "features": ["Property listing", "Filters", "Property detail", "Project listing/detail", "Gallery", "Maps", "Call/Zalo/Schedule CTA", "Responsive", "Future CMS/admin"],
+    "responsive": ["Desktop", "Mobile"]
+  },
+  "technical": {"implementationTarget": "CODE", "adminRequired": true, "dataBinding": "Deferred to backend/CMS phase"},
+  "mustHave": ["Giá và diện tích công khai + filterable", "Mobile CTA rõ", "Dự án là module riêng", "Admin/CMS sau frontend"],
+  "mustNotHave": ["Không đổi tone trắng/đỏ đô/đen", "Không đổi Be Vietnam Pro", "Không tự thiết kế UI còn thiếu", "Không giả lập logo production từ screenshot"],
+  "personalizationSignals": ["Thương hiệu Nguyễn Đắc Thích", "Cho thuê + dự án", "Hotline 0986602203 / 0985551396", "Phong cách BĐS doanh nghiệp"],
+  "assumptions": ["Ảnh BĐS/dự án thật bind qua CMS và giữ geometry đã khóa"],
+  "gaps": [
+    {"field": "productionLogoSource", "status": "SOFT_GAP", "note": "Chưa có vector/native logo gốc."},
+    {"field": "propertyProjectProductionPhotos", "status": "SOFT_GAP", "note": "Bind qua CMS; media geometry đã khóa."},
+    {"field": "googleSheetProductionData", "status": "SOFT_GAP", "note": "Xử lý tại CMS/data phase."}
+  ]
+}

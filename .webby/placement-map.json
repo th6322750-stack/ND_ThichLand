@@ -1,0 +1,10 @@
+{
+  "version":1,
+  "placements":[
+    {"id":"header.global","component":"Header","routes":["*"],"position":"top","layer":100},
+    {"id":"contact.property.desktop","component":"ContactPanel","routes":["/cho-thue/[slug]"],"viewport":"desktop","position":"sticky-right"},
+    {"id":"contact.property.mobile","component":"ContactPanel","routes":["/cho-thue/[slug]"],"viewport":"mobile","position":"sticky-bottom"},
+    {"id":"contact.project.desktop","component":"ContactPanel","routes":["/du-an/[slug]"],"viewport":"desktop","position":"right-of-hero"},
+    {"id":"contact.project.mobile","component":"ContactPanel","routes":["/du-an/[slug]"],"viewport":"mobile","position":"sticky-bottom"}
+  ]
+}

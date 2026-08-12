@@ -1,0 +1,10 @@
+{
+  "version":1,
+  "assets":[
+    {"id":"design-system-master","category":"design-master","source":".webby/master/00_design_system_master.svg","production":".webby/master/00_design_system_master.svg","mime":"image/svg+xml","authoritative":true,"reconstructed":false,"usedBy":["shared-ui"],"mustNot":["Do not flatten the whole website into one SVG."]}
+  ],
+  "deferredContentAssets":[
+    {"id":"client-logo-native","status":"SOFT_GAP","productionAllowed":false,"rule":"Do not crop from screenshot or invent replacement."},
+    {"id":"property-project-photos","status":"SOFT_GAP","productionAllowed":false,"rule":"Bind via CMS while preserving approved media geometry."}
+  ]
+}

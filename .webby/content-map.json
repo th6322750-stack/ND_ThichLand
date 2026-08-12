@@ -1,0 +1,8 @@
+{
+  "version":1,
+  "brand":{"name":"NDTHICH","tagline":"Đầu tư uy tín • Kinh doanh bền vững"},
+  "primaryCTAs":["Tìm thuê ngay","Xem dự án","Tìm kiếm","Gọi 0986 602 203","Nhắn Zalo","Đặt lịch xem","Gửi yêu cầu tư vấn"],
+  "navigation":["Trang chủ","Cho thuê","Dự án","Về chúng tôi","Tin tức","Liên hệ"],
+  "publicPropertyFields":["Tên BĐS","Loại BĐS","Khu vực/địa chỉ","Giá","Diện tích","Phòng ngủ","Nội thất","Trạng thái","Ảnh/video","Maps"],
+  "projectFields":["Tên dự án","Ảnh đại diện","Album","Giới thiệu","Vị trí","Chủ đầu tư","Tiện ích","Tiến độ/trạng thái","CTA tư vấn"]
+}

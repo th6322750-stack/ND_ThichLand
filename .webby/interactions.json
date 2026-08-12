@@ -1,0 +1,15 @@
+{
+  "version":1,
+  "interactions":[
+    {"component":"Header","event":"scroll","behavior":"Compact/scrolled state without brand redesign."},
+    {"component":"PrimaryButton","event":"hover","behavior":"Use #731717; no scale above 1.02."},
+    {"component":"PropertyCard","event":"hover","behavior":"Slight lift + subtle brand border; no reflow."},
+    {"component":"ProjectCard","event":"hover","behavior":"Slight lift; preserve crop."},
+    {"component":"FilterPanel","event":"mobileOpen","behavior":"Drawer/stack and preserve applied values."},
+    {"component":"Gallery","event":"open","behavior":"Lightbox desktop; swipe mobile."},
+    {"component":"ContactPanel","event":"call","behavior":"Primary tel:0986602203; second number alternative."},
+    {"component":"ContactPanel","event":"zalo","behavior":"Open configured Zalo destination when supplied."},
+    {"component":"ContactPanel","event":"schedule","behavior":"Open contact/schedule form; no booking promise before backend."}
+  ],
+  "accessibility":["Visible keyboard focus","Touch targets >=44px","CMS images need alt text","Status not encoded only by color"]
+}

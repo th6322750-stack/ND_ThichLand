@@ -1,0 +1,15 @@
+{
+  "version":1,
+  "uiRevision":1,
+  "authority":"CHATGPT",
+  "masterStrategy":"SVG_MASTER",
+  "rules":{
+    "visibleForm":"Route SVG Masters are authoritative visual truth.",
+    "responsive":"Use responsive.json for transitions not visible in the two master viewports.",
+    "data":"CMS content may change text/images but must preserve card/gallery geometry and hierarchy.",
+    "priceArea":"Price and area are public in cards/details and filterable.",
+    "logo":"Do not crop or invent a production logo. Use text treatment until native logo source is supplied.",
+    "font":"Be Vietnam Pro only unless a new approved UI revision changes it.",
+    "mustNot":["Do not change approved colors/spacing/radii/typography/layout/image ratios.","Do not replace with generic component library defaults.","Do not treat browser implementation as visual truth.","Do not add/remove visible sections independently."]
+  }
+}

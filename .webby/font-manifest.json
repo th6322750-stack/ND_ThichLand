@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "fonts": [{"family":"Be Vietnam Pro","source":"Google Fonts / Fontsource","binaryIncluded":false,"reason":"Font binaries are not redistributed in this repository. Executor must acquire the exact family legally.","roles":["display","headings","body","labels","buttons"]}],
+  "mustNot": ["Do not substitute another font without a new approved UI revision."]
+}
