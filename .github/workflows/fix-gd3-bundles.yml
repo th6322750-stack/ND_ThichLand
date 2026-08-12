@@ -21,7 +21,7 @@ jobs:
       - name: Download verified Revision 2 source package from Drive
         run: |
           python -m pip install --quiet gdown
-          gdown --id 1lz06ZbcQy-jPY-xOwNX92R_sbJnPLkae -O /tmp/NDTHICH_UI_REV2_FULL.zip
+          gdown 1lz06ZbcQy-jPY-xOwNX92R_sbJnPLkae -O /tmp/NDTHICH_UI_REV2_FULL.zip
           python - <<'PY'
           from pathlib import Path
           import zipfile
@@ -41,7 +41,7 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          import zipfile, shutil
+          import zipfile
 
           src=Path('/tmp/NDTHICH_UI_REV2_FULL.zip')
           outdir=Path('.webby/bundles')
@@ -57,8 +57,6 @@ jobs:
                       rel=name[len('NDTHICH_UI_REV2/'):]
                       zout.writestr(rel, zin.read(name))
 
-          # Valid state bundle. Final gate owns the Revision-3 state boards and will
-          # generate explicit boards if these names are not present.
           with zipfile.ZipFile(src) as zin, zipfile.ZipFile(state,'w',zipfile.ZIP_DEFLATED) as zout:
               for name in ['NDTHICH_UI_REV2/master/system/Component_States.svg','NDTHICH_UI_REV2/master/system/Design_System_Master.svg']:
                   if name in zin.namelist():
@@ -77,7 +75,7 @@ jobs:
         run: |
           git config user.name "Hthanh-Vip"
           git config user.email "th6322750@gmail.com"
-          printf '\n# drive-source-bundle-repair: 2026-08-13-r2\n' >> .github/workflows/gd3-r3-final.yml
+          printf '\n# drive-source-bundle-repair: 2026-08-13-r3\n' >> .github/workflows/gd3-r3-final.yml
           git add .webby/bundles/NDTHICH_UI_REV2_SVG_MASTER_BUNDLE.zip \
                   .webby/bundles/NDTHICH_REV3_STATE_LAYER_BUNDLE.zip \
                   .github/workflows/gd3-r3-final.yml
