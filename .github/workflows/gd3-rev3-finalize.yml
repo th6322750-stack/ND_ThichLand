@@ -1,0 +1,251 @@
+name: NDTHICH GĐ3 Rev3 Strict Finalize
+
+on:
+  push:
+    branches:
+      - webby/ui-ndthich-r2
+    paths:
+      - .github/workflows/gd3-rev3-finalize.yml
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Strict preflight of real visual truth
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('.')
+          r=json.loads((root/'.webby/visual-handoff/routes.json').read_text())
+          assert r['schemaVersion']==1, r
+          assert r['uiRevision']==3, r
+          assert len(r['routes'])==9
+          for route,views in r['routes'].items():
+              assert set(views)=={'desktop','mobile'}, (route,views)
+              for rel in views.values():
+                  assert rel.endswith('.png') and not rel.endswith('.json'), (route,rel)
+                  assert (root/'.webby/visual-handoff'/rel).is_file(), (route,rel)
+          f=json.loads((root/'.webby/qa/FONT_RENDER_VERIFICATION.json').read_text())
+          assert f['status']=='PASS' and f['resolvedFamily']=='Be Vietnam Pro', f
+          m=json.loads((root/'.webby/qa/RENDER_MANIFEST_REV3.json').read_text())['files']
+          assert sum(x['path'].startswith('renders/WEB/') for x in m)==9
+          assert sum(x['path'].startswith('renders/MOBILE/') for x in m)==9
+          assert sum(x['path'].startswith('renders/ADMIN/') for x in m)==9
+          assert sum(x['path'].startswith('renders/SYSTEM/') for x in m)>=4
+          assert all(x['width']>=1920 for x in m if x['path'].startswith('renders/WEB/'))
+          assert all(x['width']>=1080 for x in m if x['path'].startswith('renders/MOBILE/'))
+          assert not (root/'.webby/visual-handoff/refs').exists()
+          sm=json.loads((root/'.webby/state-map.json').read_text())
+          lm=json.loads((root/'.webby/layer-map.json').read_text())
+          assert sm['uiRevision']==3 and lm['uiRevision']==3
+          for key in ['stickyHeader','drawerBackdrop','drawerPanel','lightboxBackdrop','lightboxContent','stickyMobileActions']:
+              assert key in lm['layers'], key
+          assert len(list((root/'.webby/master/public').glob('*.svg')))==18
+          assert len(list((root/'.webby/master/admin').glob('*.svg')))==9
+          assert (root/'.webby/master/system/Public_Component_States.svg').exists()
+          assert (root/'.webby/master/system/Form_Overlay_States.svg').exists()
+          assert (root/'.webby/master/system/Admin_Component_States.svg').exists()
+          print('REAL VISUAL PREFLIGHT PASS')
+          PY
+
+      - name: Normalize manifests from actual Git files
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json, hashlib, mimetypes
+          root=Path('.')
+          # Asset manifest from actual production assets, no invented external files.
+          assets=[]
+          ap=root/'.webby/assets/production'
+          if ap.exists():
+              for p in sorted(ap.rglob('*')):
+                  if not p.is_file(): continue
+                  rel=p.as_posix()
+                  parts=p.relative_to(ap).parts
+                  category=parts[0] if len(parts)>1 else 'visual'
+                  assets.append({
+                    'id':'asset.'+'.'.join(p.relative_to(ap).with_suffix('').parts),
+                    'category':category,
+                    'source':rel,
+                    'production':rel,
+                    'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),
+                    'mime':mimetypes.guess_type(p.name)[0] or 'application/octet-stream',
+                    'byteSize':p.stat().st_size,
+                    'authoritative':True,
+                    'reconstructed':False,
+                    'usedBy':['shared-ui'],
+                    'mustNot':['Do not substitute a generic visual asset.']
+                  })
+          (root/'.webby/asset-manifest.json').write_text(json.dumps({'version':1,'uiCommit':'PENDING_VISUAL_COMMIT','assets':assets},ensure_ascii=False,indent=2),encoding='utf-8')
+
+          # Canonical component map generated from the explicit state authority map.
+          sm=json.loads((root/'.webby/state-map.json').read_text())
+          targets={
+            'Header':'components/Header','PrimaryButton':'components/PrimaryButton','SecondaryButton':'components/SecondaryButton',
+            'SearchPanel':'components/SearchPanel','PropertyCard':'components/PropertyCard','ProjectCard':'components/ProjectCard',
+            'NewsCard':'components/NewsCard','Gallery':'components/Gallery','FormField':'components/FormField','Footer':'components/Footer',
+            'AdminSidebar':'components/admin/AdminSidebar','AdminTable':'components/admin/AdminTable','AdminForm':'components/admin/AdminForm','Uploader':'components/admin/Uploader'
+          }
+          comps=[]
+          for cid, spec in sm['components'].items():
+              name=spec.get('name',cid.split('.')[-1])
+              comps.append({
+                'componentId':cid,
+                'name':name,
+                'implementationTarget':targets.get(name,'components/'+name),
+                'states':spec['states'],
+                'variants':[],
+                'requiredAssets':[],
+                'mustNot':['Implement the visual states from '+spec['board']+'; do not invent missing appearance.']
+              })
+          (root/'.webby/component-map.json').write_text(json.dumps({'version':1,'uiCommit':'PENDING_VISUAL_COMMIT','components':comps},ensure_ascii=False,indent=2),encoding='utf-8')
+          PY
+
+      - name: Commit final visual/contract snapshot
+        run: |
+          git config user.name "Hthanh-Vip"
+          git config user.email "th6322750@gmail.com"
+          git add .webby/asset-manifest.json .webby/component-map.json
+          if ! git diff --cached --quiet; then
+            git commit -m "webby(ui): normalize NDTHICH revision 3 implementation manifests [skip ci]"
+          fi
+          echo "UI_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Create deterministic HANDOFF, LOCK and task metadata
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import os,json,hashlib,datetime
+          root=Path('.')
+          ui=os.environ['UI_COMMIT']
+          now=datetime.datetime.now(datetime.timezone.utc).isoformat()
+
+          # Identity-only uiCommit fields are metadata, not visual redesign.
+          for name in ['asset-manifest.json','component-map.json']:
+              p=root/'.webby'/name
+              d=json.loads(p.read_text()); d['uiCommit']=ui
+              p.write_text(json.dumps(d,ensure_ascii=False,indent=2),encoding='utf-8')
+
+          required=[
+            '.webby/PROJECT_INTAKE.json','.webby/visual-handoff/routes.json','.webby/visual-handoff/admin-renders.json',
+            '.webby/qa/FONT_RENDER_VERIFICATION.json','.webby/qa/RENDER_MANIFEST_REV3.json',
+            '.webby/state-map.json','.webby/layer-map.json','.webby/visual-contract.json','.webby/asset-manifest.json',
+            '.webby/component-map.json','.webby/placement-map.json','.webby/route-map.json','.webby/section-map.json',
+            '.webby/typography.json','.webby/font-manifest.json','.webby/tokens.json','.webby/responsive.json',
+            '.webby/interactions.json','.webby/content-map.json','.webby/data-source-map.json','.webby/future-features.json',
+            '.webby/CLAUDE_TASK.md'
+          ]
+          for rel in required:
+              assert (root/rel).is_file(), rel
+
+          handoff={
+            'schemaVersion':2,'handoffId':'ndthich-ui-r3-20260813','producer':'CHATGPT','executor':'CLAUDE',
+            'status':'UI_SETUP_COMPLETE','uiRevision':3,'uiCommit':ui,'parentUiCommit':'066ae02e059ed7c20b4be75fa76a7a1e048818eb',
+            'createdAt':now,'requiredInputs':required,'lockFile':'.webby/WEBBY_LOCK.json',
+            'intake':{'status':'INTAKE_COMPLETE','file':'.webby/PROJECT_INTAKE.json'},
+            'visualHandoff':{'mode':'VISUAL_FIRST','routesFile':'.webby/visual-handoff/routes.json','implementationTarget':'CODE','approvedRasterStorage':'GIT_DIRECT'},
+            'visualAuthority':'CHATGPT','implementationAuthority':'CLAUDE',
+            'contextPolicy':{'routeScoped':True,'componentScoped':True,'onDemandContracts':True},
+            'hardRules':['MISSING APPROVED UI != CLAUDE DESIGNS IT','BROWSER != APPROVED VISUAL TRUTH','Use Be Vietnam Pro 400/500/600/700/800 exactly.','Keep NO_LOGO until a future approved revision.','Do not implement viewing-request/Lead UI in revision 3.','Never expose commission/guide person/internal notes publicly.','Use the supplied state-map and layer-map; do not invent visual states or z-index.'],
+            'blockers':[]
+          }
+          (root/'.webby/HANDOFF.json').write_text(json.dumps(handoff,ensure_ascii=False,indent=2),encoding='utf-8')
+
+          state=f'''project: NDTHICH\nskillVersion: 2.2.0\nphase: GĐ3\ngđ0: {{status: INTAKE_COMPLETE}}\ngđ1: {{status: APPROVED, uiRevision: 3}}\ngđ2: {{status: MASTER_READY, strategy: SVG_MASTER, uiRevision: 3}}\ngđ3:\n  status: UI_SETUP_COMPLETE\n  uiRevision: 3\n  uiCommit: {ui}\n  uiSetupComplete: true\n  blockers: 0\ndecisions:\n  logo: NO_LOGO_PLACEHOLDER\n  viewingRequestLead: FUTURE_FEATURE\nexecutor:\n  selected: CLAUDE\n  implementationStarted: false\n  readyToStart: true\n'''
+          (root/'.webby/PROJECT_STATE.yaml').write_text(state,encoding='utf-8')
+
+          task=f'''# NDTHICH — GĐ4 STATIC FRONTEND / REVISION 3\n\nActive UI commit: `{ui}`.\n\nRead in order: `.webby/HANDOFF.json` → `.webby/WEBBY_LOCK.json` → route PNG in `.webby/visual-handoff/routes.json` → matching SVG in `.webby/master/public` or `.webby/master/admin` → route/shared contracts.\n\nChatGPT owns 100% visible UI. Claude implements only. Implement 9 public routes and 9 approved Admin/CMS screens. Backend/data sync stays for GĐ6.\n\nHard rules: exact Be Vietnam Pro 400/500/600/700/800; keep NO_LOGO; no Lead/Đặt lịch UI; price + area public/filterable; commission/guide/internal notes internal-only; use supplied SVG/icon/assets; use `state-map.json` and `layer-map.json`; no generic visual substitution; no redesign.\n\nAfter GĐ4 create `.webby/implementation/IMPLEMENTATION_RECEIPT.json`.\n'''
+          (root/'.webby/CLAUDE_TASK.md').write_text(task,encoding='utf-8')
+
+          # Drive is client-delivery redundancy only; Git is now the direct implementation visual source.
+          drive={
+            'schemaVersion':2,'uiRevision':3,'status':'REV3_PACKAGE_UPLOADED',
+            'rootFolderId':'1jvdOr7DPaS4JDPKqXMZqy8yl-kVRbWIn',
+            'rootUrl':'https://drive.google.com/drive/folders/1jvdOr7DPaS4JDPKqXMZqy8yl-kVRbWIn',
+            'currentPackage':'NDTHICH_REV3_APPROVED_RENDERS.zip',
+            'notice':'00_README_REV3_CURRENT.txt',
+            'obsolete':'Revision 2 individual PNGs in the older folder are superseded because they used a fallback font.',
+            'implementationAuthority':'Use direct Git renders in .webby/visual-handoff/renders; Drive is client-delivery redundancy.'
+          }
+          (root/'.webby/DRIVE_MANIFEST.json').write_text(json.dumps(drive,ensure_ascii=False,indent=2),encoding='utf-8')
+
+          # Lock every relevant concrete file, including actual PNGs and Masters.
+          paths=set(required+['.webby/HANDOFF.json','.webby/PROJECT_STATE.yaml','.webby/DRIVE_MANIFEST.json'])
+          for base in ['.webby/visual-handoff/renders','.webby/master','.webby/assets/production']:
+              b=root/base
+              if b.exists():
+                  for p in b.rglob('*'):
+                      if p.is_file(): paths.add(p.as_posix())
+          entries=[]
+          for rel in sorted(paths):
+              p=root/rel
+              assert p.is_file(),rel
+              entries.append({'path':rel,'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'required':True})
+          lock={'schemaVersion':1,'skillVersion':'2.2.0','handoffId':handoff['handoffId'],'uiRevision':3,'uiCommit':ui,'createdAt':now,'files':entries}
+          (root/'.webby/WEBBY_LOCK.json').write_text(json.dumps(lock,ensure_ascii=False,indent=2),encoding='utf-8')
+          PY
+
+      - name: Run canonical webbyLucifer validator
+        run: |
+          rm -rf /tmp/webbyLucifer
+          git clone --quiet --depth 1 https://github.com/th6322750-stack/webbyLucifer.git /tmp/webbyLucifer
+          python /tmp/webbyLucifer/scripts/webby-validate.py . | tee /tmp/canonical-validator.log
+          grep -q 'WEBBY_VALIDATION_PASS' /tmp/canonical-validator.log
+
+      - name: Run strict semantic GĐ3 audit
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,hashlib,os,subprocess
+          root=Path('.')
+          h=json.loads((root/'.webby/HANDOFF.json').read_text())
+          l=json.loads((root/'.webby/WEBBY_LOCK.json').read_text())
+          r=json.loads((root/'.webby/visual-handoff/routes.json').read_text())
+          assert h['status']=='UI_SETUP_COMPLETE' and h['blockers']==[]
+          assert h['uiRevision']==l['uiRevision']==r['uiRevision']==3
+          assert h['uiCommit']==l['uiCommit']==os.environ['UI_COMMIT']
+          assert r['schemaVersion']==1 and len(r['routes'])==9
+          for route,views in r['routes'].items():
+              for rel in views.values():
+                  assert rel.endswith('.png')
+                  assert (root/'.webby/visual-handoff'/rel).is_file()
+          f=json.loads((root/'.webby/qa/FONT_RENDER_VERIFICATION.json').read_text())
+          assert f['status']=='PASS' and f['resolvedFamily']=='Be Vietnam Pro'
+          sm=json.loads((root/'.webby/state-map.json').read_text())
+          cm=json.loads((root/'.webby/component-map.json').read_text())
+          state_by_id=sm['components']
+          for c in cm['components']:
+              assert c['componentId'] in state_by_id
+              assert set(c['states'])==set(state_by_id[c['componentId']]['states'])
+              board=root/state_by_id[c['componentId']]['board']
+              assert board.is_file(), board
+          lm=json.loads((root/'.webby/layer-map.json').read_text())
+          for key in ['stickyHeader','drawerBackdrop','drawerPanel','lightboxBackdrop','lightboxContent','stickyMobileActions']:
+              assert key in lm['layers']
+          for e in l['files']:
+              p=root/e['path']; assert p.is_file(),e['path']
+              assert hashlib.sha256(p.read_bytes()).hexdigest()==e['sha256'],e['path']
+          assert not (root/'.webby/visual-handoff/refs').exists()
+          ff=json.loads((root/'.webby/future-features.json').read_text())
+          assert 'VIEWING_REQUEST_LEADS' in json.dumps(ff) and 'FUTURE_FEATURE' in json.dumps(ff)
+          ds=json.dumps(json.loads((root/'.webby/data-source-map.json').read_text())).lower()
+          assert 'commission' in ds or 'hoa hồng' in ds
+          report={'status':'STRICT_GD3_PASS','uiRevision':3,'uiCommit':h['uiCommit'],'canonicalValidator':'PASS','routes':9,'webRenders':9,'mobileRenders':9,'adminRenders':9,'font':'Be Vietnam Pro','stateCoverage':'PASS','layerContract':'PASS','lockHashes':'PASS','hardBlockers':0}
+          (root/'.webby/qa/GD3_FINAL_AUDIT_REV3.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+          (root/'.webby/VALIDATION.json').write_text(json.dumps({'validator':'canonical webbyLucifer scripts/webby-validate.py + strict semantic audit','status':'WEBBY_VALIDATION_PASS','uiRevision':3,'uiCommit':h['uiCommit'],'handoffStatus':'UI_SETUP_COMPLETE','uiSetupComplete':True,'errors':[]},ensure_ascii=False,indent=2),encoding='utf-8')
+          PY
+
+      - name: Commit activation only after both validators pass
+        run: |
+          git add -A .webby
+          git commit -m "webby(lock): activate NDTHICH revision 3 after canonical + strict validation [skip ci]"
+          git push origin HEAD:webby/ui-ndthich-r2
