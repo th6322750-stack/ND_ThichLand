@@ -13,6 +13,7 @@
 /tests/visual/__screenshots__
 
 # misc
+_qa_shot.mjs
 .DS_Store
 *.pem
 npm-debug.log*
@@ -31,3 +32,4 @@ next-env.d.ts
 /test-results/
 /playwright-report/
 /playwright/.cache/
+_qa_shot2.mjs

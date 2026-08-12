@@ -66,9 +66,13 @@ export function PropertyCard({ listing, state = "default" }: PropertyCardProps) 
             <Icon name="home" size={16} /> {listing.propertyType}
           </span>
         </div>
-        <div className="mt-3 flex items-center justify-between border-t border-line pt-3">
-          <span className="text-price text-primary">{formatCurrencyVnd(listing.price)}/tháng</span>
-          <span className="text-label text-primary group-hover:underline">Xem chi tiết</span>
+        <div className="mt-3 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 border-t border-line pt-3">
+          <span className="whitespace-nowrap text-price text-primary">
+            {formatCurrencyVnd(listing.price)}/tháng
+          </span>
+          <span className="whitespace-nowrap text-label text-primary group-hover:underline">
+            Xem chi tiết
+          </span>
         </div>
       </div>
     </Link>
