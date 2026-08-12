@@ -1,0 +1,79 @@
+name: NDTHICH GĐ3 Rev3 Font-Fidelity Render
+on:
+  push:
+    branches: [webby/ui-ndthich-r2]
+    paths: [.github/workflows/gd3-rev3-render.yml]
+permissions:
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install render dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fontconfig libcairo2-dev libpango1.0-dev
+          python -m pip install --upgrade pip
+          python -m pip install cairosvg pillow
+      - name: Install exact Be Vietnam Pro fonts
+        run: |
+          mkdir -p "$HOME/.local/share/fonts/BeVietnamPro"
+          for f in Regular Medium SemiBold Bold ExtraBold; do
+            curl -L --fail --retry 3 "https://raw.githubusercontent.com/google/fonts/main/ofl/bevietnampro/BeVietnamPro-${f}.ttf" -o "$HOME/.local/share/fonts/BeVietnamPro/BeVietnamPro-${f}.ttf"
+          done
+          fc-cache -f
+          fc-match -f '%{family}\n' "Be Vietnam Pro" | head -1 | grep -Fx "Be Vietnam Pro"
+      - name: Unpack locked Revision 3 master bundle
+        run: |
+          rm -rf _rev3 && mkdir _rev3
+          unzip -q .webby/bundles/NDTHICH_UI_REV3_SVG_MASTER_BUNDLE.zip -d _rev3
+      - name: Render approved visual truth with verified font
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json, cairosvg
+          from PIL import Image
+          src=Path('_rev3'); out=Path('.webby/visual-handoff/renders')
+          for d in ['WEB','MOBILE','ADMIN','SYSTEM']:(out/d).mkdir(parents=True, exist_ok=True)
+          public=[('/', '01_TrangChu'),('/cho-thue','02_ChoThue'),('/cho-thue/[slug]','03_ChiTietChoThue'),('/du-an','04_DuAn'),('/du-an/[slug]','05_ChiTietDuAn'),('/gioi-thieu','06_GioiThieu'),('/tin-tuc','07_TinTuc'),('/tin-tuc/[slug]','08_ChiTietTinTuc'),('/lien-he','09_LienHe')]
+          routes={'schemaVersion':1,'uiRevision':3,'routes':{}}
+          for route,base in public:
+              dp=out/'WEB'/f'{base}_WEB.png'; mp=out/'MOBILE'/f'{base}_MOBILE.png'
+              cairosvg.svg2png(bytestring=(src/'master/public'/f'{base}_WEB.svg').read_bytes(),write_to=str(dp),output_width=1920)
+              cairosvg.svg2png(bytestring=(src/'master/public'/f'{base}_MOBILE.svg').read_bytes(),write_to=str(mp),output_width=1080)
+              routes['routes'][route]={'desktop':f'renders/WEB/{dp.name}','mobile':f'renders/MOBILE/{mp.name}'}
+          admins=[]
+          for p in sorted((src/'master/admin').glob('*.svg')):
+              target=out/'ADMIN'/(p.stem+'.png'); cairosvg.svg2png(bytestring=p.read_bytes(),write_to=str(target),output_width=1920); admins.append({'master':f'master/admin/{p.name}','render':f'renders/ADMIN/{target.name}'})
+          systems=[]
+          for p in sorted((src/'master/system').glob('*.svg')):
+              target=out/'SYSTEM'/(p.stem+'.png'); cairosvg.svg2png(bytestring=p.read_bytes(),write_to=str(target),output_width=1920); systems.append({'master':f'master/system/{p.name}','render':f'renders/SYSTEM/{target.name}'})
+          Path('.webby/visual-handoff/routes.json').write_text(json.dumps(routes,ensure_ascii=False,indent=2),encoding='utf-8')
+          Path('.webby/visual-handoff/admin-renders.json').write_text(json.dumps({'schemaVersion':1,'uiRevision':3,'admin':admins,'system':systems},ensure_ascii=False,indent=2),encoding='utf-8')
+          checks=[]
+          for sub in ['WEB','MOBILE','ADMIN','SYSTEM']:
+              for p in sorted((out/sub).glob('*.png')):
+                  with Image.open(p) as im: checks.append({'path':str(p),'width':im.width,'height':im.height})
+          Path('.webby/qa/RENDER_DIMENSIONS_REV3.json').write_text(json.dumps({'uiRevision':3,'files':checks},indent=2),encoding='utf-8')
+          PY
+      - name: Record exact font verification
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json, subprocess, hashlib
+          family=subprocess.check_output(['fc-match','-f','%{family}','Be Vietnam Pro'],text=True).strip()
+          if family != 'Be Vietnam Pro': raise SystemExit(f'Font mismatch: {family}')
+          files=[]
+          for p in sorted((Path.home()/'.local/share/fonts/BeVietnamPro').glob('*.ttf')): files.append({'name':p.name,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()})
+          Path('.webby/qa/FONT_RENDER_VERIFICATION.json').write_text(json.dumps({'uiRevision':3,'status':'PASS','resolvedFamily':family,'fontFiles':files,'note':'Font files are render-pipeline inputs only and are not committed or distributed.'},indent=2),encoding='utf-8')
+          PY
+      - name: Commit real PNG visual truth
+        run: |
+          git config user.name "Hthanh-Vip"
+          git config user.email "th6322750@gmail.com"
+          git add .webby/visual-handoff/renders .webby/visual-handoff/routes.json .webby/visual-handoff/admin-renders.json .webby/qa/FONT_RENDER_VERIFICATION.json .webby/qa/RENDER_DIMENSIONS_REV3.json
+          git commit -m "webby(ui): render NDTHICH revision 3 with verified Be Vietnam Pro [skip ci]"
+          git push origin HEAD:webby/ui-ndthich-r2
