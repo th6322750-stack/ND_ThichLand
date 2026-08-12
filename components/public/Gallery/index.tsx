@@ -6,9 +6,10 @@ import { useFocusTrap } from "@/lib/useFocusTrap";
 
 interface GalleryProps {
   images: string[];
+  layout?: "mosaic" | "grid";
 }
 
-export function Gallery({ images }: GalleryProps) {
+export function Gallery({ images, layout = "mosaic" }: GalleryProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const open = activeIndex !== null;
   const close = () => setActiveIndex(null);
@@ -33,28 +34,43 @@ export function Gallery({ images }: GalleryProps) {
 
   return (
     <div>
-      {/* Desktop mosaic */}
-      <div className="hidden desktop:grid desktop:grid-cols-4 desktop:gap-2">
-        <button
-          type="button"
-          aria-label={`Xem ảnh 1 / ${images.length}`}
-          className="relative col-span-2 row-span-2 aspect-[4/3] overflow-hidden rounded-md"
-          onClick={() => setActiveIndex(0)}
-        >
-          <Image src={images[0]} alt="" fill className="object-cover" unoptimized />
-        </button>
-        {images.slice(1, 5).map((src, i) => (
+      {layout === "mosaic" ? (
+        <div className="hidden desktop:grid desktop:grid-cols-4 desktop:gap-2">
           <button
-            key={src + i}
             type="button"
-            aria-label={`Xem ảnh ${i + 2} / ${images.length}`}
-            className="relative aspect-[4/3] overflow-hidden rounded-md"
-            onClick={() => setActiveIndex(i + 1)}
+            aria-label={`Xem ảnh 1 / ${images.length}`}
+            className="relative col-span-2 row-span-2 aspect-[4/3] overflow-hidden rounded-md"
+            onClick={() => setActiveIndex(0)}
           >
-            <Image src={src} alt="" fill className="object-cover" unoptimized />
+            <Image src={images[0]} alt="" fill className="object-cover" unoptimized />
           </button>
-        ))}
-      </div>
+          {images.slice(1, 5).map((src, i) => (
+            <button
+              key={src + i}
+              type="button"
+              aria-label={`Xem ảnh ${i + 2} / ${images.length}`}
+              className="relative aspect-[4/3] overflow-hidden rounded-md"
+              onClick={() => setActiveIndex(i + 1)}
+            >
+              <Image src={src} alt="" fill className="object-cover" unoptimized />
+            </button>
+          ))}
+        </div>
+      ) : (
+        <div className="hidden desktop:grid desktop:grid-cols-2 desktop:gap-4">
+          {images.map((src, i) => (
+            <button
+              key={src + i}
+              type="button"
+              aria-label={`Xem ảnh ${i + 1} / ${images.length}`}
+              className="relative aspect-[16/10] overflow-hidden rounded-md"
+              onClick={() => setActiveIndex(i)}
+            >
+              <Image src={src} alt="" fill className="object-cover" unoptimized />
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Mobile swipe strip */}
       <div className="flex gap-2 overflow-x-auto desktop:hidden" role="list">

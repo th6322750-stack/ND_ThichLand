@@ -29,7 +29,6 @@ export function ProjectCard({ project, selected = false }: ProjectCardProps) {
         >
           {project.status}
         </span>
-        <span className="absolute bottom-3 left-3 text-label text-surface">{project.name}</span>
       </div>
       <div className="p-4">
         <h3 className="text-h3 text-ink">{project.name}</h3>
