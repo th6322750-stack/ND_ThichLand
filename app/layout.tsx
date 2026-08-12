@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="vi" className={beVietnamPro.variable}>
-      <body className="font-sans antialiased">{children}</body>
+      <body className="bg-surface font-sans text-ink antialiased">{children}</body>
     </html>
   );
 }
