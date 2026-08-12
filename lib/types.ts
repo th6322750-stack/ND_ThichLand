@@ -43,6 +43,6 @@ export interface NewsArticle {
   publishedAt: string; // ISO date
   readMinutes: number;
   excerpt: string;
-  body: string;
+  sections: { heading: string; body: string }[];
   cover: string;
 }

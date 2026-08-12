@@ -32,7 +32,9 @@ export function NewsCard({ article, state = "default" }: NewsCardProps) {
     >
       <div className="relative aspect-[4/3]">
         <Image src={article.cover} alt={article.title} fill className="object-cover" unoptimized />
-        <span className="absolute bottom-3 left-3 text-label text-surface">Tin tức</span>
+        <span className="absolute left-3 top-3 rounded-full bg-black/40 px-3 py-1 text-label text-surface">
+          Tin tức
+        </span>
       </div>
       <div className="p-4">
         <span className="text-label text-primary">{article.category.toUpperCase()}</span>
