@@ -9,10 +9,14 @@ interface FormFieldProps {
   required?: boolean;
   placeholder?: string;
   defaultValue?: string;
+  hint?: string;
 }
 
 export const FormField = forwardRef<HTMLInputElement | HTMLTextAreaElement, FormFieldProps>(
-  function FormField({ label, name, type = "text", error, required, placeholder, defaultValue }, ref) {
+  function FormField(
+    { label, name, type = "text", error, required, placeholder, defaultValue, hint },
+    ref,
+  ) {
     const id = useId();
     const errorId = `${id}-error`;
     const sharedClassName = `rounded-md border px-4 py-3 text-body outline-none transition-colors duration-fast focus:ring-2 focus:ring-primary disabled:bg-soft disabled:text-muted ${
@@ -54,6 +58,7 @@ export const FormField = forwardRef<HTMLInputElement | HTMLTextAreaElement, Form
             {error}
           </span>
         )}
+        {!error && hint && <span className="text-body text-muted">{hint}</span>}
       </div>
     );
   },

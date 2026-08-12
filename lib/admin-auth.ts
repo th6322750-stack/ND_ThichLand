@@ -44,3 +44,13 @@ function getServerSnapshot(): boolean {
 export function useIsAuthenticated(): boolean {
   return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }
+
+// Distinguishes "still hydrating" from "definitely unauthenticated" so callers
+// don't act on the SSR-safe false snapshot before the real client value syncs.
+function subscribeNever() {
+  return () => {};
+}
+
+export function useHydrated(): boolean {
+  return useSyncExternalStore(subscribeNever, () => true, () => false);
+}

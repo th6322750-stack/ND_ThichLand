@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Sidebar } from "@/components/admin/Sidebar";
 import { Topbar } from "@/components/admin/Topbar";
-import { useIsAuthenticated } from "@/lib/admin-auth";
+import { useHydrated, useIsAuthenticated } from "@/lib/admin-auth";
 
 const PAGE_TITLES: Record<string, string> = {
   "/admin": "Dashboard",
@@ -24,9 +24,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname() ?? "/admin";
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const hydrated = useHydrated();
   const authenticated = useIsAuthenticated();
   const isLoginRoute = pathname === "/admin/login";
-  const shouldRedirect = !isLoginRoute && !authenticated;
+  const shouldRedirect = hydrated && !isLoginRoute && !authenticated;
 
   useEffect(() => {
     if (shouldRedirect) {
@@ -38,7 +39,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     return <>{children}</>;
   }
 
-  if (shouldRedirect) {
+  if (!hydrated || shouldRedirect) {
     return null;
   }
 
