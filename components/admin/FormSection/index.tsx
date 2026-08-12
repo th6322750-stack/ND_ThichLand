@@ -23,7 +23,7 @@ export function FormSection({ title, badge, internalOnly = false, children }: Fo
       {internalOnly && (
         <p className="mt-1 text-body text-[#8A6A2F]">Không public lên website</p>
       )}
-      <div className="mt-6 grid grid-cols-1 gap-6 desktop:grid-cols-2">{children}</div>
+      <div className="mt-6 grid grid-cols-1 gap-6 min-[1200px]:grid-cols-2">{children}</div>
     </section>
   );
 }

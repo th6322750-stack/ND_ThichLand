@@ -80,7 +80,7 @@ export default function HomePage() {
             Xem tất cả
           </Link>
         </div>
-        <div className="mt-8 grid grid-cols-1 gap-6 tablet:grid-cols-2 desktop:grid-cols-4">
+        <div className="mt-8 grid grid-cols-1 gap-6 tablet:grid-cols-2 desktop:grid-cols-3 wide:grid-cols-4">
           {featuredProperties.map((listing) => (
             <PropertyCard key={listing.slug} listing={listing} />
           ))}

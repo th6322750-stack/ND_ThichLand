@@ -13,7 +13,7 @@ export function Topbar({ title, onMenuClick }: TopbarProps) {
           type="button"
           aria-label="Menu quản trị"
           onClick={onMenuClick}
-          className="tablet:hidden"
+          className="flex h-11 w-11 items-center justify-center tablet:hidden"
         >
           <Icon name="menu" size={24} />
         </button>

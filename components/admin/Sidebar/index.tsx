@@ -44,7 +44,7 @@ function NavList({ compact, onNavigate }: { compact: boolean; onNavigate?: () =>
 
 function SidebarBody({ compact, onNavigate }: { compact: boolean; onNavigate?: () => void }) {
   return (
-    <div className="flex h-full flex-col justify-between bg-footer py-6">
+    <nav aria-label="Điều hướng quản trị" className="flex h-full flex-col justify-between bg-footer py-6">
       <div>
         <div className={`mb-6 px-3 text-h3 text-surface ${compact ? "text-center" : ""}`}>
           {compact ? "N" : "NDTHICH Admin"}
@@ -64,7 +64,7 @@ function SidebarBody({ compact, onNavigate }: { compact: boolean; onNavigate?: (
           {compact && <span>⏻</span>}
         </button>
       </div>
-    </div>
+    </nav>
   );
 }
 

@@ -32,7 +32,12 @@ export function FilterDrawer({ open, onClose }: FilterDrawerProps) {
         className="fixed inset-x-0 bottom-0 z-sheet-panel max-h-[85vh] overflow-y-auto rounded-t-xl bg-surface p-6"
       >
         <div className="flex justify-end">
-          <button type="button" aria-label="Đóng bộ lọc" onClick={onClose}>
+          <button
+            type="button"
+            aria-label="Đóng bộ lọc"
+            className="flex h-11 w-11 items-center justify-center"
+            onClick={onClose}
+          >
             ✕
           </button>
         </div>

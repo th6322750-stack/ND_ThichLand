@@ -81,7 +81,7 @@ export function Header() {
         <button
           type="button"
           aria-label="Menu"
-          className="desktop:hidden"
+          className="flex h-11 w-11 items-center justify-center desktop:hidden"
           onClick={() => setDrawerOpen(true)}
         >
           <Image src="/assets/icons/menu.svg" alt="" width={28} height={28} unoptimized />
@@ -103,7 +103,12 @@ export function Header() {
             className="fixed inset-y-0 right-0 z-drawer-panel w-[88vw] max-w-[360px] bg-surface p-6 shadow-xl"
           >
             <div className="flex justify-end">
-              <button type="button" aria-label="Đóng menu" onClick={() => setDrawerOpen(false)}>
+              <button
+                type="button"
+                aria-label="Đóng menu"
+                className="flex h-11 w-11 items-center justify-center"
+                onClick={() => setDrawerOpen(false)}
+              >
                 ✕
               </button>
             </div>

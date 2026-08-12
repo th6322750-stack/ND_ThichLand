@@ -110,6 +110,7 @@ export function Gallery({ images, layout = "mosaic" }: GalleryProps) {
               <button
                 type="button"
                 aria-label="Ảnh trước"
+                className="flex h-11 w-11 items-center justify-center text-2xl"
                 onClick={() => setActiveIndex((i) => (i === null ? i : (i - 1 + images.length) % images.length))}
               >
                 ‹
@@ -118,12 +119,18 @@ export function Gallery({ images, layout = "mosaic" }: GalleryProps) {
               <button
                 type="button"
                 aria-label="Ảnh sau"
+                className="flex h-11 w-11 items-center justify-center text-2xl"
                 onClick={() => setActiveIndex((i) => (i === null ? i : (i + 1) % images.length))}
               >
                 ›
               </button>
             </div>
-            <button type="button" aria-label="Đóng" className="absolute right-6 top-6 text-surface" onClick={close}>
+            <button
+              type="button"
+              aria-label="Đóng"
+              className="absolute right-6 top-6 flex h-11 w-11 items-center justify-center text-surface"
+              onClick={close}
+            >
               ✕
             </button>
           </div>

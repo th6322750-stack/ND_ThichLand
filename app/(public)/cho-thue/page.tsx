@@ -76,7 +76,7 @@ export default function ChoThuePage() {
               </label>
             </div>
 
-            <div className="mt-6 grid grid-cols-1 gap-6 tablet:grid-cols-2 wide:grid-cols-3">
+            <div className="mt-6 grid grid-cols-1 gap-6 tablet:grid-cols-2 desktop:grid-cols-3 wide:grid-cols-4">
               {visible.map((listing) => (
                 <PropertyCard key={listing.slug} listing={listing} />
               ))}

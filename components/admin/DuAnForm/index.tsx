@@ -26,7 +26,7 @@ export function DuAnForm({ initial }: DuAnFormProps) {
 
       <section className="mt-6 rounded-md border border-line bg-surface p-6">
         <h2 className="text-h3 text-ink">Thông tin dự án</h2>
-        <div className="mt-4 grid grid-cols-1 gap-6 desktop:grid-cols-2">
+        <div className="mt-4 grid grid-cols-1 gap-6 min-[1200px]:grid-cols-2">
           <FormField label="Tên dự án" name="name" required defaultValue={initial?.name} />
           <FormField label="Vị trí" name="location" required defaultValue={initial?.location ?? "Theo CMS"} />
           <FormField label="Chủ đầu tư" name="investor" required defaultValue="Theo CMS" />

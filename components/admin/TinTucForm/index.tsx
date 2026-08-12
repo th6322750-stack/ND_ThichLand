@@ -31,7 +31,7 @@ export function TinTucForm({ initial }: TinTucFormProps) {
         <div className="mt-4">
           <FormField label="Tiêu đề" name="title" required defaultValue={initial?.title} />
         </div>
-        <div className="mt-6 grid grid-cols-1 gap-6 desktop:grid-cols-2">
+        <div className="mt-6 grid grid-cols-1 gap-6 min-[1200px]:grid-cols-2">
           <FormField label="Danh mục" name="category" required defaultValue={initial?.category} />
           <FormField
             label="Trạng thái"
@@ -41,7 +41,7 @@ export function TinTucForm({ initial }: TinTucFormProps) {
           />
         </div>
 
-        <div className="mt-6 grid grid-cols-1 gap-6 desktop:grid-cols-2">
+        <div className="mt-6 grid grid-cols-1 gap-6 min-[1200px]:grid-cols-2">
           <div>
             <span className="text-label text-ink">Ảnh đại diện</span>
             <div className="mt-2 aspect-video">
