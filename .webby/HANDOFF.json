@@ -3,7 +3,7 @@
   "handoffId": "ndthich-ui-r1-20260812",
   "producer": "CHATGPT",
   "executor": "CLAUDE",
-  "status": "UI_SETUP_COMPLETE",
+  "status": "NOT_READY",
   "uiRevision": 1,
   "uiCommit": "2b10c7d32f45a96cf9da71e9e44c69c0d9bde8be",
   "parentUiCommit": null,
@@ -37,5 +37,13 @@
     "Price and area remain public and filterable."
   ],
   "visualAuthority": "CHATGPT",
-  "implementationAuthority": "CLAUDE"
+  "implementationAuthority": "CLAUDE",
+  "blockers": [
+    {"id":"FULL_HIGH_FIDELITY_ROUTE_UI_INCOMPLETE","blocking":true,"note":"Current SVG masters are structural masters, not sufficient polished full-page visual truth for every required route."},
+    {"id":"REQUIRED_PUBLIC_ROUTES_INCOMPLETE","blocking":true,"note":"About, News, News detail and Contact visual routes still need final WEB/MOBILE design."},
+    {"id":"ADMIN_CMS_VISUAL_UI_INCOMPLETE","blocking":true,"note":"PROJECT_INTAKE requires admin/CMS but admin visual routes/components are not yet designed."},
+    {"id":"TYPOGRAPHY_PACKAGE_INCOMPLETE","blocking":true,"note":"Exact font styles/weights/acquisition mapping per visible role must be completed; executor must not choose typography."},
+    {"id":"PRODUCTION_VISUAL_ASSET_PACK_INCOMPLETE","blocking":true,"note":"Logo/icon/decorative/fixed imagery asset authority and production mapping are incomplete."}
+  ],
+  "plannedNextRevision": 2
 }
