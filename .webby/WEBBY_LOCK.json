@@ -5,6 +5,10 @@
   "uiRevision": 1,
   "uiCommit": "2b10c7d32f45a96cf9da71e9e44c69c0d9bde8be",
   "createdAt": "2026-08-12T17:42:00+07:00",
+  "status": "NOT_READY_DRAFT",
+  "activeForImplementation": false,
+  "plannedNextRevision": 2,
+  "note": "Revision 1 lock is retained only as historical/incomplete package identity. It is not an implementation authorization. HANDOFF.status remains NOT_READY; revision 2 must create a new verified lock.",
   "files": [
     {"path":".webby/PROJECT_INTAKE.json","sha256":null,"required":true},
     {"path":".webby/visual-handoff/routes.json","sha256":null,"required":true},
