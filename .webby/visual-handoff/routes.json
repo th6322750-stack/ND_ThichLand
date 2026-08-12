@@ -38,5 +38,6 @@
       "desktop": "renders/WEB/09_LienHe_WEB.png",
       "mobile": "renders/MOBILE/09_LienHe_MOBILE.png"
     }
-  }
+  },
+  "uiCommit": "ff96ed9ea596071c14515a551cdf31d46f0b0f69"
 }
