@@ -42,20 +42,23 @@
   "visualAuthority": "CHATGPT",
   "implementationAuthority": "CLAUDE",
   "resolvedSincePreviousAudit": [
-    {"id":"RENTAL_GOOGLE_SHEET_SCHEMA","status":"RESOLVED","note":"Client rental sheet inspected; schema, hyperlinks and normalization hazards recorded in .webby/data-source-map.json."}
+    {"id":"RENTAL_GOOGLE_SHEET_SCHEMA","status":"RESOLVED","note":"Client rental sheet inspected; schema, hyperlinks and normalization hazards recorded in .webby/data-source-map.json."},
+    {"id":"STALE_READINESS_ARTIFACTS","status":"RESOLVED","note":"Misleading IMPLEMENTATION_READY marker removed; validation, Claude task and Asset QA corrected to blocked/not-ready state."}
   ],
   "blockers": [
-    {"id":"FULL_HIGH_FIDELITY_ROUTE_UI_INCOMPLETE","blocking":true,"note":"Current SVG masters are structural masters, not final polished full-page visual truth."},
-    {"id":"REQUIRED_PUBLIC_ROUTES_INCOMPLETE","blocking":true,"note":"Final WEB/MOBILE UI is still missing for /gioi-thieu, /tin-tuc, /tin-tuc/[slug], /lien-he; existing five routes also require high-fidelity finalization."},
-    {"id":"APPROVED_FULL_PAGE_RENDERS_MISSING","blocking":true,"note":".webby/visual-handoff currently contains routes.json only; final approved full-page route renders are not present in GitHub."},
-    {"id":"ADMIN_CMS_VISUAL_UI_INCOMPLETE","blocking":true,"note":"Admin/CMS is required. Rental schema is now known, but visible admin screens/components/states have not been designed by ChatGPT."},
-    {"id":"COMPONENT_VISUAL_STATES_INCOMPLETE","blocking":true,"note":"State names exist in component-map, but approved visible appearance for applicable hover/focus/pressed/disabled/loading/empty/error/selected/modal/drawer/upload states is incomplete."},
-    {"id":"TYPOGRAPHY_PACKAGE_INCOMPLETE","blocking":true,"note":"Be Vietnam Pro is selected, but exact per-visible-role mapping and exact acquisition/package source across public/admin UI are not complete."},
-    {"id":"PRODUCTION_VISUAL_ASSET_PACK_INCOMPLETE","blocking":true,"note":"Logo authority, icon set, decorative/fixed imagery, media placeholders/states, crop/focal rules and route/section asset mapping are incomplete."},
-    {"id":"FINAL_VISIBLE_COPY_MAP_INCOMPLETE","blocking":true,"note":"Current content map does not yet lock all final visible navigation/form/CTA/state copy for all public/admin screens."},
-    {"id":"COMPLETE_FINAL_UI_APPROVAL_PENDING","blocking":true,"note":"Client approved the design direction, not the complete final public WEB/MOBILE + Admin visual package."},
-    {"id":"GD2_HIGH_FIDELITY_MASTER_REBUILD_REQUIRED","blocking":true,"note":"After final visual completion/approval, SVG Master/design system must be rebuilt so executor has no visible design decisions."},
-    {"id":"GD3_REVISION_2_RELOCK_REQUIRED","blocking":true,"note":"Current uiRevision 1 is incomplete/obsolete. New deterministic UI revision/commit, HANDOFF, WEBBY_LOCK, manifests and validation are required before GĐ4."}
+    {"id":"FULL_HIGH_FIDELITY_ROUTE_UI_INCOMPLETE","blocking":true,"note":"Existing five public route masters are structural, not final polished full-page visual truth."},
+    {"id":"REQUIRED_PUBLIC_ROUTES_INCOMPLETE","blocking":true,"note":"Final WEB/MOBILE UI is still missing for /gioi-thieu, /tin-tuc, /tin-tuc/[slug], /lien-he."},
+    {"id":"APPROVED_FULL_PAGE_RENDERS_MISSING","blocking":true,"note":"Final approved continuous full-page WEB/MOBILE renders are absent from GitHub visual-handoff."},
+    {"id":"FINAL_GD1_DRIVE_PACKAGE_MISSING","blocking":true,"note":"Writable Drive currently contains review presentation only; final bản WEB/bản MOBILE/bản ADMIN/Document fonts package has not been created and verified."},
+    {"id":"ADMIN_CMS_VISUAL_UI_INCOMPLETE","blocking":true,"note":"Admin/CMS is required; visible admin routes/components/states are not yet designed by ChatGPT."},
+    {"id":"COMPONENT_VISUAL_STATES_INCOMPLETE","blocking":true,"note":"Final approved appearance for applicable default/hover/active/focus/pressed/disabled/loading/empty/error/success/modal/drawer/upload/lightbox states is incomplete."},
+    {"id":"TYPOGRAPHY_PACKAGE_INCOMPLETE","blocking":true,"note":"Be Vietnam Pro is selected, but exact per-visible-role mapping and deterministic acquisition manifest across public/admin UI are incomplete."},
+    {"id":"PRODUCTION_VISUAL_ASSET_PACK_INCOMPLETE","blocking":true,"note":"Repository has no completed assets/source + assets/production tree; logo authority, icons, decorative/fixed imagery, media placeholders/states, crop/focal and placements are incomplete."},
+    {"id":"FINAL_VISIBLE_COPY_MAP_INCOMPLETE","blocking":true,"note":"All final navigation/form/CTA/state copy and fixed/data-driven placement are not yet locked for public/admin screens."},
+    {"id":"NON_VISIBLE_BEHAVIOR_CONTRACT_INCOMPLETE","blocking":true,"note":"Final responsive transitions, interactions, accessibility/keyboard/focus, conditional visibility and loading/data behavior are not completely contracted."},
+    {"id":"COMPLETE_FINAL_UI_APPROVAL_PENDING","blocking":true,"note":"Client approved design direction, not the complete final public WEB/MOBILE + Admin package."},
+    {"id":"GD2_HIGH_FIDELITY_MASTER_REBUILD_REQUIRED","blocking":true,"note":"After final visual approval, rebuild Master/design system so executor has no visible design decisions."},
+    {"id":"GD3_REVISION_2_RELOCK_REQUIRED","blocking":true,"note":"Publish new deterministic revision 2 with complete maps/assets/renders, executable Claude task, lock, no blockers/stale state and canonical validation pass."}
   ],
   "plannedNextRevision": 2
 }
