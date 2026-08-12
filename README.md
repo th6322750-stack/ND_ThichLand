@@ -1,5 +1,3 @@
-# ND_ThichLand
+# NDTHICH — Revision 2 Visual Handoff
 
-Project repository for the NDTHICH real-estate website.
-
-UI workflow is managed with webbyLucifer. ChatGPT owns approved visual truth; implementation executor owns implementation truth.
+User-approved UI. Full PNGs are in verified Drive; exact SVG Masters/assets/contracts are in the locked Git bundle. Claude starts only after HANDOFF = UI_SETUP_COMPLETE.

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 2,
+  "status": "INTAKE_COMPLETE",
+  "project": {"name":"NDTHICH","businessOrOffer":"BĐS cho thuê + dự án công ty + tin tức/thương hiệu","projectType":"WEBSITE"},
+  "goal": {"primary":"Giúp khách tìm BĐS cho thuê, giới thiệu dự án và tăng uy tín thương hiệu.","conversion":"Gọi điện / Zalo / form liên hệ chung."},
+  "audience": {"primary":"Sinh viên, người đi làm, gia đình và nhà đầu tư."},
+  "scope": {"routes":["/","/cho-thue","/cho-thue/[slug]","/du-an","/du-an/[slug]","/gioi-thieu","/tin-tuc","/tin-tuc/[slug]","/lien-he"],"features":["Rental listing/filter/detail","Projects","News","About","Contact","Admin/CMS"],"adminRoutes":["/admin/login","/admin","/admin/bds","/admin/bds/new|edit","/admin/du-an","/admin/du-an/new|edit","/admin/tin-tuc","/admin/tin-tuc/new|edit","/admin/media"]},
+  "personalizationSignals":["NDTHICH branding","Hotline 0986602203 / 0985551396","Rental Google Sheet schema known","Professional white/burgundy/black real-estate UI"],
+  "technical":{"implementationTarget":"CODE","adminRequired":true,"rentalSheetSchemaKnown":true},
+  "mustHave":["Public price + area filterable","ChatGPT owns all visible UI"],
+  "mustNotHave":["No invented logo","No Lead/Đặt lịch UI in revision 2","Internal Sheet fields never public"],
+  "gaps":[],
+  "futureFeatures":[{"id":"REAL_LOGO","status":"DEFERRED_NEW_UI_REVISION"},{"id":"VIEWING_REQUEST_LEADS","status":"DEFERRED_NEW_UI_REVISION"}]
+}
