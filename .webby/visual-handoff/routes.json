@@ -1,6 +1,7 @@
 {
   "schemaVersion": 1,
   "uiRevision": 1,
+  "status": "NOT_READY",
   "routes": {
     "/": {"desktop": "../master/01_home_desktop.svg", "mobile": "../master/02_home_mobile.svg"},
     "/cho-thue": {"desktop": "../master/03_rental_list_desktop.svg", "mobile": "../master/04_rental_list_mobile.svg"},
@@ -8,5 +9,9 @@
     "/du-an": {"desktop": "../master/07_projects_desktop.svg", "mobile": "../master/08_projects_mobile.svg"},
     "/du-an/[slug]": {"desktop": "../master/09_project_detail_desktop.svg", "mobile": "../master/10_project_detail_mobile.svg"}
   },
-  "notes": ["SVG_MASTER is the canonical GitHub visual truth for this revision.", "Client/property imagery inside masters is placeholder treatment; geometry/crop rules are authoritative."]
+  "notes": [
+    "Revision 1 mappings point to structural working SVG masters only; they are NOT approved final route renders and MUST NOT be used to start GĐ4.",
+    "Final revision 2 must replace/augment these with approved continuous high-fidelity full-page WEB/MOBILE render files for all required routes.",
+    "Property/project imagery inside current masters is placeholder treatment only and is not production asset authority."
+  ]
 }
