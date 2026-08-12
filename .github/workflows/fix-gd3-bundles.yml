@@ -1,0 +1,60 @@
+name: NDTHICH Repair GĐ3 Bundle Encoding
+
+on:
+  push:
+    branches:
+      - webby/ui-ndthich-r3-final
+    paths:
+      - .github/workflows/fix-gd3-bundles.yml
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Decode base64-text bundles into real ZIP binaries
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64, zipfile
+
+          paths = [
+              Path('.webby/bundles/NDTHICH_UI_REV2_SVG_MASTER_BUNDLE.zip'),
+              Path('.webby/bundles/NDTHICH_REV3_STATE_LAYER_BUNDLE.zip'),
+          ]
+          for p in paths:
+              raw = p.read_bytes()
+              if raw.startswith(b'PK\x03\x04'):
+                  decoded = raw
+                  print(p, 'already binary ZIP')
+              else:
+                  compact = b''.join(raw.split())
+                  try:
+                      decoded = base64.b64decode(compact, validate=True)
+                  except Exception:
+                      decoded = base64.b64decode(compact)
+                  assert decoded.startswith(b'PK\x03\x04'), f'{p} is neither ZIP nor base64 ZIP'
+                  p.write_bytes(decoded)
+                  print(p, 'decoded base64 text -> binary ZIP')
+              with zipfile.ZipFile(p) as z:
+                  bad = z.testzip()
+                  assert bad is None, f'{p} corrupt entry: {bad}'
+                  print(p, 'VALID ZIP entries=', len(z.namelist()))
+          PY
+
+      - name: Commit repaired bundles and trigger final gate
+        run: |
+          git config user.name "Hthanh-Vip"
+          git config user.email "th6322750@gmail.com"
+          printf '\n# bundle-binary-repair: 2026-08-13-r1\n' >> .github/workflows/gd3-r3-final.yml
+          git add .webby/bundles/NDTHICH_UI_REV2_SVG_MASTER_BUNDLE.zip \
+                  .webby/bundles/NDTHICH_REV3_STATE_LAYER_BUNDLE.zip \
+                  .github/workflows/gd3-r3-final.yml
+          git commit -m "webby(fix): normalize GĐ3 master bundles to binary ZIP"
+          git push origin HEAD:webby/ui-ndthich-r3-final
