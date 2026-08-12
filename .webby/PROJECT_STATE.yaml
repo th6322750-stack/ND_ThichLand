@@ -1,20 +1,22 @@
 project: NDTHICH
 skillVersion: 2.2.0
-phase: GĐ3
+phase: GĐ3_REAUDIT
 gđ0: {status: INTAKE_COMPLETE}
 gđ1: {status: APPROVED, uiRevision: 2}
-gđ2: {status: MASTER_READY, strategy: SVG_MASTER}
+gđ2:
+  status: REAUDIT_REQUIRED
+  strategy: SVG_MASTER
 gđ3:
-  status: UI_SETUP_COMPLETE
+  status: UI_SETUP_INCOMPLETE
   uiRevision: 2
   uiCommit: 066ae02e059ed7c20b4be75fa76a7a1e048818eb
-  uiSetupComplete: true
+  uiSetupComplete: false
   driveVerified: true
-  blockers: 0
+  blockers: 5
 decisions:
   logo: NO_LOGO_PLACEHOLDER
   viewingRequestLead: FUTURE_FEATURE
 executor:
   selected: CLAUDE
   implementationStarted: false
-  readyToStart: true
+  readyToStart: false
