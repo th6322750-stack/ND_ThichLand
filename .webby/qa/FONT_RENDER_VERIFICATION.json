@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "familyRequested": "Be Vietnam Pro",
+  "resolvedFamily": "Be Vietnam Pro",
+  "weightsInstalled": [
+    400,
+    500,
+    600,
+    700,
+    800
+  ],
+  "fontFilesDistributed": false
+}

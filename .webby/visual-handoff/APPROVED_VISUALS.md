@@ -1,3 +1,3 @@
-# NDTHICH — APPROVED VISUAL TRUTH R2
+# NDTHICH Approved Visual Truth — Revision 3
 
-User approved Revision 2. Drive contains 9 WEB + 9 MOBILE + 9 Admin + Design System + Component States. Exact SVG Masters/assets/contracts are versioned in the locked Git master bundle. `NO_LOGO` is intentional; Lead/Đặt lịch is a future feature.
+Direct Git PNG renders + matching SVG masters are the approved visual authority. NO_LOGO is intentional. Viewing-request/Lead is a future feature. Claude must not redesign.

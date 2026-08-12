@@ -1,1 +1,35 @@
-{"schemaVersion":2,"uiRevision":2,"authoritativeDetail":{"bundle":".webby/bundles/NDTHICH_UI_REV2_SVG_MASTER_BUNDLE.zip","pathInBundle":".webby/interactions.json"},"rule":"Unpack the locked bundle and consume the exact contract at pathInBundle."}
+{
+  "schemaVersion": 1,
+  "uiRevision": 3,
+  "motion": {
+    "fast": "140ms ease",
+    "base": "220ms cubic-bezier(.2,.7,.2,1)",
+    "reducedMotion": "Disable transforms/parallax; opacity <=120ms"
+  },
+  "rules": [
+    {
+      "id": "mobile-nav",
+      "keyboard": "focus trap; Escape closes"
+    },
+    {
+      "id": "filter-drawer",
+      "keyboard": "focus trap; Escape closes"
+    },
+    {
+      "id": "gallery-lightbox",
+      "keyboard": "left/right arrows; Escape closes"
+    },
+    {
+      "id": "form-validation",
+      "keyboard": "first invalid receives focus; aria-describedby"
+    },
+    {
+      "id": "phone",
+      "behavior": "tel:0986602203"
+    },
+    {
+      "id": "zalo",
+      "behavior": "production URL injected later; fallback hotline"
+    }
+  ]
+}

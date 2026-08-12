@@ -1,26 +1,62 @@
 {
   "schemaVersion": 1,
   "status": "INTAKE_COMPLETE",
-  "updatedAt": "2026-08-13T00:13:00+07:00",
   "project": {
-    "name": "NDTHICH",
-    "businessOrOffer": "Website bất động sản của Công ty TNHH Đầu tư & Kinh doanh Nguyễn Đắc Thích: BĐS cho thuê + dự án công ty, có khả năng mở rộng sang bán dự án BĐS.",
-    "projectType": "WEBSITE"
+    "name": "NDTHICH Land",
+    "businessOrOffer": "Website bất động sản cho thuê và giới thiệu dự án cho Công ty TNHH Đầu tư & Kinh doanh Nguyễn Đắc Thích"
   },
   "goal": {
-    "primary": "Giúp khách tìm BĐS cho thuê, giới thiệu dự án và tăng uy tín thương hiệu.",
-    "conversion": "Gọi điện, nhắn Zalo hoặc gửi yêu cầu tư vấn. Chức năng đặt lịch xem nhà/Lead đang deferred và không thuộc Revision 2."
+    "primary": "Giúp khách tìm BĐS cho thuê, xem dự án và liên hệ trực tiếp.",
+    "conversion": [
+      "Gọi hotline",
+      "Nhắn Zalo",
+      "Gửi yêu cầu tư vấn chung"
+    ]
   },
   "audience": {
-    "primary": "Sinh viên, người đi làm, gia đình và nhà đầu tư."
+    "primary": [
+      "Sinh viên",
+      "Người đi làm",
+      "Gia đình",
+      "Nhà đầu tư"
+    ]
   },
   "scope": {
-    "routes": ["/", "/cho-thue", "/cho-thue/[slug]", "/du-an", "/du-an/[slug]", "/gioi-thieu", "/tin-tuc", "/tin-tuc/[slug]", "/lien-he"],
-    "features": ["Property listing", "Filters", "Property detail", "Project listing/detail", "News list/detail", "About", "Contact", "Gallery", "Maps", "Call/Zalo", "Responsive", "Admin/CMS"]
+    "routes": [
+      "/",
+      "/cho-thue",
+      "/cho-thue/[slug]",
+      "/du-an",
+      "/du-an/[slug]",
+      "/gioi-thieu",
+      "/tin-tuc",
+      "/tin-tuc/[slug]",
+      "/lien-he"
+    ],
+    "features": [
+      "Rental search/filter",
+      "Rental detail",
+      "Projects",
+      "News",
+      "Call/Zalo/contact form",
+      "Admin CMS rental/project/news/media"
+    ]
   },
-  "personalizationSignals": ["Thương hiệu Nguyễn Đắc Thích", "Cho thuê + dự án", "Hotline 0986602203 / 0985551396", "Phong cách BĐS doanh nghiệp"],
+  "personalizationSignals": [
+    "Phong cách BĐS chuyên nghiệp đỏ rượu vang/trắng/đen nhấn vàng",
+    "Nguồn thuê đa loại hình từ Sheet thực tế",
+    "Mobile-first, giá và diện tích công khai"
+  ],
   "gaps": [
-    {"field":"productionLogoSource","status":"SOFT_GAP","note":"Revision 2 intentionally uses NO_LOGO placeholder; real logo requires a later approved UI revision."},
-    {"field":"viewingRequestLead","status":"NOT_APPLICABLE","note":"Deferred FUTURE_FEATURE; excluded from active Revision 2."}
+    {
+      "field": "productionLogo",
+      "status": "SOFT_GAP",
+      "handling": "NO_LOGO placeholder approved; replace in later revision."
+    },
+    {
+      "field": "viewingRequestLead",
+      "status": "NOT_APPLICABLE",
+      "handling": "Future feature; excluded from Revision 3."
+    }
   ]
 }

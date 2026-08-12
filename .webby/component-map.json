@@ -1,1 +1,125 @@
-{"schemaVersion":2,"uiRevision":2,"components":[{"componentId":"public.header"},{"componentId":"public.button.primary"},{"componentId":"public.button.secondary"},{"componentId":"public.search"},{"componentId":"public.property-card"},{"componentId":"public.project-card"},{"componentId":"public.news-card"},{"componentId":"public.gallery"},{"componentId":"public.form-field"},{"componentId":"public.footer"},{"componentId":"admin.sidebar"},{"componentId":"admin.table"},{"componentId":"admin.form"},{"componentId":"admin.uploader"}],"authoritativeDetail":{"bundle":".webby/bundles/NDTHICH_UI_REV2_SVG_MASTER_BUNDLE.zip","pathInBundle":".webby/component-map.json"}}
+{
+  "schemaVersion": 1,
+  "uiRevision": 3,
+  "components": [
+    {
+      "componentId": "public.header",
+      "name": "header",
+      "states": [
+        "default",
+        "scrolled",
+        "mobileDrawerOpen"
+      ]
+    },
+    {
+      "componentId": "public.button.primary",
+      "name": "primary",
+      "states": [
+        "default",
+        "hover",
+        "pressed",
+        "focus",
+        "disabled"
+      ]
+    },
+    {
+      "componentId": "public.property-card",
+      "name": "property-card",
+      "states": [
+        "default",
+        "hover",
+        "unavailable",
+        "loading"
+      ]
+    },
+    {
+      "componentId": "public.project-card",
+      "name": "project-card",
+      "states": [
+        "default",
+        "hover",
+        "selected"
+      ]
+    },
+    {
+      "componentId": "public.news-card",
+      "name": "news-card",
+      "states": [
+        "default",
+        "hover",
+        "loading"
+      ]
+    },
+    {
+      "componentId": "public.form-field",
+      "name": "form-field",
+      "states": [
+        "default",
+        "focus",
+        "filled",
+        "error",
+        "disabled"
+      ]
+    },
+    {
+      "componentId": "public.filter",
+      "name": "filter",
+      "states": [
+        "default",
+        "selected",
+        "drawerOpen",
+        "empty"
+      ]
+    },
+    {
+      "componentId": "public.gallery",
+      "name": "gallery",
+      "states": [
+        "default",
+        "lightbox",
+        "loading",
+        "error"
+      ]
+    },
+    {
+      "componentId": "admin.sidebar",
+      "name": "sidebar",
+      "states": [
+        "expanded",
+        "compact",
+        "drawer"
+      ]
+    },
+    {
+      "componentId": "admin.table",
+      "name": "table",
+      "states": [
+        "default",
+        "rowHover",
+        "empty",
+        "loading"
+      ]
+    },
+    {
+      "componentId": "admin.form",
+      "name": "form",
+      "states": [
+        "default",
+        "dirty",
+        "saving",
+        "error",
+        "success"
+      ]
+    },
+    {
+      "componentId": "admin.uploader",
+      "name": "uploader",
+      "states": [
+        "empty",
+        "uploading",
+        "success",
+        "error"
+      ]
+    }
+  ]
+}

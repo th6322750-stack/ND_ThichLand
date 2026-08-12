@@ -1,1 +1,14 @@
-{"schemaVersion":2,"uiRevision":2,"authoritativeDetail":{"bundle":".webby/bundles/NDTHICH_UI_REV2_SVG_MASTER_BUNDLE.zip","pathInBundle":".webby/future-features.json"},"rule":"Unpack the locked bundle and consume the exact contract at pathInBundle."}
+{
+  "schemaVersion": 1,
+  "uiRevision": 3,
+  "features": [
+    {
+      "id": "VIEWING_REQUEST_LEADS",
+      "status": "FUTURE_FEATURE",
+      "activeScope": false,
+      "frontend": "Do not show active booking workflow",
+      "admin": "Do not create lead management",
+      "activationRule": "Requires a new user-approved UI revision"
+    }
+  ]
+}

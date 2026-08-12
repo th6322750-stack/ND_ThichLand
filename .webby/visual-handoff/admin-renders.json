@@ -1,1 +1,60 @@
-{"schemaVersion":1,"uiRevision":2,"admin":{"/admin/login":{"approvedRenderUrl":"https://drive.google.com/file/d/1DX7PJPldZ8NSNv5TXdJH5Qkbzlz34anC/view?usp=drivesdk","masterInBundle":"master/admin/01_Admin_Login.svg","exportWidth":1920},"/admin":{"approvedRenderUrl":"https://drive.google.com/file/d/1AuoN4nUVd2cfiBfXFnBOHB1gRaAtqXas/view?usp=drivesdk","masterInBundle":"master/admin/02_Admin_Dashboard.svg","exportWidth":1920},"/admin/bds":{"approvedRenderUrl":"https://drive.google.com/file/d/1dTa88wT6ccU6gFe9jsZYww5JPsLUFDqT/view?usp=drivesdk","masterInBundle":"master/admin/03_Admin_BDS_List.svg","exportWidth":1920},"/admin/bds/new|edit":{"approvedRenderUrl":"https://drive.google.com/file/d/1wxs3mIzv5Q0sy7r6EY1zUK1G-gY9jdBI/view?usp=drivesdk","masterInBundle":"master/admin/04_Admin_BDS_Form.svg","exportWidth":1920},"/admin/du-an":{"approvedRenderUrl":"https://drive.google.com/file/d/1uKszUksO3uSc6uiX3c6_obxckd9BMC_p/view?usp=drivesdk","masterInBundle":"master/admin/05_Admin_DuAn_List.svg","exportWidth":1920},"/admin/du-an/new|edit":{"approvedRenderUrl":"https://drive.google.com/file/d/1Fs_7aiEpSx7wXobyewa4UTzhhFDAIRId/view?usp=drivesdk","masterInBundle":"master/admin/06_Admin_DuAn_Form.svg","exportWidth":1920},"/admin/tin-tuc":{"approvedRenderUrl":"https://drive.google.com/file/d/1zQ3LPFB2KWQVdaz93hNLySgJxVtedEAa/view?usp=drivesdk","masterInBundle":"master/admin/07_Admin_TinTuc_List.svg","exportWidth":1920},"/admin/tin-tuc/new|edit":{"approvedRenderUrl":"https://drive.google.com/file/d/1TL2oDUhHBfyHdUp3dIWlTUdx3RruyOsn/view?usp=drivesdk","masterInBundle":"master/admin/08_Admin_TinTuc_Form.svg","exportWidth":1920},"/admin/media":{"approvedRenderUrl":"https://drive.google.com/file/d/1B-pJu4wYU8IjcMp9_NaT94ag-X22yGD9/view?usp=drivesdk","masterInBundle":"master/admin/09_Admin_Media.svg","exportWidth":1920},"_system":{"designSystem":{"approvedRenderUrl":"https://drive.google.com/file/d/1QYaKQUyT_UXakYvg6HgzO2KMoLAcHE85/view?usp=drivesdk","masterInBundle":"master/system/Design_System_Master.svg"},"componentStates":{"approvedRenderUrl":"https://drive.google.com/file/d/1UZ7rxvIwOq05-fO7-mC29dWhsZLbUTxo/view?usp=drivesdk","masterInBundle":"master/system/Component_States.svg"}}},"masterBundle":".webby/bundles/NDTHICH_UI_REV2_SVG_MASTER_BUNDLE.zip"}
+{
+  "schemaVersion": 1,
+  "uiRevision": 3,
+  "admin": [
+    {
+      "master": ".webby/master/admin/01_Admin_Login.svg",
+      "render": "renders/ADMIN/01_Admin_Login.png"
+    },
+    {
+      "master": ".webby/master/admin/02_Admin_Dashboard.svg",
+      "render": "renders/ADMIN/02_Admin_Dashboard.png"
+    },
+    {
+      "master": ".webby/master/admin/03_Admin_BDS_List.svg",
+      "render": "renders/ADMIN/03_Admin_BDS_List.png"
+    },
+    {
+      "master": ".webby/master/admin/04_Admin_BDS_Form.svg",
+      "render": "renders/ADMIN/04_Admin_BDS_Form.png"
+    },
+    {
+      "master": ".webby/master/admin/05_Admin_DuAn_List.svg",
+      "render": "renders/ADMIN/05_Admin_DuAn_List.png"
+    },
+    {
+      "master": ".webby/master/admin/06_Admin_DuAn_Form.svg",
+      "render": "renders/ADMIN/06_Admin_DuAn_Form.png"
+    },
+    {
+      "master": ".webby/master/admin/07_Admin_TinTuc_List.svg",
+      "render": "renders/ADMIN/07_Admin_TinTuc_List.png"
+    },
+    {
+      "master": ".webby/master/admin/08_Admin_TinTuc_Form.svg",
+      "render": "renders/ADMIN/08_Admin_TinTuc_Form.png"
+    },
+    {
+      "master": ".webby/master/admin/09_Admin_Media.svg",
+      "render": "renders/ADMIN/09_Admin_Media.png"
+    }
+  ],
+  "system": [
+    {
+      "master": ".webby/master/system/Admin_Component_States.svg",
+      "render": "renders/SYSTEM/Admin_Component_States.png"
+    },
+    {
+      "master": ".webby/master/system/Design_System_Master.svg",
+      "render": "renders/SYSTEM/Design_System_Master.png"
+    },
+    {
+      "master": ".webby/master/system/Form_Overlay_States.svg",
+      "render": "renders/SYSTEM/Form_Overlay_States.png"
+    },
+    {
+      "master": ".webby/master/system/Public_Component_States.svg",
+      "render": "renders/SYSTEM/Public_Component_States.png"
+    }
+  ]
+}

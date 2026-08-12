@@ -1,1 +1,51 @@
-{"schemaVersion":2,"uiRevision":2,"authoritativeDetail":{"bundle":".webby/bundles/NDTHICH_UI_REV2_SVG_MASTER_BUNDLE.zip","pathInBundle":".webby/route-map.json"},"rule":"Unpack the locked bundle and consume the exact contract at pathInBundle."}
+{
+  "schemaVersion": 1,
+  "uiRevision": 3,
+  "routes": [
+    {
+      "route": "/",
+      "desktopMaster": ".webby/master/public/01_TrangChu_WEB.svg",
+      "mobileMaster": ".webby/master/public/01_TrangChu_MOBILE.svg"
+    },
+    {
+      "route": "/cho-thue",
+      "desktopMaster": ".webby/master/public/02_ChoThue_WEB.svg",
+      "mobileMaster": ".webby/master/public/02_ChoThue_MOBILE.svg"
+    },
+    {
+      "route": "/cho-thue/[slug]",
+      "desktopMaster": ".webby/master/public/03_ChiTietChoThue_WEB.svg",
+      "mobileMaster": ".webby/master/public/03_ChiTietChoThue_MOBILE.svg"
+    },
+    {
+      "route": "/du-an",
+      "desktopMaster": ".webby/master/public/04_DuAn_WEB.svg",
+      "mobileMaster": ".webby/master/public/04_DuAn_MOBILE.svg"
+    },
+    {
+      "route": "/du-an/[slug]",
+      "desktopMaster": ".webby/master/public/05_ChiTietDuAn_WEB.svg",
+      "mobileMaster": ".webby/master/public/05_ChiTietDuAn_MOBILE.svg"
+    },
+    {
+      "route": "/gioi-thieu",
+      "desktopMaster": ".webby/master/public/06_GioiThieu_WEB.svg",
+      "mobileMaster": ".webby/master/public/06_GioiThieu_MOBILE.svg"
+    },
+    {
+      "route": "/tin-tuc",
+      "desktopMaster": ".webby/master/public/07_TinTuc_WEB.svg",
+      "mobileMaster": ".webby/master/public/07_TinTuc_MOBILE.svg"
+    },
+    {
+      "route": "/tin-tuc/[slug]",
+      "desktopMaster": ".webby/master/public/08_ChiTietTinTuc_WEB.svg",
+      "mobileMaster": ".webby/master/public/08_ChiTietTinTuc_MOBILE.svg"
+    },
+    {
+      "route": "/lien-he",
+      "desktopMaster": ".webby/master/public/09_LienHe_WEB.svg",
+      "mobileMaster": ".webby/master/public/09_LienHe_MOBILE.svg"
+    }
+  ]
+}

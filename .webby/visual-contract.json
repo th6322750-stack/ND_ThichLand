@@ -1,1 +1,17 @@
-{"schemaVersion":2,"uiRevision":2,"authority":"CHATGPT","visibleTruth":"Approved Drive PNG + exact SVG Master in locked Git bundle","logo":"NO_LOGO placeholder is intentional for revision 2","futureFeature":"Viewing-request/Lead excluded from revision 2","mustNot":["Do not redesign visible UI","Do not substitute Be Vietnam Pro","Do not invent/crop a logo","Do not expose commission/guide/internal notes publicly","Do not add Lead/Đặt lịch UI"],"authoritativeDetail":{"bundle":".webby/bundles/NDTHICH_UI_REV2_SVG_MASTER_BUNDLE.zip","pathInBundle":".webby/visual-contract.json"}}
+{
+  "schemaVersion": 1,
+  "uiRevision": 3,
+  "authority": "CHATGPT",
+  "masterStrategy": "SVG_MASTER",
+  "visibleTruth": "Direct approved full-page PNG renders + matching SVG Masters",
+  "logo": "NO_LOGO placeholder approved for Revision 3",
+  "futureFeature": "Viewing-request/Lead excluded",
+  "mustNot": [
+    "Do not redesign visible UI",
+    "Do not substitute Be Vietnam Pro",
+    "Do not invent/crop a logo",
+    "Do not expose commission/guide/internal notes publicly",
+    "Do not add viewing-request/Lead UI",
+    "Do not replace approved icons/placeholders with generic defaults"
+  ]
+}
