@@ -1,3 +1,95 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import { Filter } from "@/components/public/Filter";
+import { FilterDrawer } from "@/components/public/FilterDrawer";
+import { PropertyCard } from "@/components/public/PropertyCard";
+import { Pagination } from "@/components/public/Pagination";
+import { Icon } from "@/components/icons";
+import { properties } from "@/lib/data/properties";
+
+const PAGE_SIZE = 9;
+
 export default function ChoThuePage() {
-  return <main>TODO Task 05 — rental list</main>;
+  const [page, setPage] = useState(1);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const totalPages = Math.max(1, Math.ceil(properties.length / PAGE_SIZE));
+  const visible = useMemo(
+    () => properties.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE),
+    [page],
+  );
+
+  return (
+    <>
+      <div className="container-page py-10">
+        <h1 className="text-h1-mobile text-ink desktop:text-h1">Cho thuê bất động sản</h1>
+        <p className="mt-2 text-body text-muted">
+          Nguồn phòng/căn/mặt bằng được chuẩn hóa từ dữ liệu vận hành thực tế.
+        </p>
+
+        <div className="mt-8 flex flex-col gap-3 desktop:flex-row">
+          <div className="flex flex-1 items-center gap-3 rounded-md border border-line bg-surface px-4 py-3">
+            <Icon name="search" size={18} className="text-muted" />
+            <input
+              type="search"
+              placeholder="Tìm theo địa chỉ, khu vực hoặc mã phòng..."
+              className="w-full text-body text-ink outline-none placeholder:text-muted"
+            />
+          </div>
+          <button
+            type="button"
+            className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-button uppercase text-surface hover:bg-primaryHover"
+          >
+            <Icon name="search" size={16} className="invert" /> Tìm kiếm
+          </button>
+          <button
+            type="button"
+            onClick={() => setDrawerOpen(true)}
+            className="inline-flex items-center justify-center gap-2 rounded-md border border-line px-6 py-3 text-button uppercase text-ink desktop:hidden"
+          >
+            <Icon name="filter" size={16} /> Bộ lọc
+          </button>
+        </div>
+
+        <div className="mt-8 grid grid-cols-1 gap-8 desktop:grid-cols-[280px_1fr]">
+          <aside className="hidden desktop:block">
+            <Filter />
+          </aside>
+
+          <div>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <p className="text-body text-ink">
+                <span className="font-bold">{properties.length}</span> bất động sản phù hợp{" "}
+                <span className="ml-2 rounded-full bg-soft px-3 py-1 text-label text-success">
+                  Giá công khai
+                </span>{" "}
+                <span className="rounded-full bg-soft px-3 py-1 text-label text-gold">
+                  Diện tích công khai
+                </span>
+              </p>
+              <label className="flex items-center gap-2 text-body text-muted">
+                Sắp xếp:
+                <select className="rounded-md border border-line px-3 py-2 text-body text-ink" defaultValue="newest">
+                  <option value="newest">Mới nhất</option>
+                </select>
+              </label>
+            </div>
+
+            <div className="mt-6 grid grid-cols-1 gap-6 tablet:grid-cols-2 wide:grid-cols-3">
+              {visible.map((listing) => (
+                <PropertyCard key={listing.slug} listing={listing} />
+              ))}
+            </div>
+
+            <div className="mt-10">
+              <Pagination page={page} total={totalPages} onChange={setPage} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <FilterDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+    </>
+  );
 }
