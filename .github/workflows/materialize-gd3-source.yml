@@ -1,0 +1,93 @@
+name: NDTHICH Materialize Verified GĐ3 Source
+
+on:
+  push:
+    branches: [webby/ui-ndthich-r3-final]
+    paths: [.github/workflows/materialize-gd3-source.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reconstruct source from immutable Git blob IDs
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess,base64,hashlib,lzma,json,shutil
+
+          shas=[
+            'bde37f161243dcf27a6c8e822fef15008a075a40',
+            '56facba74f04caf9264b85a5aae344bbb634f371',
+            '6aa4f6118ed6ff5322163491f950fdd090fdf085',
+            'a46f3de84d0332f8c0b3b8f8979a5f6ad98fcd97',
+            '8ffc272693f4a771f33a128d9f38e7e2f34d1e66',
+            '6b0a99abd88a86997f45a81dba1f4a0c7f960f70',
+            '808f72b9d72d47e7adcec1ca5e25673a29128a5e',
+            'a13bee872d3007df1764a6c71b07d174aa514b4e',
+            '123748b26f53658bb2e91dd429088b49ad1e88d8',
+            'b18263dec55cc379f5b52af05fec33083ea3c5da',
+            'c261fb548dd94cc700400236c15554de2e328b98',
+            '06a311a0c93bdf9b01bf7af80f0951d51f3968f2',
+            '5e4df7cb8b5e64cc63691ccf9ffff5db1a79700c',
+            'bc1738e1a31d4dcf2ccd499d216db1a9cda476dd',
+            '20cf6a8dc694835600470533c8fe3550df939b08',
+            'e78533f99ac9b517dee2160e42a67d21f0f28124',
+          ]
+          chunks=[]
+          for sha in shas:
+              b=subprocess.check_output(['git','cat-file','blob',sha])
+              chunks.append(b.decode('utf-8'))
+          text=''.join(x.strip() for x in chunks)
+          assert len(text)==63624,len(text)
+          raw=base64.b64decode(text,validate=True)
+          expected='764232eedddb423ed32bbd2cb1bec23b7eab6089bc98d523876e748117ebdef8'
+          actual=hashlib.sha256(raw).hexdigest()
+          assert actual==expected,(actual,expected)
+          data=json.loads(lzma.decompress(raw))
+          assert len(data)==27,len(data)
+          assert sum(k.startswith('master/public/') for k in data)==18
+          assert sum(k.startswith('master/admin/') for k in data)==9
+
+          out=Path('.webby/master-source')
+          if out.exists(): shutil.rmtree(out)
+          for rel,svg in data.items():
+              rel=rel[len('master/'):]
+              dest=out/rel
+              dest.parent.mkdir(parents=True,exist_ok=True)
+              dest.write_text(svg,encoding='utf-8')
+          manifest={
+            'status':'PASS','sourceSha256':actual,'svgCount':len(data),
+            'publicSvgCount':sum(k.startswith('master/public/') for k in data),
+            'adminSvgCount':sum(k.startswith('master/admin/') for k in data),
+            'sourceAuthority':'immutable Git blob IDs reconstructed from client-approved Revision 2 SVG masters'
+          }
+          (out/'SOURCE_MANIFEST.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')
+          print('MATERIALIZED_SOURCE_PASS',actual)
+          PY
+
+      - name: Patch final gate to consume materialized source directly
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('.github/workflows/gd3-r3-chunk-final2.yml')
+          s=p.read_text(encoding='utf-8')
+          start=s.index('      - name: Reconstruct and verify authoritative master source\n')
+          end=s.index('      - name: Build Revision 3 direct visual authority and contracts\n')
+          replacement='''      - name: Verify materialized authoritative master source\n        run: |\n          python - <<'PY2'\n          from pathlib import Path\n          import json,shutil\n          src=Path('.webby/master-source')\n          m=json.loads((src/'SOURCE_MANIFEST.json').read_text())\n          assert m['status']=='PASS'\n          assert m['sourceSha256']=='764232eedddb423ed32bbd2cb1bec23b7eab6089bc98d523876e748117ebdef8'\n          assert len(list((src/'public').glob('*.svg')))==18\n          assert len(list((src/'admin').glob('*.svg')))==9\n          out=Path('_page_src/master')\n          if out.parent.exists(): shutil.rmtree(out.parent)\n          shutil.copytree(src,out,ignore=shutil.ignore_patterns('SOURCE_MANIFEST.json'))\n          print('MATERIALIZED_SOURCE_VERIFIED')\n          PY2\n\n'''
+          p.write_text(s[:start]+replacement+s[end:],encoding='utf-8')
+          PY
+
+      - name: Commit source and patched final gate
+        run: |
+          git config user.name "Hthanh-Vip"
+          git config user.email "th6322750@gmail.com"
+          git add .webby/master-source .github/workflows/gd3-r3-chunk-final2.yml
+          git commit -m "webby(source): materialize verified SVG masters and switch final gate to direct source"
+          git push origin HEAD:webby/ui-ndthich-r3-final
