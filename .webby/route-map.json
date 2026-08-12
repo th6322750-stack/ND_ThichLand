@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "routes": [
+    {"route":"/","name":"Trang chủ","desktop":".webby/master/01_home_desktop.svg","mobile":".webby/master/02_home_mobile.svg"},
+    {"route":"/cho-thue","name":"Danh sách cho thuê","desktop":".webby/master/03_rental_list_desktop.svg","mobile":".webby/master/04_rental_list_mobile.svg"},
+    {"route":"/cho-thue/[slug]","name":"Chi tiết BĐS","desktop":".webby/master/05_property_detail_desktop.svg","mobile":".webby/master/06_property_detail_mobile.svg"},
+    {"route":"/du-an","name":"Danh sách dự án","desktop":".webby/master/07_projects_desktop.svg","mobile":".webby/master/08_projects_mobile.svg"},
+    {"route":"/du-an/[slug]","name":"Chi tiết dự án","desktop":".webby/master/09_project_detail_desktop.svg","mobile":".webby/master/10_project_detail_mobile.svg"}
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "status": "NOT_READY",
+  "assets": [
+    {
+      "id": "design-system-master-r1-structural",
+      "category": "design-working-reference",
+      "source": ".webby/master/00_design_system_master.svg",
+      "production": ".webby/master/00_design_system_master.svg",
+      "mime": "image/svg+xml",
+      "authoritative": false,
+      "reconstructed": false,
+      "usedBy": ["revision-1-working-reference"],
+      "mustNot": [
+        "Do not treat revision-1 structural master as final production visual authority.",
+        "Do not flatten the whole website into one SVG."
+      ]
+    }
+  ],
+  "missingRequiredProductionAssetClasses": [
+    "canonical logo/wordmark",
+    "final icon set",
+    "decorative/fixed imagery actually used by final UI",
+    "property/project/news media placeholders and states",
+    "source/production asset separation and route placements"
+  ],
+  "deferredContentAssets": [
+    {"id":"client-logo-native","status":"SOFT_GAP","productionAllowed":false,"rule":"Do not crop from screenshot or invent replacement; resolve source/reconstruction authority before GĐ4."},
+    {"id":"property-project-news-dynamic-photos","status":"SOFT_GAP","productionAllowed":false,"rule":"Dynamic CMS photos may arrive later, but final media geometry/crop/focal/placeholder/loading/error treatment must be locked in revision 2."}
+  ]
+}

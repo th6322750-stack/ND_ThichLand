@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "components": [
+    {"componentId":"Header","name":"Header","implementationTarget":"components/Header","states":["default","scrolled","mobileOpen"],"mustNot":["Do not redesign navigation or hotline hierarchy."]},
+    {"componentId":"PrimaryButton","name":"PrimaryButton","implementationTarget":"components/PrimaryButton","states":["default","hover","pressed","focus","disabled"],"mustNot":["Do not replace brand styling with library defaults."]},
+    {"componentId":"SecondaryButton","name":"SecondaryButton","implementationTarget":"components/SecondaryButton","states":["default","hover","pressed","focus","disabled"]},
+    {"componentId":"SearchBar","name":"SearchBar","implementationTarget":"components/SearchBar","states":["default","focused","loading"]},
+    {"componentId":"FilterPanel","name":"FilterPanel","implementationTarget":"components/FilterPanel","states":["default","expanded","applied"]},
+    {"componentId":"PropertyCard","name":"PropertyCard","implementationTarget":"components/PropertyCard","states":["default","hover","featured","unavailable"],"mustNot":["Price and area must remain public."]},
+    {"componentId":"ProjectCard","name":"ProjectCard","implementationTarget":"components/ProjectCard","states":["default","hover","status"]},
+    {"componentId":"Gallery","name":"Gallery","implementationTarget":"components/Gallery","states":["default","lightbox","loading"]},
+    {"componentId":"ContactPanel","name":"ContactPanel","implementationTarget":"components/ContactPanel","states":["default","sticky"]},
+    {"componentId":"FormField","name":"FormField","implementationTarget":"components/FormField","states":["default","focus","filled","error","disabled"]},
+    {"componentId":"Pagination","name":"Pagination","implementationTarget":"components/Pagination","states":["default","active","disabled"]},
+    {"componentId":"Tabs","name":"Tabs","implementationTarget":"components/Tabs","states":["default","selected"]},
+    {"componentId":"Footer","name":"Footer","implementationTarget":"components/Footer","states":["default"]},
+    {"componentId":"EmptyState","name":"EmptyState","implementationTarget":"components/EmptyState","states":["empty"]},
+    {"componentId":"Skeleton","name":"Skeleton","implementationTarget":"components/Skeleton","states":["loading"]},
+    {"componentId":"ErrorState","name":"ErrorState","implementationTarget":"components/ErrorState","states":["error"]}
+  ]
+}

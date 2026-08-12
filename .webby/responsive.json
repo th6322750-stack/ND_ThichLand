@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "breakpoints": {"mobileMax":767,"tabletMin":768,"desktopMin":1024,"wideMin":1440},
+  "rules": {
+    "header":"Desktop navigation collapses to menu <=1023px; hotline remains primary CTA.",
+    "hero":"Desktop split; mobile stacks copy above media.",
+    "search":"Desktop horizontal; tablet wraps; mobile stack/drawer.",
+    "propertyGrid":"4 wide / 3 desktop / 2 tablet / 1 mobile.",
+    "projectGrid":"3 desktop / 2 tablet / 1 mobile.",
+    "detailGallery":"Desktop mosaic; mobile swipe gallery 4:3.",
+    "detailSidebar":"Desktop sticky contact; mobile sticky bottom actions.",
+    "footer":"Desktop columns; mobile stacked/accordion."
+  }
+}

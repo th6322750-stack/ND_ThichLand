@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "uiRevision": 1,
+  "status": "NOT_READY",
+  "authority": "CHATGPT",
+  "masterStrategy": "SVG_MASTER",
+  "rules": {
+    "visibleForm": "Current revision-1 route SVG Masters are structural working references only and are NOT final approved visual truth. Final visible authority will be published in revision 2 after high-fidelity completion and approval.",
+    "responsive": "Current responsive.json is provisional and must be rebuilt/verified against final WEB/MOBILE compositions.",
+    "data": "CMS content may change text/images later, but final card/gallery/media treatment must be locked before GĐ4.",
+    "priceArea": "Price and area remain public in cards/details and filterable.",
+    "logo": "Do not crop or invent a production logo. Canonical source/reconstruction authority must be resolved before GĐ4.",
+    "font": "Be Vietnam Pro is the selected family; exact final per-role mapping and acquisition manifest remain incomplete in revision 1.",
+    "mustNot": [
+      "Do not implement from revision-1 structural masters as if they were approved final UI.",
+      "Do not replace with generic component-library defaults.",
+      "Do not treat browser implementation as visual truth.",
+      "Do not start GĐ4 while HANDOFF.status is NOT_READY."
+    ]
+  }
+}

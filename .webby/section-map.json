@@ -1,0 +1,10 @@
+{
+  "version":1,
+  "routes":{
+    "/":["Header","Hero","SearchBar","FeaturedProperties","FeaturedProjects","About","Testimonials","ContactMap","Footer"],
+    "/cho-thue":["Header","PageIntro","FilterPanel","PropertyGrid","Pagination","Footer"],
+    "/cho-thue/[slug]":["Header","Breadcrumb","Gallery","PropertySummary","Facts","ContactPanel","Details","Map","RelatedProperties","Footer"],
+    "/du-an":["Header","PageIntro","StatusTabs","ProjectGrid","BrandNote","Footer"],
+    "/du-an/[slug]":["Header","Breadcrumb","ProjectHero","ContactPanel","ProjectIntro","ProjectFacts","Map","Amenities","Gallery","Footer"]
+  }
+}
