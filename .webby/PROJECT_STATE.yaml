@@ -4,16 +4,24 @@ phase: GĐ3
 gđ0:
   status: INTAKE_COMPLETE
 gđ1:
-  status: CLIENT_APPROVED
+  status: REOPENED_FOR_FULL_ROUTE_FINALIZATION
 gđ2:
-  status: MASTER_READY
+  status: REOPENED_FOR_FULL_MASTER_COMPLETION
   strategy: SVG_MASTER
 gđ3:
-  status: UI_SETUP_COMPLETE
+  status: NOT_READY
   uiRevision: 1
   uiCommit: 2b10c7d32f45a96cf9da71e9e44c69c0d9bde8be
-  uiSetupComplete: true
+  uiSetupComplete: false
   branch: webby/ui-ndthich-r1
+  plannedNextRevision: 2
+  blockers:
+    - FULL_HIGH_FIDELITY_ROUTE_UI_INCOMPLETE
+    - REQUIRED_PUBLIC_ROUTES_INCOMPLETE
+    - ADMIN_CMS_VISUAL_UI_INCOMPLETE
+    - TYPOGRAPHY_PACKAGE_INCOMPLETE
+    - PRODUCTION_VISUAL_ASSET_PACK_INCOMPLETE
 executor:
   selected: CLAUDE
   implementationStarted: false
+  blockedUntil: UI_SETUP_COMPLETE
