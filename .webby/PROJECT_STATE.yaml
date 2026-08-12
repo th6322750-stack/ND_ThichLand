@@ -1,0 +1,19 @@
+project: NDTHICH
+skillVersion: 2.2.0
+phase: GĐ3
+gđ0:
+  status: INTAKE_COMPLETE
+gđ1:
+  status: CLIENT_APPROVED
+gđ2:
+  status: MASTER_READY
+  strategy: SVG_MASTER
+gđ3:
+  status: UI_SETUP_COMPLETE
+  uiRevision: 1
+  uiCommit: 2b10c7d32f45a96cf9da71e9e44c69c0d9bde8be
+  uiSetupComplete: true
+  branch: webby/ui-ndthich-r1
+executor:
+  selected: CLAUDE
+  implementationStarted: false

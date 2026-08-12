@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 2,
+  "handoffId": "ndthich-ui-r1-20260812",
+  "producer": "CHATGPT",
+  "executor": "CLAUDE",
+  "status": "UI_SETUP_COMPLETE",
+  "uiRevision": 1,
+  "uiCommit": "2b10c7d32f45a96cf9da71e9e44c69c0d9bde8be",
+  "parentUiCommit": null,
+  "createdAt": "2026-08-12T17:42:00+07:00",
+  "requiredInputs": [
+    ".webby/PROJECT_INTAKE.json",
+    ".webby/visual-handoff/routes.json",
+    ".webby/visual-contract.json",
+    ".webby/asset-manifest.json",
+    ".webby/component-map.json",
+    ".webby/placement-map.json",
+    ".webby/route-map.json",
+    ".webby/section-map.json",
+    ".webby/typography.json",
+    ".webby/font-manifest.json",
+    ".webby/tokens.json",
+    ".webby/responsive.json",
+    ".webby/interactions.json",
+    ".webby/content-map.json",
+    ".webby/CLAUDE_TASK.md"
+  ],
+  "lockFile": ".webby/WEBBY_LOCK.json",
+  "intake": {"status":"INTAKE_COMPLETE","file":".webby/PROJECT_INTAKE.json"},
+  "visualHandoff": {"mode":"VISUAL_FIRST","routesFile":".webby/visual-handoff/routes.json","implementationTarget":"CODE"},
+  "contextPolicy": {"routeScoped":true,"componentScoped":true,"onDemandContracts":true},
+  "hardRules": [
+    "MISSING APPROVED UI != CLAUDE DESIGNS IT",
+    "BROWSER != APPROVED VISUAL TRUTH",
+    "Do not replace approved font/colors/layout for convenience.",
+    "Do not crop or invent the production logo.",
+    "Price and area remain public and filterable."
+  ],
+  "visualAuthority": "CHATGPT",
+  "implementationAuthority": "CLAUDE"
+}
