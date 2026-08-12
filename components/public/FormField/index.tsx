@@ -4,7 +4,7 @@ import { useId, forwardRef } from "react";
 interface FormFieldProps {
   label: string;
   name: string;
-  type?: "text" | "tel" | "email" | "textarea";
+  type?: "text" | "tel" | "email" | "password" | "textarea";
   error?: string;
   required?: boolean;
   placeholder?: string;
