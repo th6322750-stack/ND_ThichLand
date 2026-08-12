@@ -1,6 +1,8 @@
 # NDTHICH — UI Revision 2 Staging
 
-Status: `PENDING_FINAL_VISUAL_APPROVAL`
+Status: `USER_APPROVED_FOR_GD3_FINALIZATION`
+
+Approved in conversation on 2026-08-12 by the user after reviewing Revision 2.
 
 ## Completed by ChatGPT
 - 9 public routes × WEB/MOBILE = 18 full-page compositions.
@@ -13,9 +15,15 @@ Status: `PENDING_FINAL_VISUAL_APPROVAL`
 - Viewing-request / Lead management is `FUTURE_FEATURE` and excluded from GĐ4 Revision 2.
 - Rental Admin schema follows the inspected Google Sheet; commission/guide/internal notes are INTERNAL-ONLY.
 
-## Final approval gate
-Claude MUST NOT start yet.
+## Remaining GĐ3 execution gates — ChatGPT-owned
+1. Publish the complete Revision 2 visual/master/asset/contracts package to this branch.
+2. Create deterministic UI package commit and capture its SHA as `uiCommit`.
+3. Generate final `HANDOFF.json` + `WEBBY_LOCK.json` against that commit.
+4. Verify final Drive package uploads when connector transfer is possible; if provider transfer remains unavailable, record the connector limitation explicitly without changing visual readiness.
+5. Run canonical webbyLucifer validation against actual Git repository files.
+6. Confirm no blocking requests or stale/contradictory readiness markers remain.
+7. Only then set `HANDOFF.status = UI_SETUP_COMPLETE` and allow Claude GĐ4.
 
-After user/client approves the Revision 2 visuals, ChatGPT will publish the complete visual package to this branch, create deterministic `uiCommit`, `HANDOFF.json`, `WEBBY_LOCK.json`, run canonical validation, and only then set `UI_SETUP_COMPLETE=true`.
+Claude MUST NOT start until step 7 is true in Git.
 
 Drive staging folder: https://drive.google.com/drive/folders/1jvdOr7DPaS4JDPKqXMZqy8yl-kVRbWIn
