@@ -1,0 +1,31 @@
+import { Icon } from "@/components/icons";
+
+export function ContactCTA() {
+  return (
+    <div className="container-page py-10">
+      <div className="flex flex-col items-start justify-between gap-6 rounded-md bg-footer p-8 tablet:flex-row tablet:items-center">
+        <div>
+          <h2 className="text-h2 text-surface">Cần tìm căn phù hợp?</h2>
+          <p className="mt-2 text-body text-[#B9B9B9]">
+            Liên hệ trực tiếp để trao đổi nhu cầu và xem nguồn đang trống.
+          </p>
+        </div>
+        <div className="flex gap-3">
+          <a
+            href="tel:0986602203"
+            className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-button uppercase text-surface hover:bg-primaryHover"
+          >
+            <Icon name="phone" size={16} className="invert" /> Gọi 0986 602 203
+          </a>
+          {/* Zalo production URL not yet provided (.webby/interactions.json) — falls back to hotline */}
+          <a
+            href="tel:0986602203"
+            className="inline-flex items-center gap-2 rounded-md border border-surface px-6 py-3 text-button uppercase text-surface hover:bg-surface hover:text-ink"
+          >
+            <Icon name="chat" size={16} className="invert" /> Nhắn Zalo
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
