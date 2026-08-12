@@ -1,0 +1,54 @@
+name: NDTHICH R3 Source Diagnostic
+
+on:
+  push:
+    branches: [webby/ui-ndthich-r3-final]
+    paths: [.github/workflows/gd3-r3-source-diagnostic.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Diagnose chunk source without assertions
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64,hashlib,lzma,json,traceback
+          parts=sorted(Path('.webby/source-parts').glob('master.b64.part*'))
+          report={'partCount':len(parts),'parts':[]}
+          for p in parts:
+              b=p.read_bytes()
+              report['parts'].append({'name':p.name,'bytes':len(b),'sha1git':hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest(),'sha256':hashlib.sha256(b).hexdigest(),'head':b[:16].decode(errors='replace'),'tail':b[-16:].decode(errors='replace')})
+          try:
+              text=''.join(p.read_text(encoding='utf-8').strip() for p in parts)
+              report['joinedChars']=len(text)
+              report['joinedSha256']=hashlib.sha256(text.encode()).hexdigest()
+              raw=base64.b64decode(text,validate=True)
+              report['decodedBytes']=len(raw)
+              report['decodedSha256']=hashlib.sha256(raw).hexdigest()
+              data=lzma.decompress(raw)
+              report['lzmaBytes']=len(data)
+              obj=json.loads(data)
+              report['jsonEntries']=len(obj)
+              report['publicCount']=sum(k.startswith('master/public/') for k in obj)
+              report['adminCount']=sum(k.startswith('master/admin/') for k in obj)
+              report['status']='PASS'
+          except Exception as e:
+              report['status']='FAIL'
+              report['errorType']=type(e).__name__
+              report['error']=str(e)
+              report['traceback']=traceback.format_exc()
+          out=Path('.webby/qa/SOURCE_DIAGNOSTIC.json'); out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(report,indent=2),encoding='utf-8')
+          print(json.dumps(report,indent=2))
+          PY
+      - name: Commit diagnostic result
+        run: |
+          git config user.name "Hthanh-Vip"
+          git config user.email "th6322750@gmail.com"
+          git add .webby/qa/SOURCE_DIAGNOSTIC.json
+          git commit -m "webby(qa): record Revision 3 source diagnostic [skip ci]"
+          git push origin HEAD:webby/ui-ndthich-r3-final

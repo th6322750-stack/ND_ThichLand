@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "uiRevision": 3,
+  "routes": {
+    "/": {
+      "desktop": "renders/WEB/01_TrangChu_WEB.png",
+      "mobile": "renders/MOBILE/01_TrangChu_MOBILE.png"
+    },
+    "/cho-thue": {
+      "desktop": "renders/WEB/02_ChoThue_WEB.png",
+      "mobile": "renders/MOBILE/02_ChoThue_MOBILE.png"
+    },
+    "/cho-thue/[slug]": {
+      "desktop": "renders/WEB/03_ChiTietChoThue_WEB.png",
+      "mobile": "renders/MOBILE/03_ChiTietChoThue_MOBILE.png"
+    },
+    "/du-an": {
+      "desktop": "renders/WEB/04_DuAn_WEB.png",
+      "mobile": "renders/MOBILE/04_DuAn_MOBILE.png"
+    },
+    "/du-an/[slug]": {
+      "desktop": "renders/WEB/05_ChiTietDuAn_WEB.png",
+      "mobile": "renders/MOBILE/05_ChiTietDuAn_MOBILE.png"
+    },
+    "/gioi-thieu": {
+      "desktop": "renders/WEB/06_GioiThieu_WEB.png",
+      "mobile": "renders/MOBILE/06_GioiThieu_MOBILE.png"
+    },
+    "/tin-tuc": {
+      "desktop": "renders/WEB/07_TinTuc_WEB.png",
+      "mobile": "renders/MOBILE/07_TinTuc_MOBILE.png"
+    },
+    "/tin-tuc/[slug]": {
+      "desktop": "renders/WEB/08_ChiTietTinTuc_WEB.png",
+      "mobile": "renders/MOBILE/08_ChiTietTinTuc_MOBILE.png"
+    },
+    "/lien-he": {
+      "desktop": "renders/WEB/09_LienHe_WEB.png",
+      "mobile": "renders/MOBILE/09_LienHe_MOBILE.png"
+    }
+  },
+  "uiCommit": "ff96ed9ea596071c14515a551cdf31d46f0b0f69"
+}

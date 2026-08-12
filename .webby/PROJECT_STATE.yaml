@@ -1,0 +1,25 @@
+project: NDTHICH
+skillVersion: 2.2.0
+phase: GĐ3
+gđ0:
+  status: INTAKE_COMPLETE
+gđ1:
+  status: APPROVED
+  uiRevision: 3
+gđ2:
+  status: MASTER_READY
+  strategy: SVG_MASTER
+  uiRevision: 3
+gđ3:
+  status: UI_SETUP_COMPLETE
+  uiRevision: 3
+  uiCommit: ff96ed9ea596071c14515a551cdf31d46f0b0f69
+  uiSetupComplete: true
+  blockers: 0
+decisions:
+  logo: NO_LOGO_PLACEHOLDER
+  viewingRequestLead: FUTURE_FEATURE
+executor:
+  selected: CLAUDE
+  implementationStarted: false
+  readyToStart: true

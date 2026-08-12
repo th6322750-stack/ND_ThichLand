@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "uiRevision": 3,
+  "breakpoints": {
+    "mobileMax": 767,
+    "tabletMin": 768,
+    "desktopMin": 1024,
+    "wideMin": 1440
+  },
+  "rules": {
+    "header": "Desktop nav >=1024; mobile full-height drawer <1024",
+    "propertyGrid": "4 wide / 3 desktop / 2 tablet / 1 mobile",
+    "projectGrid": "3/2/1",
+    "newsGrid": "3/2/1",
+    "detail": "Sticky desktop aside >=1024; inline contact below",
+    "gallery": "Desktop mosaic; mobile swipe strip",
+    "adminSidebar": "248px >=1200; compact 76px 768-1199; drawer <768",
+    "adminForms": "2-col >=1200; 1-col below"
+  }
+}

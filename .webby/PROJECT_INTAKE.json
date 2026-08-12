@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "status": "INTAKE_COMPLETE",
+  "project": {
+    "name": "NDTHICH Land",
+    "businessOrOffer": "Website bất động sản cho thuê và giới thiệu dự án cho Công ty TNHH Đầu tư & Kinh doanh Nguyễn Đắc Thích"
+  },
+  "goal": {
+    "primary": "Giúp khách tìm BĐS cho thuê, xem dự án và liên hệ trực tiếp.",
+    "conversion": [
+      "Gọi hotline",
+      "Nhắn Zalo",
+      "Gửi yêu cầu tư vấn chung"
+    ]
+  },
+  "audience": {
+    "primary": [
+      "Sinh viên",
+      "Người đi làm",
+      "Gia đình",
+      "Nhà đầu tư"
+    ]
+  },
+  "scope": {
+    "routes": [
+      "/",
+      "/cho-thue",
+      "/cho-thue/[slug]",
+      "/du-an",
+      "/du-an/[slug]",
+      "/gioi-thieu",
+      "/tin-tuc",
+      "/tin-tuc/[slug]",
+      "/lien-he"
+    ],
+    "features": [
+      "Rental search/filter",
+      "Rental detail",
+      "Projects",
+      "News",
+      "Call/Zalo/contact form",
+      "Admin CMS rental/project/news/media"
+    ]
+  },
+  "personalizationSignals": [
+    "Phong cách BĐS chuyên nghiệp đỏ rượu vang/trắng/đen nhấn vàng",
+    "Nguồn thuê đa loại hình từ Sheet thực tế",
+    "Mobile-first, giá và diện tích công khai"
+  ],
+  "gaps": [
+    {
+      "field": "productionLogo",
+      "status": "SOFT_GAP",
+      "handling": "NO_LOGO placeholder approved; replace in later revision."
+    },
+    {
+      "field": "viewingRequestLead",
+      "status": "NOT_APPLICABLE",
+      "handling": "Future feature; excluded from Revision 3."
+    }
+  ]
+}

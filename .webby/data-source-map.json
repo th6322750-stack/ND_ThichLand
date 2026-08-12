@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "uiRevision": 3,
+  "source": "Google Sheets",
+  "spreadsheetId": "1a9zZjpj2KoM856z5hKtG_euci5cU2cLxirPi5B5qqVU",
+  "public": [
+    "availability",
+    "location",
+    "address",
+    "media",
+    "room_no",
+    "price",
+    "service_fee",
+    "area",
+    "vertical_access",
+    "property_type",
+    "description",
+    "highlights"
+  ],
+  "internalOnly": [
+    "commission",
+    "guide_person",
+    "internal_notes"
+  ],
+  "normalization": [
+    "Ignore group separator rows",
+    "Normalize price/area",
+    "Normalize availability/date strings",
+    "Resolve media hyperlinks",
+    "Detect/repair shifted columns before import; never render raw rows directly"
+  ]
+}

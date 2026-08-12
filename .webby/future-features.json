@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "uiRevision": 3,
+  "features": [
+    {
+      "id": "VIEWING_REQUEST_LEADS",
+      "status": "FUTURE_FEATURE",
+      "activeScope": false,
+      "frontend": "Do not show active booking workflow",
+      "admin": "Do not create lead management",
+      "activationRule": "Requires a new user-approved UI revision"
+    }
+  ]
+}

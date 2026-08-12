@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "uiRevision": 3,
+  "global": {
+    "brand": "NDTHICH LAND",
+    "company": "Công ty TNHH Đầu tư & Kinh doanh Nguyễn Đắc Thích",
+    "tagline": "Đầu tư uy tín • Kinh doanh bền vững",
+    "hotlinePrimary": "0986 602 203",
+    "hotlineSecondary": "0985 551 396",
+    "nav": [
+      "Trang chủ",
+      "Cho thuê",
+      "Dự án",
+      "Giới thiệu",
+      "Tin tức",
+      "Liên hệ"
+    ]
+  },
+  "rules": {
+    "publicRentalFields": [
+      "khu vực",
+      "địa chỉ",
+      "media",
+      "mã/số phòng",
+      "giá",
+      "phí dịch vụ",
+      "diện tích",
+      "thang",
+      "loại BĐS",
+      "mô tả",
+      "đặc điểm nổi bật",
+      "trạng thái"
+    ],
+    "internalOnly": [
+      "hoa hồng",
+      "người dẫn",
+      "ghi chú nội bộ"
+    ],
+    "futureFeature": "Không hiển thị Đặt lịch xem nhà/Lead trong Revision 3."
+  }
+}

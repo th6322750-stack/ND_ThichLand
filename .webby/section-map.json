@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "uiRevision": 3,
+  "routes": {
+    "/": [
+      "Header",
+      "Hero",
+      "SearchPanel",
+      "FeaturedProperties",
+      "FeaturedProjects",
+      "AboutPreview",
+      "NewsPreview",
+      "ContactCTA",
+      "Footer"
+    ],
+    "/cho-thue": [
+      "Header",
+      "PageIntro",
+      "Search",
+      "FilterPanel",
+      "PropertyGrid",
+      "Pagination",
+      "Footer"
+    ],
+    "/cho-thue/[slug]": [
+      "Header",
+      "Breadcrumb",
+      "Gallery",
+      "PropertySummary",
+      "Facts",
+      "ContactCTA",
+      "Description",
+      "Details",
+      "Media",
+      "Map",
+      "RelatedProperties",
+      "Footer"
+    ],
+    "/du-an": [
+      "Header",
+      "PageIntro",
+      "StatusTabs",
+      "ProjectGrid",
+      "BrandNote",
+      "Footer"
+    ],
+    "/du-an/[slug]": [
+      "Header",
+      "Breadcrumb",
+      "ProjectHero",
+      "ContactCTA",
+      "Intro",
+      "ProjectFacts",
+      "Map",
+      "Amenities",
+      "Progress",
+      "Gallery",
+      "Footer"
+    ],
+    "/gioi-thieu": [
+      "Header",
+      "BrandHero",
+      "Stats",
+      "Values",
+      "BusinessAreas",
+      "ContactCTA",
+      "Footer"
+    ],
+    "/tin-tuc": [
+      "Header",
+      "PageIntro",
+      "SearchCategories",
+      "NewsGrid",
+      "Pagination",
+      "ContactCTA",
+      "Footer"
+    ],
+    "/tin-tuc/[slug]": [
+      "Header",
+      "Breadcrumb",
+      "ArticleHero",
+      "ArticleBody",
+      "ContactCTA",
+      "RelatedNews",
+      "Footer"
+    ],
+    "/lien-he": [
+      "Header",
+      "ContactHero",
+      "ContactCards",
+      "ContactForm",
+      "Map",
+      "Footer"
+    ]
+  }
+}

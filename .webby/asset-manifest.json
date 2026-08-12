@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "uiRevision": 3,
+  "assets": [
+    {
+      "id": "logo.no-logo",
+      "production": ".webby/assets/production/logos/NO_LOGO.svg",
+      "category": "logo-placeholder"
+    },
+    {
+      "id": "icon.area",
+      "production": ".webby/assets/production/icons/area.svg",
+      "category": "icon"
+    },
+    {
+      "id": "icon.bed",
+      "production": ".webby/assets/production/icons/bed.svg",
+      "category": "icon"
+    },
+    {
+      "id": "icon.building",
+      "production": ".webby/assets/production/icons/building.svg",
+      "category": "icon"
+    },
+    {
+      "id": "icon.chat",
+      "production": ".webby/assets/production/icons/chat.svg",
+      "category": "icon"
+    },
+    {
+      "id": "icon.check",
+      "production": ".webby/assets/production/icons/check.svg",
+      "category": "icon"
+    },
+    {
+      "id": "icon.edit",
+      "production": ".webby/assets/production/icons/edit.svg",
+      "category": "icon"
+    },
+    {
+      "id": "icon.filter",
+      "production": ".webby/assets/production/icons/filter.svg",
+      "category": "icon"
+    },
+    {
+      "id": "icon.home",
+      "production": ".webby/assets/production/icons/home.svg",
+      "category": "icon"
+    },
+    {
+      "id": "icon.menu",
+      "production": ".webby/assets/production/icons/menu.svg",
+      "category": "icon"
+    },
+    {
+      "id": "icon.phone",
+      "production": ".webby/assets/production/icons/phone.svg",
+      "category": "icon"
+    },
+    {
+      "id": "icon.pin",
+      "production": ".webby/assets/production/icons/pin.svg",
+      "category": "icon"
+    },
+    {
+      "id": "icon.search",
+      "production": ".webby/assets/production/icons/search.svg",
+      "category": "icon"
+    },
+    {
+      "id": "icon.trash",
+      "production": ".webby/assets/production/icons/trash.svg",
+      "category": "icon"
+    },
+    {
+      "id": "icon.upload",
+      "production": ".webby/assets/production/icons/upload.svg",
+      "category": "icon"
+    },
+    {
+      "id": "placeholder.news",
+      "production": ".webby/assets/production/placeholders/news-placeholder.svg",
+      "category": "cms-placeholder"
+    },
+    {
+      "id": "placeholder.project",
+      "production": ".webby/assets/production/placeholders/project-placeholder.svg",
+      "category": "cms-placeholder"
+    },
+    {
+      "id": "placeholder.property",
+      "production": ".webby/assets/production/placeholders/property-placeholder.svg",
+      "category": "cms-placeholder"
+    },
+    {
+      "id": "ornament.brand-wave",
+      "production": ".webby/assets/production/ornaments/brand-wave.svg",
+      "category": "ornament"
+    }
+  ],
+  "uiCommit": "ff96ed9ea596071c14515a551cdf31d46f0b0f69"
+}

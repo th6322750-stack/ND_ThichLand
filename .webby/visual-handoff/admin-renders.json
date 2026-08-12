@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "uiRevision": 3,
+  "admin": [
+    {
+      "master": ".webby/master/admin/01_Admin_Login.svg",
+      "render": "renders/ADMIN/01_Admin_Login.png"
+    },
+    {
+      "master": ".webby/master/admin/02_Admin_Dashboard.svg",
+      "render": "renders/ADMIN/02_Admin_Dashboard.png"
+    },
+    {
+      "master": ".webby/master/admin/03_Admin_BDS_List.svg",
+      "render": "renders/ADMIN/03_Admin_BDS_List.png"
+    },
+    {
+      "master": ".webby/master/admin/04_Admin_BDS_Form.svg",
+      "render": "renders/ADMIN/04_Admin_BDS_Form.png"
+    },
+    {
+      "master": ".webby/master/admin/05_Admin_DuAn_List.svg",
+      "render": "renders/ADMIN/05_Admin_DuAn_List.png"
+    },
+    {
+      "master": ".webby/master/admin/06_Admin_DuAn_Form.svg",
+      "render": "renders/ADMIN/06_Admin_DuAn_Form.png"
+    },
+    {
+      "master": ".webby/master/admin/07_Admin_TinTuc_List.svg",
+      "render": "renders/ADMIN/07_Admin_TinTuc_List.png"
+    },
+    {
+      "master": ".webby/master/admin/08_Admin_TinTuc_Form.svg",
+      "render": "renders/ADMIN/08_Admin_TinTuc_Form.png"
+    },
+    {
+      "master": ".webby/master/admin/09_Admin_Media.svg",
+      "render": "renders/ADMIN/09_Admin_Media.png"
+    }
+  ],
+  "system": [
+    {
+      "master": ".webby/master/system/Admin_Component_States.svg",
+      "render": "renders/SYSTEM/Admin_Component_States.png"
+    },
+    {
+      "master": ".webby/master/system/Design_System_Master.svg",
+      "render": "renders/SYSTEM/Design_System_Master.png"
+    },
+    {
+      "master": ".webby/master/system/Form_Overlay_States.svg",
+      "render": "renders/SYSTEM/Form_Overlay_States.png"
+    },
+    {
+      "master": ".webby/master/system/Public_Component_States.svg",
+      "render": "renders/SYSTEM/Public_Component_States.png"
+    }
+  ],
+  "uiCommit": "ff96ed9ea596071c14515a551cdf31d46f0b0f69"
+}

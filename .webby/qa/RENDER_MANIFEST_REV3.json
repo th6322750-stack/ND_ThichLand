@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "uiRevision": 3,
+  "status": "PASS",
+  "files": [
+    {
+      "path": "renders/WEB/01_TrangChu_WEB.png",
+      "mode": "WEB",
+      "width": 1920,
+      "height": 4533,
+      "sha256": "0dc041b8540aba475db407f208e6ed633482f7b2591e294ae535462ae9d4ebbb"
+    },
+    {
+      "path": "renders/WEB/02_ChoThue_WEB.png",
+      "mode": "WEB",
+      "width": 1920,
+      "height": 3333,
+      "sha256": "be14505f4c6a95b147c2ff2b8376f10f67fad19fbb26faebde39ebad736ad355"
+    },
+    {
+      "path": "renders/WEB/03_ChiTietChoThue_WEB.png",
+      "mode": "WEB",
+      "width": 1920,
+      "height": 4467,
+      "sha256": "4e40fa92d1907a3fa02dcb3dc889c3ecbfba6024c943772e6f307494b0dbe1d6"
+    },
+    {
+      "path": "renders/WEB/04_DuAn_WEB.png",
+      "mode": "WEB",
+      "width": 1920,
+      "height": 2933,
+      "sha256": "b3fa188a703883d5f392b83e848d3483abfecea5a55196a42c15462b7b3a2e67"
+    },
+    {
+      "path": "renders/WEB/05_ChiTietDuAn_WEB.png",
+      "mode": "WEB",
+      "width": 1920,
+      "height": 4400,
+      "sha256": "391353c481e1a7103d7d078ff9b91134b31a8caa3af6901afeea655f50633048"
+    },
+    {
+      "path": "renders/WEB/06_GioiThieu_WEB.png",
+      "mode": "WEB",
+      "width": 1920,
+      "height": 3400,
+      "sha256": "069ce154116de2dc816bec6bc64625de3bf807681812c6c431224e852e573128"
+    },
+    {
+      "path": "renders/WEB/07_TinTuc_WEB.png",
+      "mode": "WEB",
+      "width": 1920,
+      "height": 3133,
+      "sha256": "ba92bd9c524c2dd48fbf5673142e398a486d42d53203efd22e4d53e033e9474e"
+    },
+    {
+      "path": "renders/WEB/08_ChiTietTinTuc_WEB.png",
+      "mode": "WEB",
+      "width": 1920,
+      "height": 4000,
+      "sha256": "021cef81c4a7f91939f481e13cc34f65c46b4d8810f64348732f381e0d0fedec"
+    },
+    {
+      "path": "renders/WEB/09_LienHe_WEB.png",
+      "mode": "WEB",
+      "width": 1920,
+      "height": 2933,
+      "sha256": "08c5aea149354515723fc72f4c9b451b04923d318ae95172bc96a56c64b49b18"
+    },
+    {
+      "path": "renders/MOBILE/01_TrangChu_MOBILE.png",
+      "mode": "MOBILE",
+      "width": 1080,
+      "height": 14400,
+      "sha256": "34ddc1035e069a68d16b02e3bb6814f1d563ac7bb32412b02833fe4ebb109adf"
+    },
+    {
+      "path": "renders/MOBILE/02_ChoThue_MOBILE.png",
+      "mode": "MOBILE",
+      "width": 1080,
+      "height": 11631,
+      "sha256": "32afc08b6fa0ffea6adc64304b0667a4d63a9116eb281d3b3cc5ed2a8504ed70"
+    },
+    {
+      "path": "renders/MOBILE/03_ChiTietChoThue_MOBILE.png",
+      "mode": "MOBILE",
+      "width": 1080,
+      "height": 13292,
+      "sha256": "8c6039459d1ca67e7dbd88eafe42ef372e8107df3ef7dd1785505da367d42464"
+    },
+    {
+      "path": "renders/MOBILE/04_DuAn_MOBILE.png",
+      "mode": "MOBILE",
+      "width": 1080,
+      "height": 9138,
+      "sha256": "f67dbe22dc8026c7d9424f2fa6e4937ee5ff947ecb8ec3a53ee94e0d7472bb77"
+    },
+    {
+      "path": "renders/MOBILE/05_ChiTietDuAn_MOBILE.png",
+      "mode": "MOBILE",
+      "width": 1080,
+      "height": 12738,
+      "sha256": "bc76022f2187b887c6a7d07c7ecf8a1b5f327d3e6f396e7d7db57366237b8240"
+    },
+    {
+      "path": "renders/MOBILE/06_GioiThieu_MOBILE.png",
+      "mode": "MOBILE",
+      "width": 1080,
+      "height": 9969,
+      "sha256": "02d0e4e6019d66c2fbb3bae84dbac111455e0de42e9789e0578ec672a4b5747f"
+    },
+    {
+      "path": "renders/MOBILE/07_TinTuc_MOBILE.png",
+      "mode": "MOBILE",
+      "width": 1080,
+      "height": 9969,
+      "sha256": "7b7e0e0d55d65d92777021f5b5f08623247113a74a6b9fe73b718639e31e1910"
+    },
+    {
+      "path": "renders/MOBILE/08_ChiTietTinTuc_MOBILE.png",
+      "mode": "MOBILE",
+      "width": 1080,
+      "height": 12185,
+      "sha256": "fa83ec0feca3efac129b4019d3cb8f35f3dc405ce0cc63fe152f0c77e4daf62a"
+    },
+    {
+      "path": "renders/MOBILE/09_LienHe_MOBILE.png",
+      "mode": "MOBILE",
+      "width": 1080,
+      "height": 8308,
+      "sha256": "25df49a5a528f08b75da2ab4f11678d0fe5abba46d16e14e57818168254395eb"
+    },
+    {
+      "path": "renders/ADMIN/01_Admin_Login.png",
+      "mode": "ADMIN",
+      "width": 1920,
+      "height": 1307,
+      "sha256": "77f4436b472a507c2b82878d880e602f0e2c2d477498d953dfc883c2502d7b9e"
+    },
+    {
+      "path": "renders/ADMIN/02_Admin_Dashboard.png",
+      "mode": "ADMIN",
+      "width": 1920,
+      "height": 2000,
+      "sha256": "5fcc0ec45581e4e01582dd695c3a603b841227ccfd9e7f9e6527055ef4b3e447"
+    },
+    {
+      "path": "renders/ADMIN/03_Admin_BDS_List.png",
+      "mode": "ADMIN",
+      "width": 1920,
+      "height": 2267,
+      "sha256": "d37d82d5625423f5bb64351f3da0c35be349aacc572679775cc060ababe15190"
+    },
+    {
+      "path": "renders/ADMIN/04_Admin_BDS_Form.png",
+      "mode": "ADMIN",
+      "width": 1920,
+      "height": 3333,
+      "sha256": "25856a57eb9351bf35aeb57c6580d220b1e30ed57ac71b0adcfad98504e03439"
+    },
+    {
+      "path": "renders/ADMIN/05_Admin_DuAn_List.png",
+      "mode": "ADMIN",
+      "width": 1920,
+      "height": 1933,
+      "sha256": "db3cd5468734b3e65a2d37d9e1b266955f8bc46ce7d3750d3124f7040f9006d7"
+    },
+    {
+      "path": "renders/ADMIN/06_Admin_DuAn_Form.png",
+      "mode": "ADMIN",
+      "width": 1920,
+      "height": 2267,
+      "sha256": "ae6ae6453ba8771837f3a16eb0fe5da191fc3db394c54cf90e0f79896f072ad3"
+    },
+    {
+      "path": "renders/ADMIN/07_Admin_TinTuc_List.png",
+      "mode": "ADMIN",
+      "width": 1920,
+      "height": 1933,
+      "sha256": "b3fcc09082d5b79f2a13d9c5290e4672c80a307e4fcfbfb6b433195909708fe0"
+    },
+    {
+      "path": "renders/ADMIN/08_Admin_TinTuc_Form.png",
+      "mode": "ADMIN",
+      "width": 1920,
+      "height": 2333,
+      "sha256": "692095454e742fceba9ab38f46f08cd70af99f66e9f1f162168d09c09487a3d6"
+    },
+    {
+      "path": "renders/ADMIN/09_Admin_Media.png",
+      "mode": "ADMIN",
+      "width": 1920,
+      "height": 2133,
+      "sha256": "30347e1de2255e5da04fda08c3c776db09258c9c9ec45e9e4e00442e913f49b8"
+    },
+    {
+      "path": "renders/SYSTEM/Admin_Component_States.png",
+      "mode": "SYSTEM",
+      "width": 1920,
+      "height": 1099,
+      "sha256": "ce30be43246219482a7226190cb81d3850060a31c14db99b41af68a6d71c4352"
+    },
+    {
+      "path": "renders/SYSTEM/Design_System_Master.png",
+      "mode": "SYSTEM",
+      "width": 1920,
+      "height": 2067,
+      "sha256": "56a694166cbc6985983de208c3a5ab2be2dcf800002ba996600268c331b0cfd0"
+    },
+    {
+      "path": "renders/SYSTEM/Form_Overlay_States.png",
+      "mode": "SYSTEM",
+      "width": 1920,
+      "height": 877,
+      "sha256": "2c94a113105a7b617d5e05288c887c9412927331bead6a46ad5eecaa2d29e04a"
+    },
+    {
+      "path": "renders/SYSTEM/Public_Component_States.png",
+      "mode": "SYSTEM",
+      "width": 1920,
+      "height": 1320,
+      "sha256": "1e73288009ba8f55ed43eda2d72cfdb1380788802eb630392df7872d91523e68"
+    }
+  ]
+}
