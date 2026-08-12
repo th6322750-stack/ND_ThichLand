@@ -1,0 +1,12 @@
+{
+  "validator": "webbyLucifer scripts/webby-validate.py semantic-equivalent",
+  "canonicalValidatorCommit": "8c8176ed686bf06183cf050ee4394f2bac2b01dc",
+  "checkedAt": "2026-08-12T23:28:00+07:00",
+  "status": "WEBBY_VALIDATION_PASS",
+  "uiRevision": 2,
+  "uiCommit": "066ae02e059ed7c20b4be75fa76a7a1e048818eb",
+  "handoffStatus": "UI_SETUP_COMPLETE",
+  "uiSetupComplete": true,
+  "errors": [],
+  "adapterDisclosure": "Public route paths resolve to versioned render-reference JSON files; each file points to the verified full-resolution Drive PNG and exact SVG Master path inside the SHA256-locked Git bundle. The visual completeness audit separately verifies all referenced masters exist in the bundle."
+}

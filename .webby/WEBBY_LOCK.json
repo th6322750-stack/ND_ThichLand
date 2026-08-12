@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "skillVersion": "2.2.0",
+  "handoffId": "ndthich-ui-r2-20260812",
+  "uiRevision": 2,
+  "uiCommit": "066ae02e059ed7c20b4be75fa76a7a1e048818eb",
+  "createdAt": "2026-08-12T23:28:00+07:00",
+  "files": [
+    {"path":".webby/PROJECT_INTAKE.json","required":true},{"path":".webby/DRIVE_MANIFEST.json","required":true},{"path":".webby/visual-handoff/routes.json","required":true},{"path":".webby/visual-handoff/admin-renders.json","required":true},{"path":".webby/visual-handoff/APPROVED_VISUALS.md","required":true},{"path":".webby/bundles/NDTHICH_UI_REV2_SVG_MASTER_BUNDLE.zip","required":true,"sha256":"60bccfa39da4edebcc692b01957ea879e9736da7cac84362558cbafe6bfa24ac"},{"path":".webby/visual-contract.json","required":true},{"path":".webby/asset-manifest.json","required":true},{"path":".webby/component-map.json","required":true},{"path":".webby/placement-map.json","required":true},{"path":".webby/route-map.json","required":true},{"path":".webby/section-map.json","required":true},{"path":".webby/typography.json","required":true},{"path":".webby/font-manifest.json","required":true},{"path":".webby/tokens.json","required":true},{"path":".webby/responsive.json","required":true},{"path":".webby/interactions.json","required":true},{"path":".webby/content-map.json","required":true},{"path":".webby/data-source-map.json","required":true},{"path":".webby/future-features.json","required":true},{"path":".webby/CLAUDE_TASK.md","required":true},{"path":".webby/PROJECT_STATE.yaml","required":true,"sha256":"694b6cf750419211dc1cf891f6a9dfa6f81ac37562c96fab1b2ddfedc76836d7"},{"path":".webby/HANDOFF.json","required":true,"sha256":"77c08e2bd42bc5293a90f1495a57a45436ae6cf0b3229e1a0a0a030718e6e711"}
+  ],
+  "hashPolicy": "Bundle + activation identity files SHA256-locked; other requiredInputs are pinned by uiCommit and required-existence checks."
+}

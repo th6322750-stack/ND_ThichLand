@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 2,
+  "handoffId": "ndthich-ui-r2-20260812",
+  "producer": "CHATGPT",
+  "executor": "CLAUDE",
+  "status": "UI_SETUP_COMPLETE",
+  "uiRevision": 2,
+  "uiCommit": "066ae02e059ed7c20b4be75fa76a7a1e048818eb",
+  "parentUiCommit": "2b10c7d32f45a96cf9da71e9e44c69c0d9bde8be",
+  "createdAt": "2026-08-12T23:28:00+07:00",
+  "requiredInputs": [".webby/PROJECT_INTAKE.json",".webby/DRIVE_MANIFEST.json",".webby/visual-handoff/routes.json",".webby/visual-handoff/admin-renders.json",".webby/visual-handoff/APPROVED_VISUALS.md",".webby/bundles/NDTHICH_UI_REV2_SVG_MASTER_BUNDLE.zip",".webby/visual-contract.json",".webby/asset-manifest.json",".webby/component-map.json",".webby/placement-map.json",".webby/route-map.json",".webby/section-map.json",".webby/typography.json",".webby/font-manifest.json",".webby/tokens.json",".webby/responsive.json",".webby/interactions.json",".webby/content-map.json",".webby/data-source-map.json",".webby/future-features.json",".webby/CLAUDE_TASK.md"],
+  "lockFile": ".webby/WEBBY_LOCK.json",
+  "intake": {"status":"INTAKE_COMPLETE","file":".webby/PROJECT_INTAKE.json"},
+  "visualHandoff": {"mode":"VISUAL_FIRST","routesFile":".webby/visual-handoff/routes.json","implementationTarget":"CODE","approvedRasterStorage":"GOOGLE_DRIVE_VERIFIED","masterBundle":".webby/bundles/NDTHICH_UI_REV2_SVG_MASTER_BUNDLE.zip"},
+  "visualAuthority": "CHATGPT",
+  "implementationAuthority": "CLAUDE",
+  "contextPolicy": {"routeScoped":true,"componentScoped":true,"onDemandContracts":true},
+  "hardRules": ["MISSING APPROVED UI != CLAUDE DESIGNS IT","BROWSER != APPROVED VISUAL TRUTH","Do not replace Be Vietnam Pro/colors/layout/assets for convenience.","Keep NO_LOGO until a new approved revision.","Do not implement viewing-request/Lead UI in revision 2.","Never expose commission/guide person/internal notes publicly."],
+  "blockers": [],
+  "driveVerification": {"status":"VERIFIED_COMPLETE","web":9,"mobile":9,"adminAndSystem":11,"fontDocs":2,"rootUrl":"https://drive.google.com/drive/folders/1jvdOr7DPaS4JDPKqXMZqy8yl-kVRbWIn"}
+}

@@ -5,12 +5,16 @@ gđ0: {status: INTAKE_COMPLETE}
 gđ1: {status: APPROVED, uiRevision: 2}
 gđ2: {status: MASTER_READY, strategy: SVG_MASTER}
 gđ3:
-  status: UI_SNAPSHOT_BUILDING
+  status: UI_SETUP_COMPLETE
   uiRevision: 2
-  uiCommit: PENDING_UI_SNAPSHOT_COMMIT
-  uiSetupComplete: false
+  uiCommit: 066ae02e059ed7c20b4be75fa76a7a1e048818eb
+  uiSetupComplete: true
   driveVerified: true
+  blockers: 0
 decisions:
   logo: NO_LOGO_PLACEHOLDER
   viewingRequestLead: FUTURE_FEATURE
-executor: {selected: CLAUDE, implementationStarted: false, blockedUntil: UI_SETUP_COMPLETE}
+executor:
+  selected: CLAUDE
+  implementationStarted: false
+  readyToStart: true
