@@ -1,11 +1,11 @@
-# NDTHICH — GĐ4 STATIC FRONTEND IMPLEMENTATION
+# NDTHICH — GĐ4 BLOCKED BY GĐ3 RE-AUDIT
 
-Start only when `.webby/HANDOFF.json` says `UI_SETUP_COMPLETE`.
+**DO NOT START IMPLEMENTATION.**
 
-Read: HANDOFF → WEBBY_LOCK → visual-handoff/routes.json → unpack `.webby/bundles/NDTHICH_UI_REV2_SVG_MASTER_BUNDLE.zip` → matching SVG Master → contracts.
+The previous `UI_SETUP_COMPLETE` declaration was withdrawn after a strict re-audit against the current `webbyLucifer` v2.2 rules.
 
-ChatGPT owns 100% visible UI; Claude implements only. Implement 9 public routes + 9 approved Admin screens. Backend/CMS/data sync is later.
+Read `.webby/HANDOFF.json` and `.webby/qa/GD3_REAUDIT.json`.
 
-Hard rules: Be Vietnam Pro 400/500/600/700/800 exactly; keep NO_LOGO; no Lead/Đặt lịch UI; price+area public/filterable; commission/guide/internal notes internal-only; no generic icon substitution; no redesign. If Drive is inaccessible use the exact SVG Master in the locked Git bundle, never improvise.
+GĐ4 remains blocked until ChatGPT resolves all active hard UI blockers, republishes corrected visual truth, issues a new deterministic UI commit/lock, and sets `UI_SETUP_COMPLETE` again.
 
-After GĐ4 create `.webby/implementation/IMPLEMENTATION_RECEIPT.json`.
+Claude must not implement from the current handoff.
