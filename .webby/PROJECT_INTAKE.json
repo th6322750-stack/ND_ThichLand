@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "status": "INTAKE_COMPLETE",
-  "updatedAt": "2026-08-12T17:42:00+07:00",
+  "updatedAt": "2026-08-12T18:45:00+07:00",
   "project": {
     "name": "NDTHICH",
     "businessOrOffer": "Website bất động sản của Công ty TNHH Đầu tư & Kinh doanh Nguyễn Đắc Thích: BĐS cho thuê + dự án công ty, có khả năng mở rộng sang bán dự án BĐS.",
@@ -22,26 +22,41 @@
     "typography": "Be Vietnam Pro"
   },
   "content": {
-    "propertyTypes": ["Phòng trọ / phòng cho thuê", "Căn hộ dịch vụ", "Văn phòng / mặt bằng"],
+    "propertyTypes": ["Phòng trọ / phòng cho thuê", "Căn hộ dịch vụ", "Văn phòng / mặt bằng", "Nhà cho thuê", "Xưởng"],
     "projectModule": true,
     "newsModule": true,
-    "contactPhones": ["0986602203", "0985551396"]
+    "contactPhones": ["0986602203", "0985551396"],
+    "rentalDataSource": {
+      "status": "KNOWN",
+      "type": "GOOGLE_SHEETS",
+      "spreadsheetId": "1a9zZjpj2KoM856z5hKtG_euci5cU2cLxirPi5B5qqVU",
+      "sheet": "Phòng trống chính ",
+      "contract": ".webby/data-source-map.json"
+    }
   },
   "assets": [],
-  "references": [{"type": "CLIENT_APPROVED_DIRECTION", "note": "GĐ1 direction approved by client before GĐ2 master production."}],
+  "references": [
+    {"type": "CLIENT_APPROVED_DIRECTION", "note": "GĐ1 direction approved by client before GĐ2 master production."},
+    {"type": "CLIENT_GOOGLE_SHEET", "id": "1a9zZjpj2KoM856z5hKtG_euci5cU2cLxirPi5B5qqVU", "status": "INSPECTED", "note": "Rental inventory source inspected including cell hyperlinks and inconsistent row alignment."}
+  ],
   "scope": {
-    "routes": ["/", "/cho-thue", "/cho-thue/[slug]", "/du-an", "/du-an/[slug]"],
-    "features": ["Property listing", "Filters", "Property detail", "Project listing/detail", "Gallery", "Maps", "Call/Zalo/Schedule CTA", "Responsive", "Future CMS/admin"],
+    "routes": ["/", "/cho-thue", "/cho-thue/[slug]", "/du-an", "/du-an/[slug]", "/gioi-thieu", "/tin-tuc", "/tin-tuc/[slug]", "/lien-he"],
+    "features": ["Property listing", "Filters", "Property detail", "Project listing/detail", "News list/detail", "About", "Contact", "Gallery", "Maps", "Call/Zalo/Schedule CTA", "Responsive", "Admin/CMS"],
     "responsive": ["Desktop", "Mobile"]
   },
-  "technical": {"implementationTarget": "CODE", "adminRequired": true, "dataBinding": "Deferred to backend/CMS phase"},
-  "mustHave": ["Giá và diện tích công khai + filterable", "Mobile CTA rõ", "Dự án là module riêng", "Admin/CMS sau frontend"],
-  "mustNotHave": ["Không đổi tone trắng/đỏ đô/đen", "Không đổi Be Vietnam Pro", "Không tự thiết kế UI còn thiếu", "Không giả lập logo production từ screenshot"],
-  "personalizationSignals": ["Thương hiệu Nguyễn Đắc Thích", "Cho thuê + dự án", "Hotline 0986602203 / 0985551396", "Phong cách BĐS doanh nghiệp"],
-  "assumptions": ["Ảnh BĐS/dự án thật bind qua CMS và giữ geometry đã khóa"],
+  "technical": {
+    "implementationTarget": "CODE",
+    "adminRequired": true,
+    "rentalSheetSchemaKnown": true,
+    "dataBinding": "Backend/CMS architecture deferred to GĐ6; raw Sheet data requires normalization and must not be rendered directly."
+  },
+  "mustHave": ["Giá và diện tích công khai + filterable", "Mobile CTA rõ", "Dự án là module riêng", "Admin/CMS cho khách tự cập nhật", "ChatGPT hoàn thành toàn bộ visible UI trước GĐ4"],
+  "mustNotHave": ["Không đổi tone trắng/đỏ đô/đen", "Không đổi Be Vietnam Pro", "Không tự thiết kế UI còn thiếu", "Không giả lập logo production từ screenshot", "Không public dữ liệu nội bộ như hoa hồng/người dẫn/ghi chú nếu chưa được chủ dự án xác nhận"],
+  "personalizationSignals": ["Thương hiệu Nguyễn Đắc Thích", "Cho thuê + dự án", "Hotline 0986602203 / 0985551396", "Phong cách BĐS doanh nghiệp", "Rental inventory thực tế tập trung Hà Nội và có nhiều loại hình ngoài studio"],
+  "assumptions": ["Ảnh BĐS/dự án thật bind qua CMS và giữ geometry đã khóa", "Hoa hồng/người dẫn/ghi chú trong Sheet được coi là internal-only cho đến khi có yêu cầu khác"],
   "gaps": [
-    {"field": "productionLogoSource", "status": "SOFT_GAP", "note": "Chưa có vector/native logo gốc."},
-    {"field": "propertyProjectProductionPhotos", "status": "SOFT_GAP", "note": "Bind qua CMS; media geometry đã khóa."},
-    {"field": "googleSheetProductionData", "status": "SOFT_GAP", "note": "Xử lý tại CMS/data phase."}
+    {"field": "productionLogoSource", "status": "SOFT_GAP", "note": "Chưa có vector/native logo gốc; ChatGPT phải chuẩn bị canonical production treatment trước GĐ4 hoặc ghi rõ reconstruction authority."},
+    {"field": "propertyProjectProductionPhotos", "status": "SOFT_GAP", "note": "Ảnh rental có nguồn hyperlink trong Sheet; project imagery có thể bổ sung dần. ChatGPT vẫn phải khóa media treatment/placeholder/crop trước GĐ4."},
+    {"field": "googleSheetProductionData", "status": "KNOWN", "note": "Sheet rental đã được inspect và map tại .webby/data-source-map.json; live sync/import architecture vẫn thuộc GĐ6."}
   ]
 }
