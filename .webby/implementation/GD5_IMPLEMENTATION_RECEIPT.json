@@ -6,8 +6,8 @@
   "consumedUiRevision": 3,
   "consumedUiCommit": "ff96ed9ea596071c14515a551cdf31d46f0b0f69",
   "branch": "claude/gd5-ux-frontend",
-  "uxImplementationCommit": "86964c3f7d2016bd94410f0211e5c80b3d6ec5ef",
-  "commitCount": 6,
+  "uxImplementationCommit": "f5e3c6baa4c9a04fc9fc97cd76e975c0974eeeee",
+  "commitCount": 9,
   "implementedInteractions": [
     {
       "area": "Rental discovery (/cho-thue + homepage SearchPanel)",
@@ -50,6 +50,15 @@
       "detail": "\"Số phòng ngủ\" was not wired to any filtering logic. It remains the approved visual control with zero real options beyond the placeholder — never inferred from propertyType, parsed from description, or fabricated. data-source-map.json was not modified."
     }
   ],
+  "resolvedInReopenPass": [
+    {
+      "topic": "Mobile FilterDrawer had no real Apply/Cancel semantics — every field change committed straight to shared state/URL on change, so Escape/X/backdrop couldn't discard anything.",
+      "reportedBy": "ChatGPT QA reopen, 2026-08-14",
+      "fix": "FilterDrawer now owns a local draft, re-seeded from committedFilters on every closed→open transition. Field edits and \"Xóa bộ lọc\" only touch the draft; only \"Áp dụng\" calls onApply(draft), which the page wires to setFilters (commits to shared state/URL, resets to page 1), then the drawer closes itself. Escape/X/backdrop just close — draft discarded, re-seeded fresh next open. Desktop Filter unchanged (still applies live). No visual change — state-management only, 0 diff bytes vs the GĐ5 baseline for /cho-thue MOBILE + WEB.",
+      "commit": "f5e3c6baa4c9a04fc9fc97cd76e975c0974eeeee",
+      "testsAdded": "6 new FilterDrawer.test.tsx cases (Escape/X/backdrop discard, Apply commits, re-seed-on-reopen, Xóa bộ lọc stays draft-only) + tests/e2e/rental-filter-drawer.spec.ts (5 specs) exercising the same flows against a real browser/production build."
+    }
+  ],
   "deferredToGd6": [
     "Structured bedroom/furnishing source normalization",
     "Real contact form submission (email/API/DB/lead storage)",
@@ -61,10 +70,10 @@
     "Payments",
     "A second/alternate sort order for rentals (no trustworthy createdAt/publishedAt source field exists for properties; news' real publishedAt field was not surfaced as a new visible sort control since none was in the approved design)"
   ],
-  "buildStatus": "PASS — next build succeeded on commit 86964c3, 41 routes generated, zero TypeScript errors. .next cache cleared and rebuilt from scratch before every regression check in this pass.",
-  "testStatus": "PASS — 64/64 Vitest (unit + RTL interaction tests, including rentalFilters, newsFilters, SearchPanel, FilterDrawer, DuAnTabs keyboard nav, Gallery scroll-lock, Header aria-current, ContactForm focus/aria-describedby/keyboard-submit, axe-core a11y sweep with zero serious/critical violations); npx tsc --noEmit clean; eslint clean.",
-  "e2eStatus": "PASS — 4/4 Playwright e2e specs (tests/e2e/rental-url-state.spec.ts) against a live `next build && next start` server: rental filters survive reload, deep link reconstructs exact filtered state, back-navigation after homepage search, and news search+category survive reload. Run via `npm run test:e2e` (QA_BASE_URL required).",
-  "visualRegressionStatus": "PASS — all 26 route/viewport/admin screenshots (tests/visual/capture.ts) plus the root route are byte-for-byte pixel-identical (0 diff bytes, verified via raw-buffer comparison, not just file hashes) to the GĐ5 baseline captured on the exact GĐ4 head commit (fc06923) before any UX work started. Two real visual regressions were caught and fixed during development before reaching this final state: (1) four rental-filter selects had drifted from text-muted to text-ink when wired up — restored conditional muted/ink; (2) none shipped uncaught — both were caught by the per-task pixel-diff gate, not by later discovery.",
+  "buildStatus": "PASS — next build succeeded on commit f5e3c6b, 41 routes generated, zero TypeScript errors. .next cache cleared and rebuilt from scratch before every regression check in this pass.",
+  "testStatus": "PASS — 69/69 Vitest (unit + RTL interaction tests, including rentalFilters, newsFilters, SearchPanel, FilterDrawer draft/discard/apply semantics, DuAnTabs keyboard nav, Gallery scroll-lock, Header aria-current, ContactForm focus/aria-describedby/keyboard-submit, axe-core a11y sweep with zero serious/critical violations); npx tsc --noEmit clean; eslint clean.",
+  "e2eStatus": "PASS — 9/9 Playwright e2e specs against a live `next build && next start` server: tests/e2e/rental-url-state.spec.ts (4 — reload persistence, deep-link reconstruction, back-navigation, news reload) + tests/e2e/rental-filter-drawer.spec.ts (5 — Escape/X/backdrop discard the draft, Áp dụng commits it, reopen re-seeds from committed state). Run via `npm run test:e2e` (QA_BASE_URL required).",
+  "visualRegressionStatus": "PASS — all 26 route/viewport/admin screenshots (tests/visual/capture.ts) plus the root route are byte-for-byte pixel-identical (0 diff bytes, verified via raw-buffer comparison, not just file hashes) to the GĐ5 baseline captured on the exact GĐ4 head commit (fc06923) before any UX work started, re-confirmed after the FilterDrawer reopen-fix (state-management only, 0 diff on /cho-thue MOBILE + WEB). One real visual regression was caught and fixed during initial development, before reaching this final state: four rental-filter selects had drifted from text-muted to text-ink when wired up — restored conditional muted/ink. It was caught by the per-task pixel-diff gate, not by later discovery.",
   "accessibilityStatus": "PASS — vitest-axe sweep across all public pages + BdsForm reports zero serious/critical violations (unchanged from GĐ4; color-contrast checks are unreliable in jsdom due to missing canvas, a known/accepted limitation, not a false pass). All interactive drawers/modals (FilterDrawer, Header mobile-nav, Gallery lightbox, Admin Sidebar mobile drawer) now consistently have focus trap + Escape + focus restoration + body scroll lock/restoration.",
   "openRequests": [],
   "blockers": [],

@@ -26,7 +26,7 @@ gđ5:
   status: READY_FOR_CHATGPT_ACCEPTANCE
   branch: claude/gd5-ux-frontend
   baseGd4Commit: fc06923f2c855cd5b111be3a1296be5e5f631448
-  uxImplementationCommit: 86964c3f7d2016bd94410f0211e5c80b3d6ec5ef
+  uxImplementationCommit: f5e3c6baa4c9a04fc9fc97cd76e975c0974eeeee
   receipt: .webby/implementation/GD5_IMPLEMENTATION_RECEIPT.json
 decisions:
   logo: NO_LOGO_PLACEHOLDER
