@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { FormField } from "@/components/public/FormField";
-import { Uploader } from "@/components/admin/Uploader";
+import { Uploader, type UploaderState } from "@/components/admin/Uploader";
 import { saveNewsAction, type NewsFormInput } from "@/app/actions/news";
+import { uploadMediaAction } from "@/app/actions/media";
 import type { NewsRecord } from "@/lib/server/news/repository";
 
 interface TinTucFormProps {
@@ -19,6 +20,29 @@ export function TinTucForm({ initial }: TinTucFormProps) {
   const [error, setError] = useState<string>();
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [saved, setSaved] = useState<string>();
+  const [cover, setCover] = useState(initial?.cover ?? "");
+  const [uploaderState, setUploaderState] = useState<UploaderState>(cover ? "success" : "empty");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  async function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    setUploaderState("uploading");
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const result = await uploadMediaAction(formData);
+      if (!result.ok || !result.record) {
+        setUploaderState("error");
+        return;
+      }
+      setCover(result.record.webViewLink);
+      setUploaderState("success");
+    } catch {
+      setUploaderState("error");
+    }
+  }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -35,9 +59,7 @@ export function TinTucForm({ initial }: TinTucFormProps) {
         title: get("title"),
         category: get("category"),
         excerpt: get("excerpt"),
-        // No approved upload control exists yet — pass the current value
-        // through unchanged rather than inventing a new field.
-        cover: initial?.cover ?? "",
+        cover,
         sections: initial?.sections ?? [],
         readMinutes: initial?.readMinutes ?? 0,
       };
@@ -108,8 +130,21 @@ export function TinTucForm({ initial }: TinTucFormProps) {
           <div>
             <span className="text-label text-ink">Ảnh đại diện</span>
             <div className="mt-2 aspect-video">
-              <Uploader state="empty" />
+              <Uploader
+                state={uploaderState}
+                onClick={() => fileInputRef.current?.click()}
+                onRetry={() => setUploaderState("empty")}
+              />
             </div>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif"
+              className="hidden"
+              aria-hidden="true"
+              tabIndex={-1}
+              onChange={handleFileChange}
+            />
           </div>
           <FormField
             label="Mô tả ngắn"

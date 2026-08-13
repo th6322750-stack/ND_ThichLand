@@ -2,6 +2,7 @@ import { parseRentalRows } from "./parse";
 import type { RentalSourceProvider } from "./source";
 import type { RentalOverlayRepository, CustomBdsRecord, OverrideRecord } from "./overlay";
 import type { AdminPropertyRecord, Availability, PropertyType } from "@/lib/types";
+import { resolveLegacyMediaLink } from "@/lib/server/media/legacyResolve";
 
 export interface MergedRentalData {
   admin: AdminPropertyRecord[];
@@ -9,6 +10,7 @@ export interface MergedRentalData {
     ignored: number;
     quarantined: number;
     quarantinedRows: { sourceRow: number; reason: string }[];
+    mediaDiagnostics: { sourceRow: number; diagnostic: string }[];
   };
 }
 
@@ -88,6 +90,7 @@ export async function buildMergedRentalData(
   let ignored = 0;
   let quarantined = 0;
   const quarantinedRows: { sourceRow: number; reason: string }[] = [];
+  const mediaDiagnostics: { sourceRow: number; diagnostic: string }[] = [];
   const fromSource: AdminPropertyRecord[] = [];
 
   for (const outcome of outcomes) {
@@ -105,6 +108,9 @@ export async function buildMergedRentalData(
     const override = overrideBySourceId.get(record.sourceId);
     if (override?.hidden) continue;
 
+    const { media, diagnostic } = await resolveLegacyMediaLink(record.mediaLink);
+    if (diagnostic) mediaDiagnostics.push({ sourceRow: record.sourceRow, diagnostic });
+
     let admin: AdminPropertyRecord = {
       slug: slugForSourceRow(record.roomNo, record.sourceRow),
       roomNo: record.roomNo,
@@ -118,7 +124,7 @@ export async function buildMergedRentalData(
       description: record.description,
       highlights: record.highlights,
       availability: record.availability ?? "Còn trống",
-      media: [], // Task 09 resolves mediaLink -> Drive-backed URLs
+      media,
       bedroomCount: record.bedroomCount,
       furnishingStatus: record.furnishingStatus,
       commission: record.commission,
@@ -139,6 +145,6 @@ export async function buildMergedRentalData(
 
   return {
     admin: [...fromSource, ...fromCustom],
-    diagnostics: { ignored, quarantined, quarantinedRows },
+    diagnostics: { ignored, quarantined, quarantinedRows, mediaDiagnostics },
   };
 }

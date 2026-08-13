@@ -1,10 +1,12 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { FormField } from "@/components/public/FormField";
 import { Icon } from "@/components/icons";
 import { saveProjectAction, type ProjectFormInput } from "@/app/actions/projects";
+import { uploadMediaAction } from "@/app/actions/media";
 import type { ProjectRecord } from "@/lib/server/projects/repository";
 import type { ProjectStatus } from "@/lib/types";
 
@@ -18,6 +20,26 @@ export function DuAnForm({ initial }: DuAnFormProps) {
   const [error, setError] = useState<string>();
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [saved, setSaved] = useState<string>();
+  const [media, setMedia] = useState<string[]>(initial?.media ?? []);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  async function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const result = await uploadMediaAction(formData);
+      if (result.ok && result.record) {
+        setMedia((prev) => [...prev, result.record!.webViewLink]);
+      }
+    } finally {
+      setUploading(false);
+    }
+  }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -42,7 +64,7 @@ export function DuAnForm({ initial }: DuAnFormProps) {
           .filter(Boolean),
         progressText: get("progress"),
         progressPercent: progressMatch ? Number(progressMatch[1]) : (initial?.progressPercent ?? 0),
-        media: initial?.media ?? [],
+        media,
       };
 
       const result = await saveProjectAction(input, true);
@@ -133,10 +155,30 @@ export function DuAnForm({ initial }: DuAnFormProps) {
           <span className="text-label text-ink">Album ảnh</span>
           <button
             type="button"
-            className="mt-2 flex w-full items-center gap-2 rounded-md border-2 border-dashed border-line p-6 text-label text-primary hover:border-primary"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploading}
+            className="mt-2 flex w-full items-center gap-2 rounded-md border-2 border-dashed border-line p-6 text-label text-primary hover:border-primary disabled:opacity-60"
           >
-            <Icon name="upload" size={18} /> Tải / chọn media
+            <Icon name="upload" size={18} /> {uploading ? "Đang tải..." : "Tải / chọn media"}
           </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm"
+            className="hidden"
+            aria-hidden="true"
+            tabIndex={-1}
+            onChange={handleFileChange}
+          />
+          {media.length > 0 && (
+            <div className="mt-4 grid grid-cols-2 gap-4 tablet:grid-cols-4">
+              {media.map((src, i) => (
+                <div key={src + i} className="relative aspect-[4/3] overflow-hidden rounded-md">
+                  <Image src={src} alt={`Ảnh ${i + 1}`} fill className="object-cover" unoptimized />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </form>

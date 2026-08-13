@@ -59,6 +59,25 @@ export async function deleteDriveFile(fileId: string): Promise<void> {
   await client.files.delete({ fileId });
 }
 
+export async function getDriveFileMetadata(fileId: string): Promise<{ id: string; mimeType: string } | null> {
+  const client = getClient();
+  try {
+    const res = await client.files.get({ fileId, fields: "id, mimeType" });
+    if (!res.data.id || !res.data.mimeType) return null;
+    return { id: res.data.id, mimeType: res.data.mimeType };
+  } catch {
+    return null;
+  }
+}
+
+export async function streamToBuffer(stream: NodeJS.ReadableStream): Promise<Buffer> {
+  const chunks: Buffer[] = [];
+  for await (const chunk of stream) {
+    chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+  }
+  return Buffer.concat(chunks);
+}
+
 export async function listDriveFolderFiles(folderId: string): Promise<drive_v3.Schema$File[]> {
   const client = getClient();
   const res = await client.files.list({

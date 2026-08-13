@@ -45,6 +45,11 @@ export async function updateSheetRange(
   });
 }
 
+export async function clearSheetRange(spreadsheetId: string, range: string): Promise<void> {
+  const client = getClient();
+  await client.spreadsheets.values.clear({ spreadsheetId, range });
+}
+
 export async function listSheetTitles(spreadsheetId: string): Promise<string[]> {
   const client = getClient();
   const res = await client.spreadsheets.get({ spreadsheetId });

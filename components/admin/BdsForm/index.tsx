@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, type FormEvent, type MouseEvent } from "react";
+import { useRef, useState, type ChangeEvent, type FormEvent, type MouseEvent } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { FormField } from "@/components/public/FormField";
 import { FormSection } from "@/components/admin/FormSection";
-import { Uploader } from "@/components/admin/Uploader";
+import { Uploader, type UploaderState } from "@/components/admin/Uploader";
 import { saveBdsAction, type BdsFormInput } from "@/app/actions/bds";
+import { uploadMediaAction } from "@/app/actions/media";
 import { formatArea, formatCurrencyVnd } from "@/lib/format";
 import type { AdminPropertyRecord } from "@/lib/types";
 
@@ -14,7 +15,7 @@ interface BdsFormProps {
   initial?: AdminPropertyRecord;
 }
 
-function readInput(form: HTMLFormElement, initial: AdminPropertyRecord | undefined): BdsFormInput {
+function readInput(form: HTMLFormElement, initial: AdminPropertyRecord | undefined, media: string[]): BdsFormInput {
   const data = new FormData(form);
   const get = (name: string) => String(data.get(name) ?? "").trim();
 
@@ -39,7 +40,7 @@ function readInput(form: HTMLFormElement, initial: AdminPropertyRecord | undefin
     // value through unchanged rather than inventing a new field.
     bedroomCount: initial?.bedroomCount ?? null,
     furnishingStatus: initial?.furnishingStatus ?? null,
-    media: initial?.media ?? [],
+    media,
     commission: get("commission"),
     guidePerson: get("guidePerson"),
     internalNotes: get("internalNotes"),
@@ -52,13 +53,36 @@ export function BdsForm({ initial }: BdsFormProps) {
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState<string>();
   const [savedMessage, setSavedMessage] = useState<string>();
+  const [media, setMedia] = useState<string[]>(initial?.media ?? []);
+  const [uploaderState, setUploaderState] = useState<UploaderState>("empty");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  async function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    setUploaderState("uploading");
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const result = await uploadMediaAction(formData);
+      if (!result.ok || !result.record) {
+        setUploaderState("error");
+        return;
+      }
+      setMedia((prev) => [...prev, result.record!.webViewLink]);
+      setUploaderState("empty");
+    } catch {
+      setUploaderState("error");
+    }
+  }
 
   async function save(form: HTMLFormElement, publish: boolean) {
     setSaving(publish ? "publish" : "draft");
     setFormError(undefined);
     setSavedMessage(undefined);
     try {
-      const input = readInput(form, initial);
+      const input = readInput(form, initial, media);
       const result = await saveBdsAction(input, publish);
       if (!result.ok) {
         setFieldErrors(result.fieldErrors ?? {});
@@ -206,8 +230,17 @@ export function BdsForm({ initial }: BdsFormProps) {
           <h2 className="text-h3 text-ink">Ảnh / video</h2>
           <p className="mt-1 text-body text-muted">Hỗ trợ hyperlink Drive/Photos sau khi backend normalization.</p>
           <div className="mt-4 grid grid-cols-2 gap-4 tablet:grid-cols-4">
-            <Uploader state="empty" />
-            {(initial?.media ?? []).map((src, i) => (
+            <Uploader state={uploaderState} onClick={() => fileInputRef.current?.click()} onRetry={() => setUploaderState("empty")} />
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm"
+              className="hidden"
+              aria-hidden="true"
+              tabIndex={-1}
+              onChange={handleFileChange}
+            />
+            {media.map((src, i) => (
               <div key={src + i} className="relative aspect-[4/3] overflow-hidden rounded-md">
                 <Image src={src} alt={`Ảnh ${i + 1}`} fill className="object-cover" unoptimized />
               </div>
