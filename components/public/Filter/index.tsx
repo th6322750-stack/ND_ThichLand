@@ -1,6 +1,6 @@
 import type { PropertyType } from "@/lib/types";
 import { AREA_RANGES, PRICE_RANGES, type RentalFilterState } from "@/lib/rentalFilters";
-import { EmptyRentalResults } from "@/components/public/EmptyRentalResults";
+import { EmptySearchResults } from "@/components/public/EmptySearchResults";
 
 interface FilterProps {
   value: RentalFilterState;
@@ -116,7 +116,12 @@ export function Filter({
 
       {empty && (
         <div className="mt-6">
-          <EmptyRentalResults onReset={onReset} />
+          <EmptySearchResults
+            title="Không tìm thấy căn phù hợp?"
+            message="Thử mở rộng khoảng giá hoặc khu vực. Không tự hiển thị dữ liệu nội bộ."
+            resetLabel="Đặt lại bộ lọc"
+            onReset={onReset}
+          />
         </div>
       )}
     </div>

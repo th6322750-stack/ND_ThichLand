@@ -4,7 +4,7 @@ import { Suspense, useMemo, useState } from "react";
 import { Filter } from "@/components/public/Filter";
 import { FilterDrawer } from "@/components/public/FilterDrawer";
 import { PropertyCard } from "@/components/public/PropertyCard";
-import { EmptyRentalResults } from "@/components/public/EmptyRentalResults";
+import { EmptySearchResults } from "@/components/public/EmptySearchResults";
 import { Pagination } from "@/components/public/Pagination";
 import { Icon } from "@/components/icons";
 import { properties } from "@/lib/data/properties";
@@ -84,7 +84,12 @@ function ChoThuePageInner() {
 
           {isEmpty ? (
             <div className="mt-6">
-              <EmptyRentalResults onReset={reset} />
+              <EmptySearchResults
+                title="Không tìm thấy căn phù hợp?"
+                message="Thử mở rộng khoảng giá hoặc khu vực. Không tự hiển thị dữ liệu nội bộ."
+                resetLabel="Đặt lại bộ lọc"
+                onReset={reset}
+              />
             </div>
           ) : (
             <div className="mt-6 grid grid-cols-1 gap-6">
@@ -158,7 +163,12 @@ function ChoThuePageInner() {
 
               {isEmpty ? (
                 <div className="mt-6">
-                  <EmptyRentalResults onReset={reset} />
+                  <EmptySearchResults
+                title="Không tìm thấy căn phù hợp?"
+                message="Thử mở rộng khoảng giá hoặc khu vực. Không tự hiển thị dữ liệu nội bộ."
+                resetLabel="Đặt lại bộ lọc"
+                onReset={reset}
+              />
                 </div>
               ) : (
                 <div className="mt-6 grid grid-cols-1 gap-6 tablet:grid-cols-2 desktop:grid-cols-3 wide:grid-cols-4">

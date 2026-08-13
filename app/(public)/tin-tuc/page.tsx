@@ -1,24 +1,27 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Suspense, useMemo } from "react";
 import { NewsCard } from "@/components/public/NewsCard";
+import { EmptySearchResults } from "@/components/public/EmptySearchResults";
 import { Pagination } from "@/components/public/Pagination";
 import { Icon } from "@/components/icons";
 import { news } from "@/lib/data/news";
+import { useNewsFilters } from "@/lib/useNewsFilters";
+import { filterNews } from "@/lib/newsFilters";
 
 const CATEGORIES = ["Cho thuê", "Dự án", "Kinh nghiệm"];
 const PAGE_SIZE = 6;
 
-export default function TinTucPage() {
-  const [category, setCategory] = useState<string | null>(null);
-  const [page, setPage] = useState(1);
+function TinTucPageInner() {
+  const { filters, page, setFilters, setPage, reset } = useNewsFilters();
 
-  const filtered = useMemo(
-    () => (category ? news.filter((n) => n.category === category) : news),
-    [category],
-  );
+  const filtered = useMemo(() => filterNews(news, filters), [filters]);
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  const visible = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const safePage = Math.min(page, totalPages);
+  const visible = useMemo(
+    () => filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE),
+    [filtered, safePage],
+  );
 
   return (
     <>
@@ -33,7 +36,10 @@ export default function TinTucPage() {
             <Icon name="search" size={18} className="text-muted" />
             <input
               type="search"
+              value={filters.q}
+              onChange={(e) => setFilters({ q: e.target.value })}
               placeholder="Tìm bài viết..."
+              aria-label="Tìm bài viết"
               className="w-full bg-transparent text-body text-ink outline-none placeholder:text-muted"
             />
           </div>
@@ -42,13 +48,10 @@ export default function TinTucPage() {
               <button
                 key={c}
                 type="button"
-                onClick={() => {
-                  setCategory((current) => (current === c ? null : c));
-                  setPage(1);
-                }}
-                aria-pressed={category === c}
+                onClick={() => setFilters({ category: filters.category === c ? "" : c })}
+                aria-pressed={filters.category === c}
                 className={`rounded-full px-4 py-2 text-label ${
-                  category === c ? "bg-primary text-surface" : "bg-surface text-ink"
+                  filters.category === c ? "bg-primary text-surface" : "bg-surface text-ink"
                 }`}
               >
                 {c}
@@ -57,14 +60,25 @@ export default function TinTucPage() {
           </div>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-6 tablet:grid-cols-2 desktop:grid-cols-3">
-          {visible.map((article) => (
-            <NewsCard key={article.slug} article={article} />
-          ))}
-        </div>
+        {filtered.length === 0 ? (
+          <div className="mt-8">
+            <EmptySearchResults
+              title="Không tìm thấy bài viết phù hợp?"
+              message="Thử từ khóa khác hoặc bỏ bớt bộ lọc chuyên mục."
+              resetLabel="Xóa bộ lọc"
+              onReset={reset}
+            />
+          </div>
+        ) : (
+          <div className="mt-8 grid grid-cols-1 gap-6 tablet:grid-cols-2 desktop:grid-cols-3">
+            {visible.map((article) => (
+              <NewsCard key={article.slug} article={article} />
+            ))}
+          </div>
+        )}
 
         <div className="mt-10">
-          <Pagination page={page} total={totalPages} onChange={setPage} />
+          <Pagination page={safePage} total={totalPages} onChange={setPage} />
         </div>
 
         <div className="mt-14 flex flex-col items-start justify-between gap-6 rounded-md bg-soft p-8 desktop:flex-row desktop:items-center">
@@ -83,5 +97,13 @@ export default function TinTucPage() {
         </div>
       </div>
     </>
+  );
+}
+
+export default function TinTucPage() {
+  return (
+    <Suspense fallback={null}>
+      <TinTucPageInner />
+    </Suspense>
   );
 }
