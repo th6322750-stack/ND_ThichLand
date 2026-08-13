@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useFocusTrap } from "@/lib/useFocusTrap";
+import { Icon } from "@/components/icons";
 
 const NAV_ITEMS = [
   { label: "Trang chủ", href: "/" },
@@ -78,14 +79,23 @@ export function Header() {
           </a>
         </div>
 
-        <button
-          type="button"
-          aria-label="Menu"
-          className="flex h-11 w-11 items-center justify-center desktop:hidden"
-          onClick={() => setDrawerOpen(true)}
-        >
-          <Image src="/assets/icons/menu.svg" alt="" width={28} height={28} unoptimized />
-        </button>
+        <div className="flex items-center gap-2 desktop:hidden">
+          <a
+            href="tel:0986602203"
+            aria-label="Gọi 0986 602 203"
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-surface hover:bg-primaryHover"
+          >
+            <Icon name="phone" size={18} className="invert" />
+          </a>
+          <button
+            type="button"
+            aria-label="Menu"
+            className="flex h-11 w-11 items-center justify-center"
+            onClick={() => setDrawerOpen(true)}
+          >
+            <Image src="/assets/icons/menu.svg" alt="" width={28} height={28} unoptimized />
+          </button>
+        </div>
       </div>
 
       {drawerOpen && (

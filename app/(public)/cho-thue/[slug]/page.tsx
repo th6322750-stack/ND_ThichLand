@@ -4,6 +4,7 @@ import { Breadcrumb } from "@/components/public/Breadcrumb";
 import { Gallery } from "@/components/public/Gallery";
 import { PropertyCard } from "@/components/public/PropertyCard";
 import { MapEmbed } from "@/components/public/MapEmbed";
+import { StickyMobileActions } from "@/components/public/StickyMobileActions";
 import { Icon } from "@/components/icons";
 import { formatArea, formatCurrencyVnd } from "@/lib/format";
 import { getPropertyBySlug, properties } from "@/lib/data/properties";
@@ -31,7 +32,7 @@ export default async function ChoThueDetailPage({
   ];
 
   return (
-    <div className="container-page py-8">
+    <div className="container-page py-8 pb-28 desktop:pb-8">
       <Breadcrumb
         items={[
           { label: "Trang chủ", href: "/" },
@@ -149,6 +150,8 @@ export default async function ChoThueDetailPage({
           </div>
         </section>
       )}
+
+      <StickyMobileActions />
     </div>
   );
 }
