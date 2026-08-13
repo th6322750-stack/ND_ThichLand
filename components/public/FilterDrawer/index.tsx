@@ -3,13 +3,30 @@
 import { useEffect } from "react";
 import { useFocusTrap } from "@/lib/useFocusTrap";
 import { Filter } from "@/components/public/Filter";
+import type { RentalFilterState } from "@/lib/rentalFilters";
+import type { PropertyType } from "@/lib/types";
 
 interface FilterDrawerProps {
   open: boolean;
   onClose: () => void;
+  value: RentalFilterState;
+  onChange: (patch: Partial<RentalFilterState>) => void;
+  onApply: () => void;
+  onReset: () => void;
+  locationOptions: string[];
+  propertyTypeOptions: PropertyType[];
 }
 
-export function FilterDrawer({ open, onClose }: FilterDrawerProps) {
+export function FilterDrawer({
+  open,
+  onClose,
+  value,
+  onChange,
+  onApply,
+  onReset,
+  locationOptions,
+  propertyTypeOptions,
+}: FilterDrawerProps) {
   const panelRef = useFocusTrap(open, onClose);
 
   useEffect(() => {
@@ -20,6 +37,11 @@ export function FilterDrawer({ open, onClose }: FilterDrawerProps) {
   }, [open]);
 
   if (!open) return null;
+
+  function handleApply() {
+    onApply();
+    onClose();
+  }
 
   return (
     <>
@@ -41,7 +63,14 @@ export function FilterDrawer({ open, onClose }: FilterDrawerProps) {
             ✕
           </button>
         </div>
-        <Filter onApply={onClose} onReset={onClose} />
+        <Filter
+          value={value}
+          onChange={onChange}
+          onApply={handleApply}
+          onReset={onReset}
+          locationOptions={locationOptions}
+          propertyTypeOptions={propertyTypeOptions}
+        />
       </div>
     </>
   );
