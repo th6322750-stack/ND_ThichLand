@@ -1,6 +1,9 @@
 import { StatCard } from "@/components/admin/StatCard";
-import { adminProperties } from "@/lib/data/properties.admin";
 import { formatCurrencyVnd, formatArea } from "@/lib/format";
+import { getRentalProviders } from "@/lib/server/rental/providers";
+import { buildMergedRentalData } from "@/lib/server/rental/merge";
+
+export const dynamic = "force-dynamic";
 
 const STATS = [
   { color: "#8A1822", label: "BĐS đang trống", value: "128", delta: "+12 tuần này", deltaColor: "#8A1822" },
@@ -9,8 +12,10 @@ const STATS = [
   { color: "#23825C", label: "Media", value: "386", delta: "ảnh / video", deltaColor: "#23825C" },
 ];
 
-export default function AdminDashboardPage() {
-  const recent = adminProperties.slice(0, 4);
+export default async function AdminDashboardPage() {
+  const { source, overlay } = await getRentalProviders();
+  const merged = await buildMergedRentalData(source, overlay);
+  const recent = merged.admin.slice(0, 4);
 
   return (
     <div>

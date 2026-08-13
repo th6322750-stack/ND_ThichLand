@@ -16,7 +16,7 @@ function renderWithRouter(push: (href: string) => void) {
 
   return render(
     <AppRouterContext.Provider value={mockRouter}>
-      <SearchPanel />
+      <SearchPanel locationOptions={["Hà Nội"]} propertyTypeOptions={["Studio", "Nhà"]} />
     </AppRouterContext.Provider>,
   );
 }

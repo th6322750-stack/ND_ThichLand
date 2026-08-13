@@ -17,6 +17,8 @@ export const properties: PropertyListing[] = [
     highlights: ["Nội thất đầy đủ", "Ban công", "Vào ngay"],
     availability: "Còn trống",
     media: [PLACEHOLDER, PLACEHOLDER, PLACEHOLDER],
+    bedroomCount: null,
+    furnishingStatus: null,
   },
   {
     slug: "studio-ban-cong-thoang-p301",
@@ -32,6 +34,8 @@ export const properties: PropertyListing[] = [
     highlights: ["Ban công", "Nội thất", "Vào ngay"],
     availability: "Còn trống",
     media: [PLACEHOLDER, PLACEHOLDER],
+    bedroomCount: null,
+    furnishingStatus: null,
   },
   {
     slug: "mat-bang-kinh-doanh-mat-pho-mb05",
@@ -47,6 +51,8 @@ export const properties: PropertyListing[] = [
     highlights: ["Mặt tiền rộng", "Kinh doanh đa ngành", "Vào ngay"],
     availability: "Còn trống",
     media: [PLACEHOLDER, PLACEHOLDER],
+    bedroomCount: null,
+    furnishingStatus: null,
   },
   {
     slug: "nha-nguyen-can-4-tang",
@@ -62,6 +68,8 @@ export const properties: PropertyListing[] = [
     highlights: ["Nguyên căn", "4 tầng", "Chỗ để xe"],
     availability: "Còn trống",
     media: [PLACEHOLDER, PLACEHOLDER, PLACEHOLDER],
+    bedroomCount: null,
+    furnishingStatus: null,
   },
   {
     slug: "van-phong-sang-vao-ngay-vp03",
@@ -77,6 +85,8 @@ export const properties: PropertyListing[] = [
     highlights: ["Sáng thoáng", "Vào ngay", "Có thang máy"],
     availability: "Còn trống",
     media: [PLACEHOLDER, PLACEHOLDER],
+    bedroomCount: null,
+    furnishingStatus: null,
   },
   {
     slug: "xuong-rong-xe-tai-vao",
@@ -92,6 +102,8 @@ export const properties: PropertyListing[] = [
     highlights: ["Xe tải vào", "Trần cao", "Điện 3 pha"],
     availability: "Còn trống",
     media: [PLACEHOLDER, PLACEHOLDER],
+    bedroomCount: null,
+    furnishingStatus: null,
   },
   {
     slug: "can-ho-1pn-can-1208",
@@ -107,6 +119,8 @@ export const properties: PropertyListing[] = [
     highlights: ["View thoáng", "An ninh 24/7"],
     availability: "Còn trống",
     media: [PLACEHOLDER, PLACEHOLDER],
+    bedroomCount: null,
+    furnishingStatus: null,
   },
   {
     slug: "studio-gac-lung-p205",
@@ -122,6 +136,8 @@ export const properties: PropertyListing[] = [
     highlights: ["Giá tốt", "Gần trường học"],
     availability: "Sắp trống",
     media: [PLACEHOLDER],
+    bedroomCount: null,
+    furnishingStatus: null,
   },
   {
     slug: "mat-bang-van-phong-toa-nha-mb12",
@@ -137,6 +153,8 @@ export const properties: PropertyListing[] = [
     highlights: ["Sảnh riêng", "Bãi đỗ xe"],
     availability: "Đã cho thuê",
     media: [PLACEHOLDER, PLACEHOLDER],
+    bedroomCount: null,
+    furnishingStatus: null,
   },
   {
     slug: "nha-mat-pho-kinh-doanh",
@@ -152,6 +170,8 @@ export const properties: PropertyListing[] = [
     highlights: ["Mặt phố", "Vừa ở vừa kinh doanh"],
     availability: "Còn trống",
     media: [PLACEHOLDER, PLACEHOLDER],
+    bedroomCount: null,
+    furnishingStatus: null,
   },
   {
     slug: "van-phong-chia-se-vp08",
@@ -167,6 +187,8 @@ export const properties: PropertyListing[] = [
     highlights: ["Đầy đủ nội thất", "Internet tốc độ cao"],
     availability: "Còn trống",
     media: [PLACEHOLDER],
+    bedroomCount: null,
+    furnishingStatus: null,
   },
   {
     slug: "xuong-kho-bai-xn05",
@@ -182,6 +204,8 @@ export const properties: PropertyListing[] = [
     highlights: ["Gần trục đường lớn", "An ninh bảo vệ"],
     availability: "Còn trống",
     media: [PLACEHOLDER, PLACEHOLDER],
+    bedroomCount: null,
+    furnishingStatus: null,
   },
 ];
 

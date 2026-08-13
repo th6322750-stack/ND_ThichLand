@@ -7,26 +7,26 @@ import { MapEmbed } from "@/components/public/MapEmbed";
 import { StickyMobileActions } from "@/components/public/StickyMobileActions";
 import { Icon, type IconName } from "@/components/icons";
 import { formatArea, formatCurrencyVnd } from "@/lib/format";
-import { getPropertyBySlug, properties } from "@/lib/data/properties";
+import { getRentalProviders } from "@/lib/server/rental/providers";
+import { buildMergedRentalData } from "@/lib/server/rental/merge";
+import { toPublicPropertyListings } from "@/lib/server/rental/dto";
 import type { PropertyListing } from "@/lib/types";
 
-export function generateStaticParams() {
-  return properties.map((p) => ({ slug: p.slug }));
-}
+export const dynamic = "force-dynamic";
+// No generateStaticParams: new source rows must be addressable without a
+// rebuild (GĐ6 contract, Task 05) — resolved by slug at request time instead.
 
 // Facts row matches the approved renders' visual slots exactly (area/bedrooms/
-// elevator/furnishing). Bedroom count and furnishing status have no backing
-// field in data-source-map.json's public schema, so they render as "—"
-// rather than being inferred from property_type or parsed from description —
-// see .webby/implementation/IMPLEMENTATION_RECEIPT.json for the source-of-
-// truth decision. This applies to both viewports: the desktop approved
-// render (03_ChiTietChoThue_WEB.png) shows the same four slots.
+// elevator/furnishing) on both viewports. GĐ6 can now populate bedroomCount/
+// furnishingStatus for real, but only from an explicit source phrase (see
+// lib/server/rental/parse.ts) — never inferred from property_type or a bare
+// appliance list. No explicit phrase in the source -> "—", same as before.
 function buildFacts(listing: PropertyListing): { icon: IconName; label: string; value: string }[] {
   return [
     { icon: "area", label: "Diện tích", value: formatArea(listing.area) },
-    { icon: "bed", label: "Phòng ngủ", value: "—" },
+    { icon: "bed", label: "Phòng ngủ", value: listing.bedroomCount !== null ? String(listing.bedroomCount) : "—" },
     { icon: "building", label: "Thang máy", value: listing.verticalAccess },
-    { icon: "check", label: "Nội thất", value: "—" },
+    { icon: "check", label: "Nội thất", value: listing.furnishingStatus ?? "—" },
   ];
 }
 
@@ -120,7 +120,10 @@ export default async function ChoThueDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const listing = getPropertyBySlug(slug);
+  const { source, overlay } = await getRentalProviders();
+  const merged = await buildMergedRentalData(source, overlay);
+  const properties = toPublicPropertyListings(merged.admin);
+  const listing = properties.find((p) => p.slug === slug);
   if (!listing) notFound();
 
   const related = properties.filter((p) => p.slug !== listing.slug).slice(0, 3);

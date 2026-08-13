@@ -20,6 +20,7 @@ const defaultInternal = { commission: "Theo dữ liệu", guidePerson: "Tên / S
 export const adminProperties: AdminPropertyRecord[] = properties.map((property) => ({
   ...property,
   ...(internalBySlug[property.slug] ?? defaultInternal),
+  published: true,
 }));
 
 export function getAdminPropertyBySlug(slug: string): AdminPropertyRecord | undefined {

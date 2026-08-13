@@ -1,17 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Icon } from "@/components/icons";
-import { properties } from "@/lib/data/properties";
-import {
-  AREA_RANGES,
-  EMPTY_RENTAL_FILTERS,
-  PRICE_RANGES,
-  getLocationOptions,
-  getPropertyTypeOptions,
-  rentalFiltersToParams,
-} from "@/lib/rentalFilters";
+import { AREA_RANGES, EMPTY_RENTAL_FILTERS, PRICE_RANGES, rentalFiltersToParams } from "@/lib/rentalFilters";
 import type { PropertyType } from "@/lib/types";
 
 interface HomeSearchState {
@@ -25,12 +17,14 @@ const EMPTY_STATE: HomeSearchState = { propertyType: "", location: "", priceRang
 
 const SELECT_BASE = "rounded-md border border-line px-4 py-3 text-body focus:border-primary focus:outline-none";
 
-export function SearchPanel() {
+interface SearchPanelProps {
+  locationOptions: string[];
+  propertyTypeOptions: PropertyType[];
+}
+
+export function SearchPanel({ locationOptions, propertyTypeOptions }: SearchPanelProps) {
   const router = useRouter();
   const [state, setState] = useState<HomeSearchState>(EMPTY_STATE);
-
-  const locationOptions = useMemo(() => getLocationOptions(properties), []);
-  const propertyTypeOptions = useMemo(() => getPropertyTypeOptions(properties), []);
 
   function handleSearch() {
     const params = rentalFiltersToParams({ ...EMPTY_RENTAL_FILTERS, ...state }, 1);

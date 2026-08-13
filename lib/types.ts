@@ -15,12 +15,22 @@ export interface PropertyListing {
   highlights: string[];
   availability: Availability;
   media: string[]; // resolved image URLs/paths, never raw Drive hyperlinks
+  // GĐ6: only ever set from an explicit source phrase (see
+  // lib/server/rental/parse.ts) — never inferred (e.g. Studio != 1 bedroom).
+  // null renders as "—", exactly like an unset field always has here.
+  bedroomCount: number | null;
+  furnishingStatus: string | null;
 }
 
 export interface AdminPropertyRecord extends PropertyListing {
   commission: string; // INTERNAL-ONLY
   guidePerson: string; // INTERNAL-ONLY
   internalNotes: string; // INTERNAL-ONLY
+  published: boolean;
+  // Present only for sheet-derived records (`sheet:<row>`) — the key an
+  // Admin edit/hide writes to WEB_BDS_OVERRIDES. Absent for WEB_BDS_CUSTOM
+  // records, which are addressed by `slug`/id directly instead.
+  sourceId?: string;
 }
 
 export type ProjectStatus = "Đang triển khai" | "Tiêu biểu" | "Đã hoàn thành";

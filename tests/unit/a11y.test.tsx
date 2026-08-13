@@ -47,12 +47,12 @@ function expectNoSeriousViolations(container: Element) {
 
 describe("accessibility sweep", () => {
   it("homepage has no serious axe violations", async () => {
-    const { container } = render(withRouter(<HomePage />, "/"));
+    const { container } = render(withRouter(await HomePage(), "/"));
     await expectNoSeriousViolations(container);
   });
 
   it("rental list page has no serious axe violations", async () => {
-    const { container } = render(withRouter(<ChoThuePage />, "/cho-thue"));
+    const { container } = render(withRouter(await ChoThuePage(), "/cho-thue"));
     await expectNoSeriousViolations(container);
   });
 
@@ -84,7 +84,7 @@ describe("accessibility sweep", () => {
   });
 
   it("BdsForm has no serious axe violations", async () => {
-    const { container } = render(<BdsForm />);
+    const { container } = render(withRouter(<BdsForm />));
     await expectNoSeriousViolations(container);
   });
 });

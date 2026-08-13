@@ -1,11 +1,30 @@
 import Link from "next/link";
 import { DataTable } from "@/components/admin/DataTable";
 import { Icon } from "@/components/icons";
-import { adminProperties } from "@/lib/data/properties.admin";
 import { formatArea } from "@/lib/format";
+import { getRentalProviders } from "@/lib/server/rental/providers";
+import { buildMergedRentalData } from "@/lib/server/rental/merge";
+import { BdsExportCsvButton } from "@/components/admin/BdsExportCsvButton";
 import type { AdminPropertyRecord } from "@/lib/types";
 
-export default function AdminBdsListPage() {
+export const dynamic = "force-dynamic";
+
+function matchesQuery(r: AdminPropertyRecord, q: string): boolean {
+  const needle = q.trim().toLowerCase();
+  if (!needle) return true;
+  return [r.roomNo, r.address, r.location].some((f) => f.toLowerCase().includes(needle));
+}
+
+export default async function AdminBdsListPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}) {
+  const { q = "" } = await searchParams;
+  const { source, overlay } = await getRentalProviders();
+  const merged = await buildMergedRentalData(source, overlay);
+  const visible = merged.admin.filter((r) => matchesQuery(r, q));
+
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-4">
@@ -23,12 +42,15 @@ export default function AdminBdsListPage() {
         </Link>
       </div>
 
-      <div className="mt-6 flex flex-col gap-3 tablet:flex-row">
+      <form action="/admin/bds" className="mt-6 flex flex-col gap-3 tablet:flex-row">
         <div className="flex flex-1 items-center gap-3 rounded-md border border-line bg-surface px-4 py-3">
           <Icon name="search" size={18} className="text-muted" />
           <input
             type="search"
+            name="q"
+            defaultValue={q}
             placeholder="Tìm theo mã phòng, địa chỉ..."
+            aria-label="Tìm theo mã phòng, địa chỉ"
             className="w-full text-body text-ink outline-none placeholder:text-muted"
           />
         </div>
@@ -38,25 +60,25 @@ export default function AdminBdsListPage() {
         >
           <Icon name="filter" size={16} /> Bộ lọc
         </button>
-        <button
-          type="button"
-          className="inline-flex items-center justify-center rounded-md border border-line px-6 py-3 text-button uppercase text-ink hover:border-primary"
-        >
-          Xuất CSV
-        </button>
-      </div>
+        <BdsExportCsvButton records={visible} />
+      </form>
 
       <div className="mt-6">
         <DataTable
           rowKey={(row: AdminPropertyRecord) => row.slug}
-          rows={adminProperties}
+          rows={visible}
+          emptyLabel={q ? `Không tìm thấy BĐS phù hợp với "${q}".` : "Chưa có dữ liệu nào."}
           columns={[
             { key: "roomNo", label: "Mã / phòng", render: (r) => <span className="font-bold text-ink">{r.roomNo}</span> },
             { key: "propertyType", label: "Loại", render: (r) => r.propertyType },
             { key: "location", label: "Khu vực", render: (r) => r.location },
             { key: "price", label: "Giá", render: (r) => `${(r.price / 1_000_000).toString()}tr` },
             { key: "area", label: "Diện tích", render: (r) => formatArea(r.area) },
-            { key: "availability", label: "Trạng thái", render: (r) => r.availability },
+            {
+              key: "availability",
+              label: "Trạng thái",
+              render: (r) => (r.published ? r.availability : "Nháp"),
+            },
             {
               key: "actions",
               label: "Thao tác",
