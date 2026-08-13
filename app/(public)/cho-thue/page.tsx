@@ -189,10 +189,8 @@ function ChoThuePageInner() {
       <FilterDrawer
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
-        value={filters}
-        onChange={setFilters}
-        onApply={() => {}}
-        onReset={reset}
+        committedFilters={filters}
+        onApply={setFilters}
         locationOptions={locationOptions}
         propertyTypeOptions={propertyTypeOptions}
       />
