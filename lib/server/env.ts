@@ -1,5 +1,13 @@
-import "server-only";
-
+// No "server-only" guard here on purpose: this module is also imported by
+// standalone scripts (scripts/gd6-bootstrap-cms.ts) run via `tsx` outside
+// Next.js's bundler, where the real "server-only" package throws unconditionally
+// (it only resolves to a no-op under Next's "react-server" bundler condition).
+// The actual credential/internal-data boundary is enforced one layer up, at
+// the repository/DAL modules that a page or client component could plausibly
+// import — those keep the "server-only" guard. This file only reads env var
+// *names*, never embeds a secret value as a literal, so nothing sensitive
+// is at stake even if a client bundle pulled it in.
+//
 // Every accessor here is read lazily (called at request/action time), never
 // at module-eval time — required so `next build`/`next start`/tests never
 // need live secrets to succeed, and so a missing var fails as a clear
