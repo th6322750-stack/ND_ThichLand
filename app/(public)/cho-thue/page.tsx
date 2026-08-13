@@ -1,24 +1,33 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import { Filter } from "@/components/public/Filter";
 import { FilterDrawer } from "@/components/public/FilterDrawer";
 import { PropertyCard } from "@/components/public/PropertyCard";
+import { EmptySearchResults } from "@/components/public/EmptySearchResults";
 import { Pagination } from "@/components/public/Pagination";
 import { Icon } from "@/components/icons";
 import { properties } from "@/lib/data/properties";
+import { useRentalFilters } from "@/lib/useRentalFilters";
+import { filterProperties, getLocationOptions, getPropertyTypeOptions } from "@/lib/rentalFilters";
 
 const PAGE_SIZE = 9;
 
-export default function ChoThuePage() {
-  const [page, setPage] = useState(1);
+function ChoThuePageInner() {
+  const { filters, page, setFilters, setPage, reset } = useRentalFilters();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const totalPages = Math.max(1, Math.ceil(properties.length / PAGE_SIZE));
+  const locationOptions = useMemo(() => getLocationOptions(properties), []);
+  const propertyTypeOptions = useMemo(() => getPropertyTypeOptions(properties), []);
+  const filtered = useMemo(() => filterProperties(properties, filters), [filters]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const safePage = Math.min(page, totalPages);
   const visible = useMemo(
-    () => properties.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE),
-    [page],
+    () => filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE),
+    [filtered, safePage],
   );
+  const isEmpty = filtered.length === 0;
 
   const resultPills = (
     <>
@@ -40,7 +49,10 @@ export default function ChoThuePage() {
             <Icon name="search" size={18} className="text-muted" />
             <input
               type="search"
+              value={filters.q}
+              onChange={(e) => setFilters({ q: e.target.value })}
               placeholder="Tìm theo địa chỉ, khu vực..."
+              aria-label="Tìm theo địa chỉ, khu vực"
               className="w-full text-body text-ink outline-none placeholder:text-muted"
             />
           </div>
@@ -55,6 +67,8 @@ export default function ChoThuePage() {
             </button>
             <button
               type="button"
+              aria-pressed="true"
+              title="Thứ tự mặc định theo dữ liệu nguồn"
               className="inline-flex items-center justify-center gap-2 rounded-md border border-line px-6 py-3 text-button uppercase text-ink"
             >
               Mới nhất
@@ -63,19 +77,30 @@ export default function ChoThuePage() {
 
           <div className="mt-4 flex flex-wrap items-center gap-2">
             <span className="rounded-full bg-ink px-3 py-1 text-label text-surface">
-              {properties.length} kết quả
+              {filtered.length} kết quả
             </span>
             {resultPills}
           </div>
 
-          <div className="mt-6 grid grid-cols-1 gap-6">
-            {visible.map((listing) => (
-              <PropertyCard key={listing.slug} listing={listing} />
-            ))}
-          </div>
+          {isEmpty ? (
+            <div className="mt-6">
+              <EmptySearchResults
+                title="Không tìm thấy căn phù hợp?"
+                message="Thử mở rộng khoảng giá hoặc khu vực. Không tự hiển thị dữ liệu nội bộ."
+                resetLabel="Đặt lại bộ lọc"
+                onReset={reset}
+              />
+            </div>
+          ) : (
+            <div className="mt-6 grid grid-cols-1 gap-6">
+              {visible.map((listing) => (
+                <PropertyCard key={listing.slug} listing={listing} />
+              ))}
+            </div>
+          )}
 
           <div className="mt-10">
-            <Pagination page={page} total={totalPages} onChange={setPage} />
+            <Pagination page={safePage} total={totalPages} onChange={setPage} />
           </div>
         </div>
 
@@ -90,7 +115,10 @@ export default function ChoThuePage() {
               <Icon name="search" size={18} className="text-muted" />
               <input
                 type="search"
+                value={filters.q}
+                onChange={(e) => setFilters({ q: e.target.value })}
                 placeholder="Tìm theo địa chỉ, khu vực hoặc mã phòng..."
+                aria-label="Tìm theo địa chỉ, khu vực hoặc mã phòng"
                 className="w-full text-body text-ink outline-none placeholder:text-muted"
               />
             </div>
@@ -104,13 +132,20 @@ export default function ChoThuePage() {
 
           <div className="mt-8 grid grid-cols-[280px_1fr] gap-8">
             <aside>
-              <Filter />
+              <Filter
+                value={filters}
+                onChange={setFilters}
+                onReset={reset}
+                locationOptions={locationOptions}
+                propertyTypeOptions={propertyTypeOptions}
+                empty={isEmpty}
+              />
             </aside>
 
             <div>
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <p className="text-body text-ink">
-                  <span className="font-bold">{properties.length}</span> bất động sản phù hợp{" "}
+                  <span className="font-bold">{filtered.length}</span> bất động sản phù hợp{" "}
                   <span className="ml-2 rounded-full bg-soft px-3 py-1 text-label text-success">
                     Giá công khai
                   </span>{" "}
@@ -126,21 +161,47 @@ export default function ChoThuePage() {
                 </label>
               </div>
 
-              <div className="mt-6 grid grid-cols-1 gap-6 tablet:grid-cols-2 desktop:grid-cols-3 wide:grid-cols-4">
-                {visible.map((listing) => (
-                  <PropertyCard key={listing.slug} listing={listing} />
-                ))}
-              </div>
+              {isEmpty ? (
+                <div className="mt-6">
+                  <EmptySearchResults
+                title="Không tìm thấy căn phù hợp?"
+                message="Thử mở rộng khoảng giá hoặc khu vực. Không tự hiển thị dữ liệu nội bộ."
+                resetLabel="Đặt lại bộ lọc"
+                onReset={reset}
+              />
+                </div>
+              ) : (
+                <div className="mt-6 grid grid-cols-1 gap-6 tablet:grid-cols-2 desktop:grid-cols-3 wide:grid-cols-4">
+                  {visible.map((listing) => (
+                    <PropertyCard key={listing.slug} listing={listing} />
+                  ))}
+                </div>
+              )}
 
               <div className="mt-10">
-                <Pagination page={page} total={totalPages} onChange={setPage} />
+                <Pagination page={safePage} total={totalPages} onChange={setPage} />
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <FilterDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+      <FilterDrawer
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        committedFilters={filters}
+        onApply={setFilters}
+        locationOptions={locationOptions}
+        propertyTypeOptions={propertyTypeOptions}
+      />
     </>
+  );
+}
+
+export default function ChoThuePage() {
+  return (
+    <Suspense fallback={null}>
+      <ChoThuePageInner />
+    </Suspense>
   );
 }

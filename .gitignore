@@ -11,6 +11,7 @@
 # testing
 /coverage
 /tests/visual/__screenshots__
+/tests/visual/__gd5-baseline__
 
 # misc
 _qa_shot.mjs

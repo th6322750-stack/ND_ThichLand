@@ -1,16 +1,48 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useFocusTrap } from "@/lib/useFocusTrap";
 import { Filter } from "@/components/public/Filter";
+import { EMPTY_RENTAL_FILTERS, type RentalFilterState } from "@/lib/rentalFilters";
+import type { PropertyType } from "@/lib/types";
 
 interface FilterDrawerProps {
   open: boolean;
   onClose: () => void;
+  /** Currently committed shared filter state — only read to seed the draft when the drawer opens. */
+  committedFilters: RentalFilterState;
+  /** Called with the full draft once "Áp dụng" is pressed; the drawer closes right after. */
+  onApply: (filters: RentalFilterState) => void;
+  locationOptions: string[];
+  propertyTypeOptions: PropertyType[];
 }
 
-export function FilterDrawer({ open, onClose }: FilterDrawerProps) {
+/**
+ * Draft-first semantics: edits inside the drawer only ever touch a local
+ * draft, never the shared committed filters/URL/results. The draft is
+ * re-seeded from `committedFilters` on every open→close→open cycle, so
+ * closing via X/Escape/backdrop silently discards whatever was in
+ * progress. Only "Áp dụng" commits — including "Xóa bộ lọc", which just
+ * clears the draft and still needs Áp dụng to take effect.
+ */
+export function FilterDrawer({
+  open,
+  onClose,
+  committedFilters,
+  onApply,
+  locationOptions,
+  propertyTypeOptions,
+}: FilterDrawerProps) {
   const panelRef = useFocusTrap(open, onClose);
+  const [draft, setDraft] = useState<RentalFilterState>(committedFilters);
+  const wasOpenRef = useRef(open);
+
+  useEffect(() => {
+    if (open && !wasOpenRef.current) {
+      setDraft(committedFilters);
+    }
+    wasOpenRef.current = open;
+  }, [open, committedFilters]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -20,6 +52,19 @@ export function FilterDrawer({ open, onClose }: FilterDrawerProps) {
   }, [open]);
 
   if (!open) return null;
+
+  function handleApply() {
+    onApply(draft);
+    onClose();
+  }
+
+  function handleDraftChange(patch: Partial<RentalFilterState>) {
+    setDraft((d) => ({ ...d, ...patch }));
+  }
+
+  function handleDraftReset() {
+    setDraft(EMPTY_RENTAL_FILTERS);
+  }
 
   return (
     <>
@@ -41,7 +86,14 @@ export function FilterDrawer({ open, onClose }: FilterDrawerProps) {
             ✕
           </button>
         </div>
-        <Filter onApply={onClose} onReset={onClose} />
+        <Filter
+          value={draft}
+          onChange={handleDraftChange}
+          onApply={handleApply}
+          onReset={handleDraftReset}
+          locationOptions={locationOptions}
+          propertyTypeOptions={propertyTypeOptions}
+        />
       </div>
     </>
   );

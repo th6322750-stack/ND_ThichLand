@@ -20,4 +20,14 @@ describe("Gallery lightbox", () => {
     await user.keyboard("{Escape}");
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
+
+  it("locks body scroll while open and restores it on close", async () => {
+    const user = userEvent.setup();
+    render(<Gallery images={images} />);
+    expect(document.body.style.overflow).toBe("");
+    await user.click(screen.getAllByRole("button", { name: /xem ảnh/i })[0]);
+    expect(document.body.style.overflow).toBe("hidden");
+    await user.keyboard("{Escape}");
+    expect(document.body.style.overflow).toBe("");
+  });
 });

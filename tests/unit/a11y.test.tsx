@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { render } from "@testing-library/react";
 import { axe } from "vitest-axe";
 import { AppRouterContext } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { PathnameContext, SearchParamsContext } from "next/dist/shared/lib/hooks-client-context.shared-runtime";
 import HomePage from "@/app/(public)/page";
 import ChoThuePage from "@/app/(public)/cho-thue/page";
 import DuAnPage from "@/app/(public)/du-an/page";
@@ -20,8 +21,16 @@ const mockRouter = {
   prefetch: () => {},
 } as unknown as Parameters<typeof AppRouterContext.Provider>[0]["value"];
 
-function withRouter(children: React.ReactNode) {
-  return <AppRouterContext.Provider value={mockRouter}>{children}</AppRouterContext.Provider>;
+function withRouter(children: React.ReactNode, pathname = "/", search = "") {
+  return (
+    <AppRouterContext.Provider value={mockRouter}>
+      <PathnameContext.Provider value={pathname}>
+        <SearchParamsContext.Provider value={new URLSearchParams(search)}>
+          {children}
+        </SearchParamsContext.Provider>
+      </PathnameContext.Provider>
+    </AppRouterContext.Provider>
+  );
 }
 
 function expectNoSeriousViolations(container: Element) {
@@ -38,12 +47,12 @@ function expectNoSeriousViolations(container: Element) {
 
 describe("accessibility sweep", () => {
   it("homepage has no serious axe violations", async () => {
-    const { container } = render(<HomePage />);
+    const { container } = render(withRouter(<HomePage />, "/"));
     await expectNoSeriousViolations(container);
   });
 
   it("rental list page has no serious axe violations", async () => {
-    const { container } = render(<ChoThuePage />);
+    const { container } = render(withRouter(<ChoThuePage />, "/cho-thue"));
     await expectNoSeriousViolations(container);
   });
 
@@ -58,7 +67,7 @@ describe("accessibility sweep", () => {
   });
 
   it("news list page has no serious axe violations", async () => {
-    const { container } = render(<TinTucPage />);
+    const { container } = render(withRouter(<TinTucPage />, "/tin-tuc"));
     await expectNoSeriousViolations(container);
   });
 

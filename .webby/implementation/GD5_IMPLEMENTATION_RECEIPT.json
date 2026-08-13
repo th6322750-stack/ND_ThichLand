@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "phase": "GĐ5",
+  "executor": "CLAUDE",
+  "baseGd4Commit": "fc06923f2c855cd5b111be3a1296be5e5f631448",
+  "consumedUiRevision": 3,
+  "consumedUiCommit": "ff96ed9ea596071c14515a551cdf31d46f0b0f69",
+  "branch": "claude/gd5-ux-frontend",
+  "uxImplementationCommit": "f5e3c6baa4c9a04fc9fc97cd76e975c0974eeeee",
+  "commitCount": 9,
+  "implementedInteractions": [
+    {
+      "area": "Rental discovery (/cho-thue + homepage SearchPanel)",
+      "detail": "Real filtering over authoritative fields only (roomNo/location/address/propertyType/description/highlights for text search; location/type/price-band/area-band for structured filters). Desktop Filter and mobile FilterDrawer share one RentalFilterState so they can never drift. Apply updates results + closes the mobile drawer; Reset restores all results to page 1; any filter/search change resets pagination to page 1; result counts reflect the filtered set. Homepage SearchPanel selects the same real options and navigates to /cho-thue with only the supported params picked."
+    },
+    {
+      "area": "URL state / deep links",
+      "detail": "q/location/type/price/area/page persisted via router.replace (no history spam from typing) — /cho-thue and /tin-tuc both survive reload and are deep-linkable. Verified in a real browser via Playwright e2e (tests/e2e/rental-url-state.spec.ts): reload persistence, deep-link reconstruction, and back-navigation after a homepage search."
+    },
+    {
+      "area": "/tin-tuc search + category",
+      "detail": "\"Tìm bài viết...\" now filters title/category/excerpt/section headings, combines with the existing category-button filter, resets pagination on change, and syncs q/category/page to the URL the same way as rentals. Empty state reuses the one approved empty-result visual (EmptySearchResults) instead of a second invented one."
+    },
+    {
+      "area": "Project tabs (/du-an)",
+      "detail": "Proper tablist/tab/tabpanel semantics (role, aria-selected, aria-controls/aria-labelledby), roving tabindex, and ArrowLeft/ArrowRight/Home/End keyboard support. Same visual buttons and filtering behavior as GĐ4 — only added operability."
+    },
+    {
+      "area": "Header active nav",
+      "detail": "aria-current=\"page\" on the active nav link (desktop nav + mobile drawer), matched by path prefix so nested detail routes still mark their section current. No approved active-nav visual state exists in state-map.json/layer-map.json, so this is semantics only — no new color/underline/weight invented."
+    },
+    {
+      "area": "Gallery lightbox — bug fix",
+      "detail": "Found and fixed a real pre-existing bug: the lightbox never locked body scroll while open (FilterDrawer and Header's mobile nav already did). Added the same lock-on-open/restore-on-close pattern. Left focus trap, Escape, and Left/Right navigation untouched — they already worked."
+    },
+    {
+      "area": "Admin Sidebar mobile drawer — bug fix",
+      "detail": "Same missing-scroll-lock bug found in the admin mobile nav drawer during the Task 08 audit sweep and fixed identically. Existing focus trap/Escape (useFocusTrap) and aria-current were already correct. Accessibility/regression fix to an existing drawer, not new admin functionality — within the GĐ5 admin allowance."
+    },
+    {
+      "area": "Contact form",
+      "detail": "Already had first-invalid-field focus, aria-invalid, and aria-describedby from GĐ4 — verified and locked in with tests, plus added coverage for keyboard (Enter) submission and repeated-empty-submit safety. Remains frontend-only: no email/API/DB/lead storage added, per GĐ6 scope."
+    },
+    {
+      "area": "Motion / prefers-reduced-motion",
+      "detail": "Verified app/globals.css already matches interactions.json exactly (transition-duration: 120ms cap, animation-duration near-zero under prefers-reduced-motion) and duration-fast/duration-base (140ms/220ms) are the only transition tokens in use. Left untouched — no new animation added."
+    },
+    {
+      "area": "Bedroom hard rule",
+      "detail": "\"Số phòng ngủ\" was not wired to any filtering logic. It remains the approved visual control with zero real options beyond the placeholder — never inferred from propertyType, parsed from description, or fabricated. data-source-map.json was not modified."
+    }
+  ],
+  "resolvedInReopenPass": [
+    {
+      "topic": "Mobile FilterDrawer had no real Apply/Cancel semantics — every field change committed straight to shared state/URL on change, so Escape/X/backdrop couldn't discard anything.",
+      "reportedBy": "ChatGPT QA reopen, 2026-08-14",
+      "fix": "FilterDrawer now owns a local draft, re-seeded from committedFilters on every closed→open transition. Field edits and \"Xóa bộ lọc\" only touch the draft; only \"Áp dụng\" calls onApply(draft), which the page wires to setFilters (commits to shared state/URL, resets to page 1), then the drawer closes itself. Escape/X/backdrop just close — draft discarded, re-seeded fresh next open. Desktop Filter unchanged (still applies live). No visual change — state-management only, 0 diff bytes vs the GĐ5 baseline for /cho-thue MOBILE + WEB.",
+      "commit": "f5e3c6baa4c9a04fc9fc97cd76e975c0974eeeee",
+      "testsAdded": "6 new FilterDrawer.test.tsx cases (Escape/X/backdrop discard, Apply commits, re-seed-on-reopen, Xóa bộ lọc stays draft-only) + tests/e2e/rental-filter-drawer.spec.ts (5 specs) exercising the same flows against a real browser/production build."
+    }
+  ],
+  "deferredToGd6": [
+    "Structured bedroom/furnishing source normalization",
+    "Real contact form submission (email/API/DB/lead storage)",
+    "Live Google Sheets sync / real backend",
+    "Real authentication and roles/permissions",
+    "Real CMS persistence and real media uploads",
+    "Zalo production URL",
+    "Đặt lịch xem nhà / lead management",
+    "Payments",
+    "A second/alternate sort order for rentals (no trustworthy createdAt/publishedAt source field exists for properties; news' real publishedAt field was not surfaced as a new visible sort control since none was in the approved design)"
+  ],
+  "buildStatus": "PASS — next build succeeded on commit f5e3c6b, 41 routes generated, zero TypeScript errors. .next cache cleared and rebuilt from scratch before every regression check in this pass.",
+  "testStatus": "PASS — 69/69 Vitest (unit + RTL interaction tests, including rentalFilters, newsFilters, SearchPanel, FilterDrawer draft/discard/apply semantics, DuAnTabs keyboard nav, Gallery scroll-lock, Header aria-current, ContactForm focus/aria-describedby/keyboard-submit, axe-core a11y sweep with zero serious/critical violations); npx tsc --noEmit clean; eslint clean.",
+  "e2eStatus": "PASS — 9/9 Playwright e2e specs against a live `next build && next start` server: tests/e2e/rental-url-state.spec.ts (4 — reload persistence, deep-link reconstruction, back-navigation, news reload) + tests/e2e/rental-filter-drawer.spec.ts (5 — Escape/X/backdrop discard the draft, Áp dụng commits it, reopen re-seeds from committed state). Run via `npm run test:e2e` (QA_BASE_URL required).",
+  "visualRegressionStatus": "PASS — all 26 route/viewport/admin screenshots (tests/visual/capture.ts) plus the root route are byte-for-byte pixel-identical (0 diff bytes, verified via raw-buffer comparison, not just file hashes) to the GĐ5 baseline captured on the exact GĐ4 head commit (fc06923) before any UX work started, re-confirmed after the FilterDrawer reopen-fix (state-management only, 0 diff on /cho-thue MOBILE + WEB). One real visual regression was caught and fixed during initial development, before reaching this final state: four rental-filter selects had drifted from text-muted to text-ink when wired up — restored conditional muted/ink. It was caught by the per-task pixel-diff gate, not by later discovery.",
+  "accessibilityStatus": "PASS — vitest-axe sweep across all public pages + BdsForm reports zero serious/critical violations (unchanged from GĐ4; color-contrast checks are unreliable in jsdom due to missing canvas, a known/accepted limitation, not a false pass). All interactive drawers/modals (FilterDrawer, Header mobile-nav, Gallery lightbox, Admin Sidebar mobile drawer) now consistently have focus trap + Escape + focus restoration + body scroll lock/restoration.",
+  "openRequests": [],
+  "blockers": [],
+  "knownDeviations": [],
+  "notes": "GĐ4 was independently visual-accepted by ChatGPT (GĐ4_DONE, STATIC_UI_PASS=true) prior to this phase starting; this receipt does not re-litigate GĐ4. All 8 GĐ5 tasks implemented on claude/gd5-ux-frontend, branched from the exact approved GĐ4 head commit. No GĐ6 functionality implemented — see deferredToGd6."
+}

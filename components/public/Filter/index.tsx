@@ -1,33 +1,107 @@
-const FIELDS: { label: string; placeholder: string }[] = [
-  { label: "Khu vực", placeholder: "Tất cả khu vực" },
-  { label: "Loại BĐS", placeholder: "Căn hộ / Nhà / Mặt bằng" },
-  { label: "Khoảng giá", placeholder: "Tất cả mức giá" },
-  { label: "Diện tích", placeholder: "Tất cả diện tích" },
-  { label: "Số phòng ngủ", placeholder: "Tất cả" },
-];
+import type { PropertyType } from "@/lib/types";
+import { AREA_RANGES, PRICE_RANGES, type RentalFilterState } from "@/lib/rentalFilters";
+import { EmptySearchResults } from "@/components/public/EmptySearchResults";
 
 interface FilterProps {
+  value: RentalFilterState;
+  onChange: (patch: Partial<RentalFilterState>) => void;
   onApply?: () => void;
-  onReset?: () => void;
+  onReset: () => void;
+  locationOptions: string[];
+  propertyTypeOptions: PropertyType[];
   empty?: boolean;
 }
 
-export function Filter({ onApply, onReset, empty = false }: FilterProps) {
+const SELECT_BASE = "rounded-md border border-line px-4 py-3 text-body focus:border-primary focus:outline-none";
+
+export function Filter({
+  value,
+  onChange,
+  onApply,
+  onReset,
+  locationOptions,
+  propertyTypeOptions,
+  empty = false,
+}: FilterProps) {
   return (
     <div>
       <h2 className="text-h3 text-ink">Bộ lọc</h2>
       <div className="mt-4 flex flex-col gap-4">
-        {FIELDS.map((field) => (
-          <label key={field.label} className="flex flex-col gap-1">
-            <span className="text-label text-ink">{field.label}</span>
-            <select
-              className="rounded-md border border-line px-4 py-3 text-body text-muted focus:border-primary focus:outline-none"
-              defaultValue=""
-            >
-              <option value="">{field.placeholder}</option>
-            </select>
-          </label>
-        ))}
+        <label className="flex flex-col gap-1">
+          <span className="text-label text-ink">Khu vực</span>
+          <select
+            className={`${SELECT_BASE} ${value.location ? "text-ink" : "text-muted"}`}
+            value={value.location}
+            onChange={(e) => onChange({ location: e.target.value })}
+          >
+            <option value="">Tất cả khu vực</option>
+            {locationOptions.map((loc) => (
+              <option key={loc} value={loc}>
+                {loc}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="flex flex-col gap-1">
+          <span className="text-label text-ink">Loại BĐS</span>
+          <select
+            className={`${SELECT_BASE} ${value.propertyType ? "text-ink" : "text-muted"}`}
+            value={value.propertyType}
+            onChange={(e) => onChange({ propertyType: e.target.value as PropertyType | "" })}
+          >
+            <option value="">Căn hộ / Nhà / Mặt bằng</option>
+            {propertyTypeOptions.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="flex flex-col gap-1">
+          <span className="text-label text-ink">Khoảng giá</span>
+          <select
+            className={`${SELECT_BASE} ${value.priceRange ? "text-ink" : "text-muted"}`}
+            value={value.priceRange}
+            onChange={(e) => onChange({ priceRange: e.target.value })}
+          >
+            <option value="">Tất cả mức giá</option>
+            {PRICE_RANGES.map((range) => (
+              <option key={range.id} value={range.id}>
+                {range.label}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="flex flex-col gap-1">
+          <span className="text-label text-ink">Diện tích</span>
+          <select
+            className={`${SELECT_BASE} ${value.areaRange ? "text-ink" : "text-muted"}`}
+            value={value.areaRange}
+            onChange={(e) => onChange({ areaRange: e.target.value })}
+          >
+            <option value="">Tất cả diện tích</option>
+            {AREA_RANGES.map((range) => (
+              <option key={range.id} value={range.id}>
+                {range.label}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        {/* Số phòng ngủ: no authoritative structured source field exists yet
+            (see .webby/data-source-map.json). Kept as the approved visual
+            control with no other real option than the placeholder — wiring
+            it up would mean inferring/fabricating bedroom counts, which is
+            explicitly forbidden until a future source-of-truth decision. */}
+        <label className="flex flex-col gap-1">
+          <span className="text-label text-ink">Số phòng ngủ</span>
+          <select className={`${SELECT_BASE} text-muted`} defaultValue="">
+            <option value="">Tất cả</option>
+          </select>
+        </label>
       </div>
       <button
         type="button"
@@ -41,18 +115,13 @@ export function Filter({ onApply, onReset, empty = false }: FilterProps) {
       </button>
 
       {empty && (
-        <div className="mt-6 rounded-md bg-soft p-6">
-          <p className="text-h3 text-ink">Không tìm thấy căn phù hợp?</p>
-          <p className="mt-2 text-body text-muted">
-            Thử mở rộng khoảng giá hoặc khu vực. Không tự hiển thị dữ liệu nội bộ.
-          </p>
-          <button
-            type="button"
-            onClick={onReset}
-            className="mt-4 rounded-md border border-primary px-6 py-3 text-button uppercase text-primary hover:bg-surface"
-          >
-            Đặt lại bộ lọc
-          </button>
+        <div className="mt-6">
+          <EmptySearchResults
+            title="Không tìm thấy căn phù hợp?"
+            message="Thử mở rộng khoảng giá hoặc khu vực. Không tự hiển thị dữ liệu nội bộ."
+            resetLabel="Đặt lại bộ lọc"
+            onReset={onReset}
+          />
         </div>
       )}
     </div>
