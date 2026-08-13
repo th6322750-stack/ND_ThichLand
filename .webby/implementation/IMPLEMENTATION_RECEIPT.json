@@ -3,7 +3,7 @@
   "executor": "CLAUDE",
   "consumedUiCommit": "ff96ed9ea596071c14515a551cdf31d46f0b0f69",
   "consumedUiRevision": 3,
-  "implementationCommit": "6baba99271c0c2325b94adbe2e06c435ddbf996f",
+  "implementationCommit": "4cce82b1b8a4ee1db02a5bf6c16393136980ad0e",
   "implementedRoutes": [
     "/",
     "/cho-thue",
@@ -56,11 +56,18 @@
     "TinTucForm",
     "MediaGrid"
   ],
-  "buildStatus": "PASS — next build succeeded, 41 routes generated (static + SSG for all dynamic slugs), zero TypeScript errors",
-  "testStatus": "PASS — 29/29 Vitest tests (unit + axe-core accessibility sweep, 8 pages/components, zero serious/critical violations); npx tsc --noEmit clean; eslint clean",
+  "buildStatus": "PASS — next build succeeded, 41 routes generated (static + SSG for all dynamic slugs), zero TypeScript errors. Re-verified on commit 4cce82b1b8a4ee1db02a5bf6c16393136980ad0e.",
+  "testStatus": "PASS — 29/29 Vitest tests (unit + axe-core accessibility sweep, 8 pages/components, zero serious/critical violations); npx tsc --noEmit clean; eslint clean. Re-verified on commit 4cce82b1b8a4ee1db02a5bf6c16393136980ad0e.",
   "openRequests": [],
   "blockers": [],
   "previewUrl": null,
+  "visualEvidence": {
+    "note": "No live deployment exists, so previewUrl stays null per schema honesty. This is a self-contained static evidence page instead: real Playwright browser screenshots (production build, fullPage) embedded side-by-side with the approved .webby/visual-handoff renders, viewable directly without cloning the repo or un-gitignoring tests/visual/__screenshots__.",
+    "url": "https://claude.ai/code/artifact/e4e68b14-243b-49f8-a670-968dcfe761d6",
+    "coversRoutes": ["/cho-thue/[slug] (MOBILE + WEB)", "/du-an/[slug] (MOBILE)", "/cho-thue (MOBILE)"],
+    "generatedFromCommit": "4cce82b1b8a4ee1db02a5bf6c16393136980ad0e",
+    "captureMethod": "tests/visual/capture.ts (Playwright, fullPage) against `next build && next start` on port 3009"
+  },
   "knownDeviations": [],
   "approvedSourceOfTruthDecisions": [
     {
@@ -73,5 +80,19 @@
     "/cho-thue/[slug] mobile: rebuilt as a distinct composition matching 03_ChiTietChoThue_MOBILE.png — short breadcrumb, Đặc điểm nổi bật / Phí dịch vụ / Video-media / Vị trí as separate sections instead of a desktop reflow.",
     "/du-an/[slug] mobile: rebuilt as a distinct composition matching 05_ChiTietDuAn_MOBILE.png — short breadcrumb, generic CMS-placeholder blocks for Thông tin dự án and Tiến độ instead of the desktop's structured table.",
     "/cho-thue mobile: mobile-specific subcopy and Bộ lọc/Mới nhất button row matching 02_ChoThue_MOBILE.png, replacing the desktop search+Tìm kiếm+select combo on that viewport."
+  ],
+  "resolvedInReopenPass": [
+    {
+      "topic": "/cho-thue/[slug] mobile — Phí dịch vụ used generic CmsPlaceholderSection instead of the real serviceFee field",
+      "severity": "MEDIUM",
+      "reportedBy": "ChatGPT visual-acceptance review, 2026-08-13",
+      "fix": "Added ServiceFeeSection — identical visual container to CmsPlaceholderSection (same heading, border, spacing) but rendering listing.serviceFee. No layout/heading/spacing change vs 03_ChiTietChoThue_MOBILE.png. Desktop was already correctly bound and is unaffected.",
+      "commit": "4cce82b1b8a4ee1db02a5bf6c16393136980ad0e"
+    },
+    {
+      "topic": "Evidence-viewability blocker — tests/visual/__screenshots__ is gitignored and previewUrl was null, so ChatGPT had no independently-viewable browser screenshots",
+      "fix": "Published a self-contained static evidence page (see visualEvidence.url) embedding real Playwright screenshots next to the approved renders, side by side, viewable directly in a browser — not a repo-hosted path.",
+      "resolved": true
+    }
   ]
 }
