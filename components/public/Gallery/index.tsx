@@ -28,6 +28,13 @@ export function Gallery({ images, layout = "mosaic" }: GalleryProps) {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [open, images.length]);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   if (images.length === 0) {
     return <div className="aspect-[16/9] rounded-md bg-soft" role="img" aria-label="Không có ảnh" />;
   }

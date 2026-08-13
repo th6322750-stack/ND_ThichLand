@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import type { KeyboardEvent } from "react";
 import { ProjectCard } from "@/components/public/ProjectCard";
 import { Icon } from "@/components/icons";
 import { projects } from "@/lib/data/projects";
@@ -8,44 +9,88 @@ import type { ProjectStatus } from "@/lib/types";
 
 type TabValue = "all" | ProjectStatus;
 
-const TABS: { value: TabValue; label: string }[] = [
-  { value: "all", label: "Tất cả" },
-  { value: "Đang triển khai", label: "Đang triển khai" },
-  { value: "Đã hoàn thành", label: "Đã hoàn thành" },
+const TABS: { value: TabValue; id: string; label: string }[] = [
+  { value: "all", id: "all", label: "Tất cả" },
+  { value: "Đang triển khai", id: "in-progress", label: "Đang triển khai" },
+  { value: "Đã hoàn thành", id: "done", label: "Đã hoàn thành" },
 ];
 
 export default function DuAnPage() {
   const [tab, setTab] = useState<TabValue>("all");
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const visible = useMemo(
     () => (tab === "all" ? projects : projects.filter((p) => p.status === tab)),
     [tab],
   );
 
+  function activate(index: number) {
+    const target = TABS[index];
+    setTab(target.value);
+    tabRefs.current[index]?.focus();
+  }
+
+  function handleKeyDown(e: KeyboardEvent<HTMLButtonElement>, index: number) {
+    switch (e.key) {
+      case "ArrowRight":
+        e.preventDefault();
+        activate((index + 1) % TABS.length);
+        break;
+      case "ArrowLeft":
+        e.preventDefault();
+        activate((index - 1 + TABS.length) % TABS.length);
+        break;
+      case "Home":
+        e.preventDefault();
+        activate(0);
+        break;
+      case "End":
+        e.preventDefault();
+        activate(TABS.length - 1);
+        break;
+    }
+  }
+
   return (
     <div className="container-page py-10">
       <h1 className="text-h1-mobile text-ink desktop:text-h1">Dự án của NDTHICH</h1>
       <p className="mt-2 text-body text-muted">Module thương hiệu riêng cho dự án công ty.</p>
 
-      <div className="mt-8 flex flex-wrap gap-3">
-        {TABS.map((t) => (
-          <button
-            key={t.value}
-            type="button"
-            onClick={() => setTab(t.value)}
-            aria-pressed={tab === t.value}
-            className={`rounded-md border px-5 py-3 text-button uppercase ${
-              tab === t.value
-                ? "border-primary bg-primary text-surface"
-                : "border-line text-ink hover:border-primary"
-            }`}
-          >
-            {t.label}
-          </button>
-        ))}
+      <div className="mt-8 flex flex-wrap gap-3" role="tablist" aria-label="Lọc dự án theo trạng thái">
+        {TABS.map((t, index) => {
+          const selected = tab === t.value;
+          return (
+            <button
+              key={t.value}
+              ref={(el) => {
+                tabRefs.current[index] = el;
+              }}
+              type="button"
+              role="tab"
+              id={`du-an-tab-${t.id}`}
+              aria-selected={selected}
+              aria-controls="du-an-tabpanel"
+              tabIndex={selected ? 0 : -1}
+              onClick={() => setTab(t.value)}
+              onKeyDown={(e) => handleKeyDown(e, index)}
+              className={`rounded-md border px-5 py-3 text-button uppercase ${
+                selected
+                  ? "border-primary bg-primary text-surface"
+                  : "border-line text-ink hover:border-primary"
+              }`}
+            >
+              {t.label}
+            </button>
+          );
+        })}
       </div>
 
-      <div className="mt-8 grid grid-cols-1 gap-6 tablet:grid-cols-2 desktop:grid-cols-3">
+      <div
+        id="du-an-tabpanel"
+        role="tabpanel"
+        aria-labelledby={`du-an-tab-${TABS.find((t) => t.value === tab)?.id}`}
+        className="mt-8 grid grid-cols-1 gap-6 tablet:grid-cols-2 desktop:grid-cols-3"
+      >
         {visible.map((project) => (
           <ProjectCard key={project.slug} project={project} />
         ))}

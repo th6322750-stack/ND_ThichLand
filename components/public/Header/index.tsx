@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useFocusTrap } from "@/lib/useFocusTrap";
 import { Icon } from "@/components/icons";
 
@@ -29,10 +30,16 @@ function Logo() {
   );
 }
 
+function isActiveRoute(pathname: string, href: string): boolean {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const drawerRef = useFocusTrap(drawerOpen, () => setDrawerOpen(false));
+  const pathname = usePathname();
 
   useEffect(() => {
     function handleScroll() {
@@ -62,7 +69,11 @@ export function Header() {
           <ul className="flex items-center gap-8">
             {NAV_ITEMS.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="text-label text-ink hover:text-primary">
+                <Link
+                  href={item.href}
+                  aria-current={isActiveRoute(pathname, item.href) ? "page" : undefined}
+                  className="text-label text-ink hover:text-primary"
+                >
                   {item.label}
                 </Link>
               </li>
@@ -127,6 +138,7 @@ export function Header() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
+                    aria-current={isActiveRoute(pathname, item.href) ? "page" : undefined}
                     className="text-h3 text-ink"
                     onClick={() => setDrawerOpen(false)}
                   >
