@@ -16,10 +16,22 @@ gđ3:
   uiCommit: ff96ed9ea596071c14515a551cdf31d46f0b0f69
   uiSetupComplete: true
   blockers: 0
+gđ4:
+  status: DONE
+  staticUiPass: true
+  branch: claude/gd4-static-frontend
+  finalImplementationCommit: 4cce82b1b8a4ee1db02a5bf6c16393136980ad0e
+  acceptedBy: CHATGPT
+gđ5:
+  status: READY_FOR_CHATGPT_ACCEPTANCE
+  branch: claude/gd5-ux-frontend
+  baseGd4Commit: fc06923f2c855cd5b111be3a1296be5e5f631448
+  uxImplementationCommit: 86964c3f7d2016bd94410f0211e5c80b3d6ec5ef
+  receipt: .webby/implementation/GD5_IMPLEMENTATION_RECEIPT.json
 decisions:
   logo: NO_LOGO_PLACEHOLDER
   viewingRequestLead: FUTURE_FEATURE
 executor:
   selected: CLAUDE
-  implementationStarted: false
+  implementationStarted: true
   readyToStart: true
