@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import { DuAnForm } from "@/components/admin/DuAnForm";
-import { getProjectBySlug } from "@/lib/data/projects";
+import { getProjectRepository } from "@/lib/server/projects/providers";
+
+export const dynamic = "force-dynamic";
 
 export default async function AdminDuAnEditPage({
   params,
@@ -8,7 +10,8 @@ export default async function AdminDuAnEditPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const project = getProjectBySlug(id);
+  const repo = await getProjectRepository();
+  const project = (await repo.list()).find((p) => p.slug === id);
   if (!project) notFound();
 
   return <DuAnForm initial={project} />;

@@ -1,15 +1,21 @@
 import Link from "next/link";
 import { DataTable } from "@/components/admin/DataTable";
-import { projects } from "@/lib/data/projects";
-import type { ProjectListing } from "@/lib/types";
+import { getProjectRepository } from "@/lib/server/projects/providers";
+import type { ProjectRecord } from "@/lib/server/projects/repository";
 
-const CMS_META: Record<string, { status: string; updatedAt: string }> = {
-  "sun-galaxy-complex": { status: "Đang triển khai", updatedAt: "12/08/2026" },
-  "riverside-garden": { status: "Đã đăng", updatedAt: "10/08/2026" },
-  "ndthich-office-center": { status: "Nháp", updatedAt: "08/08/2026" },
-};
+export const dynamic = "force-dynamic";
 
-export default function AdminDuAnListPage() {
+function formatUpdatedAt(iso: string): string {
+  if (!iso) return "—";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "—";
+  return d.toLocaleDateString("vi-VN");
+}
+
+export default async function AdminDuAnListPage() {
+  const repo = await getProjectRepository();
+  const rows = await repo.list();
+
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-4">
@@ -27,12 +33,12 @@ export default function AdminDuAnListPage() {
 
       <div className="mt-6">
         <DataTable
-          rowKey={(row: ProjectListing) => row.slug}
-          rows={projects}
+          rowKey={(row: ProjectRecord) => row.slug}
+          rows={rows}
           columns={[
             { key: "name", label: "Tên / tiêu đề", render: (r) => <span className="font-bold text-ink">{r.name}</span> },
-            { key: "status", label: "Trạng thái", render: (r) => CMS_META[r.slug]?.status ?? r.status },
-            { key: "updatedAt", label: "Cập nhật", render: (r) => CMS_META[r.slug]?.updatedAt ?? "—" },
+            { key: "status", label: "Trạng thái", render: (r) => (r.published ? "Đã đăng" : "Nháp") },
+            { key: "updatedAt", label: "Cập nhật", render: (r) => formatUpdatedAt(r.updatedAt) },
             { key: "editor", label: "Người sửa", render: () => "Admin" },
             {
               key: "actions",

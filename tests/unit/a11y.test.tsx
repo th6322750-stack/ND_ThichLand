@@ -57,7 +57,7 @@ describe("accessibility sweep", () => {
   });
 
   it("projects list page has no serious axe violations", async () => {
-    const { container } = render(<DuAnPage />);
+    const { container } = render(await DuAnPage());
     await expectNoSeriousViolations(container);
   });
 

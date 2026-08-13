@@ -39,10 +39,12 @@ export interface ProjectListing {
   slug: string;
   name: string;
   location: string;
+  investor: string;
   status: ProjectStatus;
   media: string[];
   summary: string;
   amenities: string[];
+  progressText: string;
   progressPercent: number;
 }
 
