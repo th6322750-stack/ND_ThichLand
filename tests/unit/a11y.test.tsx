@@ -47,7 +47,7 @@ function expectNoSeriousViolations(container: Element) {
 
 describe("accessibility sweep", () => {
   it("homepage has no serious axe violations", async () => {
-    const { container } = render(<HomePage />);
+    const { container } = render(withRouter(<HomePage />, "/"));
     await expectNoSeriousViolations(container);
   });
 
