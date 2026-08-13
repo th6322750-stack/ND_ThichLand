@@ -77,7 +77,9 @@ describe("accessibility sweep", () => {
   });
 
   it("admin login page has no serious axe violations", async () => {
-    const { container } = render(withRouter(<AdminLoginPage />));
+    // AdminLoginPage is now an async Server Component (real getSession()
+    // check) — resolve it first, same as Next.js's RSC renderer would.
+    const { container } = render(withRouter(await AdminLoginPage()));
     await expectNoSeriousViolations(container);
   });
 

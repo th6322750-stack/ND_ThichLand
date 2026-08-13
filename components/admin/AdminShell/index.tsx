@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Sidebar } from "@/components/admin/Sidebar";
 import { Topbar } from "@/components/admin/Topbar";
-import { useHydrated, useIsAuthenticated } from "@/lib/admin-auth";
 
 const PAGE_TITLES: Record<string, string> = {
   "/admin": "Dashboard",
@@ -20,28 +19,14 @@ function resolveTitle(pathname: string): string {
   return PAGE_TITLES[base] ?? "Quản trị";
 }
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+/**
+ * Pure visual/interactive chrome — the auth gate itself lives one level up,
+ * in the (dashboard) Server Component layout (requireAdminPage()), which
+ * runs before this ever mounts.
+ */
+export function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() ?? "/admin";
-  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const hydrated = useHydrated();
-  const authenticated = useIsAuthenticated();
-  const isLoginRoute = pathname === "/admin/login";
-  const shouldRedirect = hydrated && !isLoginRoute && !authenticated;
-
-  useEffect(() => {
-    if (shouldRedirect) {
-      router.replace("/admin/login");
-    }
-  }, [shouldRedirect, router]);
-
-  if (isLoginRoute) {
-    return <>{children}</>;
-  }
-
-  if (!hydrated || shouldRedirect) {
-    return null;
-  }
 
   return (
     <div className="min-h-screen bg-soft">

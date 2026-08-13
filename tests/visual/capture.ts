@@ -14,21 +14,18 @@ async function loginAsAdmin(page: import("playwright").Page) {
   await page.waitForURL("**/admin");
 }
 
+async function capture(item: Capture, page: import("playwright").Page) {
+  await page.setViewportSize({ width: item.width, height: 1000 });
+  await page.goto(`${BASE_URL}${item.navigateTo}`, { waitUntil: "networkidle" });
+  const safeName = `${item.viewport}-${item.route.replace(/\//g, "_") || "root"}.png`;
+  await page.screenshot({ path: path.join(OUT_DIR, safeName), fullPage: true });
+  console.log(`captured ${item.route} [${item.viewport}] -> ${safeName}`);
+}
+
 async function main() {
   fs.mkdirSync(OUT_DIR, { recursive: true });
   const browser = await chromium.launch();
-
   const context = await browser.newContext();
-  const adminPage = await context.newPage();
-  await loginAsAdmin(adminPage);
-
-  async function capture(item: Capture, page: import("playwright").Page) {
-    await page.setViewportSize({ width: item.width, height: 1000 });
-    await page.goto(`${BASE_URL}${item.navigateTo}`, { waitUntil: "networkidle" });
-    const safeName = `${item.viewport}-${item.route.replace(/\//g, "_") || "root"}.png`;
-    await page.screenshot({ path: path.join(OUT_DIR, safeName), fullPage: true });
-    console.log(`captured ${item.route} [${item.viewport}] -> ${safeName}`);
-  }
 
   for (const item of publicCaptures) {
     const page = await context.newPage();
@@ -36,7 +33,21 @@ async function main() {
     await page.close();
   }
 
+  // /admin/login must be captured on a session-less page — a real session
+  // now correctly redirects an authenticated visit to /admin/login straight
+  // to /admin, so this has to happen before loginAsAdmin() ever runs.
+  const loginItem = adminCaptures.find((item) => item.route === "/admin/login");
+  if (loginItem) {
+    const loggedOutPage = await context.newPage();
+    await capture(loginItem, loggedOutPage);
+    await loggedOutPage.close();
+  }
+
+  const adminPage = await context.newPage();
+  await loginAsAdmin(adminPage);
+
   for (const item of adminCaptures) {
+    if (item.route === "/admin/login") continue;
     await capture(item, adminPage);
   }
 
