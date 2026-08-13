@@ -100,6 +100,20 @@ function CmsPlaceholderSection({ title }: { title: string }) {
   );
 }
 
+// Same visual container as CmsPlaceholderSection (heading + bordered box, same
+// spacing) but bound to the authoritative listing.serviceFee value instead of
+// a generic CMS placeholder — serviceFee is a real public field, not fabricated.
+function ServiceFeeSection({ serviceFee }: { serviceFee: string }) {
+  return (
+    <section className="mt-10">
+      <h2 className="text-h2-mobile text-ink">Phí dịch vụ</h2>
+      <div className="mt-4 flex min-h-[120px] items-center justify-center rounded-md border border-line bg-soft p-6 text-center">
+        <p className="text-h3 text-ink">{serviceFee}</p>
+      </div>
+    </section>
+  );
+}
+
 export default async function ChoThueDetailPage({
   params,
 }: {
@@ -166,7 +180,7 @@ export default async function ChoThueDetailPage({
           </section>
         )}
 
-        <CmsPlaceholderSection title="Phí dịch vụ" />
+        <ServiceFeeSection serviceFee={listing.serviceFee} />
         <CmsPlaceholderSection title="Video / media" />
 
         <section className="mt-10">
