@@ -3,7 +3,7 @@
   "executor": "CLAUDE",
   "consumedUiCommit": "ff96ed9ea596071c14515a551cdf31d46f0b0f69",
   "consumedUiRevision": 3,
-  "implementationCommit": "ee94cb8573c778495efa31e4501614005312b967",
+  "implementationCommit": "6baba99271c0c2325b94adbe2e06c435ddbf996f",
   "implementedRoutes": [
     "/",
     "/cho-thue",
@@ -61,9 +61,17 @@
   "openRequests": [],
   "blockers": [],
   "previewUrl": null,
-  "knownDeviations": [
-    "Rental/project detail 'facts' row shows Diện tích/Loại BĐS/Thang/Tình trạng (fields that exist in the normalized PropertyListing schema) instead of the approved mobile render's Diện tích/Phòng ngủ/Thang máy/Nội thất — a bedroom-count and furnishing-status field are not part of data-source-map.json's public schema, so they were not fabricated; this needs a source-of-truth decision (extend the schema, or confirm the mobile facts should mirror desktop) rather than an invented value.",
-    "Mobile rental/project detail pages reflow the desktop section order rather than fully reproducing the approved mobile masters' distinct section breakdown (e.g. approved mobile splits Đặc điểm nổi bật / Phí dịch vụ / Video-media / Vị trí into separate blocks; current implementation keeps them combined as on desktop). The universally-applicable mobile gaps (header call-shortcut button, sticky bottom call/Zalo action bar using the previously-unused stickyMobileActions layer token) were identified and fixed in Task 12; the per-route content re-segmentation was not completed within this pass.",
-    "Some mobile-specific copy differs from the approved renders in minor ways (e.g. /cho-thue list subcopy and sort-control style use the desktop copy on both viewports rather than the mobile-specific wording shown in 02_ChoThue_MOBILE.png)."
+  "knownDeviations": [],
+  "approvedSourceOfTruthDecisions": [
+    {
+      "topic": "Rental facts row — Phòng ngủ / Nội thất",
+      "decision": "Facts row shows Diện tích/Phòng ngủ/Thang máy/Nội thất on both viewports, matching the approved masters' visual slots exactly (the desktop render 03_ChiTietChoThue_WEB.png shows the same four slots as the mobile render). Phòng ngủ and Nội thất have no backing field in data-source-map.json's public schema, so they render \"—\" rather than being inferred from property_type, parsed from description, or fabricated in fixture data. Diện tích binds to `area`; Thang máy binds to real `vertical_access` data.",
+      "status": "resolved-per-chatgpt-decision"
+    }
+  ],
+  "resolvedInThisPass": [
+    "/cho-thue/[slug] mobile: rebuilt as a distinct composition matching 03_ChiTietChoThue_MOBILE.png — short breadcrumb, Đặc điểm nổi bật / Phí dịch vụ / Video-media / Vị trí as separate sections instead of a desktop reflow.",
+    "/du-an/[slug] mobile: rebuilt as a distinct composition matching 05_ChiTietDuAn_MOBILE.png — short breadcrumb, generic CMS-placeholder blocks for Thông tin dự án and Tiến độ instead of the desktop's structured table.",
+    "/cho-thue mobile: mobile-specific subcopy and Bộ lọc/Mới nhất button row matching 02_ChoThue_MOBILE.png, replacing the desktop search+Tìm kiếm+select combo on that viewport."
   ]
 }
