@@ -1,0 +1,113 @@
+import type { Config } from "tailwindcss";
+
+// Every value below is copied verbatim from .webby/tokens.json, .webby/typography.json,
+// .webby/layer-map.json, .webby/responsive.json and .webby/interactions.json.
+// Do not add Tailwind default palette/spacing/screens on top of this theme.
+const config: Config = {
+  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
+  theme: {
+    screens: {
+      tablet: "768px",
+      desktop: "1024px",
+      wide: "1440px",
+    },
+    colors: {
+      primary: "#8A1822",
+      primaryHover: "#70131B",
+      gold: "#BE8A3F",
+      ink: "#171717",
+      body: "#4D4D4D",
+      muted: "#7A7A7A",
+      line: "#E8E2DF",
+      surface: "#FFFFFF",
+      soft: "#F8F6F4",
+      footer: "#151515",
+      success: "#23825C",
+      error: "#C43D45",
+      transparent: "transparent",
+      current: "currentColor",
+      black: "#000000",
+      white: "#FFFFFF",
+    },
+    spacing: {
+      0: "0px",
+      1: "4px",
+      2: "8px",
+      3: "12px",
+      4: "16px",
+      5: "20px",
+      6: "24px",
+      8: "32px",
+      10: "40px",
+      12: "48px",
+      16: "64px",
+      20: "80px",
+      24: "96px",
+    },
+    borderRadius: {
+      none: "0px",
+      sm: "6px",
+      md: "10px",
+      lg: "14px",
+      xl: "20px",
+      "2xl": "28px",
+      full: "999px",
+    },
+    fontFamily: {
+      sans: ["var(--font-be-vietnam-pro)", "Noto Sans", "Arial", "sans-serif"],
+    },
+    fontWeight: {
+      normal: "400",
+      medium: "500",
+      semibold: "600",
+      bold: "700",
+      extrabold: "800",
+    },
+    extend: {
+      fontSize: {
+        display: ["56px", { lineHeight: "1.12", fontWeight: "800" }],
+        "display-mobile": ["36px", { lineHeight: "1.12", fontWeight: "800" }],
+        h1: ["42px", { lineHeight: "1.18", fontWeight: "800" }],
+        "h1-mobile": ["30px", { lineHeight: "1.18", fontWeight: "800" }],
+        h2: ["32px", { lineHeight: "1.25", fontWeight: "700" }],
+        "h2-mobile": ["25px", { lineHeight: "1.25", fontWeight: "700" }],
+        h3: ["22px", { lineHeight: "1.32", fontWeight: "700" }],
+        "h3-mobile": ["20px", { lineHeight: "1.32", fontWeight: "700" }],
+        "body-lg": ["17px", { lineHeight: "1.68", fontWeight: "400" }],
+        "body-lg-mobile": ["16px", { lineHeight: "1.68", fontWeight: "400" }],
+        body: ["15px", { lineHeight: "1.6", fontWeight: "400" }],
+        "body-mobile": ["14px", { lineHeight: "1.6", fontWeight: "400" }],
+        label: ["13px", { lineHeight: "1.4", fontWeight: "600" }],
+        button: ["13px", { lineHeight: "1", fontWeight: "700" }],
+        price: ["18px", { lineHeight: "1.25", fontWeight: "800" }],
+        "admin-title": ["28px", { lineHeight: "1.25", fontWeight: "700" }],
+        "admin-title-mobile": ["24px", { lineHeight: "1.25", fontWeight: "700" }],
+      },
+      zIndex: {
+        base: "0",
+        "sticky-header": "100",
+        "sticky-mobile-actions": "200",
+        "drawer-backdrop": "900",
+        "drawer-panel": "910",
+        "sheet-backdrop": "920",
+        "sheet-panel": "930",
+        "lightbox-backdrop": "1000",
+        "lightbox-content": "1010",
+        toast: "1100",
+      },
+      transitionTimingFunction: {
+        base: "cubic-bezier(.2,.7,.2,1)",
+      },
+      transitionDuration: {
+        fast: "140ms",
+        base: "220ms",
+      },
+      maxWidth: {
+        page: "1240px",
+      },
+    },
+  },
+  plugins: [],
+};
+
+export default config;
