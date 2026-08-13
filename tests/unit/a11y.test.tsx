@@ -67,7 +67,7 @@ describe("accessibility sweep", () => {
   });
 
   it("news list page has no serious axe violations", async () => {
-    const { container } = render(withRouter(<TinTucPage />, "/tin-tuc"));
+    const { container } = render(withRouter(await TinTucPage(), "/tin-tuc"));
     await expectNoSeriousViolations(container);
   });
 

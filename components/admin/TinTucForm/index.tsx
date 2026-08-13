@@ -1,18 +1,63 @@
 "use client";
 
+import { useState, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import { FormField } from "@/components/public/FormField";
 import { Uploader } from "@/components/admin/Uploader";
-import type { NewsArticle } from "@/lib/types";
+import { saveNewsAction, type NewsFormInput } from "@/app/actions/news";
+import type { NewsRecord } from "@/lib/server/news/repository";
 
 interface TinTucFormProps {
-  initial?: NewsArticle;
+  initial?: NewsRecord;
 }
 
 const TOOLBAR = ["H1", "H2", "Bold", "Link", "Image", "Quote"];
 
 export function TinTucForm({ initial }: TinTucFormProps) {
+  const router = useRouter();
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string>();
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [saved, setSaved] = useState<string>();
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setSaving(true);
+    setError(undefined);
+    setSaved(undefined);
+    try {
+      const data = new FormData(e.currentTarget);
+      const get = (name: string) => String(data.get(name) ?? "").trim();
+      const publish = get("status") ? get("status") === "Đã xuất bản" : (initial?.published ?? false);
+
+      const input: NewsFormInput = {
+        slug: initial?.slug ?? "",
+        title: get("title"),
+        category: get("category"),
+        excerpt: get("excerpt"),
+        // No approved upload control exists yet — pass the current value
+        // through unchanged rather than inventing a new field.
+        cover: initial?.cover ?? "",
+        sections: initial?.sections ?? [],
+        readMinutes: initial?.readMinutes ?? 0,
+      };
+
+      const result = await saveNewsAction(input, publish);
+      if (!result.ok) {
+        setFieldErrors(result.fieldErrors ?? {});
+        setError(result.error);
+        return;
+      }
+      setFieldErrors({});
+      setSaved("Đã lưu bài viết.");
+      router.refresh();
+    } finally {
+      setSaving(false);
+    }
+  }
+
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
+    <form onSubmit={handleSubmit} noValidate>
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-admin-title-mobile text-ink desktop:text-admin-title">Thêm / sửa tin tức</h1>
@@ -20,24 +65,42 @@ export function TinTucForm({ initial }: TinTucFormProps) {
         </div>
         <button
           type="submit"
-          className="rounded-md bg-primary px-6 py-3 text-button uppercase text-surface hover:bg-primaryHover"
+          disabled={saving}
+          className="rounded-md bg-primary px-6 py-3 text-button uppercase text-surface hover:bg-primaryHover disabled:opacity-60"
         >
-          Lưu
+          {saving ? "Đang lưu..." : "Lưu"}
         </button>
       </div>
+
+      {error && (
+        <p role="alert" className="mt-4 text-body text-error">
+          {error}
+        </p>
+      )}
+      {saved && (
+        <p role="status" className="mt-4 text-body text-success">
+          {saved}
+        </p>
+      )}
 
       <section className="mt-6 rounded-md border border-line bg-surface p-6">
         <h2 className="text-h3 text-ink">Nội dung bài viết</h2>
         <div className="mt-4">
-          <FormField label="Tiêu đề" name="title" required defaultValue={initial?.title} />
+          <FormField label="Tiêu đề" name="title" required defaultValue={initial?.title} error={fieldErrors.title} />
         </div>
         <div className="mt-6 grid grid-cols-1 gap-6 min-[1200px]:grid-cols-2">
-          <FormField label="Danh mục" name="category" required defaultValue={initial?.category} />
+          <FormField
+            label="Danh mục"
+            name="category"
+            required
+            defaultValue={initial?.category}
+            error={fieldErrors.category}
+          />
           <FormField
             label="Trạng thái"
             name="status"
             required
-            defaultValue={initial ? "Đã xuất bản" : "Nháp"}
+            defaultValue={initial?.published ? "Đã xuất bản" : "Nháp"}
           />
         </div>
 

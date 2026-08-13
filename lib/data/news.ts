@@ -143,6 +143,3 @@ export const news: NewsArticle[] = [
   },
 ];
 
-export function getNewsBySlug(slug: string): NewsArticle | undefined {
-  return news.find((n) => n.slug === slug);
-}

@@ -6,13 +6,14 @@ import { ProjectCard } from "@/components/public/ProjectCard";
 import { NewsCard } from "@/components/public/NewsCard";
 import { ContactCTA } from "@/components/public/ContactCTA";
 import { Icon } from "@/components/icons";
-import { news } from "@/lib/data/news";
 import { getRentalProviders } from "@/lib/server/rental/providers";
 import { buildMergedRentalData } from "@/lib/server/rental/merge";
 import { toPublicPropertyListings } from "@/lib/server/rental/dto";
 import { getLocationOptions, getPropertyTypeOptions } from "@/lib/rentalFilters";
 import { getProjectRepository } from "@/lib/server/projects/providers";
 import { toPublicProjectListings } from "@/lib/server/projects/dto";
+import { getNewsRepository } from "@/lib/server/news/providers";
+import { toPublicNewsArticles } from "@/lib/server/news/dto";
 
 export const dynamic = "force-dynamic";
 
@@ -29,6 +30,9 @@ export default async function HomePage() {
 
   const projectRepo = await getProjectRepository();
   const projects = toPublicProjectListings(await projectRepo.list());
+
+  const newsRepo = await getNewsRepository();
+  const news = toPublicNewsArticles(await newsRepo.list());
 
   const featuredProperties = properties.slice(0, 4);
   const featuredProjects = projects.slice(0, 3);

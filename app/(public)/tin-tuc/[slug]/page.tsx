@@ -3,14 +3,15 @@ import Image from "next/image";
 import { Breadcrumb } from "@/components/public/Breadcrumb";
 import { NewsCard } from "@/components/public/NewsCard";
 import { Icon } from "@/components/icons";
-import { getNewsBySlug, news } from "@/lib/data/news";
+import { getNewsRepository } from "@/lib/server/news/providers";
+import { toPublicNewsArticle, toPublicNewsArticles } from "@/lib/server/news/dto";
 
-export function generateStaticParams() {
-  return news.map((n) => ({ slug: n.slug }));
-}
+export const dynamic = "force-dynamic";
 
 function formatDate(iso: string): string {
+  if (!iso) return "—";
   const [y, m, d] = iso.split("-");
+  if (!y || !m || !d) return "—";
   return `${d}.${m}.${y}`;
 }
 
@@ -20,10 +21,15 @@ export default async function TinTucDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = getNewsBySlug(slug);
-  if (!article) notFound();
+  const repo = await getNewsRepository();
+  const records = await repo.list();
+  const record = records.find((r) => r.slug === slug && r.published);
+  if (!record) notFound();
 
-  const related = news.filter((n) => n.slug !== article.slug).slice(0, 3);
+  const article = toPublicNewsArticle(record);
+  const related = toPublicNewsArticles(records)
+    .filter((n) => n.slug !== article.slug)
+    .slice(0, 3);
 
   return (
     <div className="container-page py-8">

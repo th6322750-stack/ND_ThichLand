@@ -1,19 +1,25 @@
 import Link from "next/link";
 import { DataTable } from "@/components/admin/DataTable";
-import { news } from "@/lib/data/news";
-import type { NewsArticle } from "@/lib/types";
+import { getNewsRepository } from "@/lib/server/news/providers";
+import type { NewsRecord } from "@/lib/server/news/repository";
 
-const CMS_META: Record<string, { status: string; updatedAt: string }> = {
-  "checklist-xem-can-ho-truoc-khi-ky-hop-dong": { status: "Đã đăng", updatedAt: "12/08/2026" },
-  "kinh-nghiem-thue-nha-phu-hop-ngan-sach": { status: "Đã đăng", updatedAt: "10/08/2026" },
-  "tin-du-an-va-hoat-dong-ndthich": { status: "Nháp", updatedAt: "08/08/2026" },
-};
+export const dynamic = "force-dynamic";
 
 function formatTitle(title: string): string {
   return title.length > 28 ? `${title.slice(0, 28)}...` : title;
 }
 
-export default function AdminTinTucListPage() {
+function formatUpdatedAt(iso: string): string {
+  if (!iso) return "—";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "—";
+  return d.toLocaleDateString("vi-VN");
+}
+
+export default async function AdminTinTucListPage() {
+  const repo = await getNewsRepository();
+  const rows = await repo.list();
+
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-4">
@@ -31,16 +37,16 @@ export default function AdminTinTucListPage() {
 
       <div className="mt-6">
         <DataTable
-          rowKey={(row: NewsArticle) => row.slug}
-          rows={news}
+          rowKey={(row: NewsRecord) => row.slug}
+          rows={rows}
           columns={[
             {
               key: "title",
               label: "Tên / tiêu đề",
               render: (r) => <span className="font-bold text-ink">{formatTitle(r.title)}</span>,
             },
-            { key: "status", label: "Trạng thái", render: (r) => CMS_META[r.slug]?.status ?? "Nháp" },
-            { key: "updatedAt", label: "Cập nhật", render: (r) => CMS_META[r.slug]?.updatedAt ?? "—" },
+            { key: "status", label: "Trạng thái", render: (r) => (r.published ? "Đã đăng" : "Nháp") },
+            { key: "updatedAt", label: "Cập nhật", render: (r) => formatUpdatedAt(r.updatedAt) },
             { key: "editor", label: "Người sửa", render: () => "Admin" },
             {
               key: "actions",
