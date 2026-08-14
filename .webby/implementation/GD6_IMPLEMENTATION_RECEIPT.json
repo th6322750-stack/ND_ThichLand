@@ -1,13 +1,15 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "phase": "GĐ6",
   "executor": "CLAUDE",
   "baseGd5Commit": "3f866d2b27d3bd2a66a4c75c4c3f2f6037343f74",
   "backendContractCommit": "4b9af846d726bdf6eca15ed4083e62b4efaa9647",
   "gd6EntryStateCommit": "6d95f328ff389e10093572853fb7db091858e430",
   "branch": "claude/gd6-backend-cms",
-  "backendImplementationCommit": "a9841323db5fff66bf1f0acb811fb11421a21152",
-  "commitCount": 10,
+  "backendImplementationCommit": "a0059c6aac9b5c42faea42321d9f465310262ffd",
+  "implementationCommitCount": 12,
+  "totalPrCommitCount": 15,
+  "commitCountNote": "implementationCommitCount = Claude's own commits only (Tasks 01-12, the Task-12-time receipt, and this QA reopen fix). totalPrCommitCount = every commit PR #6 carries from its claude/gd5-ux-frontend base, including the 3 ChatGPT contract/entry-state commits (backend contract, executor task, GĐ5-acceptance/GĐ6-entry-state) that predate any Claude commit.",
   "commits": [
     "e96d96636cc9da43ae380cb9333543279222b1b0 feat(gd6): Task 01 + Task 06 — server-only architecture + real admin auth",
     "33124a6494868d1f01a000332515ad7210707fbe feat(gd6): Task 02 — Google Sheets/Drive runtime adapter + idempotent bootstrap",
@@ -18,51 +20,88 @@
     "39e16749209716c87d0454e33bff6bae70f2698e feat(gd6): Task 09 — Media/Google Drive (upload, WEB_MEDIA, delivery proxy)",
     "1e7ab5ef725ad3181a8c2fc1bee60fd02a959bef feat(gd6): Task 10 — Contact form backend (WEB_CONTACTS, rate limiting)",
     "644a797e874afcf8939c753db1e51e40933ca9d7 feat(gd6): Task 11 — Zalo env wiring",
-    "a9841323db5fff66bf1f0acb811fb11421a21152 test(gd6): Task 12 — security/data-leak sweep"
+    "a9841323db5fff66bf1f0acb811fb11421a21152 test(gd6): Task 12 — security/data-leak sweep",
+    "729ecc6 docs(gd6): publish GD6_IMPLEMENTATION_RECEIPT.json + record GĐ6 entry state",
+    "a0059c6aac9b5c42faea42321d9f465310262ffd fix(gd6): QA reopen — never fabricate status/type, ambiguous price, prod fail-closed"
+  ],
+  "qaReopens": [
+    {
+      "reportedBy": "ChatGPT review",
+      "defects": [
+        {
+          "id": "defect-01",
+          "title": "Never fabricate rental status/type",
+          "severity": "HIGH",
+          "issue": "lib/server/rental/merge.ts defaulted unknown/unparseable raw availability to \"Còn trống\" and unknown propertyType to \"Nhà\"; WEB_BDS_CUSTOM records went through an equivalent coerce-to-default. Violated the contract's no-fabrication rule and could publish a listing with an invented status.",
+          "fix": "AdminPropertyRecord.propertyType/availability are now PropertyType|null / Availability|null (public PropertyListing stays guaranteed non-null — only the admin-visible shape can be 'unknown'). Every default fallback removed. A single isEligibleToPublish() gate (price>0, area>0, availability non-null, propertyType non-null) is applied AFTER any override patch is merged in, so an admin setting published:true can no longer force a record public without actually fixing the underlying fields. coercePropertyType/coerceAvailability now return null on an unrecognized value instead of a default. app/actions/bds.ts validates admin-typed propertyType/availability against the real union (reusing lib/server/rental/parse.ts's parsePropertyType/parseAvailability) and rejects a mismatch as a field error rather than ever storing it.",
+          "testsAdded": "5 tests in rentalMerge.test.ts (unknown availability doesn't publish and isn't coerced; unknown propertyType doesn't publish and isn't coerced; a valid override patch makes a record eligible; published:true alone does NOT make it eligible without a real value; an invalid custom-record propertyType is never coerced to \"Nhà\"), 1 test in bdsActions.test.ts (invalid propertyType/availability text is rejected with field errors)."
+        },
+        {
+          "id": "defect-02",
+          "title": "Ambiguous bare decimal price",
+          "severity": "HIGH",
+          "issue": "parsePriceVnd(\"2,8\") returned 28 — silently treating the comma as a thousands separator. The real production sheet contains this exact shape at rows 16 and 21 (verified by ChatGPT); guessing it means 2.8 triệu (or anything else) violates the no-fabrication rule.",
+          "fix": "Outside the explicit \"triệu\"/\"tr\" unit path, parsePriceVnd now only accepts a bare digit string (\"8000000\") or a properly thousands-grouped number (\"12.000.000\", \"6.500.000\" — every group after the first separator exactly 3 digits, either \".\" or \",\" as the grouping character). Any other separator shape (\"2,8\", \"3,2\", \"5,5\") returns null.",
+          "testsAdded": "3 new cases in rentalParse.test.ts's parsePriceVnd suite using the exact reported shapes, plus a \"6.500.000\" unambiguous-grouped case."
+        },
+        {
+          "id": "defect-03",
+          "title": "productionDemoContentForbiddenByDefault",
+          "severity": "HIGH",
+          "issue": "Every provider factory (rental/projects/news/media/contact) fell back to the GĐ4/GĐ5 fixture or a throwaway in-memory store whenever Google config was absent, with no distinction between \"local/test\" and \"real production deploy missing its config\". A real production deploy without secrets would have silently served fixture listings as real content, and contact/media writes would have reported success into a store that's gone on the next request.",
+          "fix": "One shared decision point, lib/server/providerMode.ts: resolveProviderMode(isConfigured) returns \"live\" when configured; \"mock\" when NODE_ENV=test, VITEST=true, or NODE_ENV!==\"production\" (test runs and local dev); otherwise \"unavailable\". Every domain's fixture-seeding now only runs in \"mock\" mode — \"unavailable\" leaves the in-memory store empty, so reads (public and Admin) come back empty rather than presenting demo content as real. Every mutation action (saveBdsAction/hideBdsSourceRecordAction/deleteCustomBdsRecordAction, saveProjectAction/deleteProjectAction, saveNewsAction/deleteNewsAction, uploadMediaAction/deleteMediaAction, submitContactAction) now checks the mode before touching the repository and returns PERSISTENCE_NOT_CONFIGURED_ERROR (or contact's existing generic failure) instead of a fake success.",
+          "operationalNote": "`next start` sets NODE_ENV=production even for local/manual QA — by design, that now correctly resolves to \"unavailable\" without Google config, matching a real deployment. Local QA that needs fixture/mock data must use `next dev` (NODE_ENV=development) instead; this session's e2e regression run was switched to `next dev` accordingly.",
+          "testsAdded": "5 tests in providerMode.test.ts (the full NODE_ENV/VITEST decision matrix) + 9 tests in productionWithoutConfig.test.ts (rental/projects/news public reads empty, all five domains' mutation actions fail closed, and a control test confirming NODE_ENV=test/local-dev is unaffected)."
+        }
+      ],
+      "fixCommit": "a0059c6aac9b5c42faea42321d9f465310262ffd",
+      "regressionRun": "npm run build, npm run lint, npx tsc --noEmit, npx vitest run (34 files / 232 tests), npm run test:e2e (16/16, run against next dev per the operational note above) all pass. Visual regression re-verified via a git-stash before/after comparison (both captured under next dev, so its dev-tools overlay cancels out): 0 of 27 routes differ — confirms the fix introduced no visual change.",
+      "terminalStatus": "GĐ6_WAITING_FOR_RUNTIME_SECRETS — unchanged; still no live secrets in this environment."
+    }
   ],
   "dataProviders": {
     "mode": "IN_MEMORY_MOCK",
-    "reason": "No live Google service-account / spreadsheet / Drive / admin-auth secrets were present in this environment at any point during implementation. Every domain has a real Google-backed repository implementation (GoogleRentalSource, GoogleRentalOverlayRepository, GoogleProjectRepository, GoogleNewsRepository, GoogleMediaRepository, GoogleDriveBlobStore, GoogleContactRepository) that a config-based factory (isGoogleRuntimeConfigured/isMediaConfigured) will switch to automatically the moment real secrets are set — no code change required.",
-    "fixtureSeeding": "lib/data/{properties,properties.admin,projects,news,media}.ts — explicitly documented in each providers.ts as design/demo content for local/dev/test only, never treated as production truth."
+    "reason": "No live Google service-account / spreadsheet / Drive / admin-auth secrets were present in this environment at any point during implementation. Every domain has a real Google-backed repository implementation (GoogleRentalSource, GoogleRentalOverlayRepository, GoogleProjectRepository, GoogleNewsRepository, GoogleMediaRepository, GoogleDriveBlobStore, GoogleContactRepository) that a config-based factory will switch to automatically the moment real secrets are set — no code change required. lib/server/providerMode.ts (added in the QA reopen fix) additionally guarantees a real production deploy without secrets fails closed instead of silently using this mock mode — see qaReopens[0].defects[2].",
+    "fixtureSeeding": "lib/data/{properties,properties.admin,projects,news,media}.ts — explicitly documented in each providers.ts as design/demo content for local/dev/test only (mode \"mock\"), never seeded in a real production runtime missing its config (mode \"unavailable\")."
   },
   "rentalNormalizationStatus": {
     "status": "IMPLEMENTED_MOCK_VERIFIED",
-    "detail": "lib/server/rental/parse.ts handles group-separator rows, column-shift repair, price/area/availability/propertyType parsing, and explicit-phrase-only bedroom/furnishing extraction (never inferred). 40 parser unit tests cover valid/ignored/quarantined outcomes. Never verified against the real 1,102-row production sheet — that requires live Sheets read access."
+    "detail": "lib/server/rental/parse.ts handles group-separator rows, column-shift repair, price/area/availability/propertyType parsing (never fabricated — unknown values stay null per the QA reopen fix), and explicit-phrase-only bedroom/furnishing extraction. 43+ parser unit tests cover valid/ignored/quarantined outcomes plus the ambiguous-bare-decimal-price fix. Never verified against the real 1,102-row production sheet — that requires live Sheets read access."
   },
   "rentalOverlayStatus": {
     "status": "IMPLEMENTED_MOCK_VERIFIED",
-    "detail": "WEB_BDS_OVERRIDES (patch/hide by sourceId) + WEB_BDS_CUSTOM (admin-authored records) merge pipeline in lib/server/rental/merge.ts implements the contract's exact mergeOrder. Real Admin BDS CRUD (create/edit/hide/delete, draft vs. publish) verified end-to-end in a live browser against the in-memory provider, including a create→edit→reload persistence check and a public-listing appearance check. One real bug (id-scheme mismatch causing an orphaned duplicate on edit) was found via live testing and fixed; a regression test guards it."
+    "detail": "WEB_BDS_OVERRIDES (patch/hide by sourceId) + WEB_BDS_CUSTOM (admin-authored records) merge pipeline in lib/server/rental/merge.ts implements the contract's exact mergeOrder, with publish eligibility now requiring valid price/area/availability/propertyType (QA reopen defect 01). Real Admin BDS CRUD (create/edit/hide/delete, draft vs. publish) verified end-to-end in a live browser. Two real bugs found via live testing and fixed: an id-scheme mismatch causing an orphaned duplicate on edit (Task 04), and the status/type fabrication defect above (QA reopen)."
   },
   "projectCmsStatus": {
     "status": "IMPLEMENTED_MOCK_VERIFIED",
-    "detail": "WEB_PROJECTS real CRUD (lib/server/projects/*, app/actions/projects.ts), Admin list/new/edit pages, public /du-an + /du-an/[slug] wired to live data. The id-scheme lesson from rental was applied proactively — no analogous bug found."
+    "detail": "WEB_PROJECTS real CRUD (lib/server/projects/*, app/actions/projects.ts), Admin list/new/edit pages, public /du-an + /du-an/[slug] wired to live data, now provider-mode-gated (QA reopen defect 03) so production without config never seeds/publishes fixture projects."
   },
   "newsCmsStatus": {
     "status": "IMPLEMENTED_MOCK_VERIFIED",
-    "detail": "WEB_NEWS real CRUD (lib/server/news/*, app/actions/news.ts), Admin list/new/edit pages, public /tin-tuc + /tin-tuc/[slug] and the homepage news preview wired to live data. Draft/publish state is derived from the existing 'Trạng thái' text field (no new UI control invented) — verified live that a new draft article does not appear publicly until its status is set to 'Đã xuất bản'."
+    "detail": "WEB_NEWS real CRUD (lib/server/news/*, app/actions/news.ts), Admin list/new/edit pages, public /tin-tuc + /tin-tuc/[slug] and the homepage news preview wired to live data, now provider-mode-gated the same way. Draft/publish state is derived from the existing 'Trạng thái' text field (no new UI control invented)."
   },
   "mediaStatus": {
     "status": "IMPLEMENTED_MOCK_VERIFIED",
-    "detail": "WEB_MEDIA catalog repository + a separate blob-store abstraction (Google Drive vs. in-memory), MIME/size validation, real upload/delete Server Actions, and a public delivery proxy (/api/media/[id]) that never exposes the service-account credential. Legacy raw-sheet Drive/Photos hyperlink resolution (lib/server/media/legacyResolve.ts) falls back to a placeholder + diagnostic for Photos links, unrecognized formats, and Drive access failures — never fails the whole listing — served via a second proxy (/api/drive-media/[fileId]) for links never uploaded through Admin. A real cross-bundle singleton-splitting bug (uploads via the Server Action were invisible to the separately-bundled Route Handler, causing 404s) was found via live e2e testing and fixed by anchoring the in-memory singleton on globalThis.",
-    "knownLimitation": "Legacy media resolution has per-process memoization but no batch pre-resolve or persistent cache — acceptable for review against a 12-item fixture set, but the real ~1,102-row sheet would need that before production traffic once Google credentials are live."
+    "detail": "WEB_MEDIA catalog repository + a separate blob-store abstraction (Google Drive vs. in-memory), MIME/size validation, real upload/delete Server Actions, and a public delivery proxy (/api/media/[id]) that never exposes the service-account credential. Legacy raw-sheet Drive/Photos hyperlink resolution falls back to a placeholder + diagnostic, never fails the whole listing. uploadMediaAction/deleteMediaAction now refuse with a config error in production without Drive configured (QA reopen defect 03) instead of reporting a fake durable success. A real cross-bundle singleton-splitting bug (uploads invisible to the separately-bundled delivery Route Handler) was found via live e2e testing and fixed by anchoring the in-memory singleton on globalThis.",
+    "knownLimitation": "Legacy media resolution has per-process memoization but no batch pre-resolve or persistent cache — the real ~1,102-row sheet would need that before production traffic once Google credentials are live."
   },
   "contactStatus": {
     "status": "IMPLEMENTED_MOCK_VERIFIED",
-    "detail": "ContactForm UI unchanged; submits through a real Server Action into WEB_CONTACTS. Server-side validation is authoritative (required name/phone, length limits, lenient Vietnamese phone normalization). Off-screen honeypot added without altering the approved layout (pixel-identical to baseline). Client IP is never stored raw — only an HMAC-SHA256 hash (RATE_LIMIT_SECRET, falling back to AUTH_SECRET) — with a two-layer rate limit (in-process + persisted-record check) conservatively capped at 3 submissions per hashed IP per 10 minutes. No Admin Leads/Viewing UI added, per contract."
+    "detail": "ContactForm UI unchanged; submits through a real Server Action into WEB_CONTACTS. Server-side validation is authoritative, honeypot added without altering the approved layout (pixel-identical to baseline). Client IP is never stored raw — only an HMAC-SHA256 hash — with a two-layer rate limit conservatively capped at 3 submissions per hashed IP per 10 minutes. submitContactAction now returns the existing generic failure (never ok:true) in production without config (QA reopen defect 03). No Admin Leads/Viewing UI added, per contract."
   },
   "authStatus": {
     "status": "IMPLEMENTED_MOCK_VERIFIED",
-    "detail": "Real single-admin session auth replacing the GĐ4 localStorage mock: scrypt password hashing, HMAC-signed session cookie, proxy.ts doing optimistic presence-only redirects, real re-verification at the DAL (lib/server/auth/dal.ts) on every protected request. Verified live: unauthenticated redirect, wrong password, correct login surviving a hard reload, HttpOnly+SameSite cookie flags, logout, a deliberately tampered cookie being rejected server-side, and remember-me expiry — all 7 cases are permanent Playwright specs in tests/e2e/admin-auth.spec.ts. Two real bugs (a redirect loop with a tampered cookie; a secure-cookie flag breaking local HTTP testing) were found via live testing and fixed."
+    "detail": "Real single-admin session auth replacing the GĐ4 localStorage mock: scrypt password hashing, HMAC-signed session cookie, proxy.ts doing optimistic presence-only redirects, real re-verification at the DAL on every protected request. Verified live: unauthenticated redirect, wrong password, correct login surviving a hard reload, HttpOnly+SameSite cookie flags, logout, a deliberately tampered cookie being rejected server-side, and remember-me expiry — all 7 cases are permanent Playwright specs in tests/e2e/admin-auth.spec.ts."
   },
   "securityStatus": {
     "status": "TESTS_PASS_NOT_A_FULL_AUDIT",
-    "detail": "tests/unit/server/dataLeak.test.ts (15 tests) covers: every admin mutation/list action rejects unauthenticated callers; public DTOs for rental/projects/news never leak commission/guidePerson/internalNotes/id/published/createdAt (checked structurally and via serialized-string search); an unpublished/hidden record's slug is structurally unreachable through the public list→find path; login and Google-config error messages never echo the password/hash/AUTH_SECRET/private key; the raw rental source class exposes exactly one method (listRawRows, no write path at all); contact input enforces its length limits. Media MIME/size validation, rental parser quarantine behavior, and per-action auth spot-checks are covered in their own task's test files. A green suite is one input, not proof of security on its own — no external/adversarial security review has been performed."
+    "detail": "tests/unit/server/dataLeak.test.ts (15 tests) covers unauthenticated-mutation rejection, public DTO field-stripping, unpublished-record unreachability, no-secret-echo in error messages, and the raw rental source's single read-only method. Media MIME/size validation, rental parser quarantine behavior, and the QA-reopen-fixed fabrication/production-fail-closed behaviors are covered in their own task/fix test files. A green suite is one input, not proof of security on its own — no external/adversarial security review has been performed."
   },
-  "buildStatus": "PASS — next build (Turbopack) compiles clean, all routes correctly registered as static/dynamic",
-  "testStatus": "PASS — npx vitest run: 32 test files, 208 tests, 0 failures",
-  "e2eStatus": "PASS — npm run test:e2e: 16 permanent Playwright specs (admin-auth, rental-url-state, rental-filter-drawer), 0 failures. A further ad-hoc live regression sweep covering Admin BDS/Project/News CRUD, Media upload, and Contact submit success/error was run and passed, then removed (per this session's established practice of temporary verification scripts, not committed).",
-  "visualRegressionStatus": "PASS — 22 of 27 approved routes byte-identical to tests/visual/__gd6-baseline__ (captured at Task 01, before any backend change). The remaining 5 (admin du-an/tin-tuc lists + du-an detail, both viewports) differ only because real timestamps now replace the old hardcoded mock dates in the admin list 'Cập nhật' column and CMS content fields — a data-freshness difference from wiring real data, not a layout/visual regression. No UI redesign, no Revision 3 visual truth change.",
-  "liveIntegrationStatus": "NOT_PERFORMED — no live Google/Drive/admin-auth secrets were available in this environment at any point. Task 13's 8 required live-verification steps (real rental read/normalize, quarantine-not-corrupt confirmation, idempotent WEB_* bootstrap, test overlay/project/news/media/contact records, real Admin login/logout) could not be run against live Google APIs.",
+  "buildStatus": "PASS — next build (Turbopack) compiles clean, all routes correctly registered as static/dynamic, both before and after the QA reopen fix",
+  "testStatus": "PASS — npx vitest run: 34 test files, 232 tests, 0 failures (post QA-reopen-fix)",
+  "e2eStatus": "PASS — npm run test:e2e: 16 permanent Playwright specs, 0 failures, run against `next dev` per the QA reopen's operational note (see qaReopens[0].defects[2]). Ad-hoc live regression sweeps (Admin BDS/Project/News CRUD, Media upload, Contact submit success/error, and the 3 QA-reopen defects' live verification) were run and passed, then removed per this session's established practice of temporary, uncommitted verification scripts.",
+  "visualRegressionStatus": "PASS — 22 of 27 approved routes byte-identical to tests/visual/__gd6-baseline__ (captured at Task 01, before any backend change); the other 5 (admin du-an/tin-tuc lists + du-an detail) differ only by real timestamps replacing old hardcoded mock dates. Separately, the QA reopen fix itself was verified to introduce zero visual change via a git-stash before/after comparison under `next dev`: 0 of 27 routes differ.",
+  "liveIntegrationStatus": "NOT_PERFORMED — no live Google/Drive/admin-auth secrets were available in this environment at any point. Task 13's 8 required live-verification steps could not be run against live Google APIs.",
   "runtimeSecretsMissing": [
     "GOOGLE_SERVICE_ACCOUNT_EMAIL",
     "GOOGLE_PRIVATE_KEY",
@@ -75,7 +114,7 @@
     "NEXT_PUBLIC_ZALO_URL (optional — falls back to the hotline tel: link if absent)"
   ],
   "productionContentGaps": [
-    "The real ~1,102-row, 29-column rental sheet has never been read by this implementation — only synthetic rows shaped to match its documented separator/shift/format quirks in rentalParse.test.ts.",
+    "The real ~1,102-row, 29-column rental sheet has never been read by this implementation — only synthetic rows shaped to match its documented separator/shift/format quirks (including the defect-02 ambiguous-price shape).",
     "WEB_BDS_OVERRIDES/WEB_BDS_CUSTOM/WEB_PROJECTS/WEB_NEWS/WEB_CONTACTS/WEB_MEDIA tabs have never been created in a real spreadsheet — scripts/gd6-bootstrap-cms.ts is implemented and unit-tested but has never run against live Sheets.",
     "No real Drive folder has ever received an uploaded file; the delivery proxies have only been exercised against the in-memory blob store.",
     "NEXT_PUBLIC_ZALO_URL is unset — every Zalo CTA still falls back to the hotline tel: link, matching current production state exactly."
@@ -83,13 +122,13 @@
   "openRequests": [
     "Provide the 8 runtime secrets listed above (or confirm which subset should come first) so Task 13's live integration gate can run.",
     "Confirm whether RATE_LIMIT_SECRET should be a value distinct from AUTH_SECRET in production, or the AUTH_SECRET fallback is acceptable.",
-    "Confirm the intended base branch for a PR from claude/gd6-backend-cms once secrets are provided and live verification passes."
+    "Confirm the intended base branch for a PR from claude/gd6-backend-cms once secrets are provided and live verification passes.",
+    "Confirm the lib/server/providerMode.ts NODE_ENV/VITEST decision matrix matches the intended production deployment story (e.g. Vercel sets NODE_ENV=production for every deploy including preview — a preview deploy without secrets will also fail closed under this logic, which is presumably desired but worth an explicit confirmation)."
   ],
   "blockers": [
     "Cannot proceed past GĐ6_WAITING_FOR_RUNTIME_SECRETS without the live Google service-account, spreadsheet, Drive folder, and admin-auth secrets — this is expected per the contract, not an implementation defect."
   ],
   "knownDeviations": [
-    "Legacy rental media resolution (lib/server/media/legacyResolve.ts) has per-process memoization only, no batch pre-resolve or persistent cache — flagged in mediaStatus.knownLimitation, should be revisited before real production traffic against the full sheet.",
-    "PROJECT_STATE.yaml's gđ5 block was left exactly as ChatGPT recorded it (status: READY_FOR_CHATGPT_ACCEPTANCE) at the GĐ6 entry-state commit rather than inferred as DONE from conversational context — only a new gđ6 block was added."
+    "Legacy rental media resolution (lib/server/media/legacyResolve.ts) has per-process memoization only, no batch pre-resolve or persistent cache — flagged in mediaStatus.knownLimitation, should be revisited before real production traffic against the full sheet."
   ]
 }

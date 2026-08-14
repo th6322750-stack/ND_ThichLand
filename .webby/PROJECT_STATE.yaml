@@ -23,19 +23,25 @@ gđ4:
   finalImplementationCommit: 4cce82b1b8a4ee1db02a5bf6c16393136980ad0e
   acceptedBy: CHATGPT
 gđ5:
-  status: READY_FOR_CHATGPT_ACCEPTANCE
+  status: DONE
+  uxPass: true
   branch: claude/gd5-ux-frontend
   baseGd4Commit: fc06923f2c855cd5b111be3a1296be5e5f631448
   uxImplementationCommit: f5e3c6baa4c9a04fc9fc97cd76e975c0974eeeee
   receipt: .webby/implementation/GD5_IMPLEMENTATION_RECEIPT.json
+  acceptedBy: CHATGPT
 gđ6:
   status: WAITING_FOR_RUNTIME_SECRETS
   branch: claude/gd6-backend-cms
   baseGd5Commit: 3f866d2b27d3bd2a66a4c75c4c3f2f6037343f74
   backendContractCommit: 4b9af846d726bdf6eca15ed4083e62b4efaa9647
-  backendImplementationCommit: a9841323db5fff66bf1f0acb811fb11421a21152
+  backendImplementationCommit: a0059c6aac9b5c42faea42321d9f465310262ffd
   dataProviders: IN_MEMORY_MOCK
   liveIntegrationPerformed: false
+  qaReopens:
+    - reason: "3 implementation defects independent of missing runtime secrets: rental status/type fabrication (Nhà/Còn trống fallbacks), ambiguous bare-decimal price parsing, production silently falling back to demo/RAM content"
+      fixCommit: a0059c6aac9b5c42faea42321d9f465310262ffd
+      status: FIXED
   receipt: .webby/implementation/GD6_IMPLEMENTATION_RECEIPT.json
 decisions:
   logo: NO_LOGO_PLACEHOLDER
