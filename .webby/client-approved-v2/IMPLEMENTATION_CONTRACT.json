@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 2,
+  "status": "FROZEN_PENDING_PHASE2",
+  "project": "NDTHICH Land",
+  "baseCommit": "70bb3019e5aca6cba2c11966d06250ea04632760",
+  "visualAuthority": {
+    "primary": ".webby/client-approved-v2/MASTER_INDEX.json",
+    "secondary": "NDTHICH - GĐ1 CLIENT REVIEW.pdf",
+    "oldRevision3Authority": false,
+    "conflictRule": "MASTER_IMAGE_WINS"
+  },
+  "ownership": {
+    "chatgpt": [
+      "visual design A-Z",
+      "asset production",
+      "responsive composition",
+      "visual QA",
+      "final visual acceptance"
+    ],
+    "claude": [
+      "implementation only",
+      "frontend code",
+      "UX behavior already specified",
+      "backend wiring",
+      "bug fixes"
+    ],
+    "claudeDesignAuthority": "NONE",
+    "missingVisualDecision": "VISUAL_BLOCKED_NEEDS_CHATGPT"
+  },
+  "canonicalViewports": {
+    "web": {
+      "cssWidth": 935,
+      "cssHeight": 1683,
+      "deviceScaleFactor": 1,
+      "expectedPng": [935, 1683]
+    },
+    "mobile": {
+      "cssWidth": 362,
+      "cssHeight": 1086,
+      "deviceScaleFactor": 2,
+      "expectedPng": [724, 2172]
+    }
+  },
+  "responsive": {
+    "mobileMax": 767,
+    "tabletMin": 768,
+    "desktopMin": 900,
+    "rule": "Mobile is an independently composed approved endpoint, not a shrunken desktop. Tablet interpolates without redesign."
+  },
+  "tokens": {
+    "fontFamily": "Be Vietnam Pro",
+    "fontWeights": [400, 500, 600, 700, 800],
+    "colors": {
+      "burgundyPrimary": "#880206",
+      "burgundyDark": "#750F0D",
+      "charcoal": "#1C1F1E",
+      "textPrimary": "#0C0D0D",
+      "textMuted": "#5F5D5D",
+      "surface": "#FFFFFF",
+      "surfaceSoft": "#F7F6F6",
+      "goldAccent": "#C08E47",
+      "zaloAction": "Use the approved Zalo action color visible in master; do not recolor it to burgundy."
+    },
+    "rule": "Tokens support the master. If sampled token and visible master conflict, master wins."
+  },
+  "routeContracts": {
+    "/": {
+      "webMaster": "WEB/01_TrangChu_WEB.png",
+      "mobileMaster": "MOBILE/01_TrangChu_MOBILE.png",
+      "sections": ["header", "hero", "trust-metrics", "rental-search", "featured-rentals", "featured-projects", "about", "testimonials", "contact-map", "footer"],
+      "critical": ["photographic hero split", "strong burgundy headline/CTA", "4 trust metrics", "image-rich rental cards", "dark-overlay project cards", "reception about block", "burgundy contact + map", "charcoal footer"]
+    },
+    "/cho-thue": {
+      "webMaster": "WEB/02_ChoThue_WEB.png",
+      "mobileMaster": "MOBILE/02_ChoThue_MOBILE.png",
+      "webStructure": "left filter sidebar + vertical rental result rows",
+      "mobileStructure": "filter/sort controls + single-column photo-heavy cards + bottom nav",
+      "critical": ["no desktop 3-column property grid", "large real photos", "red prices", "favorite affordance", "pagination on web"]
+    },
+    "/cho-thue/[slug]": {
+      "webMaster": "WEB/03_ChiTietBDS_WEB.png",
+      "mobileMaster": "MOBILE/03_ChiTietBDS_MOBILE.png",
+      "critical": ["main interior gallery", "price hierarchy", "4 property specs", "highlights", "call + Zalo actions", "details/map", "related property cards"]
+    },
+    "/du-an": {
+      "webMaster": "WEB/04_DuAn_WEB.png",
+      "mobileMaster": "MOBILE/04_DuAn_MOBILE.png",
+      "critical": ["status tabs", "3-column photographic desktop grid", "single-column mobile project stack", "dark bottom image overlay", "about/brand block", "charcoal footer"]
+    },
+    "/du-an/[slug]": {
+      "webMaster": "WEB/05_ChiTietDuAn_WEB.png",
+      "mobileMaster": "MOBILE/05_ChiTietDuAn_MOBILE.png",
+      "critical": ["project gallery", "key facts", "strong burgundy consultation panel", "amenities", "project detail imagery", "progress", "CTA/footer"]
+    }
+  },
+  "assetRules": {
+    "manifest": ".webby/client-approved-v2/ASSET_MANIFEST.json",
+    "claudeMayGenerateImages": false,
+    "claudeMaySearchReplacementImages": false,
+    "claudeMayUseOldPlaceholders": false,
+    "referenceCardPngUsage": "QA_REFERENCE_ONLY",
+    "photoAssets": "Use exact frozen photo assets where visual fixture requires them.",
+    "runtimeMedia": "Authoritative backend media may replace only the photo payload in production; preserve frozen slot geometry and crop."
+  },
+  "contentRules": {
+    "masterTextIsNotAutomaticallyProductionFact": true,
+    "productionSource": "existing authoritative backend/Google Sheet/CMS contracts",
+    "noFabrication": true,
+    "visualFixtureMode": "test/dev only",
+    "fixedWidthContactControls": "Keep visual geometry stable even when authoritative hotline digits differ from fixture text."
+  },
+  "interactionRules": {
+    "noNewLeadCmsFromVisualAlone": true,
+    "viewingRequest": "Render only if required for visual fidelity; do not create persistent Lead/Viewing backend without separate approval.",
+    "existingBackend": "Preserve current GĐ6 logic/security/fail-closed behavior unless an explicit functional task changes it."
+  },
+  "implementationSequence": [
+    "create isolated public visual v2 layer without deleting backend",
+    "implement shared header/footer/tokens",
+    "implement 5 WEB routes against masters",
+    "implement 5 MOBILE endpoint compositions",
+    "wire existing UX and backend without visual drift",
+    "add deterministic visual fixture mode",
+    "capture 10 canonical screenshots",
+    "stop at PHA2_IMPLEMENTATION_READY_FOR_CHATGPT_QA"
+  ],
+  "forbidden": [
+    "redesign",
+    "old Revision 3 as visual authority",
+    "placeholder/gradient photography substitution",
+    "asset invention by Claude",
+    "self-accept visual QA",
+    "merge PR without explicit user approval",
+    "start live Google gate before visual recovery is accepted"
+  ]
+}
