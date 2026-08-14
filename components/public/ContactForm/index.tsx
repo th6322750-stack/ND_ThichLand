@@ -2,6 +2,7 @@
 
 import { useRef, useState, type FormEvent } from "react";
 import { FormField } from "@/components/public/FormField";
+import { submitContactAction } from "@/app/actions/contact";
 
 interface FieldErrors {
   name?: string;
@@ -13,8 +14,10 @@ export function ContactForm() {
   const phoneRef = useRef<HTMLInputElement>(null);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState<string>();
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
     const name = String(form.get("name") ?? "").trim();
@@ -25,6 +28,7 @@ export function ContactForm() {
     if (!phone) nextErrors.phone = "Vui lòng nhập số điện thoại";
 
     setErrors(nextErrors);
+    setFormError(undefined);
 
     if (nextErrors.name) {
       nameRef.current?.focus();
@@ -35,7 +39,25 @@ export function ContactForm() {
       return;
     }
 
-    setSubmitted(true);
+    setSubmitting(true);
+    try {
+      const result = await submitContactAction({
+        name,
+        phone,
+        need: String(form.get("need") ?? "").trim(),
+        area: String(form.get("area") ?? "").trim(),
+        message: String(form.get("message") ?? "").trim(),
+        website: String(form.get("website") ?? ""),
+      });
+      if (!result.ok) {
+        setErrors(result.fieldErrors ?? {});
+        setFormError(result.error);
+        return;
+      }
+      setSubmitted(true);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (submitted) {
@@ -57,11 +79,31 @@ export function ContactForm() {
       <div className="mt-6">
         <FormField label="Nội dung" name="message" type="textarea" />
       </div>
+      {/* Honeypot: visually hidden, off-screen rather than display:none so
+          it still registers as "filled" if a bot's CSS-blind script tabs
+          through and fills every input; real users never see or reach it. */}
+      <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+        <label htmlFor="contact-website">Website</label>
+        <input
+          id="contact-website"
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          className="h-0 w-0"
+        />
+      </div>
+      {formError && (
+        <p role="alert" className="mt-4 text-body text-error">
+          {formError}
+        </p>
+      )}
       <button
         type="submit"
-        className="mt-6 rounded-md bg-primary px-6 py-3 text-button uppercase text-surface hover:bg-primaryHover"
+        disabled={submitting}
+        className="mt-6 rounded-md bg-primary px-6 py-3 text-button uppercase text-surface hover:bg-primaryHover disabled:opacity-60"
       >
-        Gửi yêu cầu
+        {submitting ? "Đang gửi..." : "Gửi yêu cầu"}
       </button>
     </form>
   );

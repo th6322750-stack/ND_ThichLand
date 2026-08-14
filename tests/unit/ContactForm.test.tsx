@@ -1,7 +1,11 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ContactForm } from "@/components/public/ContactForm";
+
+// submitContactAction reads headers() for IP-based rate limiting — outside
+// a real Next.js request context (i.e. in this component test) that throws.
+vi.mock("next/headers", () => ({ headers: async () => ({ get: () => null }) }));
 
 describe("ContactForm validation", () => {
   it("moves focus to the first invalid field on submit", async () => {

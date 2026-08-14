@@ -101,6 +101,13 @@ export function getZaloUrl(): string | null {
   return process.env.NEXT_PUBLIC_ZALO_URL ?? null;
 }
 
+/** Contract: "Use AUTH_SECRET or dedicated RATE_LIMIT_SECRET to HMAC the client IP" — a
+ * dedicated secret is preferred (so rotating it doesn't also invalidate admin sessions),
+ * but AUTH_SECRET is an acceptable fallback rather than leaving abuse protection unusable. */
+export function getRateLimitSecret(): string | null {
+  return process.env.RATE_LIMIT_SECRET ?? process.env.AUTH_SECRET ?? null;
+}
+
 /**
  * A backend feature is "live-capable" only when every secret it needs is
  * present. Repository factories use this to choose the Google-backed
