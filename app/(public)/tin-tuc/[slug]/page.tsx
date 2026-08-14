@@ -5,6 +5,7 @@ import { NewsCard } from "@/components/public/NewsCard";
 import { Icon } from "@/components/icons";
 import { getNewsRepository } from "@/lib/server/news/providers";
 import { toPublicNewsArticle, toPublicNewsArticles } from "@/lib/server/news/dto";
+import { getZaloHref } from "@/lib/zalo";
 
 export const dynamic = "force-dynamic";
 
@@ -81,7 +82,7 @@ export default async function TinTucDetailPage({
               <Icon name="phone" size={16} className="invert" /> Gọi ngay
             </a>
             <a
-              href="tel:0986602203"
+              href={getZaloHref()}
               className="mt-3 flex items-center justify-center gap-2 rounded-md border border-primary px-6 py-3 text-button uppercase text-primary hover:bg-soft"
             >
               <Icon name="chat" size={16} /> Zalo

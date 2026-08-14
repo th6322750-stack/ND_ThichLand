@@ -10,6 +10,7 @@ import { formatArea, formatCurrencyVnd } from "@/lib/format";
 import { getRentalProviders } from "@/lib/server/rental/providers";
 import { buildMergedRentalData } from "@/lib/server/rental/merge";
 import { toPublicPropertyListings } from "@/lib/server/rental/dto";
+import { getZaloHref } from "@/lib/zalo";
 import type { PropertyListing } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -55,7 +56,7 @@ function ContactCard({ compact = false }: { compact?: boolean }) {
   );
   const zaloButton = (
     <a
-      href="tel:0986602203"
+      href={getZaloHref()}
       className={`flex items-center justify-center gap-2 rounded-md border border-primary px-6 py-3 text-button uppercase text-primary hover:bg-soft ${compact ? "flex-1" : "w-full"}`}
     >
       <Icon name="chat" size={16} /> Nhắn Zalo

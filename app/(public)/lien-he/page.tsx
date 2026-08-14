@@ -1,5 +1,6 @@
 import { Icon } from "@/components/icons";
 import { ContactForm } from "@/components/public/ContactForm";
+import { getZaloHref } from "@/lib/zalo";
 
 const CONTACT_CARDS = [
   { icon: "phone" as const, label: "Hotline chính", value: "0986 602 203", href: "tel:0986602203" },
@@ -24,7 +25,7 @@ export default function LienHePage() {
               <Icon name="phone" size={16} className="invert" /> Gọi 0986 602 203
             </a>
             <a
-              href="tel:0986602203"
+              href={getZaloHref()}
               className="inline-flex items-center gap-2 rounded-md border border-primary px-6 py-3 text-button uppercase text-primary hover:bg-surface"
             >
               <Icon name="chat" size={16} /> Nhắn Zalo

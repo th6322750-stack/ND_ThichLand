@@ -1,4 +1,5 @@
 import { Icon } from "@/components/icons";
+import { getZaloHref } from "@/lib/zalo";
 
 interface StickyMobileActionsProps {
   callLabel?: string;
@@ -17,9 +18,8 @@ export function StickyMobileActions({
       >
         <Icon name="phone" size={16} className="invert" /> {callLabel}
       </a>
-      {/* Zalo production URL not yet provided (.webby/interactions.json) — falls back to hotline */}
       <a
-        href="tel:0986602203"
+        href={getZaloHref()}
         className="flex flex-1 items-center justify-center gap-2 rounded-md border border-primary px-6 py-3 text-button uppercase text-primary"
       >
         <Icon name="chat" size={16} /> {zaloLabel}

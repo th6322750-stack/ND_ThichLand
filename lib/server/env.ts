@@ -97,10 +97,6 @@ export function requireAdminAuthEnv(): AdminAuthEnv {
   return env;
 }
 
-export function getZaloUrl(): string | null {
-  return process.env.NEXT_PUBLIC_ZALO_URL ?? null;
-}
-
 /** Contract: "Use AUTH_SECRET or dedicated RATE_LIMIT_SECRET to HMAC the client IP" — a
  * dedicated secret is preferred (so rotating it doesn't also invalidate admin sessions),
  * but AUTH_SECRET is an acceptable fallback rather than leaving abuse protection unusable. */

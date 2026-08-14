@@ -4,6 +4,7 @@ import { Gallery } from "@/components/public/Gallery";
 import { Icon } from "@/components/icons";
 import { getProjectRepository } from "@/lib/server/projects/providers";
 import { toPublicProjectListings } from "@/lib/server/projects/dto";
+import { getZaloHref } from "@/lib/zalo";
 
 export const dynamic = "force-dynamic";
 // No generateStaticParams — same reasoning as the rental detail route
@@ -81,7 +82,7 @@ export default async function DuAnDetailPage({
               <Icon name="phone" size={16} className="invert" /> Gọi ngay
             </a>
             <a
-              href="tel:0986602203"
+              href={getZaloHref()}
               className="flex flex-1 items-center justify-center gap-2 rounded-md border border-primary px-6 py-3 text-button uppercase text-primary hover:bg-soft"
             >
               <Icon name="chat" size={16} /> Zalo
@@ -149,7 +150,7 @@ export default async function DuAnDetailPage({
               <Icon name="phone" size={16} className="invert" /> Gọi 0986 602 203
             </a>
             <a
-              href="tel:0986602203"
+              href={getZaloHref()}
               className="mt-3 flex items-center justify-center gap-2 rounded-md border border-primary px-6 py-3 text-button uppercase text-primary hover:bg-soft"
             >
               <Icon name="chat" size={16} /> Nhắn Zalo
