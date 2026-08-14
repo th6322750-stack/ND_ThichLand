@@ -2,10 +2,10 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Icon, type IconName } from "@/components/icons";
 import { useFocusTrap } from "@/lib/useFocusTrap";
-import { logout } from "@/lib/admin-auth";
+import { logoutAction } from "@/app/actions/auth";
 
 const NAV_ITEMS: { label: string; href: string; icon: IconName }[] = [
   { label: "Dashboard", href: "/admin", icon: "home" },
@@ -43,7 +43,15 @@ function NavList({ compact, onNavigate }: { compact: boolean; onNavigate?: () =>
   );
 }
 
-function SidebarBody({ compact, onNavigate }: { compact: boolean; onNavigate?: () => void }) {
+function SidebarBody({
+  compact,
+  onNavigate,
+  onLogout,
+}: {
+  compact: boolean;
+  onNavigate?: () => void;
+  onLogout: () => void;
+}) {
   return (
     <nav aria-label="Điều hướng quản trị" className="flex h-full flex-col justify-between bg-footer py-6">
       <div>
@@ -56,7 +64,7 @@ function SidebarBody({ compact, onNavigate }: { compact: boolean; onNavigate?: (
         <p className={`text-body text-[#7A7A7A] ${compact ? "text-center" : ""}`}>Hệ thống</p>
         <button
           type="button"
-          onClick={() => logout()}
+          onClick={onLogout}
           className={`mt-2 flex w-full items-center gap-3 rounded-md px-3 py-3 text-body text-[#B9B9B9] hover:bg-[#242424] hover:text-surface ${
             compact ? "justify-center" : ""
           }`}
@@ -76,6 +84,7 @@ interface SidebarProps {
 
 export function Sidebar({ mobileOpen, onMobileClose }: SidebarProps) {
   const drawerRef = useFocusTrap(mobileOpen, onMobileClose);
+  const router = useRouter();
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -84,15 +93,21 @@ export function Sidebar({ mobileOpen, onMobileClose }: SidebarProps) {
     };
   }, [mobileOpen]);
 
+  async function handleLogout() {
+    await logoutAction();
+    router.push("/admin/login");
+    router.refresh();
+  }
+
   return (
     <>
       {/* Compact 768–1199px / Expanded >=1200px */}
-      <div className="hidden tablet:block tablet:w-[76px] min-[1200px]:w-[248px]">
+      <div className="hidden tablet:block tablet:w-[76px] min-[1200px]:w-[330.67px]">
         <div className="fixed inset-y-0 hidden w-[76px] tablet:block min-[1200px]:hidden">
-          <SidebarBody compact />
+          <SidebarBody compact onLogout={handleLogout} />
         </div>
-        <div className="fixed inset-y-0 hidden w-[248px] min-[1200px]:block">
-          <SidebarBody compact={false} />
+        <div className="fixed inset-y-0 hidden w-[330.67px] min-[1200px]:block">
+          <SidebarBody compact={false} onLogout={handleLogout} />
         </div>
       </div>
 
@@ -111,7 +126,7 @@ export function Sidebar({ mobileOpen, onMobileClose }: SidebarProps) {
             aria-label="Menu quản trị"
             className="fixed inset-y-0 left-0 z-drawer-panel w-[248px]"
           >
-            <SidebarBody compact={false} onNavigate={onMobileClose} />
+            <SidebarBody compact={false} onNavigate={onMobileClose} onLogout={handleLogout} />
           </div>
         </div>
       )}

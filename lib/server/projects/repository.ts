@@ -1,0 +1,112 @@
+// No "server-only" guard — see lib/server/env.ts for why.
+import { readSheetRange, appendSheetRow, updateSheetRange } from "@/lib/server/google/sheets";
+import { requireGoogleSpreadsheetEnv } from "@/lib/server/env";
+import { CMS_TABS } from "@/lib/server/cmsSheetSchema";
+import type { ProjectListing, ProjectStatus } from "@/lib/types";
+
+export interface ProjectRecord extends ProjectListing {
+  id: string;
+  published: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ProjectRepository {
+  list(): Promise<ProjectRecord[]>;
+  upsert(record: ProjectRecord): Promise<void>;
+  softDelete(id: string): Promise<void>;
+}
+
+function safeJsonArray(json: string | undefined): string[] {
+  if (!json) return [];
+  try {
+    const value = JSON.parse(json);
+    return Array.isArray(value) ? value.filter((v): v is string => typeof v === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
+function rowToRecord(row: string[]): ProjectRecord | null {
+  const [id, slug, name, location, investor, status, summary, amenitiesJson, progressText, progressPercent, mediaJson, published, createdAt, updatedAt] = row;
+  if (!id) return null;
+  return {
+    id,
+    slug: slug ?? "",
+    name: name ?? "",
+    location: location ?? "",
+    investor: investor ?? "",
+    status: (status as ProjectStatus) || "Đang triển khai",
+    summary: summary ?? "",
+    amenities: safeJsonArray(amenitiesJson),
+    progressText: progressText ?? "",
+    progressPercent: progressPercent ? Number(progressPercent) : 0,
+    media: safeJsonArray(mediaJson),
+    published: published === "true",
+    createdAt: createdAt ?? "",
+    updatedAt: updatedAt ?? "",
+  };
+}
+
+function recordToRow(r: ProjectRecord): (string | number)[] {
+  return [
+    r.id,
+    r.slug,
+    r.name,
+    r.location,
+    r.investor,
+    r.status,
+    r.summary,
+    JSON.stringify(r.amenities),
+    r.progressText,
+    r.progressPercent,
+    JSON.stringify(r.media),
+    String(r.published),
+    r.createdAt,
+    r.updatedAt,
+  ];
+}
+
+export class GoogleProjectRepository implements ProjectRepository {
+  async list(): Promise<ProjectRecord[]> {
+    const { cmsSpreadsheetId } = requireGoogleSpreadsheetEnv();
+    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A2:N`);
+    return values.map(rowToRecord).filter((r): r is ProjectRecord => r !== null);
+  }
+
+  async upsert(record: ProjectRecord): Promise<void> {
+    const { cmsSpreadsheetId } = requireGoogleSpreadsheetEnv();
+    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A2:N`);
+    const rowIndex = values.findIndex((row) => row[0] === record.id);
+    const row = recordToRow(record);
+    if (rowIndex >= 0) {
+      await updateSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A${rowIndex + 2}:N${rowIndex + 2}`, row);
+    } else {
+      await appendSheetRow(cmsSpreadsheetId, CMS_TABS.projects, row);
+    }
+  }
+
+  async softDelete(id: string): Promise<void> {
+    const records = await this.list();
+    const existing = records.find((r) => r.id === id);
+    if (!existing) return;
+    await this.upsert({ ...existing, published: false, updatedAt: new Date().toISOString() });
+  }
+}
+
+export class InMemoryProjectRepository implements ProjectRepository {
+  private readonly records = new Map<string, ProjectRecord>();
+
+  async list(): Promise<ProjectRecord[]> {
+    return [...this.records.values()];
+  }
+
+  async upsert(record: ProjectRecord): Promise<void> {
+    this.records.set(record.id, record);
+  }
+
+  async softDelete(id: string): Promise<void> {
+    const existing = this.records.get(id);
+    if (existing) this.records.set(id, { ...existing, published: false, updatedAt: new Date().toISOString() });
+  }
+}

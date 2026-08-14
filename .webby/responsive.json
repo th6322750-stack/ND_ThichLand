@@ -14,7 +14,7 @@
     "newsGrid": "3/2/1",
     "detail": "Sticky desktop aside >=1024; inline contact below",
     "gallery": "Desktop mosaic; mobile swipe strip",
-    "adminSidebar": "248px >=1200; compact 76px 768-1199; drawer <768",
+    "adminSidebar": "330.67px >=1200 (derived from Revision 3 master: 248/1440 viewBox scaled to 1920 approved render); compact 76px 768-1199; drawer <768",
     "adminForms": "2-col >=1200; 1-col below"
   }
 }

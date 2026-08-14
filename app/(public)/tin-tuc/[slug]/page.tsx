@@ -3,14 +3,16 @@ import Image from "next/image";
 import { Breadcrumb } from "@/components/public/Breadcrumb";
 import { NewsCard } from "@/components/public/NewsCard";
 import { Icon } from "@/components/icons";
-import { getNewsBySlug, news } from "@/lib/data/news";
+import { getNewsRepository } from "@/lib/server/news/providers";
+import { toPublicNewsArticle, toPublicNewsArticles } from "@/lib/server/news/dto";
+import { getZaloHref } from "@/lib/zalo";
 
-export function generateStaticParams() {
-  return news.map((n) => ({ slug: n.slug }));
-}
+export const dynamic = "force-dynamic";
 
 function formatDate(iso: string): string {
+  if (!iso) return "—";
   const [y, m, d] = iso.split("-");
+  if (!y || !m || !d) return "—";
   return `${d}.${m}.${y}`;
 }
 
@@ -20,10 +22,15 @@ export default async function TinTucDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = getNewsBySlug(slug);
-  if (!article) notFound();
+  const repo = await getNewsRepository();
+  const records = await repo.list();
+  const record = records.find((r) => r.slug === slug && r.published);
+  if (!record) notFound();
 
-  const related = news.filter((n) => n.slug !== article.slug).slice(0, 3);
+  const article = toPublicNewsArticle(record);
+  const related = toPublicNewsArticles(records)
+    .filter((n) => n.slug !== article.slug)
+    .slice(0, 3);
 
   return (
     <div className="container-page py-8">
@@ -75,7 +82,7 @@ export default async function TinTucDetailPage({
               <Icon name="phone" size={16} className="invert" /> Gọi ngay
             </a>
             <a
-              href="tel:0986602203"
+              href={getZaloHref()}
               className="mt-3 flex items-center justify-center gap-2 rounded-md border border-primary px-6 py-3 text-button uppercase text-primary hover:bg-soft"
             >
               <Icon name="chat" size={16} /> Zalo

@@ -1,0 +1,123 @@
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { createSessionToken } from "@/lib/server/crypto/session";
+
+const cookieJar = new Map<string, string>();
+const mockCookieStore = {
+  get(name: string) {
+    return cookieJar.has(name) ? { name, value: cookieJar.get(name)! } : undefined;
+  },
+  set(name: string, value: string) {
+    cookieJar.set(name, value);
+  },
+  delete(name: string) {
+    cookieJar.delete(name);
+  },
+};
+
+vi.mock("next/headers", () => ({ cookies: async () => mockCookieStore }));
+vi.mock("next/cache", () => ({ revalidatePath: () => {} }));
+
+const TEST_SECRET = "test-secret-for-project-actions";
+
+function signInAsAdmin() {
+  const now = Date.now();
+  const token = createSessionToken({ sub: "admin@ndthich.vn", role: "admin", iat: now, exp: now + 60_000 }, TEST_SECRET);
+  cookieJar.set("ndthich_admin_session", token);
+}
+
+const baseInput = {
+  slug: "",
+  name: "Dự án Test",
+  location: "Hà Nội",
+  investor: "Chủ đầu tư Test",
+  status: "Đang triển khai" as const,
+  summary: "Tóm tắt test",
+  amenities: ["An ninh 24/7"],
+  progressText: "Đang thi công",
+  progressPercent: 30,
+  media: [],
+};
+
+describe("Project admin actions", () => {
+  beforeEach(() => {
+    cookieJar.clear();
+    process.env.ADMIN_EMAIL = "admin@ndthich.vn";
+    process.env.ADMIN_PASSWORD_HASH = "scrypt:1:1:1:00:00";
+    process.env.AUTH_SECRET = TEST_SECRET;
+  });
+
+  afterEach(() => {
+    delete process.env.ADMIN_EMAIL;
+    delete process.env.ADMIN_PASSWORD_HASH;
+    delete process.env.AUTH_SECRET;
+    vi.resetModules();
+  });
+
+  it("rejects saveProjectAction when unauthenticated", async () => {
+    const { saveProjectAction } = await import("@/app/actions/projects");
+    const result = await saveProjectAction(baseInput, true);
+    expect(result.ok).toBe(false);
+    expect(result.error).toMatch(/đăng nhập/i);
+  });
+
+  it("rejects an invalid form (missing name/location)", async () => {
+    signInAsAdmin();
+    const { saveProjectAction } = await import("@/app/actions/projects");
+    const result = await saveProjectAction({ ...baseInput, name: "", location: "" }, true);
+    expect(result.ok).toBe(false);
+    expect(result.fieldErrors).toMatchObject({ name: expect.any(String), location: expect.any(String) });
+  });
+
+  it("creates a new project that shows up in the admin list", async () => {
+    signInAsAdmin();
+    const { saveProjectAction, listAdminProjectsAction } = await import("@/app/actions/projects");
+    const result = await saveProjectAction({ ...baseInput, slug: "du-an-test-create" }, true);
+    expect(result.ok).toBe(true);
+    const list = await listAdminProjectsAction();
+    const created = list!.find((r) => r.slug === "du-an-test-create");
+    expect(created).toBeDefined();
+    expect(created!.published).toBe(true);
+    expect(created!.investor).toBe("Chủ đầu tư Test");
+  });
+
+  it("editing an existing (fixture-seeded) project updates it in place — no orphaned duplicate", async () => {
+    signInAsAdmin();
+    const { saveProjectAction, listAdminProjectsAction } = await import("@/app/actions/projects");
+    const before = await listAdminProjectsAction();
+    const target = before![0];
+    const countBefore = before!.length;
+
+    await saveProjectAction(
+      {
+        slug: target.slug,
+        name: target.name,
+        location: target.location,
+        investor: "Chủ đầu tư đã cập nhật",
+        status: target.status,
+        summary: target.summary,
+        amenities: target.amenities,
+        progressText: target.progressText,
+        progressPercent: target.progressPercent,
+        media: target.media,
+      },
+      true,
+    );
+
+    const after = await listAdminProjectsAction();
+    expect(after!.length).toBe(countBefore);
+    const matches = after!.filter((r) => r.slug === target.slug);
+    expect(matches).toHaveLength(1);
+    expect(matches[0].investor).toBe("Chủ đầu tư đã cập nhật");
+  });
+
+  it("deleteProjectAction soft-deletes — record no longer published", async () => {
+    signInAsAdmin();
+    const { saveProjectAction, deleteProjectAction, listAdminProjectsAction } = await import("@/app/actions/projects");
+    await saveProjectAction({ ...baseInput, slug: "du-an-se-xoa" }, true);
+    const result = await deleteProjectAction("custom:du-an-se-xoa");
+    expect(result.ok).toBe(true);
+    const list = await listAdminProjectsAction();
+    const deleted = list!.find((r) => r.slug === "du-an-se-xoa");
+    expect(deleted!.published).toBe(false);
+  });
+});

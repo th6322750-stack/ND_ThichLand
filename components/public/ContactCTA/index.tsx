@@ -1,4 +1,5 @@
 import { Icon } from "@/components/icons";
+import { getZaloHref } from "@/lib/zalo";
 
 interface ContactCTAProps {
   title?: string;
@@ -27,9 +28,8 @@ export function ContactCTA({
           >
             <Icon name="phone" size={16} className="invert" /> {callLabel}
           </a>
-          {/* Zalo production URL not yet provided (.webby/interactions.json) — falls back to hotline */}
           <a
-            href="tel:0986602203"
+            href={getZaloHref()}
             className="inline-flex items-center gap-2 rounded-md border border-surface px-6 py-3 text-button uppercase text-surface hover:bg-surface hover:text-ink"
           >
             <Icon name="chat" size={16} className="invert" /> {zaloLabel}

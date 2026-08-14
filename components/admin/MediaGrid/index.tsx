@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Icon } from "@/components/icons";
 
 interface MediaItem {
+  id?: string;
   filename: string;
   src: string;
   kind: "Ảnh" | "Video";
@@ -12,11 +13,12 @@ interface MediaItem {
 
 interface MediaGridProps {
   items: MediaItem[];
+  onDelete?: (item: MediaItem) => void;
 }
 
 const FILTERS = ["Tất cả", "Ảnh", "Video"] as const;
 
-export function MediaGrid({ items }: MediaGridProps) {
+export function MediaGrid({ items, onDelete }: MediaGridProps) {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>("Tất cả");
   const visible = filter === "Tất cả" ? items : items.filter((item) => item.kind === filter);
 
@@ -50,7 +52,7 @@ export function MediaGrid({ items }: MediaGridProps) {
 
       <div className="mt-6 grid grid-cols-2 gap-4 tablet:grid-cols-3 desktop:grid-cols-4">
         {visible.map((item) => (
-          <div key={item.filename} className="rounded-md border border-line bg-surface">
+          <div key={item.id ?? item.filename} className="rounded-md border border-line bg-surface">
             <div className="relative aspect-[4/3]">
               <Image src={item.src} alt="" fill className="rounded-t-md object-cover" unoptimized />
               <span className="absolute left-3 top-3 rounded-full bg-black/40 px-3 py-1 text-label text-surface">
@@ -58,6 +60,7 @@ export function MediaGrid({ items }: MediaGridProps) {
               </span>
               <button
                 type="button"
+                onClick={() => onDelete?.(item)}
                 aria-label={`Xóa ${item.filename}`}
                 className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-surface/90 text-error hover:bg-surface"
               >

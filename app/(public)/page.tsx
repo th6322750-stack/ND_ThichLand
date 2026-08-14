@@ -6,9 +6,16 @@ import { ProjectCard } from "@/components/public/ProjectCard";
 import { NewsCard } from "@/components/public/NewsCard";
 import { ContactCTA } from "@/components/public/ContactCTA";
 import { Icon } from "@/components/icons";
-import { properties } from "@/lib/data/properties";
-import { projects } from "@/lib/data/projects";
-import { news } from "@/lib/data/news";
+import { getRentalProviders } from "@/lib/server/rental/providers";
+import { buildMergedRentalData } from "@/lib/server/rental/merge";
+import { toPublicPropertyListings } from "@/lib/server/rental/dto";
+import { getLocationOptions, getPropertyTypeOptions } from "@/lib/rentalFilters";
+import { getProjectRepository } from "@/lib/server/projects/providers";
+import { toPublicProjectListings } from "@/lib/server/projects/dto";
+import { getNewsRepository } from "@/lib/server/news/providers";
+import { toPublicNewsArticles } from "@/lib/server/news/dto";
+
+export const dynamic = "force-dynamic";
 
 const HERO_STATS = [
   { value: "500+", label: "lượt tư vấn" },
@@ -16,10 +23,22 @@ const HERO_STATS = [
   { value: "2 hotline", label: "hỗ trợ trực tiếp" },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { source, overlay } = await getRentalProviders();
+  const merged = await buildMergedRentalData(source, overlay);
+  const properties = toPublicPropertyListings(merged.admin);
+
+  const projectRepo = await getProjectRepository();
+  const projects = toPublicProjectListings(await projectRepo.list());
+
+  const newsRepo = await getNewsRepository();
+  const news = toPublicNewsArticles(await newsRepo.list());
+
   const featuredProperties = properties.slice(0, 4);
   const featuredProjects = projects.slice(0, 3);
   const featuredNews = news.slice(0, 3);
+  const locationOptions = getLocationOptions(properties);
+  const propertyTypeOptions = getPropertyTypeOptions(properties);
 
   return (
     <>
@@ -65,7 +84,7 @@ export default function HomePage() {
 
       {/* Search panel overlapping hero */}
       <section className="container-page -mt-8 desktop:-mt-10">
-        <SearchPanel />
+        <SearchPanel locationOptions={locationOptions} propertyTypeOptions={propertyTypeOptions} />
       </section>
 
       {/* Featured properties */}

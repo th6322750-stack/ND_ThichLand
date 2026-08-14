@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "phase": "GĐ6",
+  "status": "READY_TO_IMPLEMENT_WITH_RUNTIME_SECRETS_PENDING",
+  "owner": "CLAUDE",
+  "visualAuthority": "CHATGPT",
+  "baseGd5Commit": "3f866d2b27d3bd2a66a4c75c4c3f2f6037343f74",
+  "consumedUiRevision": 3,
+  "consumedUiCommit": "ff96ed9ea596071c14515a551cdf31d46f0b0f69",
+  "rules": {
+    "noVisualRedesign": true,
+    "noViewingRequestLeadUi": true,
+    "noSecretsInGit": true,
+    "rawRentalSheetReadOnly": true,
+    "publicNeverExposesInternalFields": true,
+    "productionDemoContentForbiddenByDefault": true
+  },
+  "rentalSource": {
+    "provider": "Google Sheets",
+    "spreadsheetId": "1a9zZjpj2KoM856z5hKtG_euci5cU2cLxirPi5B5qqVU",
+    "sheetName": "Phòng trống chính ",
+    "gridObserved": {
+      "rowCount": 1102,
+      "columnCount": 29,
+      "canonicalHeaderRow": 2,
+      "canonicalDataColumns": "A:P"
+    },
+    "canonicalColumns": {
+      "A": "building_or_group_code",
+      "B": "availability_raw",
+      "C": "location",
+      "D": "address",
+      "E": "media_link",
+      "F": "room_no",
+      "G": "price_raw",
+      "H": "commission_raw",
+      "I": "service_fee_raw",
+      "J": "area_raw",
+      "K": "vertical_access_raw",
+      "L": "property_type_raw",
+      "M": "description_raw",
+      "N": "highlights_raw",
+      "O": "guide_person_raw",
+      "P": "internal_notes_raw"
+    },
+    "normalizationRequirements": [
+      "Ignore separator/group-title rows and note rows that are not property records.",
+      "Never trust fixed column offsets blindly: some source rows have missing cells and shifted values.",
+      "Repair shifted rows only when semantic validators identify service fee, area, vertical access, property type, description/highlights and internal fields with high confidence; otherwise quarantine the row from public output and expose a non-public diagnostic for admin/logs.",
+      "Preserve sourceRow and sourceHash for every imported raw record.",
+      "Parse Vietnamese price strings into integer VND without inventing values; invalid price remains null and record is not publicly published until valid.",
+      "Parse area strings into numeric m2 when explicit; preserve raw value for diagnostics.",
+      "Normalize availability conservatively from explicit text such as Vào luôn / đã hết / đã chốt / future date or relative availability. Preserve availabilityRaw.",
+      "Normalize property type only from explicit source text.",
+      "Never infer bedroomCount from Studio. bedroomCount may be parsed only from explicit source phrases such as 1 ngủ, 2 ngủ, 1 khách 1 ngủ, 2 ngủ 1 khách; otherwise null.",
+      "furnishingStatus may be populated only from explicit furnishing wording such as Nội thất: ... / nội thất đầy đủ / nội thất cơ bản; otherwise null.",
+      "Internal fields commission, guidePerson and internalNotes must never be returned by public loaders/routes/components."
+    ]
+  },
+  "rentalCmsOverlay": {
+    "strategy": "READ_RAW_PLUS_NONDESTRUCTIVE_OVERLAY",
+    "reason": "The operational sheet contains group separators, irregular rows and shifted columns; the website must not rewrite or normalize the original operational rows in-place.",
+    "tabs": {
+      "overrides": "WEB_BDS_OVERRIDES",
+      "custom": "WEB_BDS_CUSTOM"
+    },
+    "overrideKey": "sourceId=sheet:<rowNumber>",
+    "overrideFields": [
+      "source_id",
+      "patch_json",
+      "hidden",
+      "updated_at",
+      "updated_by"
+    ],
+    "customRecord": "Full normalized AdminPropertyRecord plus publish state, media metadata, createdAt and updatedAt.",
+    "mergeOrder": [
+      "normalize raw source",
+      "apply WEB_BDS_OVERRIDES patch/hide",
+      "append WEB_BDS_CUSTOM",
+      "derive public DTO with internal fields stripped"
+    ],
+    "deleteBehavior": {
+      "rawSourceRecord": "soft hide via override; never delete original row",
+      "customRecord": "soft delete preferred; physical delete only if implementation safely preserves row identity"
+    }
+  },
+  "cmsTabs": {
+    "projects": "WEB_PROJECTS",
+    "news": "WEB_NEWS",
+    "contacts": "WEB_CONTACTS",
+    "media": "WEB_MEDIA"
+  },
+  "projects": {
+    "persistence": "WEB_PROJECTS",
+    "fields": [
+      "id",
+      "slug",
+      "name",
+      "location",
+      "investor",
+      "status",
+      "summary",
+      "amenities_json",
+      "progress_text",
+      "progress_percent",
+      "media_json",
+      "published",
+      "created_at",
+      "updated_at"
+    ],
+    "fixturePolicy": "Existing lib/data/projects.ts content is design/demo fixture. It may be used in dev/test but must not be silently seeded as factual production content."
+  },
+  "news": {
+    "persistence": "WEB_NEWS",
+    "fields": [
+      "id",
+      "slug",
+      "title",
+      "category",
+      "status",
+      "published_at",
+      "read_minutes",
+      "excerpt",
+      "cover_media_id",
+      "sections_json",
+      "published",
+      "created_at",
+      "updated_at"
+    ],
+    "fixturePolicy": "Existing lib/data/news.ts content is design/demo fixture. It may be used in dev/test but must not be silently treated as factual production content."
+  },
+  "contactForm": {
+    "persistence": "WEB_CONTACTS",
+    "frontendUi": "unchanged",
+    "fields": [
+      "id",
+      "created_at",
+      "name",
+      "phone",
+      "need",
+      "area",
+      "message",
+      "status",
+      "ip_hash"
+    ],
+    "validation": [
+      "server-side required name and phone",
+      "trim and length limits",
+      "phone normalization/validation appropriate for Vietnamese numbers without over-rejecting valid input",
+      "honeypot field may be visually hidden without changing approved composition"
+    ],
+    "abuseProtection": "Use AUTH_SECRET or dedicated RATE_LIMIT_SECRET to HMAC the client IP before storage; never store raw IP. Enforce a conservative recent-submission limit using WEB_CONTACTS plus in-process short-term protection. Return generic errors without leaking implementation details.",
+    "adminUi": "Do not add a Leads/Viewing Request screen in Revision 3. Contact submissions remain Sheet-visible only unless a later UI revision approves an admin surface."
+  },
+  "media": {
+    "provider": "Google Drive",
+    "adminUpload": true,
+    "requiredEnv": ["GOOGLE_MEDIA_FOLDER_ID"],
+    "supportedImport": [
+      "Drive folder/file hyperlinks when service account has access",
+      "admin uploads to configured Drive folder"
+    ],
+    "legacyGooglePhotosPolicy": "Google Photos album links in the rental sheet are not guaranteed to be resolvable through Drive API. Preserve the source link, use placeholder when no safe image file can be resolved, and expose an admin/log diagnostic. Do not scrape Photos HTML as a production dependency.",
+    "publicDelivery": "Serve private Drive image bytes through an authenticated server-side fetch/proxy or equivalent safe server path with caching; never expose service-account credentials."
+  },
+  "authentication": {
+    "scope": "single-admin production authentication; no invented multi-role UI",
+    "credentials": {
+      "adminEmailEnv": "ADMIN_EMAIL",
+      "adminPasswordHashEnv": "ADMIN_PASSWORD_HASH",
+      "sessionSecretEnv": "AUTH_SECRET"
+    },
+    "passwordHash": "Use a strong password KDF available in the chosen server implementation (scrypt is acceptable) and timing-safe verification; never store plaintext password.",
+    "session": "Signed HttpOnly cookie, Secure in production, SameSite=Lax, scoped appropriately. Remember-me changes expiry only; session contents contain minimal identity/role claims.",
+    "routeProtection": "Use Next.js 16 proxy.ts only for optimistic cookie-based redirect; verify the session again inside the DAL/server actions/route handlers before every protected read/write.",
+    "csrf": "Mutation endpoints/actions must validate authenticated session and same-origin/origin expectations; do not rely on client guards.",
+    "logout": "server-side cookie invalidation",
+    "forgotPassword": "No recovery channel is currently authoritative. Keep approved visual without inventing recovery backend; prevent misleading fake success behavior and document as production content/ops gap."
+  },
+  "googleRuntime": {
+    "authModel": "service account",
+    "requiredEnv": [
+      "GOOGLE_SERVICE_ACCOUNT_EMAIL",
+      "GOOGLE_PRIVATE_KEY",
+      "GOOGLE_RENTAL_SPREADSHEET_ID",
+      "GOOGLE_CMS_SPREADSHEET_ID",
+      "GOOGLE_MEDIA_FOLDER_ID"
+    ],
+    "defaultRentalSpreadsheetId": "1a9zZjpj2KoM856z5hKtG_euci5cU2cLxirPi5B5qqVU",
+    "cmsSpreadsheetPolicy": "Prefer an explicitly configured GOOGLE_CMS_SPREADSHEET_ID. It may equal the rental spreadsheet ID if the owner intentionally wants WEB_* tabs in the same file; do not assume equality silently.",
+    "bootstrap": "Provide an idempotent bootstrap command/script that creates missing WEB_* tabs and headers. Never run the live bootstrap automatically during build/start/tests.",
+    "shareRequirement": "The service-account email must be granted the required access to the source spreadsheet, CMS spreadsheet and media folder outside Git."
+  },
+  "zalo": {
+    "env": "NEXT_PUBLIC_ZALO_URL",
+    "status": "RUNTIME_VALUE_REQUIRED",
+    "fallback": "Keep the current hotline fallback until a production URL is explicitly configured. Do not invent a Zalo production URL."
+  },
+  "productionContent": {
+    "realProjects": "REQUIRED_BEFORE_GĐ7_PRODUCTION_READY unless user explicitly approves existing demo fixture as real content",
+    "realNews": "REQUIRED_BEFORE_GĐ7_PRODUCTION_READY unless user explicitly approves existing demo fixture as real content",
+    "productionLogo": "SOFT_GAP retained from prior phases"
+  },
+  "runtimeSecretsPending": [
+    "GOOGLE_SERVICE_ACCOUNT_EMAIL",
+    "GOOGLE_PRIVATE_KEY",
+    "GOOGLE_CMS_SPREADSHEET_ID decision/value",
+    "GOOGLE_MEDIA_FOLDER_ID",
+    "ADMIN_EMAIL",
+    "ADMIN_PASSWORD_HASH",
+    "AUTH_SECRET",
+    "NEXT_PUBLIC_ZALO_URL"
+  ],
+  "gates": {
+    "implementationMayStartWithoutLiveSecrets": true,
+    "mockedContractTestsRequired": true,
+    "liveGoogleReadWriteVerificationRequiredBeforeGd6Done": true,
+    "liveAdminLoginVerificationRequiredBeforeGd6Done": true,
+    "visualRegressionRequired": true,
+    "g7ProductionBlockedByMissingRealContentOrSecrets": true
+  }
+}

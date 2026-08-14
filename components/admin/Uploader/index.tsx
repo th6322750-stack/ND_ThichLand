@@ -5,9 +5,10 @@ export type UploaderState = "empty" | "uploading" | "success" | "error";
 interface UploaderProps {
   state?: UploaderState;
   onRetry?: () => void;
+  onClick?: () => void;
 }
 
-export function Uploader({ state = "empty", onRetry }: UploaderProps) {
+export function Uploader({ state = "empty", onRetry, onClick }: UploaderProps) {
   if (state === "uploading") {
     return (
       <div className="flex aspect-[4/3] flex-col items-center justify-center gap-3 rounded-md border-2 border-dashed border-line bg-soft text-muted">
@@ -50,6 +51,7 @@ export function Uploader({ state = "empty", onRetry }: UploaderProps) {
   return (
     <button
       type="button"
+      onClick={onClick}
       className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-2 rounded-md border-2 border-dashed border-line text-muted hover:border-primary hover:text-primary"
     >
       <Icon name="upload" size={24} />

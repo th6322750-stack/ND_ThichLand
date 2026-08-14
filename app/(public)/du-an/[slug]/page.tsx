@@ -2,11 +2,13 @@ import { notFound } from "next/navigation";
 import { Breadcrumb } from "@/components/public/Breadcrumb";
 import { Gallery } from "@/components/public/Gallery";
 import { Icon } from "@/components/icons";
-import { getProjectBySlug, projects } from "@/lib/data/projects";
+import { getProjectRepository } from "@/lib/server/projects/providers";
+import { toPublicProjectListings } from "@/lib/server/projects/dto";
+import { getZaloHref } from "@/lib/zalo";
 
-export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }));
-}
+export const dynamic = "force-dynamic";
+// No generateStaticParams — same reasoning as the rental detail route
+// (Task 05): a new CMS project must be addressable without a rebuild.
 
 function CmsPlaceholderSection({ title }: { title: string }) {
   return (
@@ -19,13 +21,33 @@ function CmsPlaceholderSection({ title }: { title: string }) {
   );
 }
 
+// Same visual container as CmsPlaceholderSection, bound to the real
+// progressText field when the CMS has one (GĐ6) — mirrors the
+// ServiceFeeSection pattern from the rental detail page (GĐ5).
+function ProgressSection({ progressText }: { progressText: string }) {
+  return (
+    <section className="mt-10">
+      <h2 className="text-h2-mobile text-ink">Tiến độ</h2>
+      <div className="mt-4 flex min-h-[120px] items-center justify-center rounded-md border border-line bg-soft p-6 text-center">
+        {progressText ? (
+          <p className="text-body text-ink">{progressText}</p>
+        ) : (
+          <p className="text-body text-muted">Dữ liệu dự án theo CMS</p>
+        )}
+      </div>
+    </section>
+  );
+}
+
 export default async function DuAnDetailPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const repo = await getProjectRepository();
+  const projects = toPublicProjectListings(await repo.list());
+  const project = projects.find((p) => p.slug === slug);
   if (!project) notFound();
 
   return (
@@ -60,7 +82,7 @@ export default async function DuAnDetailPage({
               <Icon name="phone" size={16} className="invert" /> Gọi ngay
             </a>
             <a
-              href="tel:0986602203"
+              href={getZaloHref()}
               className="flex flex-1 items-center justify-center gap-2 rounded-md border border-primary px-6 py-3 text-button uppercase text-primary hover:bg-soft"
             >
               <Icon name="chat" size={16} /> Zalo
@@ -90,7 +112,7 @@ export default async function DuAnDetailPage({
           </div>
         </section>
 
-        <CmsPlaceholderSection title="Tiến độ" />
+        <ProgressSection progressText={project.progressText} />
 
         <section className="mt-10">
           <h2 className="text-h2-mobile text-ink">Hình ảnh dự án</h2>
@@ -128,7 +150,7 @@ export default async function DuAnDetailPage({
               <Icon name="phone" size={16} className="invert" /> Gọi 0986 602 203
             </a>
             <a
-              href="tel:0986602203"
+              href={getZaloHref()}
               className="mt-3 flex items-center justify-center gap-2 rounded-md border border-primary px-6 py-3 text-button uppercase text-primary hover:bg-soft"
             >
               <Icon name="chat" size={16} /> Nhắn Zalo
@@ -145,12 +167,14 @@ export default async function DuAnDetailPage({
           <section>
             <h2 className="text-h2 text-ink">Thông tin dự án</h2>
             <div className="mt-4 divide-y divide-line rounded-md border border-line">
+              {/* "Loại hình" has no backing field in WEB_PROJECTS (GĐ6
+                  contract) — stays "—" rather than being fabricated. */}
               {[
                 ["Tên dự án", project.name],
-                ["Vị trí", "Theo CMS"],
-                ["Chủ đầu tư", "Theo CMS"],
-                ["Loại hình", "Theo CMS"],
-                ["Tiến độ", project.status],
+                ["Vị trí", project.location || "—"],
+                ["Chủ đầu tư", project.investor || "—"],
+                ["Loại hình", "—"],
+                ["Tiến độ", project.progressText || "—"],
               ].map(([label, value]) => (
                 <div key={label} className="flex items-center justify-between px-6 py-3 text-body">
                   <span className="text-muted">{label}</span>

@@ -15,12 +15,33 @@ export interface PropertyListing {
   highlights: string[];
   availability: Availability;
   media: string[]; // resolved image URLs/paths, never raw Drive hyperlinks
+  // GĐ6: only ever set from an explicit source phrase (see
+  // lib/server/rental/parse.ts) — never inferred (e.g. Studio != 1 bedroom).
+  // null renders as "—", exactly like an unset field always has here.
+  bedroomCount: number | null;
+  furnishingStatus: string | null;
 }
 
-export interface AdminPropertyRecord extends PropertyListing {
+export interface AdminPropertyRecord extends Omit<PropertyListing, "propertyType" | "availability"> {
+  // GĐ6 QA reopen (defect 01): unlike the public PropertyListing shape,
+  // an Admin-visible record MAY have an unknown/unparseable/invalid
+  // propertyType or availability — a raw sheet row that failed to parse,
+  // or a custom record an admin hasn't finished filling in. Never
+  // fabricated to a plausible-looking default (e.g. "Nhà"/"Còn trống") —
+  // see lib/server/rental/merge.ts. `published` can only become true once
+  // both are non-null (plus price/area), enforced at merge/save time —
+  // toPublicPropertyListing is the boundary that turns this back into the
+  // public shape's guaranteed-non-null fields.
+  propertyType: PropertyType | null;
+  availability: Availability | null;
   commission: string; // INTERNAL-ONLY
   guidePerson: string; // INTERNAL-ONLY
   internalNotes: string; // INTERNAL-ONLY
+  published: boolean;
+  // Present only for sheet-derived records (`sheet:<row>`) — the key an
+  // Admin edit/hide writes to WEB_BDS_OVERRIDES. Absent for WEB_BDS_CUSTOM
+  // records, which are addressed by `slug`/id directly instead.
+  sourceId?: string;
 }
 
 export type ProjectStatus = "Đang triển khai" | "Tiêu biểu" | "Đã hoàn thành";
@@ -29,10 +50,12 @@ export interface ProjectListing {
   slug: string;
   name: string;
   location: string;
+  investor: string;
   status: ProjectStatus;
   media: string[];
   summary: string;
   amenities: string[];
+  progressText: string;
   progressPercent: number;
 }
 

@@ -47,17 +47,17 @@ function expectNoSeriousViolations(container: Element) {
 
 describe("accessibility sweep", () => {
   it("homepage has no serious axe violations", async () => {
-    const { container } = render(withRouter(<HomePage />, "/"));
+    const { container } = render(withRouter(await HomePage(), "/"));
     await expectNoSeriousViolations(container);
   });
 
   it("rental list page has no serious axe violations", async () => {
-    const { container } = render(withRouter(<ChoThuePage />, "/cho-thue"));
+    const { container } = render(withRouter(await ChoThuePage(), "/cho-thue"));
     await expectNoSeriousViolations(container);
   });
 
   it("projects list page has no serious axe violations", async () => {
-    const { container } = render(<DuAnPage />);
+    const { container } = render(await DuAnPage());
     await expectNoSeriousViolations(container);
   });
 
@@ -67,7 +67,7 @@ describe("accessibility sweep", () => {
   });
 
   it("news list page has no serious axe violations", async () => {
-    const { container } = render(withRouter(<TinTucPage />, "/tin-tuc"));
+    const { container } = render(withRouter(await TinTucPage(), "/tin-tuc"));
     await expectNoSeriousViolations(container);
   });
 
@@ -77,12 +77,14 @@ describe("accessibility sweep", () => {
   });
 
   it("admin login page has no serious axe violations", async () => {
-    const { container } = render(withRouter(<AdminLoginPage />));
+    // AdminLoginPage is now an async Server Component (real getSession()
+    // check) — resolve it first, same as Next.js's RSC renderer would.
+    const { container } = render(withRouter(await AdminLoginPage()));
     await expectNoSeriousViolations(container);
   });
 
   it("BdsForm has no serious axe violations", async () => {
-    const { container } = render(<BdsForm />);
+    const { container } = render(withRouter(<BdsForm />));
     await expectNoSeriousViolations(container);
   });
 });
