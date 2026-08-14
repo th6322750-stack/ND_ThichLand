@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import DuAnPage from "@/app/(public)/du-an/page";
+import DuAnPage from "@/app/(public-v2)/du-an/page";
 
 describe("/du-an project tabs", () => {
   it("exposes tablist/tab/tabpanel semantics with aria-selected", async () => {

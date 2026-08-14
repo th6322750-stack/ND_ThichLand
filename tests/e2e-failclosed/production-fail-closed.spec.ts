@@ -28,7 +28,8 @@ test.describe("production without configuration — public reads stay empty", ()
     // An empty tabpanel <div> renders with zero height (no content, no
     // min-height) — Playwright correctly reports that as not "visible", so
     // assert on the always-rendered heading instead of the panel itself.
-    await expect(page.getByRole("heading", { name: "Dự án của NDTHICH" })).toBeVisible();
+    // PHA2 client-approved-v2 h1 text: "Các dự án tiêu biểu" (was "Dự án của NDTHICH").
+    await expect(page.getByRole("heading", { name: "Các dự án tiêu biểu" })).toBeVisible();
     await expect(page.getByText("Sun Galaxy Complex")).toHaveCount(0);
     await expect(page.getByText("Riverside Garden")).toHaveCount(0);
     await expect(page.locator("#du-an-tabpanel a")).toHaveCount(0);
