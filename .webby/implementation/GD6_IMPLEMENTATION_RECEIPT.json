@@ -59,6 +59,34 @@
       "terminalStatus": "GĐ6_WAITING_FOR_RUNTIME_SECRETS — unchanged; still no live secrets in this environment."
     }
   ],
+  "visualQaReopen": {
+    "reportedBy": "ChatGPT — GĐ6 FINAL VISUAL CERTIFICATION pass (direct current-UI-vs-Revision-3-PNG comparison, not the self-captured GĐ6 baseline)",
+    "adminSidebarWidth": {
+      "issue": ".webby/responsive.json declared adminSidebar=248px >=1200, and components/admin/Sidebar/index.tsx implemented exactly that literal number — but the approved Revision 3 ADMIN masters (.webby/master/admin/*.svg, viewBox 0 0 1440 h) draw the sidebar rect at width=248 inside a 1440-wide artboard, while the approved PNG exports (.webby/visual-handoff/renders/ADMIN/*.png) are 1920px wide. Scaled to the approved 1920 render, 248 * (1920/1440) = 330.67px — independently confirmed by a pixel-scan of the approved PNGs (~329px, matching within anti-aliasing tolerance). responsive.json's 248px was a stale copy of the master's raw SVG number without the 1440→1920 export scale applied.",
+      "approvedWidth": "330.67px (exact: 248 * 1920/1440, derived from the Revision 3 master; cross-checked by pixel-scan of the approved PNG at ~329px)",
+      "implementedWidthBefore": "248px",
+      "implementedWidthAfter": "330.67px",
+      "fix": "components/admin/Sidebar/index.tsx: both the >=1200 layout spacer and the fixed sidebar panel changed from w-[248px] to w-[330.67px]. Compact 76px (768-1199) and the <768 drawer (kept at w-[248px] intentionally, per the reopen's scope) were left untouched. .webby/responsive.json's adminSidebar rule corrected to 330.67px with a note on the 1440→1920 scale error, per explicit visual-authority precedence over the stale contract value.",
+      "verifiedOn": "All 8 sidebar-bearing admin routes (/admin, /admin/bds, /admin/bds/new, /admin/du-an, /admin/du-an/new, /admin/tin-tuc, /admin/tin-tuc/new, /admin/media) re-captured at 1920 viewport and pixel-scanned: sidebar width = 331px on every route (sub-pixel rounding of 330.67), matching the approved boundary."
+    },
+    "adminLoginRatio": {
+      "issue": "components/admin/LoginForm/index.tsx used desktop:grid-cols-[1fr_1fr] (a hardcoded 50/50 split). The approved Revision 3 login master (.webby/master/admin/01_Admin_Login.svg, viewBox 0 0 1440 980) draws the dark brand panel as a rect width=560 against the full 1440 width — 560/1440 = 38.89% dark / 61.11% content, not 50/50.",
+      "approvedRatio": "38.89% dark / 61.11% content (exact fraction 7:11, from master rect width=560 of viewBox width=1440)",
+      "implementedRatioBefore": "50.0% / 50.0% (grid-cols-[1fr_1fr])",
+      "implementedRatioAfter": "38.89% / 61.11% (grid-cols-[7fr_11fr])",
+      "fix": "components/admin/LoginForm/index.tsx: desktop:grid-cols-[1fr_1fr] changed to desktop:grid-cols-[7fr_11fr]. Mobile (single column) untouched; no typography/color changes.",
+      "verifiedOn": "/admin/login re-captured at 1920 viewport; dark-panel boundary pixel-scan measured 38.85% (target 38.89%), within anti-aliasing tolerance."
+    },
+    "mobileFooterStructure": {
+      "issue": "components/public/Footer/index.tsx rendered the same desktop link-column composition at every breakpoint (a CSS-grid reflow only). The approved Revision 3 mobile master (.webby/master/public/01_TrangChu_MOBILE.svg, viewBox 0 0 390 5200) shows a materially different, mobile-specific composition: a larger (46px) bordered NO-LOGO badge, one tagline line (vs. two on desktop), and each footer column collapsed to one bold section title + one grey summary line (e.g. 'Cho thuê' / 'Căn hộ • Nhà • Mặt bằng • Văn phòng') separated by 1px dividers — not a reflowed link list. The desktop master (01_TrangChu_WEB.svg) confirms the existing full per-link column layout is correct and was left unchanged for >=768px.",
+      "fix": "components/public/Footer/index.tsx restructured into two explicit compositions: a new <768px block (tablet:hidden) reproducing the approved mobile master's exact copy/order/structure (brand block -> 3x [title + summary line + divider] for Cho thuê/Dự án/Liên hệ -> short-form copyright '© 2026 NDTHICH LAND'), and the existing >=768px block (hidden tablet:block) left byte-for-byte unchanged.",
+      "verifiedOn": "MOBILE / re-captured at 390 CSS width (2.77x device scale matching the approved 1080px-wide render); footer crop visually matches the master's section order, copy, and divider placement."
+    },
+    "staleContractNote": ".webby/responsive.json's adminSidebar rule said '248px >=1200' — a literal copy of the Revision 3 master SVG's raw rect width, expressed in the master's own 1440-wide artboard rather than the 1920px viewport the approved PNG renders (and this site's ADMIN capture viewport) actually use. Per this reopen's explicit instruction, approved PNG/master visual truth took precedence over the stale contract value: responsive.json was corrected to 330.67px rather than leaving the implementation pinned to the contract's stale 248px.",
+    "fixCommit": "PENDING — changes complete, regression-clean, and visually re-certified in the working tree on claude/gd6-backend-cms; not committed. Per this session's established practice, Claude does not create a commit without the user's explicit go-ahead — the same hold already in place for this session's earlier Footer 2-col / ProjectCard CTA fixes.",
+    "certificationResult": "VISUAL_CERTIFIED — 27/27 routes re-captured directly against Revision 3 approved PNGs; 0 real visual deviations remain (21 ASSET_GAP + 6 APPROVED_EXPORT_ARTIFACT classifications, all pre-existing non-defects; full detail in tests/visual/__certification__/report.json and the reopen's final report).",
+    "terminalStatus": "GĐ6_WAITING_FOR_RUNTIME_SECRETS — unchanged; visual certification passed, still no live secrets in this environment."
+  },
   "dataProviders": {
     "mode": "IN_MEMORY_MOCK",
     "reason": "No live Google service-account / spreadsheet / Drive / admin-auth secrets were present in this environment at any point during implementation. Every domain has a real Google-backed repository implementation (GoogleRentalSource, GoogleRentalOverlayRepository, GoogleProjectRepository, GoogleNewsRepository, GoogleMediaRepository, GoogleDriveBlobStore, GoogleContactRepository) that a config-based factory will switch to automatically the moment real secrets are set — no code change required. lib/server/providerMode.ts (added in the QA reopen fix) additionally guarantees a real production deploy without secrets fails closed instead of silently using this mock mode — see qaReopens[0].defects[2].",

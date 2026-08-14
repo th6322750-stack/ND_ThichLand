@@ -13,6 +13,7 @@
 /tests/visual/__screenshots__
 /tests/visual/__gd5-baseline__
 /tests/visual/__gd6-baseline__
+/tests/visual/__certification__
 
 # misc
 _qa_shot.mjs

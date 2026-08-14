@@ -102,11 +102,11 @@ export function Sidebar({ mobileOpen, onMobileClose }: SidebarProps) {
   return (
     <>
       {/* Compact 768–1199px / Expanded >=1200px */}
-      <div className="hidden tablet:block tablet:w-[76px] min-[1200px]:w-[248px]">
+      <div className="hidden tablet:block tablet:w-[76px] min-[1200px]:w-[330.67px]">
         <div className="fixed inset-y-0 hidden w-[76px] tablet:block min-[1200px]:hidden">
           <SidebarBody compact onLogout={handleLogout} />
         </div>
-        <div className="fixed inset-y-0 hidden w-[248px] min-[1200px]:block">
+        <div className="fixed inset-y-0 hidden w-[330.67px] min-[1200px]:block">
           <SidebarBody compact={false} onLogout={handleLogout} />
         </div>
       </div>

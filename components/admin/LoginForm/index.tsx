@@ -30,7 +30,7 @@ export function LoginForm() {
   }
 
   return (
-    <div className="grid min-h-screen grid-cols-1 desktop:grid-cols-[1fr_1fr]">
+    <div className="grid min-h-screen grid-cols-1 desktop:grid-cols-[7fr_11fr]">
       <div className="flex flex-col justify-center bg-footer px-10 py-16 desktop:px-20">
         <div className="flex items-center gap-3">
           <Image src="/assets/logos/NO_LOGO.svg" alt="NDTHICH ADMIN" width={48} height={48} unoptimized />
