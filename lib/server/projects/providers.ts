@@ -1,5 +1,6 @@
 import { GoogleProjectRepository, InMemoryProjectRepository, type ProjectRepository, type ProjectRecord } from "./repository";
 import { isGoogleRuntimeConfigured } from "@/lib/server/env";
+import { resolveProviderMode } from "@/lib/server/providerMode";
 import { projects } from "@/lib/data/projects";
 
 let cachedInMemory: InMemoryProjectRepository | null = null;
@@ -13,10 +14,14 @@ async function seedFixtureData(repo: InMemoryProjectRepository): Promise<void> {
   }
 }
 
-async function getSeededInMemory(): Promise<InMemoryProjectRepository> {
+async function getSeededInMemory(mode: "mock" | "unavailable"): Promise<InMemoryProjectRepository> {
   if (!cachedInMemory) {
     cachedInMemory = new InMemoryProjectRepository();
-    seedPromise = seedFixtureData(cachedInMemory);
+    // GĐ6 QA reopen (defect 03): only seed demo fixture content in "mock"
+    // mode (test/local dev). In "unavailable" (production, not configured)
+    // the repository stays empty — never presents GĐ4/GĐ5 fixture projects
+    // as real published content.
+    seedPromise = mode === "mock" ? seedFixtureData(cachedInMemory) : Promise.resolve();
   }
   await seedPromise;
   return cachedInMemory;
@@ -24,6 +29,7 @@ async function getSeededInMemory(): Promise<InMemoryProjectRepository> {
 
 /** Fixture policy (contract): lib/data/projects.ts is design/demo content, never silently presented as real production data — it's the seed for local/dev/test only, used exactly like the equivalent rental-fixture seed in providers.ts. */
 export async function getProjectRepository(): Promise<ProjectRepository> {
-  if (isGoogleRuntimeConfigured()) return new GoogleProjectRepository();
-  return getSeededInMemory();
+  const mode = resolveProviderMode(isGoogleRuntimeConfigured());
+  if (mode === "live") return new GoogleProjectRepository();
+  return getSeededInMemory(mode);
 }

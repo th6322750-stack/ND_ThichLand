@@ -1,6 +1,7 @@
 import { GoogleMediaRepository, InMemoryMediaRepository, type MediaRepository, type MediaRecord } from "./repository";
 import { GoogleDriveBlobStore, InMemoryBlobStore, type MediaBlobStore } from "./blobStore";
 import { isMediaConfigured } from "@/lib/server/env";
+import { resolveProviderMode } from "@/lib/server/providerMode";
 import { mediaFixtures } from "@/lib/data/media";
 
 export interface MediaProviders {
@@ -38,17 +39,21 @@ if (!globalStore[globalKey]) {
 }
 const cache = globalStore[globalKey];
 
-async function getSeededProviders(): Promise<MediaProviders> {
+async function getSeededProviders(mode: "mock" | "unavailable"): Promise<MediaProviders> {
   if (!cache.repo) {
     cache.repo = new InMemoryMediaRepository();
     cache.blobStore = new InMemoryBlobStore();
-    cache.seedPromise = seedFixtureData(cache.repo);
+    // GĐ6 QA reopen (defect 03): only seed placeholder fixtures in "mock"
+    // mode (test/local dev) — "unavailable" (production, not configured)
+    // stays empty, never presents the demo Media Library as real content.
+    cache.seedPromise = mode === "mock" ? seedFixtureData(cache.repo) : Promise.resolve();
   }
   await cache.seedPromise;
   return { repo: cache.repo, blobStore: cache.blobStore! };
 }
 
 export async function getMediaProviders(): Promise<MediaProviders> {
-  if (isMediaConfigured()) return { repo: new GoogleMediaRepository(), blobStore: new GoogleDriveBlobStore() };
-  return getSeededProviders();
+  const mode = resolveProviderMode(isMediaConfigured());
+  if (mode === "live") return { repo: new GoogleMediaRepository(), blobStore: new GoogleDriveBlobStore() };
+  return getSeededProviders(mode);
 }

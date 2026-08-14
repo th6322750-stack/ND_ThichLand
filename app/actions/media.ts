@@ -6,6 +6,8 @@ import { getSession } from "@/lib/server/auth/dal";
 import { getMediaProviders } from "@/lib/server/media/providers";
 import { validateMediaFile } from "@/lib/server/media/validate";
 import type { MediaRecord } from "@/lib/server/media/repository";
+import { isMediaConfigured } from "@/lib/server/env";
+import { resolveProviderMode, PERSISTENCE_NOT_CONFIGURED_ERROR } from "@/lib/server/providerMode";
 
 export interface MediaActionResult {
   ok: boolean;
@@ -14,10 +16,19 @@ export interface MediaActionResult {
 }
 
 const UNAUTHORIZED: MediaActionResult = { ok: false, error: "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại." };
+const NOT_CONFIGURED: MediaActionResult = { ok: false, error: PERSISTENCE_NOT_CONFIGURED_ERROR };
+
+function persistenceUnavailable(): boolean {
+  return resolveProviderMode(isMediaConfigured()) === "unavailable";
+}
 
 export async function uploadMediaAction(formData: FormData): Promise<MediaActionResult> {
   const session = await getSession();
   if (!session) return UNAUTHORIZED;
+  // GĐ6 QA reopen (defect 03): never report a successful "durable" upload
+  // when only ephemeral in-process RAM would actually back it in a real
+  // production runtime without Drive configured.
+  if (persistenceUnavailable()) return NOT_CONFIGURED;
 
   // Duck-typed rather than `instanceof File` — FormData entries can cross
   // realm boundaries (e.g. a File constructed via node:buffer vs the
@@ -62,6 +73,7 @@ export async function uploadMediaAction(formData: FormData): Promise<MediaAction
 export async function deleteMediaAction(id: string): Promise<MediaActionResult> {
   const session = await getSession();
   if (!session) return UNAUTHORIZED;
+  if (persistenceUnavailable()) return NOT_CONFIGURED;
 
   const { repo, blobStore } = await getMediaProviders();
   const existing = (await repo.list()).find((r) => r.id === id);

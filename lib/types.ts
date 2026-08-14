@@ -22,7 +22,18 @@ export interface PropertyListing {
   furnishingStatus: string | null;
 }
 
-export interface AdminPropertyRecord extends PropertyListing {
+export interface AdminPropertyRecord extends Omit<PropertyListing, "propertyType" | "availability"> {
+  // GĐ6 QA reopen (defect 01): unlike the public PropertyListing shape,
+  // an Admin-visible record MAY have an unknown/unparseable/invalid
+  // propertyType or availability — a raw sheet row that failed to parse,
+  // or a custom record an admin hasn't finished filling in. Never
+  // fabricated to a plausible-looking default (e.g. "Nhà"/"Còn trống") —
+  // see lib/server/rental/merge.ts. `published` can only become true once
+  // both are non-null (plus price/area), enforced at merge/save time —
+  // toPublicPropertyListing is the boundary that turns this back into the
+  // public shape's guaranteed-non-null fields.
+  propertyType: PropertyType | null;
+  availability: Availability | null;
   commission: string; // INTERNAL-ONLY
   guidePerson: string; // INTERNAL-ONLY
   internalNotes: string; // INTERNAL-ONLY

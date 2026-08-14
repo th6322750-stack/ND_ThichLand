@@ -44,6 +44,8 @@ function isLikelySeparatorRow(cells: string[]): boolean {
   return !roomNo && !price && !area;
 }
 
+const GROUPED_THOUSANDS_PATTERN = /^\d{1,3}([.,]\d{3})+$/;
+
 export function parsePriceVnd(raw: string): number | null {
   const trimmed = raw.trim();
   if (!trimmed) return null;
@@ -58,8 +60,18 @@ export function parsePriceVnd(raw: string): number | null {
   }
 
   const cleaned = trimmed.replace(/đ|vnd/gi, "").trim();
+
+  // Unambiguous forms only: a bare digit string ("8000000") or a properly
+  // thousands-grouped number ("12.000.000", "6.500.000" — every group after
+  // the first separator is exactly 3 digits). A shape like "2,8" is
+  // ambiguous — it could mean 2.8 triệu (needs the unit, handled above) or
+  // some other value entirely; the contract forbids guessing, so this must
+  // return null rather than misreading it as "28".
+  const isBareDigits = /^\d+$/.test(cleaned);
+  const isGroupedThousands = GROUPED_THOUSANDS_PATTERN.test(cleaned);
+  if (!isBareDigits && !isGroupedThousands) return null;
+
   const digitsOnly = cleaned.replace(/[.,\s]/g, "");
-  if (!/^\d+$/.test(digitsOnly)) return null;
   const value = Number(digitsOnly);
   if (!Number.isFinite(value) || value <= 0) return null;
   return value;

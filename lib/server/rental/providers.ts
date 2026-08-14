@@ -6,6 +6,7 @@ import {
   type CustomBdsRecord,
 } from "./overlay";
 import { isGoogleRuntimeConfigured } from "@/lib/server/env";
+import { resolveProviderMode } from "@/lib/server/providerMode";
 import { adminProperties } from "@/lib/data/properties.admin";
 
 // Process-lifetime singleton so Admin edits made against the in-memory
@@ -31,10 +32,14 @@ async function seedFixtureData(overlay: InMemoryRentalOverlayRepository): Promis
       serviceFee: p.serviceFee,
       area: p.area,
       verticalAccess: p.verticalAccess,
-      propertyType: p.propertyType,
+      // Fixture data (lib/data/properties.ts) always has real values here —
+      // the fallback only exists to satisfy CustomBdsRecord's raw-string
+      // shape now that AdminPropertyRecord allows propertyType/availability
+      // to be null (GĐ6 QA reopen, defect 01).
+      propertyType: p.propertyType ?? "",
       description: p.description,
       highlights: p.highlights,
-      availability: p.availability,
+      availability: p.availability ?? "",
       bedroomCount: p.bedroomCount,
       furnishingStatus: p.furnishingStatus,
       media: p.media,
@@ -49,10 +54,13 @@ async function seedFixtureData(overlay: InMemoryRentalOverlayRepository): Promis
   }
 }
 
-async function getSeededInMemoryOverlay(): Promise<InMemoryRentalOverlayRepository> {
+async function getSeededInMemoryOverlay(mode: "mock" | "unavailable"): Promise<InMemoryRentalOverlayRepository> {
   if (!cachedInMemoryOverlay) {
     cachedInMemoryOverlay = new InMemoryRentalOverlayRepository();
-    seedPromise = seedFixtureData(cachedInMemoryOverlay);
+    // GĐ6 QA reopen (defect 03): only seed GĐ4/GĐ5 fixture rows in "mock"
+    // mode (test/local dev). In "unavailable" (production, not configured)
+    // the overlay stays empty — never presents fixture rows as real listings.
+    seedPromise = mode === "mock" ? seedFixtureData(cachedInMemoryOverlay) : Promise.resolve();
   }
   await seedPromise;
   return cachedInMemoryOverlay;
@@ -68,11 +76,16 @@ export interface RentalProviders {
  * otherwise the same GĐ4/5 demo fixture, seeded into the in-memory overlay
  * so the whole merge/DTO pipeline (including Admin edit/hide/create) is
  * exercised for real even with zero secrets configured — the public site's
- * default appearance stays identical to before GĐ6.
+ * default appearance stays identical to before GĐ6. In a real production
+ * runtime without config ("unavailable"), the overlay is left unseeded
+ * instead (defect 03) — reads come back empty rather than presenting demo
+ * content as real, and the raw source is still empty either way (it was
+ * never fixture-backed to begin with).
  */
 export async function getRentalProviders(): Promise<RentalProviders> {
-  if (isGoogleRuntimeConfigured()) {
+  const mode = resolveProviderMode(isGoogleRuntimeConfigured());
+  if (mode === "live") {
     return { source: new GoogleRentalSource(), overlay: new GoogleRentalOverlayRepository() };
   }
-  return { source: new InMemoryRentalSource([]), overlay: await getSeededInMemoryOverlay() };
+  return { source: new InMemoryRentalSource([]), overlay: await getSeededInMemoryOverlay(mode) };
 }

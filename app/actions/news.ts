@@ -4,6 +4,8 @@ import { revalidatePath } from "next/cache";
 import { getSession } from "@/lib/server/auth/dal";
 import { getNewsRepository } from "@/lib/server/news/providers";
 import type { NewsRecord } from "@/lib/server/news/repository";
+import { isGoogleRuntimeConfigured } from "@/lib/server/env";
+import { resolveProviderMode, PERSISTENCE_NOT_CONFIGURED_ERROR } from "@/lib/server/providerMode";
 
 export interface NewsFormInput {
   slug: string;
@@ -22,6 +24,11 @@ export interface NewsActionResult {
 }
 
 const UNAUTHORIZED: NewsActionResult = { ok: false, error: "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại." };
+const NOT_CONFIGURED: NewsActionResult = { ok: false, error: PERSISTENCE_NOT_CONFIGURED_ERROR };
+
+function persistenceUnavailable(): boolean {
+  return resolveProviderMode(isGoogleRuntimeConfigured()) === "unavailable";
+}
 
 function slugify(input: string): string {
   return input
@@ -43,6 +50,7 @@ function validate(input: NewsFormInput): Record<string, string> {
 export async function saveNewsAction(input: NewsFormInput, publish: boolean): Promise<NewsActionResult> {
   const session = await getSession();
   if (!session) return UNAUTHORIZED;
+  if (persistenceUnavailable()) return NOT_CONFIGURED;
 
   const fieldErrors = validate(input);
   if (Object.keys(fieldErrors).length > 0) {
@@ -78,6 +86,7 @@ export async function saveNewsAction(input: NewsFormInput, publish: boolean): Pr
 export async function deleteNewsAction(id: string): Promise<NewsActionResult> {
   const session = await getSession();
   if (!session) return UNAUTHORIZED;
+  if (persistenceUnavailable()) return NOT_CONFIGURED;
   const repo = await getNewsRepository();
   await repo.softDelete(id);
   revalidatePath("/admin/tin-tuc");

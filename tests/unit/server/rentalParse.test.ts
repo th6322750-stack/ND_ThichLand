@@ -313,9 +313,17 @@ describe("parsePriceVnd", () => {
     ["6,5 triệu", 6_500_000],
     ["6 TRIỆU", 6_000_000],
     ["8000000", 8_000_000],
+    ["6.500.000", 6_500_000],
     ["", null],
     ["giá thỏa thuận", null],
     ["0", null],
+    // GĐ6 QA reopen (defect 02): the real production sheet contains this
+    // exact ambiguous shape (rows 16 and 21, verified by ChatGPT) — a bare
+    // "N,M" could mean N.M triệu (needs the unit, not present) or something
+    // else entirely. Never guess; must return null, never "28".
+    ["2,8", null],
+    ["3,2", null],
+    ["5,5", null],
   ])("parsePriceVnd(%s) -> %s", (input, expected) => {
     expect(parsePriceVnd(input)).toBe(expected);
   });

@@ -70,14 +70,14 @@ export default async function AdminBdsListPage({
           emptyLabel={q ? `Không tìm thấy BĐS phù hợp với "${q}".` : "Chưa có dữ liệu nào."}
           columns={[
             { key: "roomNo", label: "Mã / phòng", render: (r) => <span className="font-bold text-ink">{r.roomNo}</span> },
-            { key: "propertyType", label: "Loại", render: (r) => r.propertyType },
+            { key: "propertyType", label: "Loại", render: (r) => r.propertyType ?? "—" },
             { key: "location", label: "Khu vực", render: (r) => r.location },
             { key: "price", label: "Giá", render: (r) => `${(r.price / 1_000_000).toString()}tr` },
             { key: "area", label: "Diện tích", render: (r) => formatArea(r.area) },
             {
               key: "availability",
               label: "Trạng thái",
-              render: (r) => (r.published ? r.availability : "Nháp"),
+              render: (r) => (r.published ? (r.availability ?? "—") : "Nháp"),
             },
             {
               key: "actions",

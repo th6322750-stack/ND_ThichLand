@@ -45,11 +45,11 @@ export default async function AdminDashboardPage() {
             {recent.map((p) => (
               <tr key={p.slug} className="border-b border-line last:border-0 hover:bg-soft">
                 <td className="px-6 py-4 font-bold text-ink">{p.roomNo}</td>
-                <td className="px-6 py-4">{p.propertyType}</td>
+                <td className="px-6 py-4">{p.propertyType ?? "—"}</td>
                 <td className="px-6 py-4">{p.location}</td>
                 <td className="px-6 py-4">{formatCurrencyVnd(p.price)}</td>
                 <td className="px-6 py-4">{formatArea(p.area)}</td>
-                <td className="px-6 py-4">{p.availability}</td>
+                <td className="px-6 py-4">{p.availability ?? "—"}</td>
               </tr>
             ))}
           </tbody>

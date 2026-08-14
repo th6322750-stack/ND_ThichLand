@@ -69,6 +69,37 @@ describe("BĐS admin actions", () => {
     expect(result.error).toMatch(/đăng nhập/i);
   });
 
+  it("rejects an invalid propertyType/availability with field errors instead of silently coercing (GĐ6 QA reopen, defect 01)", async () => {
+    signInAsAdmin();
+    const { saveBdsAction } = await import("@/app/actions/bds");
+    const result = await saveBdsAction(
+      {
+        slug: "",
+        roomNo: "P.778",
+        location: "Hà Nội",
+        address: "A",
+        priceRaw: "1000000",
+        serviceFee: "",
+        areaRaw: "10m2",
+        verticalAccess: "",
+        propertyType: "loại không tồn tại",
+        description: "",
+        highlights: [],
+        availability: "trạng thái không tồn tại",
+        bedroomCount: null,
+        furnishingStatus: null,
+        media: [],
+        commission: "",
+        guidePerson: "",
+        internalNotes: "",
+      },
+      true,
+    );
+    expect(result.ok).toBe(false);
+    expect(result.fieldErrors?.propertyType).toBeDefined();
+    expect(result.fieldErrors?.availability).toBeDefined();
+  });
+
   it("rejects an invalid form (missing required fields) with fieldErrors, does not persist", async () => {
     signInAsAdmin();
     const { saveBdsAction, listAdminBdsAction } = await import("@/app/actions/bds");
@@ -258,10 +289,10 @@ describe("BĐS admin actions", () => {
         serviceFee: target!.serviceFee,
         areaRaw: `${target!.area}m2`,
         verticalAccess: target!.verticalAccess,
-        propertyType: target!.propertyType,
+        propertyType: target!.propertyType ?? "",
         description: target!.description,
         highlights: target!.highlights,
-        availability: target!.availability,
+        availability: target!.availability ?? "",
         bedroomCount: target!.bedroomCount,
         furnishingStatus: target!.furnishingStatus,
         media: target!.media,

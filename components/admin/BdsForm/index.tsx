@@ -29,13 +29,17 @@ function readInput(form: HTMLFormElement, initial: AdminPropertyRecord | undefin
     serviceFee: get("serviceFee"),
     areaRaw: get("area"),
     verticalAccess: get("verticalAccess"),
-    propertyType: get("propertyType") || (initial?.propertyType ?? "Nhà"),
+    // GĐ6 QA reopen (defect 01): never default an empty/untouched field to
+    // a plausible-looking guess ("Nhà"/"Còn trống") — pass through the
+    // existing value unchanged (edit) or empty (new record, server-side
+    // validation in app/actions/bds.ts will reject it with a field error).
+    propertyType: get("propertyType") || (initial?.propertyType ?? ""),
     description: get("description"),
     highlights: get("highlights")
       .split("•")
       .map((h) => h.trim())
       .filter(Boolean),
-    availability: get("availability") || (initial?.availability ?? "Còn trống"),
+    availability: get("availability") || (initial?.availability ?? ""),
     // No approved form control exists for these two yet — pass the current
     // value through unchanged rather than inventing a new field.
     bedroomCount: initial?.bedroomCount ?? null,
@@ -157,8 +161,9 @@ export function BdsForm({ initial }: BdsFormProps) {
             label="Thời gian vào / trạng thái"
             name="availability"
             placeholder="Còn trống"
-            defaultValue={initial?.availability}
+            defaultValue={initial?.availability ?? undefined}
             hint="Chuẩn hóa trạng thái"
+            error={fieldErrors.availability}
           />
           <FormField
             label="Vị trí / khu vực"
@@ -221,8 +226,9 @@ export function BdsForm({ initial }: BdsFormProps) {
             name="propertyType"
             required
             placeholder="Studio"
-            defaultValue={initial?.propertyType}
+            defaultValue={initial?.propertyType ?? undefined}
             hint="Public + filter"
+            error={fieldErrors.propertyType}
           />
         </FormSection>
 

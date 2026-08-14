@@ -153,6 +153,92 @@ describe("buildMergedRentalData", () => {
   });
 });
 
+describe("buildMergedRentalData — publish eligibility never fabricates status/type (GĐ6 QA reopen, defect 01)", () => {
+  const UNKNOWN_AVAILABILITY_ROW: RawRentalRow = {
+    sourceRow: 20,
+    cells: [
+      "Tòa A", "trạng thái lạ", "Hà Nội", "123 Đường Láng", "", "P.401",
+      "12.000.000", "1 tháng tiền thuê", "Theo tháng", "70m2", "Thang máy",
+      "Căn hộ", "Căn hộ 2 phòng ngủ", "Ban công", "Anh Tuấn - 0912345678", "",
+    ],
+  };
+
+  const UNKNOWN_PROPERTY_TYPE_ROW: RawRentalRow = {
+    sourceRow: 21,
+    cells: [
+      "Tòa A", "Còn trống", "Hà Nội", "123 Đường Láng", "", "P.402",
+      "12.000.000", "1 tháng tiền thuê", "Theo tháng", "70m2", "Thang máy",
+      "loại lạ chưa xác định", "Mô tả", "Ban công", "Anh Tuấn - 0912345678", "",
+    ],
+  };
+
+  it("unknown raw availability does NOT publish, and is never coerced to 'Còn trống'", async () => {
+    const source = new InMemoryRentalSource([UNKNOWN_AVAILABILITY_ROW]);
+    const overlay = new InMemoryRentalOverlayRepository();
+    const merged = await buildMergedRentalData(source, overlay);
+    expect(merged.admin).toHaveLength(1);
+    expect(merged.admin[0].availability).toBeNull();
+    expect(merged.admin[0].published).toBe(false);
+  });
+
+  it("unknown raw property type does NOT publish, and is never coerced to 'Nhà'", async () => {
+    const source = new InMemoryRentalSource([UNKNOWN_PROPERTY_TYPE_ROW]);
+    const overlay = new InMemoryRentalOverlayRepository();
+    const merged = await buildMergedRentalData(source, overlay);
+    expect(merged.admin).toHaveLength(1);
+    expect(merged.admin[0].propertyType).toBeNull();
+    expect(merged.admin[0].published).toBe(false);
+  });
+
+  it("an explicit Admin override supplying a valid availability makes the record eligible to publish", async () => {
+    const source = new InMemoryRentalSource([UNKNOWN_AVAILABILITY_ROW]);
+    const overlay = new InMemoryRentalOverlayRepository();
+    await overlay.upsertOverride({
+      sourceId: "sheet:20",
+      patch: { availability: "Còn trống", published: true },
+      hidden: false,
+      updatedAt: "2026-08-14T00:00:00.000Z",
+      updatedBy: "admin@ndthich.vn",
+    });
+    const merged = await buildMergedRentalData(source, overlay);
+    expect(merged.admin[0].availability).toBe("Còn trống");
+    expect(merged.admin[0].published).toBe(true);
+  });
+
+  it("published:true from an override alone does NOT publish while availability is still unknown", async () => {
+    const source = new InMemoryRentalSource([UNKNOWN_AVAILABILITY_ROW]);
+    const overlay = new InMemoryRentalOverlayRepository();
+    await overlay.upsertOverride({
+      // Admin clicks "publish" but never actually fixes the availability field.
+      sourceId: "sheet:20",
+      patch: { published: true },
+      hidden: false,
+      updatedAt: "2026-08-14T00:00:00.000Z",
+      updatedBy: "admin@ndthich.vn",
+    });
+    const merged = await buildMergedRentalData(source, overlay);
+    expect(merged.admin[0].availability).toBeNull();
+    expect(merged.admin[0].published).toBe(false);
+  });
+
+  it("a WEB_BDS_CUSTOM record with an invalid propertyType is never coerced to 'Nhà' and does not publish", async () => {
+    const source = new InMemoryRentalSource([]);
+    const overlay = new InMemoryRentalOverlayRepository();
+    const custom: CustomBdsRecord = {
+      id: "custom-3", slug: "loai-la", roomNo: "P.5", location: "Hà Nội", address: "A",
+      price: 5_000_000, serviceFee: "", area: 25, verticalAccess: "", propertyType: "loại lạ",
+      description: "", highlights: [], availability: "Còn trống", bedroomCount: null,
+      furnishingStatus: null, media: [], commission: "", guidePerson: "", internalNotes: "",
+      published: true, createdAt: "2026-08-14T00:00:00.000Z", updatedAt: "2026-08-14T00:00:00.000Z",
+    };
+    await overlay.upsertCustomRecord(custom);
+    const merged = await buildMergedRentalData(source, overlay);
+    const result = merged.admin.find((r) => r.slug === "loai-la");
+    expect(result!.propertyType).toBeNull();
+    expect(result!.published).toBe(false);
+  });
+});
+
 describe("toPublicPropertyListing — internal field stripping", () => {
   it("never includes commission, guidePerson, internalNotes, sourceId, or published on the public shape", async () => {
     const source = new InMemoryRentalSource([VALID_ROW]);

@@ -4,9 +4,11 @@ import { revalidatePath } from "next/cache";
 import { getSession } from "@/lib/server/auth/dal";
 import { getRentalProviders } from "@/lib/server/rental/providers";
 import { buildMergedRentalData } from "@/lib/server/rental/merge";
-import { parsePriceVnd, parseAreaM2 } from "@/lib/server/rental/parse";
+import { parsePriceVnd, parseAreaM2, parsePropertyType, parseAvailability } from "@/lib/server/rental/parse";
 import type { CustomBdsRecord } from "@/lib/server/rental/overlay";
-import type { AdminPropertyRecord } from "@/lib/types";
+import type { AdminPropertyRecord, Availability, PropertyType } from "@/lib/types";
+import { isGoogleRuntimeConfigured } from "@/lib/server/env";
+import { resolveProviderMode, PERSISTENCE_NOT_CONFIGURED_ERROR } from "@/lib/server/providerMode";
 
 // price/area arrive as the same free-text the approved form already
 // collects ("6.500.000", "35m²") and are parsed here, server-side, with
@@ -42,6 +44,11 @@ export interface BdsActionResult {
 }
 
 const UNAUTHORIZED: BdsActionResult = { ok: false, error: "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại." };
+const NOT_CONFIGURED: BdsActionResult = { ok: false, error: PERSISTENCE_NOT_CONFIGURED_ERROR };
+
+function persistenceUnavailable(): boolean {
+  return resolveProviderMode(isGoogleRuntimeConfigured()) === "unavailable";
+}
 
 function slugify(input: string): string {
   return input
@@ -53,13 +60,27 @@ function slugify(input: string): string {
     .replace(/(^-|-$)/g, "");
 }
 
-function validate(input: BdsFormInput, price: number | null, area: number | null): Record<string, string> {
+function validate(
+  input: BdsFormInput,
+  price: number | null,
+  area: number | null,
+  propertyType: PropertyType | null,
+  availability: Availability | null,
+): Record<string, string> {
   const errors: Record<string, string> = {};
   if (!input.roomNo.trim()) errors.roomNo = "Vui lòng nhập mã/số phòng";
   if (!input.location.trim()) errors.location = "Vui lòng nhập khu vực";
   if (!input.address.trim()) errors.address = "Vui lòng nhập địa chỉ";
   if (!(price !== null && price > 0)) errors.price = "Giá không hợp lệ — vui lòng nhập số, VD: 6.500.000";
   if (!(area !== null && area > 0)) errors.area = "Diện tích không hợp lệ — vui lòng nhập số, VD: 35m²";
+  // GĐ6 QA reopen (defect 01): never silently coerce an unrecognized value
+  // to "Nhà"/"Còn trống" — reject it as a field error instead.
+  if (!propertyType) {
+    errors.propertyType = "Loại BĐS không hợp lệ — vui lòng nhập đúng: Căn hộ / Nhà / Mặt bằng / Văn phòng / Xưởng / Studio";
+  }
+  if (!availability) {
+    errors.availability = "Trạng thái không hợp lệ — vui lòng nhập đúng: Còn trống / Đã cho thuê / Sắp trống";
+  }
   return errors;
 }
 
@@ -72,11 +93,14 @@ function revalidateBds() {
 export async function saveBdsAction(input: BdsFormInput, publish: boolean): Promise<BdsActionResult> {
   const session = await getSession();
   if (!session) return UNAUTHORIZED;
+  if (persistenceUnavailable()) return NOT_CONFIGURED;
 
   const price = parsePriceVnd(input.priceRaw);
   const area = parseAreaM2(input.areaRaw);
+  const propertyType = parsePropertyType(input.propertyType);
+  const availability = parseAvailability(input.availability);
 
-  const fieldErrors = validate(input, price, area);
+  const fieldErrors = validate(input, price, area, propertyType, availability);
   if (Object.keys(fieldErrors).length > 0) {
     return { ok: false, error: "Vui lòng kiểm tra lại thông tin.", fieldErrors };
   }
@@ -95,10 +119,10 @@ export async function saveBdsAction(input: BdsFormInput, publish: boolean): Prom
         serviceFee: input.serviceFee,
         area,
         verticalAccess: input.verticalAccess,
-        propertyType: input.propertyType,
+        propertyType,
         description: input.description,
         highlights: input.highlights,
-        availability: input.availability,
+        availability,
         bedroomCount: input.bedroomCount,
         furnishingStatus: input.furnishingStatus,
         media: input.media,
@@ -120,10 +144,13 @@ export async function saveBdsAction(input: BdsFormInput, publish: boolean): Prom
       serviceFee: input.serviceFee,
       area,
       verticalAccess: input.verticalAccess,
-      propertyType: input.propertyType,
+      // Stored as the validated, normalized union value (never the raw
+      // typed text) — validate() above already guarantees these are
+      // non-null before this point is ever reached.
+      propertyType: propertyType!,
       description: input.description,
       highlights: input.highlights,
-      availability: input.availability,
+      availability: availability!,
       bedroomCount: input.bedroomCount,
       furnishingStatus: input.furnishingStatus,
       media: input.media,
@@ -145,6 +172,7 @@ export async function saveBdsAction(input: BdsFormInput, publish: boolean): Prom
 export async function hideBdsSourceRecordAction(sourceId: string): Promise<BdsActionResult> {
   const session = await getSession();
   if (!session) return UNAUTHORIZED;
+  if (persistenceUnavailable()) return NOT_CONFIGURED;
   const { overlay } = await getRentalProviders();
   await overlay.upsertOverride({
     sourceId,
@@ -160,6 +188,7 @@ export async function hideBdsSourceRecordAction(sourceId: string): Promise<BdsAc
 export async function deleteCustomBdsRecordAction(id: string): Promise<BdsActionResult> {
   const session = await getSession();
   if (!session) return UNAUTHORIZED;
+  if (persistenceUnavailable()) return NOT_CONFIGURED;
   const { overlay } = await getRentalProviders();
   await overlay.softDeleteCustomRecord(id);
   revalidateBds();

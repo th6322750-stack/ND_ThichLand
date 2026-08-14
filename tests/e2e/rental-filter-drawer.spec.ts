@@ -30,7 +30,12 @@ test.describe("mobile FilterDrawer draft-apply semantics", () => {
     const before = page.url();
     await page.getByRole("button", { name: /Bộ lọc/ }).click();
     await page.getByRole("dialog").getByLabel("Loại BĐS").selectOption("Xưởng");
-    await page.locator('[aria-hidden="true"]').click({ position: { x: 5, y: 5 } });
+    // Scoped to the drawer's own backdrop, not the generic [aria-hidden="true"]
+    // selector — `next dev` also renders its floating devtools indicator with
+    // aria-hidden="true", which made this ambiguous once local QA started
+    // running against `next dev` instead of `next start` (GĐ6 QA reopen,
+    // defect 03 requires NODE_ENV=development for mock/fixture data locally).
+    await page.locator(".z-sheet-backdrop").click({ position: { x: 5, y: 5 } });
     await expect(page.getByRole("dialog")).toHaveCount(0);
     expect(page.url()).toBe(before);
     await expect(page.getByText(/12 kết quả/)).toBeVisible();

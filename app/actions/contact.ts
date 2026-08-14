@@ -5,7 +5,8 @@ import { headers } from "next/headers";
 import { getContactRepository } from "@/lib/server/contact/providers";
 import { validateContactForm, type ContactFormInput } from "@/lib/server/contact/validate";
 import { hashClientIp, isRateLimited, recordSubmission } from "@/lib/server/contact/rateLimit";
-import { getRateLimitSecret } from "@/lib/server/env";
+import { getRateLimitSecret, isGoogleRuntimeConfigured } from "@/lib/server/env";
+import { resolveProviderMode } from "@/lib/server/providerMode";
 import type { ContactRecord } from "@/lib/server/contact/repository";
 
 export interface ContactActionInput extends ContactFormInput {
@@ -35,6 +36,14 @@ export async function submitContactAction(input: ContactActionInput): Promise<Co
   // Silently "succeed" for bots without ever writing a row — never reveal the honeypot exists.
   if (input.website.trim()) {
     return { ok: true };
+  }
+
+  // GĐ6 QA reopen (defect 03): never return ok:true while a submission
+  // would only ever land in a throwaway in-process store — in a real
+  // production runtime without Google config, fail with the same generic
+  // error a real persistence failure would show.
+  if (resolveProviderMode(isGoogleRuntimeConfigured()) === "unavailable") {
+    return GENERIC_ERROR;
   }
 
   const { errors, value } = validateContactForm(input);

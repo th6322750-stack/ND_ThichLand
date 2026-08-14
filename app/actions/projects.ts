@@ -5,6 +5,8 @@ import { getSession } from "@/lib/server/auth/dal";
 import { getProjectRepository } from "@/lib/server/projects/providers";
 import type { ProjectRecord } from "@/lib/server/projects/repository";
 import type { ProjectStatus } from "@/lib/types";
+import { isGoogleRuntimeConfigured } from "@/lib/server/env";
+import { resolveProviderMode, PERSISTENCE_NOT_CONFIGURED_ERROR } from "@/lib/server/providerMode";
 
 export interface ProjectFormInput {
   slug: string;
@@ -26,6 +28,11 @@ export interface ProjectActionResult {
 }
 
 const UNAUTHORIZED: ProjectActionResult = { ok: false, error: "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại." };
+const NOT_CONFIGURED: ProjectActionResult = { ok: false, error: PERSISTENCE_NOT_CONFIGURED_ERROR };
+
+function persistenceUnavailable(): boolean {
+  return resolveProviderMode(isGoogleRuntimeConfigured()) === "unavailable";
+}
 
 function slugify(input: string): string {
   return input
@@ -47,6 +54,7 @@ function validate(input: ProjectFormInput): Record<string, string> {
 export async function saveProjectAction(input: ProjectFormInput, publish: boolean): Promise<ProjectActionResult> {
   const session = await getSession();
   if (!session) return UNAUTHORIZED;
+  if (persistenceUnavailable()) return NOT_CONFIGURED;
 
   const fieldErrors = validate(input);
   if (Object.keys(fieldErrors).length > 0) {
@@ -84,6 +92,7 @@ export async function saveProjectAction(input: ProjectFormInput, publish: boolea
 export async function deleteProjectAction(id: string): Promise<ProjectActionResult> {
   const session = await getSession();
   if (!session) return UNAUTHORIZED;
+  if (persistenceUnavailable()) return NOT_CONFIGURED;
   const repo = await getProjectRepository();
   await repo.softDelete(id);
   revalidatePath("/admin/du-an");

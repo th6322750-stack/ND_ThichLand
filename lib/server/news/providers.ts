@@ -1,5 +1,6 @@
 import { GoogleNewsRepository, InMemoryNewsRepository, type NewsRepository, type NewsRecord } from "./repository";
 import { isGoogleRuntimeConfigured } from "@/lib/server/env";
+import { resolveProviderMode } from "@/lib/server/providerMode";
 import { news } from "@/lib/data/news";
 
 let cachedInMemory: InMemoryNewsRepository | null = null;
@@ -13,10 +14,13 @@ async function seedFixtureData(repo: InMemoryNewsRepository): Promise<void> {
   }
 }
 
-async function getSeededInMemory(): Promise<InMemoryNewsRepository> {
+async function getSeededInMemory(mode: "mock" | "unavailable"): Promise<InMemoryNewsRepository> {
   if (!cachedInMemory) {
     cachedInMemory = new InMemoryNewsRepository();
-    seedPromise = seedFixtureData(cachedInMemory);
+    // GĐ6 QA reopen (defect 03): only seed demo content in "mock" mode
+    // (test/local dev) — "unavailable" (production, not configured) stays
+    // empty, never presents fixture articles as real published content.
+    seedPromise = mode === "mock" ? seedFixtureData(cachedInMemory) : Promise.resolve();
   }
   await seedPromise;
   return cachedInMemory;
@@ -24,6 +28,7 @@ async function getSeededInMemory(): Promise<InMemoryNewsRepository> {
 
 /** Fixture policy (contract): lib/data/news.ts is design/demo content, seeded for local/dev/test only — same treatment as the rental and project fixture seeds. */
 export async function getNewsRepository(): Promise<NewsRepository> {
-  if (isGoogleRuntimeConfigured()) return new GoogleNewsRepository();
-  return getSeededInMemory();
+  const mode = resolveProviderMode(isGoogleRuntimeConfigured());
+  if (mode === "live") return new GoogleNewsRepository();
+  return getSeededInMemory(mode);
 }

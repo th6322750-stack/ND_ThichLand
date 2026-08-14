@@ -36,16 +36,36 @@ function slugForSourceRow(roomNo: string, sourceRow: number): string {
 const KNOWN_PROPERTY_TYPES: PropertyType[] = ["Căn hộ", "Nhà", "Mặt bằng", "Văn phòng", "Xưởng", "Studio"];
 const KNOWN_AVAILABILITY: Availability[] = ["Còn trống", "Đã cho thuê", "Sắp trống"];
 
-function coercePropertyType(value: string): PropertyType {
-  return (KNOWN_PROPERTY_TYPES as string[]).includes(value) ? (value as PropertyType) : "Nhà";
+// GĐ6 QA reopen (defect 01): never fabricate a plausible-looking default —
+// an unrecognized value becomes null (unknown), never silently "Nhà"/"Còn
+// trống". Applies to WEB_BDS_CUSTOM records exactly the same as raw sheet
+// rows; the value only ever reaches here as a raw string (from a Sheet
+// cell), so it still needs validating even though app/actions/bds.ts also
+// validates admin-submitted input before it's ever written.
+function coercePropertyType(value: string): PropertyType | null {
+  return (KNOWN_PROPERTY_TYPES as string[]).includes(value) ? (value as PropertyType) : null;
 }
 
-function coerceAvailability(value: string): Availability {
-  return (KNOWN_AVAILABILITY as string[]).includes(value) ? (value as Availability) : "Còn trống";
+function coerceAvailability(value: string): Availability | null {
+  return (KNOWN_AVAILABILITY as string[]).includes(value) ? (value as Availability) : null;
+}
+
+/**
+ * The single publish-eligibility gate (contract: never publish a raw or
+ * custom record with a fabricated/unknown price, area, availability, or
+ * propertyType). Applied LAST, after any override patch has been merged
+ * in — an admin explicitly requesting "publish" (published: true in a
+ * patch) is intent, not proof of validity; this still forces the record
+ * back to unpublished if the underlying fields aren't actually valid, so
+ * there's no way to publish a fabricated-looking record just by clicking
+ * "Lưu & đăng" without ever fixing the fields themselves.
+ */
+function isEligibleToPublish(record: AdminPropertyRecord): boolean {
+  return record.price > 0 && record.area > 0 && record.availability !== null && record.propertyType !== null;
 }
 
 function customToAdminRecord(c: CustomBdsRecord): AdminPropertyRecord {
-  return {
+  const record: AdminPropertyRecord = {
     slug: c.slug,
     roomNo: c.roomNo,
     location: c.location,
@@ -66,6 +86,8 @@ function customToAdminRecord(c: CustomBdsRecord): AdminPropertyRecord {
     internalNotes: c.internalNotes,
     published: c.published,
   };
+  record.published = record.published && isEligibleToPublish(record);
+  return record;
 }
 
 /**
@@ -120,23 +142,29 @@ export async function buildMergedRentalData(
       serviceFee: record.serviceFee,
       area: record.area ?? 0,
       verticalAccess: record.verticalAccess,
-      propertyType: record.propertyType ?? "Nhà",
+      // Never fabricated (contract, defect 01) — an unparseable/unrecognized
+      // raw value stays null ("unknown"), never a plausible-looking default.
+      propertyType: record.propertyType,
       description: record.description,
       highlights: record.highlights,
-      availability: record.availability ?? "Còn trống",
+      availability: record.availability,
       media,
       bedroomCount: record.bedroomCount,
       furnishingStatus: record.furnishingStatus,
       commission: record.commission,
       guidePerson: record.guidePerson,
       internalNotes: record.internalNotes,
-      published: record.price !== null && record.area !== null,
+      // Provisional — isEligibleToPublish() below is the real, final gate,
+      // applied after any override patch so an Admin override can't just
+      // assert published:true without the underlying fields being valid.
+      published: true,
       sourceId: record.sourceId,
     };
 
     if (override) {
       admin = { ...admin, ...(override.patch as Partial<AdminPropertyRecord>), sourceId: admin.sourceId };
     }
+    admin.published = admin.published && isEligibleToPublish(admin);
 
     fromSource.push(admin);
   }
