@@ -7,10 +7,12 @@ const env = process.env as Record<string, string | undefined>;
 
 const originalVitest = env.VITEST;
 const originalNodeEnv = env.NODE_ENV;
+const originalDemoMode = env.DEMO_MODE;
 
 function restoreEnv() {
   env.VITEST = originalVitest;
   env.NODE_ENV = originalNodeEnv;
+  env.DEMO_MODE = originalDemoMode;
 }
 
 describe("resolveProviderMode", () => {
@@ -39,6 +41,27 @@ describe("resolveProviderMode", () => {
 
   it("production + missing config -> unavailable (no fixture publishing, no fake success)", () => {
     delete env.VITEST;
+    env.NODE_ENV = "production";
+    expect(resolveProviderMode(false)).toBe("unavailable");
+  });
+
+  it("production + missing config -> still unavailable when DEMO_MODE is unset (default unchanged)", () => {
+    delete env.VITEST;
+    delete env.DEMO_MODE;
+    env.NODE_ENV = "production";
+    expect(resolveProviderMode(false)).toBe("unavailable");
+  });
+
+  it("production + missing config + DEMO_MODE=true -> mock (explicit opt-in for a client-preview deploy)", () => {
+    delete env.VITEST;
+    env.DEMO_MODE = "true";
+    env.NODE_ENV = "production";
+    expect(resolveProviderMode(false)).toBe("mock");
+  });
+
+  it("production + missing config + DEMO_MODE=anything-else -> unavailable (must be the exact string \"true\")", () => {
+    delete env.VITEST;
+    env.DEMO_MODE = "1";
     env.NODE_ENV = "production";
     expect(resolveProviderMode(false)).toBe("unavailable");
   });
