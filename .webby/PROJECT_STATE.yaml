@@ -28,6 +28,15 @@ gđ5:
   baseGd4Commit: fc06923f2c855cd5b111be3a1296be5e5f631448
   uxImplementationCommit: f5e3c6baa4c9a04fc9fc97cd76e975c0974eeeee
   receipt: .webby/implementation/GD5_IMPLEMENTATION_RECEIPT.json
+gđ6:
+  status: WAITING_FOR_RUNTIME_SECRETS
+  branch: claude/gd6-backend-cms
+  baseGd5Commit: 3f866d2b27d3bd2a66a4c75c4c3f2f6037343f74
+  backendContractCommit: 4b9af846d726bdf6eca15ed4083e62b4efaa9647
+  backendImplementationCommit: a9841323db5fff66bf1f0acb811fb11421a21152
+  dataProviders: IN_MEMORY_MOCK
+  liveIntegrationPerformed: false
+  receipt: .webby/implementation/GD6_IMPLEMENTATION_RECEIPT.json
 decisions:
   logo: NO_LOGO_PLACEHOLDER
   viewingRequestLead: FUTURE_FEATURE
