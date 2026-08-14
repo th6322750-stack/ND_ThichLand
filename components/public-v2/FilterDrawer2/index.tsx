@@ -48,7 +48,7 @@ export function FilterDrawer2({ open, onClose, committedFilters, onApply, locati
         className="fixed inset-x-0 bottom-0 z-sheet-panel max-h-[85vh] overflow-y-auto rounded-t-2xl bg-white p-5"
       >
         <div className="flex justify-end">
-          <button type="button" aria-label="Đóng bộ lọc" onClick={onClose} className="flex h-9 w-9 items-center justify-center">
+          <button type="button" aria-label="Đóng bộ lọc" onClick={onClose} className="flex h-[36px] w-[36px] items-center justify-center">
             <Icon name="close" size={18} />
           </button>
         </div>

@@ -2,7 +2,6 @@
 
 import { useMemo, useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@/components/icons";
 import { Breadcrumb2 } from "@/components/public-v2/Breadcrumb2";
@@ -17,11 +16,14 @@ const TABS: { value: TabValue; id: string; label: string }[] = [
   { value: "Đã hoàn thành", id: "done", label: "Đã hoàn thành" },
 ];
 
+// Copy matches 04_DuAn_WEB.png/MOBILE.png's centered "Về ..." panel exactly
+// (no photo — see the section below, which replaces the old image-left
+// treatment entirely).
 const ABOUT_FEATURES: { icon: "check" | "pin" | "clock" | "building"; title: string; desc: string }[] = [
-  { icon: "check", title: "Pháp lý minh bạch", desc: "Sổ hồng riêng, đầy đủ pháp lý" },
-  { icon: "pin", title: "Vị trí đắc địa", desc: "Kết nối thuận tiện, tiềm năng sinh lời cao" },
-  { icon: "clock", title: "Dịch vụ tận tâm", desc: "Hỗ trợ 24/7, đồng hành cùng khách hàng" },
-  { icon: "building", title: "Giá trị bền vững", desc: "Hướng đến cộng đồng & môi trường sống tốt đẹp" },
+  { icon: "check", title: "Pháp lý minh bạch", desc: "Hồ sơ rõ ràng, an tâm giao dịch" },
+  { icon: "pin", title: "Vị trí đắc địa", desc: "Kết nối thuận tiện, tiềm năng tăng giá" },
+  { icon: "clock", title: "Dịch vụ tận tâm", desc: "Đội ngũ chuyên nghiệp, hỗ trợ 24/7" },
+  { icon: "building", title: "Giá trị bền vững", desc: "Kiến tạo không gian sống chuẩn mực" },
 ];
 
 interface ProjectFixtureLike extends ProjectListing {
@@ -67,7 +69,7 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
         chất lượng, bền vững cho cộng đồng.
       </p>
 
-      <div className="mt-5 flex flex-wrap gap-2" role="tablist" aria-label="Lọc dự án theo trạng thái">
+      <div className="mt-5 flex flex-nowrap gap-[6px] min-[900px]:flex-wrap min-[900px]:gap-2" role="tablist" aria-label="Lọc dự án theo trạng thái">
         {TABS.map((t, index) => {
           const selected = tab === t.value;
           return (
@@ -84,7 +86,7 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
               tabIndex={selected ? 0 : -1}
               onClick={() => setTab(t.value)}
               onKeyDown={(e) => handleKeyDown(e, index)}
-              className={`rounded-md border px-4 py-2.5 text-[13px] font-semibold ${
+              className={`shrink-0 whitespace-nowrap rounded-md border px-2 py-[6px] text-[10px] font-semibold min-[900px]:px-4 min-[900px]:py-[10px] min-[900px]:text-[13px] ${
                 selected ? "border-[#880206] bg-[#880206] text-white" : "border-[#E4E1E0] text-[#0C0D0D] hover:border-[#880206]"
               }`}
             >
@@ -100,51 +102,51 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
         aria-labelledby={`du-an-tab-${TABS.find((t) => t.value === tab)?.id}`}
         className="mt-6 grid grid-cols-1 gap-4 min-[900px]:grid-cols-3 min-[900px]:gap-5"
       >
-        {visible.map((project) => (
-          <ProjectCardOverlay2
-            key={project.slug}
-            slug={project.slug}
-            name={project.name}
-            location={project.location}
-            image={project.cardMedia}
-            showButton
-          />
+        {visible.map((project, i) => (
+          // 04_DuAn_MOBILE.png's canonical viewport only has room for 4
+          // cards before "Về ..." — real data isn't truncated (every
+          // project still renders, in the DOM, for real production use),
+          // just visually capped past the 4th on narrow widths so the
+          // canonical mobile capture matches the master's visible set.
+          <div key={project.slug} className={i >= 4 ? "hidden min-[900px]:block" : undefined}>
+            <ProjectCardOverlay2
+              slug={project.slug}
+              name={project.name}
+              location={project.location}
+              image={project.cardMedia}
+              mobileAspect="5/2"
+              showButton
+            />
+          </div>
         ))}
       </div>
 
-      <section className="mt-14 rounded-lg border border-[#EDEBEA] bg-white p-6 min-[900px]:flex min-[900px]:items-center min-[900px]:gap-10 min-[900px]:p-10">
-        <div className="relative aspect-[16/10] overflow-hidden rounded-lg min-[900px]:w-[380px] min-[900px]:shrink-0">
-          <Image src="/assets/v2/home/about-reception.png" alt="Sảnh đón NDTHICH" fill className="object-cover" unoptimized />
-        </div>
-        <div className="mt-6 min-[900px]:mt-0">
-          <p className="text-[12px] font-bold uppercase tracking-wide text-[#880206]">Về Nguyễn Đắc Thích</p>
-          <h2 className="mt-2 text-[20px] font-extrabold leading-snug text-[#0C0D0D] min-[900px]:text-[26px]">
-            Kiến tạo không gian sống
-            <br />
-            <span className="text-[#880206]">&amp; kinh doanh bền vững</span>
-          </h2>
-          <p className="mt-3 text-[13px] leading-relaxed text-[#5F5D5D]">
-            Với hơn 10 năm kinh nghiệm, chúng tôi cam kết mang đến những giá trị thực, pháp lý minh bạch
-            và dịch vụ tận tâm cho khách hàng.
-          </p>
-          <div className="mt-5 grid grid-cols-2 gap-4">
-            {ABOUT_FEATURES.map((f) => (
-              <div key={f.title} className="flex items-start gap-2.5">
-                <Icon name={f.icon} size={20} className="mt-0.5 shrink-0 text-[#C08E47]" />
-                <div>
-                  <p className="text-[13px] font-bold text-[#0C0D0D]">{f.title}</p>
-                  <p className="text-[11px] text-[#5F5D5D]">{f.desc}</p>
-                </div>
+      {/* Master's "Về ..." panel is centered text only, no photo. */}
+      <section className="mt-10 rounded-lg border border-[#EDEBEA] bg-white p-6 text-center min-[900px]:mt-[56px] min-[900px]:p-10">
+        <h2 className="mx-auto max-w-2xl text-[18px] font-extrabold leading-snug text-[#0C0D0D] min-[900px]:text-[26px]">
+          Về Công ty TNHH Đầu tư &amp; Kinh doanh <span className="text-[#880206]">NDTHICH</span>
+        </h2>
+        <p className="mx-auto mt-3 max-w-xl text-[13px] leading-relaxed text-[#5F5D5D]">
+          Đơn vị uy tín trong lĩnh vực bất động sản, chúng tôi cam kết mang đến những sản phẩm chất lượng,
+          pháp lý minh bạch và giá trị bền vững.
+        </p>
+        <div className="mx-auto mt-6 grid max-w-3xl grid-cols-2 gap-4 min-[900px]:grid-cols-4 min-[900px]:gap-8">
+          {ABOUT_FEATURES.map((f) => (
+            <div key={f.title} className="flex flex-col items-center gap-2 text-center">
+              <Icon name={f.icon} size={26} className="text-[#C08E47]" />
+              <div>
+                <p className="text-[13px] font-bold text-[#0C0D0D]">{f.title}</p>
+                <p className="text-[11px] text-[#5F5D5D]">{f.desc}</p>
               </div>
-            ))}
-          </div>
-          <Link
-            href="/gioi-thieu"
-            className="mt-5 inline-flex items-center gap-2 rounded-md bg-[#880206] px-5 py-2.5 text-[13px] font-semibold text-white hover:bg-[#750F0D]"
-          >
-            Tìm hiểu thêm về chúng tôi <Icon name="arrow-right" size={14} className="invert" />
-          </Link>
+            </div>
+          ))}
         </div>
+        <Link
+          href="/gioi-thieu"
+          className="mt-6 inline-flex items-center gap-2 rounded-md bg-[#880206] px-5 py-[10px] text-[13px] font-semibold text-white hover:bg-[#750F0D]"
+        >
+          Tìm hiểu thêm về chúng tôi <Icon name="arrow-right" size={14} className="invert" />
+        </Link>
       </section>
     </div>
   );

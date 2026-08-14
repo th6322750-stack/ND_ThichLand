@@ -64,8 +64,8 @@ export function ProjectInquiryForm2({ projectName, variant = "panel" }: ProjectI
   }
 
   const inputClass = isPanel
-    ? "w-full rounded-md border border-[#E4E1E0] px-3.5 py-3 text-[13px] text-[#0C0D0D] placeholder:text-[#A6A6A6]"
-    : "w-full rounded-md border border-white/30 bg-white/10 px-3.5 py-3 text-[13px] text-white placeholder:text-white/70";
+    ? "w-full rounded-md border border-[#E4E1E0] px-[14px] py-3 text-[13px] text-[#0C0D0D] placeholder:text-[#A6A6A6]"
+    : "w-full rounded-md border border-white/30 bg-white/10 px-[14px] py-3 text-[13px] text-white placeholder:text-white/70";
 
   return (
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-3">

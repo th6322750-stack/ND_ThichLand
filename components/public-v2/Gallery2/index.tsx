@@ -6,12 +6,17 @@ import { useFocusTrap } from "@/lib/useFocusTrap";
 
 interface Gallery2Props {
   images: string[];
+  // 03_ChiTietBDS_MOBILE.png puts the main photo and a stacked thumbnail
+  // column SIDE BY SIDE even on mobile — the opposite of the WEB master
+  // (both 03 and 05), which always stacks a thumbnail ROW below the main
+  // photo. Only the property-detail page needs the mobile side-by-side
+  // treatment (05_ChiTietDuAn_MOBILE.png explicitly wants the plain
+  // top/below strip instead), so this renders both arrangements and picks
+  // one per breakpoint via CSS rather than fighting one grid to do both.
+  sideBySideOnMobile?: boolean;
 }
 
-// Detail-page gallery — one large main photo + up to 4 small thumbnails in
-// a row, the last thumbnail showing a "+N ảnh" badge when more photos exist
-// beyond what's shown. Matches 03_ChiTietBDS_WEB.png / MOBILE.
-export function Gallery2({ images }: Gallery2Props) {
+export function Gallery2({ images, sideBySideOnMobile = false }: Gallery2Props) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const open = activeIndex !== null;
   const close = () => setActiveIndex(null);
@@ -41,38 +46,52 @@ export function Gallery2({ images }: Gallery2Props) {
   const thumbs = images.slice(1, 4);
   const extraCount = images.length - 4;
 
+  function renderThumb(src: string, i: number, stackedSquare: boolean) {
+    const isLast = i === thumbs.length - 1 && extraCount > 0;
+    return (
+      <button
+        key={src + i}
+        type="button"
+        aria-label={isLast ? `Xem thêm ${extraCount} ảnh` : `Xem ảnh ${i + 2} / ${images.length}`}
+        className={`relative overflow-hidden rounded-lg ${stackedSquare ? "" : "aspect-square"}`}
+        onClick={() => setActiveIndex(i + 1)}
+      >
+        <Image src={src} alt="" fill className="object-cover" unoptimized />
+        {isLast && (
+          <span className="absolute inset-0 flex items-center justify-center bg-black/55 text-[13px] font-bold text-white">
+            +{extraCount} ảnh
+          </span>
+        )}
+      </button>
+    );
+  }
+
   return (
     <div>
-      <div className="grid grid-cols-4 gap-2 min-[900px]:grid-cols-[1.6fr_1fr]">
+      {sideBySideOnMobile && (
+        <div className="grid grid-cols-[65%_1fr] gap-2 min-[900px]:hidden">
+          <button
+            type="button"
+            aria-label={`Xem ảnh 1 / ${images.length}`}
+            className="relative aspect-[4/3] overflow-hidden rounded-lg"
+            onClick={() => setActiveIndex(0)}
+          >
+            <Image src={images[0]} alt="" fill className="object-cover" unoptimized priority />
+          </button>
+          <div className="grid grid-rows-3 gap-2">{thumbs.map((src, i) => renderThumb(src, i, true))}</div>
+        </div>
+      )}
+
+      <div className={sideBySideOnMobile ? "hidden min-[900px]:block" : ""}>
         <button
           type="button"
           aria-label={`Xem ảnh 1 / ${images.length}`}
-          className="relative col-span-4 aspect-[4/3] overflow-hidden rounded-lg min-[900px]:col-span-1"
+          className="relative aspect-[4/3] w-full overflow-hidden rounded-lg"
           onClick={() => setActiveIndex(0)}
         >
           <Image src={images[0]} alt="" fill className="object-cover" unoptimized priority />
         </button>
-        <div className="col-span-4 grid grid-cols-4 gap-2 min-[900px]:col-span-1 min-[900px]:grid-rows-3 min-[900px]:gap-2">
-          {thumbs.map((src, i) => {
-            const isLast = i === thumbs.length - 1 && extraCount > 0;
-            return (
-              <button
-                key={src + i}
-                type="button"
-                aria-label={isLast ? `Xem thêm ${extraCount} ảnh` : `Xem ảnh ${i + 2} / ${images.length}`}
-                className="relative aspect-square overflow-hidden rounded-lg min-[900px]:aspect-auto"
-                onClick={() => setActiveIndex(i + 1)}
-              >
-                <Image src={src} alt="" fill className="object-cover" unoptimized />
-                {isLast && (
-                  <span className="absolute inset-0 flex items-center justify-center bg-black/55 text-[13px] font-bold text-white">
-                    +{extraCount} ảnh
-                  </span>
-                )}
-              </button>
-            );
-          })}
-        </div>
+        <div className="mt-2 grid grid-cols-4 gap-2">{thumbs.map((src, i) => renderThumb(src, i, false))}</div>
       </div>
 
       {open && (
@@ -92,7 +111,7 @@ export function Gallery2({ images }: Gallery2Props) {
               <button
                 type="button"
                 aria-label="Ảnh trước"
-                className="flex h-11 w-11 items-center justify-center text-2xl"
+                className="flex h-[44px] w-[44px] items-center justify-center text-2xl"
                 onClick={() => setActiveIndex((i) => (i === null ? i : (i - 1 + images.length) % images.length))}
               >
                 ‹
@@ -101,13 +120,13 @@ export function Gallery2({ images }: Gallery2Props) {
               <button
                 type="button"
                 aria-label="Ảnh sau"
-                className="flex h-11 w-11 items-center justify-center text-2xl"
+                className="flex h-[44px] w-[44px] items-center justify-center text-2xl"
                 onClick={() => setActiveIndex((i) => (i === null ? i : (i + 1) % images.length))}
               >
                 ›
               </button>
             </div>
-            <button type="button" aria-label="Đóng" className="absolute right-6 top-6 flex h-11 w-11 items-center justify-center text-white" onClick={close}>
+            <button type="button" aria-label="Đóng" className="absolute right-6 top-6 flex h-[44px] w-[44px] items-center justify-center text-white" onClick={close}>
               ✕
             </button>
           </div>

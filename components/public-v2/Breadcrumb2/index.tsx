@@ -6,9 +6,17 @@ interface Crumb {
   href?: string;
 }
 
-export function Breadcrumb2({ items, withHomeIcon = false }: { items: Crumb[]; withHomeIcon?: boolean }) {
+export function Breadcrumb2({
+  items,
+  withHomeIcon = false,
+  className = "flex",
+}: {
+  items: Crumb[];
+  withHomeIcon?: boolean;
+  className?: string;
+}) {
   return (
-    <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 text-[13px] text-[#5F5D5D]">
+    <nav aria-label="Breadcrumb" className={`${className} flex-wrap items-center gap-[6px] text-[13px] text-[#5F5D5D]`}>
       {withHomeIcon && (
         <>
           <Link href="/" aria-label="Trang chủ" className="flex items-center hover:text-[#880206]">
@@ -18,7 +26,7 @@ export function Breadcrumb2({ items, withHomeIcon = false }: { items: Crumb[]; w
         </>
       )}
       {items.map((item, i) => (
-        <span key={item.label} className="flex items-center gap-1.5">
+        <span key={item.label} className="flex items-center gap-[6px]">
           {item.href ? (
             <Link href={item.href} className="hover:text-[#880206]">
               {item.label}

@@ -17,6 +17,14 @@ const NAV = [
 ];
 
 const HOTLINE_LABEL = "0984 602 303 - 0989 811 396";
+// Mobile masters show a single-number hotline pill (not both numbers, which
+// don't fit a compact pill) — the 5 mobile master exports disagree with each
+// other on the exact phone number shown (each screenshot has a different
+// mock number) and on hamburger border/pill-vs-icon treatment, so this
+// reproduces the majority pattern (pill+text, borderless hamburger, seen in
+// 3 of 5 masters) using the one real hotline number rather than fabricating
+// a different number per route.
+const HOTLINE_MOBILE_LABEL = "0984 602 303";
 const HOTLINE_TEL = "0984602303";
 
 function isActive(pathname: string, href: string): boolean {
@@ -38,23 +46,23 @@ export function Header2() {
   return (
     <header className="sticky top-0 z-50 border-b border-[#EDEBEA] bg-white">
       <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-4 px-4 py-3 min-[900px]:px-10">
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" className="flex shrink-0 items-center gap-2">
           <Image
             src="/assets/v2/branding/ndthich-logo-reference.png"
             alt="NDTHICH"
             width={168}
             height={128}
-            className="h-9 w-auto min-[900px]:h-10"
+            className="h-[36px] w-auto min-[900px]:h-8"
             unoptimized
           />
-          <span className="hidden text-[11px] leading-tight text-[#5F5D5D] min-[900px]:block">
+          <span className="hidden whitespace-nowrap text-[9px] leading-tight text-[#5F5D5D] min-[900px]:block">
             CÔNG TY TNHH MTV
             <br />
             <span className="font-bold text-[#880206]">NGUYỄN ĐẮC THÍCH</span>
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-7 min-[900px]:flex">
+        <nav className="hidden shrink-0 items-center gap-3 min-[900px]:flex whitespace-nowrap">
           {NAV.map((item) => {
             const active = isActive(pathname, item.href);
             return (
@@ -74,25 +82,24 @@ export function Header2() {
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           <a
             href={`tel:${HOTLINE_TEL}`}
-            className="hidden items-center gap-2 rounded-full bg-[#880206] px-5 py-2.5 text-[13px] font-semibold text-white hover:bg-[#750F0D] min-[900px]:flex"
+            className="hidden shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-[#880206] px-4 py-2 text-[11px] font-semibold text-white hover:bg-[#750F0D] min-[900px]:flex"
           >
-            <Icon name="phone" size={16} className="invert" /> {HOTLINE_LABEL}
+            <Icon name="phone" size={14} className="invert" /> {HOTLINE_LABEL}
           </a>
           <a
             href={`tel:${HOTLINE_TEL}`}
-            aria-label="Gọi hotline"
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-[#880206] text-white min-[900px]:hidden"
+            className="flex items-center gap-[6px] rounded-full bg-[#880206] px-[14px] py-2 text-[12px] font-semibold text-white min-[900px]:hidden"
           >
-            <Icon name="phone" size={18} className="invert" />
+            <Icon name="phone" size={14} className="invert" /> {HOTLINE_MOBILE_LABEL}
           </a>
           <button
             type="button"
             onClick={() => setMobileOpen(true)}
             aria-label="Mở menu"
-            className="flex h-10 w-10 items-center justify-center rounded-md border border-[#E4E1E0] min-[900px]:hidden"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md min-[900px]:hidden"
           >
             <Icon name="menu" size={20} />
           </button>
@@ -117,7 +124,7 @@ export function Header2() {
               type="button"
               onClick={() => setMobileOpen(false)}
               aria-label="Đóng menu"
-              className="ml-auto flex h-9 w-9 items-center justify-center rounded-md border border-[#E4E1E0]"
+              className="ml-auto flex h-[36px] w-[36px] items-center justify-center rounded-md border border-[#E4E1E0]"
             >
               <Icon name="close" size={18} />
             </button>

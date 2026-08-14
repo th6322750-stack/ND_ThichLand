@@ -14,7 +14,7 @@ interface Filter2Props {
   propertyTypeOptions: PropertyType[];
 }
 
-const SELECT_CLASS = "mt-1 w-full rounded-md border border-[#E4E1E0] px-3 py-2.5 text-[13px] text-[#0C0D0D]";
+const SELECT_CLASS = "mt-1 w-full rounded-md border border-[#E4E1E0] px-3 py-[10px] text-[13px] text-[#0C0D0D]";
 // accent-* (native checkbox/radio fill color) is what actually renders the
 // master's red checkmark — text-[#880206] alone has no effect on an
 // unstyled native checkbox, there's no @tailwindcss/forms plugin in this
@@ -100,7 +100,7 @@ export function Filter2({ value, onChange, onApply, onReset, locationOptions, pr
               type="checkbox"
               checked={value.propertyType === ""}
               onChange={() => onChange({ propertyType: "" })}
-              className="h-4 w-4 rounded border-[#C9C6C5] text-[#880206] focus:ring-[#880206]"
+              className={CHECKBOX_CLASS}
             />
             Tất cả
           </label>
@@ -151,7 +151,7 @@ export function Filter2({ value, onChange, onApply, onReset, locationOptions, pr
                 inputMode="numeric"
                 value={value.areaMin ?? ""}
                 onChange={(e) => onChange({ areaMin: e.target.value === "" ? null : Number(e.target.value) })}
-                className="w-full rounded-md border border-[#E4E1E0] px-3 py-2.5 pr-9 text-[13px] text-[#0C0D0D]"
+                className="w-full rounded-md border border-[#E4E1E0] px-3 py-[10px] pr-[36px] text-[13px] text-[#0C0D0D]"
               />
               <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[12px] text-[#5F5D5D]">m²</span>
             </div>
@@ -165,7 +165,7 @@ export function Filter2({ value, onChange, onApply, onReset, locationOptions, pr
                 inputMode="numeric"
                 value={value.areaMax ?? ""}
                 onChange={(e) => onChange({ areaMax: e.target.value === "" ? null : Number(e.target.value) })}
-                className="w-full rounded-md border border-[#E4E1E0] px-3 py-2.5 pr-9 text-[13px] text-[#0C0D0D]"
+                className="w-full rounded-md border border-[#E4E1E0] px-3 py-[10px] pr-[36px] text-[13px] text-[#0C0D0D]"
               />
               <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[12px] text-[#5F5D5D]">m²</span>
             </div>

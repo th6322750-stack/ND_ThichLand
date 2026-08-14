@@ -1,0 +1,262 @@
+[
+  {
+    "route": "/",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 837193,
+    "diffPixelRatio": 0.5320223308898993,
+    "round1DiffPixelRatio": 0.5542559918149726,
+    "absoluteImprovement": 0.022233660925073395,
+    "percentageImprovement": 0.04011442592125492,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-2\\master\\web-01-trangchu.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-2\\actual\\web-01-trangchu.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-2\\diff\\web-01-trangchu.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-2\\overlay\\web-01-trangchu.png"
+  },
+  {
+    "route": "/",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 772530,
+    "diffPixelRatio": 0.49126629223772167,
+    "round1DiffPixelRatio": 0.536405711058881,
+    "absoluteImprovement": 0.04513941882115935,
+    "percentageImprovement": 0.08415163725988818,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-2\\master\\mobile-01-trangchu.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-2\\actual\\mobile-01-trangchu.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-2\\diff\\mobile-01-trangchu.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-2\\overlay\\mobile-01-trangchu.png"
+  },
+  {
+    "route": "/cho-thue",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 605493,
+    "diffPixelRatio": 0.38478080585661584,
+    "round1DiffPixelRatio": 0.4117291188068162,
+    "absoluteImprovement": 0.026948312950200337,
+    "percentageImprovement": 0.06545155957950237,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-2\\master\\web-02-chothue.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-2\\actual\\web-02-chothue.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-2\\diff\\web-02-chothue.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-2\\overlay\\web-02-chothue.png"
+  },
+  {
+    "route": "/cho-thue",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 838779,
+    "diffPixelRatio": 0.5333952718170996,
+    "round1DiffPixelRatio": 0.5538826653643051,
+    "absoluteImprovement": 0.020487393547205524,
+    "percentageImprovement": 0.036988688811429686,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-2\\master\\mobile-02-chothue.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-2\\actual\\mobile-02-chothue.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-2\\diff\\mobile-02-chothue.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-2\\overlay\\mobile-02-chothue.png"
+  },
+  {
+    "route": "/cho-thue/[slug]",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 610202,
+    "diffPixelRatio": 0.3877732976191611,
+    "round1DiffPixelRatio": 0.43139796835927696,
+    "absoluteImprovement": 0.04362467074011589,
+    "percentageImprovement": 0.10112395963762254,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-2\\master\\web-03-chitietbds.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-2\\actual\\web-03-chitietbds.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-2\\diff\\web-03-chitietbds.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-2\\overlay\\web-03-chitietbds.png"
+  },
+  {
+    "route": "/cho-thue/[slug]",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 518381,
+    "diffPixelRatio": 0.3296481843248578,
+    "round1DiffPixelRatio": 0.49036583132383016,
+    "absoluteImprovement": 0.16071764699897234,
+    "percentageImprovement": 0.32775050122290605,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-2\\master\\mobile-03-chitietbds.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-2\\actual\\mobile-03-chitietbds.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-2\\diff\\mobile-03-chitietbds.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-2\\overlay\\mobile-03-chitietbds.png"
+  },
+  {
+    "route": "/du-an",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 884268,
+    "diffPixelRatio": 0.5619377162629757,
+    "round1DiffPixelRatio": 0.6744195652657433,
+    "absoluteImprovement": 0.11248184900276759,
+    "percentageImprovement": 0.16678319372073092,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-2\\master\\web-04-duan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-2\\actual\\web-04-duan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-2\\diff\\web-04-duan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-2\\overlay\\web-04-duan.png"
+  },
+  {
+    "route": "/du-an",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 990633,
+    "diffPixelRatio": 0.6299620738072709,
+    "round1DiffPixelRatio": 0.6986253980851216,
+    "absoluteImprovement": 0.06866332427785071,
+    "percentageImprovement": 0.09828346416556226,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-2\\master\\mobile-04-duan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-2\\actual\\mobile-04-duan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-2\\diff\\mobile-04-duan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-2\\overlay\\mobile-04-duan.png"
+  },
+  {
+    "route": "/du-an/[slug]",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 883058,
+    "diffPixelRatio": 0.5611687812379854,
+    "round1DiffPixelRatio": 0.5733414675220274,
+    "absoluteImprovement": 0.012172686284042,
+    "percentageImprovement": 0.021231128347740404,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-2\\master\\web-05-chitietduan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-2\\actual\\web-05-chitietduan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-2\\diff\\web-05-chitietduan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-2\\overlay\\web-05-chitietduan.png"
+  },
+  {
+    "route": "/du-an/[slug]",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 939922,
+    "diffPixelRatio": 0.5977139993691686,
+    "round1DiffPixelRatio": 0.5968218053986956,
+    "absoluteImprovement": -0.0008921939704730208,
+    "percentageImprovement": -0.001494908467489735,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-2\\master\\mobile-05-chitietduan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-2\\actual\\mobile-05-chitietduan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-2\\diff\\mobile-05-chitietduan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-2\\overlay\\mobile-05-chitietduan.png"
+  }
+]

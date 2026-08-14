@@ -16,7 +16,7 @@ interface HomeSearchState {
 
 const EMPTY_STATE: HomeSearchState = { propertyType: "", location: "", priceRange: "", areaRange: "", q: "" };
 
-const SELECT_CLASS = "mt-1 w-full rounded-md border border-[#E4E1E0] px-3 py-2.5 text-[13px] text-[#0C0D0D]";
+const SELECT_CLASS = "mt-1 w-full rounded-md border border-[#E4E1E0] px-3 py-[10px] text-[13px] text-[#0C0D0D]";
 
 interface HomeSearchBar2Props {
   locationOptions: string[];
@@ -97,13 +97,13 @@ export function HomeSearchBar2({ locationOptions, propertyTypeOptions }: HomeSea
           value={state.q}
           onChange={(e) => setState((s) => ({ ...s, q: e.target.value }))}
           placeholder="Nhập từ khóa, vị trí, dự án..."
-          className="mt-1 w-full rounded-md border border-[#E4E1E0] px-3 py-2.5 text-[13px] text-[#0C0D0D] placeholder:text-[#A6A6A6]"
+          className="mt-1 w-full rounded-md border border-[#E4E1E0] px-3 py-[10px] text-[13px] text-[#0C0D0D] placeholder:text-[#A6A6A6]"
         />
       </label>
       <button
         type="button"
         onClick={handleSearch}
-        className="mt-3 flex w-full items-center justify-center gap-2 rounded-md bg-[#880206] px-6 py-2.5 text-[13px] font-semibold text-white hover:bg-[#750F0D] min-[900px]:mt-0 min-[900px]:w-auto"
+        className="mt-3 flex w-full items-center justify-center gap-2 rounded-md bg-[#880206] px-6 py-[10px] text-[13px] font-semibold text-white hover:bg-[#750F0D] min-[900px]:mt-0 min-[900px]:w-auto"
       >
         <Icon name="search" size={16} className="invert" /> Tìm kiếm
       </button>

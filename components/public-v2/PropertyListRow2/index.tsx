@@ -19,15 +19,15 @@ export function PropertyListRow2({ listing }: { listing: PropertyListing }) {
 
   return (
     <div className="overflow-hidden rounded-lg border border-[#EDEBEA] bg-white min-[900px]:flex min-[900px]:gap-5 min-[900px]:overflow-visible min-[900px]:border-0 min-[900px]:border-b min-[900px]:border-[#EDEBEA] min-[900px]:pb-5">
-      <div className="relative aspect-[16/10] min-[900px]:aspect-[4/3] min-[900px]:w-[260px] min-[900px]:shrink-0 min-[900px]:overflow-hidden min-[900px]:rounded-lg">
+      <div className="relative aspect-[16/10] min-[900px]:aspect-[5/3] min-[900px]:w-[278px] min-[900px]:shrink-0 min-[900px]:overflow-hidden min-[900px]:rounded-lg">
         <Image src={listing.media[0]} alt={listing.roomNo} fill className="object-cover" unoptimized />
-        <span className="absolute bottom-2.5 left-2.5 rounded-full bg-black/55 px-2.5 py-1 text-[11px] font-medium text-white min-[900px]:hidden">
+        <span className="absolute bottom-[10px] left-[10px] rounded-full bg-black/55 px-[10px] py-1 text-[11px] font-medium text-white min-[900px]:hidden">
           {listing.propertyType}
         </span>
         <button
           type="button"
           aria-label="Yêu thích"
-          className="absolute right-2.5 top-2.5 flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#880206] min-[900px]:hidden"
+          className="absolute right-[10px] top-[10px] flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#880206] min-[900px]:hidden"
         >
           <Icon name="heart" size={16} />
         </button>
@@ -46,10 +46,10 @@ export function PropertyListRow2({ listing }: { listing: PropertyListing }) {
             <Icon name="heart" size={20} />
           </button>
         </div>
-        <p className="mt-1.5 flex items-center gap-1 text-[13px] text-[#5F5D5D]">
+        <p className="mt-[6px] flex items-center gap-1 text-[13px] text-[#5F5D5D]">
           <Icon name="pin" size={14} /> {listing.location}
         </p>
-        <p className="mt-1.5 flex items-center gap-1.5 text-[13px] text-[#5F5D5D]">
+        <p className="mt-[6px] flex items-center gap-[6px] text-[13px] text-[#5F5D5D]">
           <Icon name="area" size={14} /> {specs.join(" • ")}
         </p>
         <div className="mt-3 flex flex-1 items-end gap-3">

@@ -22,7 +22,7 @@ export function PropertyCardGrid2({ listing }: { listing: PropertyListing }) {
     >
       <div className="relative aspect-[4/3]">
         <Image src={listing.media[0]} alt={listing.roomNo} fill className="object-cover" unoptimized />
-        <span className="absolute left-2.5 top-2.5 rounded-full bg-black/55 px-2.5 py-1 text-[11px] font-medium text-white">
+        <span className="absolute left-[10px] top-[10px] rounded-full bg-black/55 px-[10px] py-1 text-[11px] font-medium text-white">
           {listing.propertyType}
         </span>
       </div>
@@ -30,10 +30,10 @@ export function PropertyCardGrid2({ listing }: { listing: PropertyListing }) {
         <h3 className="line-clamp-1 text-[14px] font-bold text-[#0C0D0D] min-[900px]:text-[15px]">
           {listing.roomNo}
         </h3>
-        <p className="mt-1.5 flex items-center gap-1 text-[12px] text-[#5F5D5D]">
+        <p className="mt-[6px] flex items-center gap-1 text-[12px] text-[#5F5D5D]">
           <Icon name="pin" size={13} /> {listing.location}
         </p>
-        <p className="mt-1.5 text-[12px] text-[#5F5D5D]">{specs.join(" • ")}</p>
+        <p className="mt-[6px] text-[12px] text-[#5F5D5D]">{specs.join(" • ")}</p>
         <p className="mt-2 text-[15px] font-bold text-[#880206] min-[900px]:text-[16px]">
           {formatCurrencyVnd(listing.price)}/tháng
         </p>
