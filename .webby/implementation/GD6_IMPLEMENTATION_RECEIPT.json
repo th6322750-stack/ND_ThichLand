@@ -7,9 +7,9 @@
   "gd6EntryStateCommit": "6d95f328ff389e10093572853fb7db091858e430",
   "branch": "claude/gd6-backend-cms",
   "backendImplementationCommit": "a0059c6aac9b5c42faea42321d9f465310262ffd",
-  "implementationCommitCount": 12,
-  "totalPrCommitCount": 15,
-  "commitCountNote": "implementationCommitCount = Claude's own commits only (Tasks 01-12, the Task-12-time receipt, and this QA reopen fix). totalPrCommitCount = every commit PR #6 carries from its claude/gd5-ux-frontend base, including the 3 ChatGPT contract/entry-state commits (backend contract, executor task, GĐ5-acceptance/GĐ6-entry-state) that predate any Claude commit.",
+  "implementationCommitCount": 14,
+  "totalPrCommitCount": 18,
+  "commitCountNote": "implementationCommitCount = Claude's own commits only (Tasks 01-12, the Task-12-time receipt, the QA-reopen data-fabrication/price/fail-closed fix, its bookkeeping commit, and the GĐ6 visual-QA-reopen fix — 14 through 237431c19). totalPrCommitCount = every commit PR #6 carries from its claude/gd5-ux-frontend base, including the 3 ChatGPT contract/entry-state commits that predate any Claude commit (3 + 14 = 17 as of 237431c19). This Task 14 (E2E harness normalization) commit is the 15th Claude commit / 18th PR commit — included in both counts above, but not yet listed by hash in the array below since a commit cannot record its own resulting hash; it will be appended in the next receipt update.",
   "commits": [
     "e96d96636cc9da43ae380cb9333543279222b1b0 feat(gd6): Task 01 + Task 06 — server-only architecture + real admin auth",
     "33124a6494868d1f01a000332515ad7210707fbe feat(gd6): Task 02 — Google Sheets/Drive runtime adapter + idempotent bootstrap",
@@ -22,7 +22,9 @@
     "644a797e874afcf8939c753db1e51e40933ca9d7 feat(gd6): Task 11 — Zalo env wiring",
     "a9841323db5fff66bf1f0acb811fb11421a21152 test(gd6): Task 12 — security/data-leak sweep",
     "729ecc6 docs(gd6): publish GD6_IMPLEMENTATION_RECEIPT.json + record GĐ6 entry state",
-    "a0059c6aac9b5c42faea42321d9f465310262ffd fix(gd6): QA reopen — never fabricate status/type, ambiguous price, prod fail-closed"
+    "a0059c6aac9b5c42faea42321d9f465310262ffd fix(gd6): QA reopen — never fabricate status/type, ambiguous price, prod fail-closed",
+    "4be7e2cd866e80a00c77ee9bf0adb77ba4d2c0b0 docs(gd6): QA reopen bookkeeping — GĐ5 DONE/UX_PASS, receipt commit-count split",
+    "237431c190cfd0f84bc8e488041e93c4b9e0a9b1 fix(gd6): align admin and mobile visuals to Revision 3"
   ],
   "qaReopens": [
     {
@@ -83,9 +85,54 @@
       "verifiedOn": "MOBILE / re-captured at 390 CSS width (2.77x device scale matching the approved 1080px-wide render); footer crop visually matches the master's section order, copy, and divider placement."
     },
     "staleContractNote": ".webby/responsive.json's adminSidebar rule said '248px >=1200' — a literal copy of the Revision 3 master SVG's raw rect width, expressed in the master's own 1440-wide artboard rather than the 1920px viewport the approved PNG renders (and this site's ADMIN capture viewport) actually use. Per this reopen's explicit instruction, approved PNG/master visual truth took precedence over the stale contract value: responsive.json was corrected to 330.67px rather than leaving the implementation pinned to the contract's stale 248px.",
-    "fixCommit": "PENDING — changes complete, regression-clean, and visually re-certified in the working tree on claude/gd6-backend-cms; not committed. Per this session's established practice, Claude does not create a commit without the user's explicit go-ahead — the same hold already in place for this session's earlier Footer 2-col / ProjectCard CTA fixes.",
+    "fixCommit": "237431c190cfd0f84bc8e488041e93c4b9e0a9b1",
     "certificationResult": "VISUAL_CERTIFIED — 27/27 routes re-captured directly against Revision 3 approved PNGs; 0 real visual deviations remain (21 ASSET_GAP + 6 APPROVED_EXPORT_ARTIFACT classifications, all pre-existing non-defects; full detail in tests/visual/__certification__/report.json and the reopen's final report).",
     "terminalStatus": "GĐ6_WAITING_FOR_RUNTIME_SECRETS — unchanged; visual certification passed, still no live secrets in this environment."
+  },
+  "e2eHarness": {
+    "task": "Task 14 — E2E harness normalization",
+    "background": "After the GĐ6 visual QA reopen fix (237431c19), tests/e2e (16 specs) split 3 pass / 13 fail against `next start` with no secrets. A git-stash before/after comparison proved the 13 failures were identical on the unmodified pre-visual-fix baseline — a pre-existing runtime-mode mismatch, not a defect: those specs all assume fixture data + working admin credentials (lib/server/providerMode.ts's \"mock\" mode, or the env-gated admin auth), neither of which `next start` without secrets ever provides (by design — see qaReopens[0].defects[2]). The fix was to stop running one mixed-runtime suite and instead give each runtime its own explicit, self-contained Playwright config/npm script.",
+    "auditTable": [
+      { "spec": "admin-auth.spec.ts › unauthenticated access redirects to login", "class": "A", "requiredRuntime": "mock (next dev)", "reason": "Grouped with the rest of admin-auth.spec.ts's fixture-credential flows; also incidentally passes unmodified against fail-closed, since proxy.ts's cookie-presence redirect doesn't depend on ADMIN_AUTH being configured." },
+      { "spec": "admin-auth.spec.ts › wrong password shows generic error", "class": "A", "requiredRuntime": "mock (next dev) + TEST_ADMIN_EMAIL/PASSWORD_HASH/AUTH_SECRET", "reason": "Asserts the GENERIC_INVALID_CREDENTIALS message, which only appears when ADMIN_AUTH is configured — without it, loginAction returns NOT_CONFIGURED_MESSAGE instead." },
+      { "spec": "admin-auth.spec.ts › correct credentials log in, survive reload", "class": "A", "requiredRuntime": "mock (next dev) + test admin credentials", "reason": "Needs a real, working login to succeed." },
+      { "spec": "admin-auth.spec.ts › session cookie is HttpOnly", "class": "A", "requiredRuntime": "mock (next dev) + test admin credentials", "reason": "Needs a real session cookie to inspect." },
+      { "spec": "admin-auth.spec.ts › logout clears the session", "class": "A", "requiredRuntime": "mock (next dev) + test admin credentials", "reason": "Needs a real session to log out of." },
+      { "spec": "admin-auth.spec.ts › tampered session cookie is rejected", "class": "A", "requiredRuntime": "mock (next dev)", "reason": "Grouped with the file's other tests; also incidentally passes unmodified against fail-closed, since a garbage token fails HMAC verification regardless of provider mode." },
+      { "spec": "admin-auth.spec.ts › remember-me issues far-future cookie", "class": "A", "requiredRuntime": "mock (next dev) + test admin credentials", "reason": "Needs a real login with remember=true to succeed." },
+      { "spec": "rental-filter-drawer.spec.ts (5 tests)", "class": "A", "requiredRuntime": "mock (next dev)", "reason": "Asserts exact fixture-driven result counts (\"12 kết quả\", \"2 kết quả\") and a \"Xưởng\" select option that only exist when lib/data/properties.ts is served (provider mode \"mock\")." },
+      { "spec": "rental-url-state.spec.ts › filters survive reload / deep link / homepage search (3 tests)", "class": "A", "requiredRuntime": "mock (next dev)", "reason": "Same as above — fixture-driven result counts and select options." },
+      { "spec": "rental-url-state.spec.ts › news search+category survive reload", "class": "A", "requiredRuntime": "mock (next dev)", "reason": "Grouped with the file's other tests; also incidentally passes unmodified against fail-closed, since it only checks the category button's URL/aria-pressed state, never actual article content." },
+      { "spec": "production-fail-closed.spec.ts (5 new tests, Task 14.3)", "class": "B", "requiredRuntime": "fail-closed (next build && next start, no secrets)", "reason": "New suite proving the browser-level contract: no GĐ4/GĐ5 fixture content on /cho-thue, /du-an, /tin-tuc; a fixture slug 404s; contact submit reports failure (not the durable-success UI); admin login refuses with NOT_CONFIGURED_MESSAGE and issues no session cookie." },
+      { "spec": "(reserved) tests/e2e-live/live-gate.spec.ts", "class": "C", "requiredRuntime": "live (real Google + admin secrets)", "reason": "Placeholder only — real live-integration specs are Task 13's responsibility. npm run test:e2e:live cannot reach this file: scripts/check-live-e2e-secrets.mjs exits 1 with LIVE_E2E_SECRETS_MISSING first." }
+    ],
+    "mockMode": {
+      "command": "npm run test:e2e:mock",
+      "config": "playwright.mock.config.ts",
+      "runtime": "webServer auto-starts `next dev -p 3100` (reuseExistingServer: false, fresh process every run — Task 14.5 determinism) with TEST_ADMIN_EMAIL/TEST_ADMIN_PASSWORD_HASH/TEST_AUTH_SECRET (tests/e2e/testCredentials.ts, test-only, never a production secret) injected into its env so the real admin login flow is exercised end-to-end.",
+      "specs": "tests/e2e/*.spec.ts (all 16 original specs, class A)",
+      "result": "16/16 PASS"
+    },
+    "failClosedMode": {
+      "command": "npm run test:e2e:failclosed",
+      "config": "playwright.failclosed.config.ts",
+      "runtime": "`next build` then webServer auto-starts `next start -p 3101` with every Google/admin env var explicitly blanked (empty string, not merely omitted, so an inherited shell secret can never leak through and silently turn this into a live run) — the real \"deployed but unconfigured\" state.",
+      "specs": "tests/e2e-failclosed/production-fail-closed.spec.ts (5 new specs, class B)",
+      "result": "5/5 PASS"
+    },
+    "liveMode": {
+      "command": "npm run test:e2e:live",
+      "config": "playwright.live.config.ts",
+      "guard": "scripts/check-live-e2e-secrets.mjs runs first and exits 1 with LIVE_E2E_SECRETS_MISSING (printing only the missing var names, never a value) unless GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY, GOOGLE_CMS_SPREADSHEET_ID, GOOGLE_MEDIA_FOLDER_ID, ADMIN_EMAIL, ADMIN_PASSWORD_HASH, and AUTH_SECRET are all present. Verified: running it in this environment (no secrets present) correctly printed LIVE_E2E_SECRETS_MISSING and exited 1.",
+      "specs": "tests/e2e-live/live-gate.spec.ts (1 skipped placeholder — real specs are Task 13's scope)",
+      "result": "NOT_RUN — refused by design, per this reopen's explicit instruction not to run it yet"
+    },
+    "originalThirteenFailures": {
+      "rootCause": "Wrong-runtime execution, not a test or production defect: all 13 were run against `next start` with no secrets (provider mode \"unavailable\" + ADMIN_AUTH unconfigured), but every one of them asserts fixture-driven content, a working select option, or a successful admin login — all of which only exist in provider mode \"mock\". Confirmed pre-existing via a git-stash before/after comparison against the unmodified baseline (identical 13 failures either way).",
+      "resolution": "No test assertions were weakened and no production behavior changed. The specs now run under playwright.mock.config.ts's dedicated `next dev` + test-credentials webServer (npm run test:e2e:mock), where the required fixture data and a working admin login are genuinely present. Two harness-only edits: testCredentials.ts centralizes the test-only admin email/password/hash (removing the duplicate literal that lived in admin-auth.spec.ts), and an explicit `context.clearCookies()` in a new beforeEach documents the auth-isolation guarantee Playwright's per-test context already provided (Task 14.4)."
+    },
+    "productionProviderBehavior": "UNCHANGED — lib/server/providerMode.ts was not modified. Production without real Google configuration still resolves to \"unavailable\", never \"mock\"; the new production-fail-closed.spec.ts suite is additional proof of that contract at the browser level, not a change to it.",
+    "authBehavior": "UNCHANGED — app/actions/auth.ts, lib/server/auth/*, and proxy.ts were not modified. TEST_ADMIN_PASSWORD_HASH is a test-only scrypt hash consumed solely via playwright.mock.config.ts's webServer env; no test credential was hard-coded into any production code path or config."
   },
   "dataProviders": {
     "mode": "IN_MEMORY_MOCK",

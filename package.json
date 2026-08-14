@@ -9,7 +9,10 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test",
+    "test:e2e": "playwright test -c playwright.mock.config.ts",
+    "test:e2e:mock": "playwright test -c playwright.mock.config.ts",
+    "test:e2e:failclosed": "next build && playwright test -c playwright.failclosed.config.ts",
+    "test:e2e:live": "node scripts/check-live-e2e-secrets.mjs && next build && playwright test -c playwright.live.config.ts",
     "gd6:hash-password": "node scripts/hash-password.mjs",
     "gd6:bootstrap-cms": "tsx scripts/gd6-bootstrap-cms.ts"
   },

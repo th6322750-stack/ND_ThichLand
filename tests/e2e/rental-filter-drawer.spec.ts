@@ -1,5 +1,12 @@
 import { test, expect } from "playwright/test";
 
+// MOCK/LOCAL UX E2E (Task 14.1, class A) — run via `npm run test:e2e:mock`.
+// Needs the lib/data/properties.ts fixture set (12 listings, incl. 2 "Xưởng"
+// rows) that playwright.mock.config.ts's `next dev` webServer serves in
+// provider mode "mock". Against a fail-closed production server (no
+// config) the "Loại BĐS" select has zero options and this whole file
+// cannot run — that state is asserted instead in
+// tests/e2e-failclosed/production-fail-closed.spec.ts.
 test.use({ viewport: { width: 390, height: 900 } });
 
 test.describe("mobile FilterDrawer draft-apply semantics", () => {

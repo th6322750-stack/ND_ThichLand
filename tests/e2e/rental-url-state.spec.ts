@@ -1,5 +1,10 @@
 import { test, expect } from "playwright/test";
 
+// MOCK/LOCAL UX E2E (Task 14.1, class A) — run via `npm run test:e2e:mock`.
+// Needs the lib/data/{properties,news}.ts fixture sets that
+// playwright.mock.config.ts's `next dev` webServer serves in provider mode
+// "mock" (result counts and select options below only exist with that data
+// present).
 test.describe("rental discovery URL state", () => {
   test("filters survive a full page reload", async ({ page }) => {
     await page.goto("/cho-thue");

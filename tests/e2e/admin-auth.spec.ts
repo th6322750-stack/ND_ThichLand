@@ -1,14 +1,24 @@
 import { test, expect } from "playwright/test";
+import { TEST_ADMIN_EMAIL, TEST_ADMIN_PASSWORD } from "./testCredentials";
 
-// Requires the server under QA_BASE_URL to be started with:
-//   ADMIN_EMAIL=admin@ndthich.vn
-//   ADMIN_PASSWORD_HASH=scrypt:16384:8:1:2a1784af0ebb7caaadc7b97761632987:b0352ccc88ffec239a09af7c9147384268631b1b9cb3353f67faf8381fa0c422244be46d81a6eff610a71524e023e204e59b7ce2db36719d012a7fe66705e492
-//   AUTH_SECRET=e2e-test-auth-secret
-// (password: "Gd6-Test-Passw0rd!") — see scripts/gd6-hash-test-password.mjs.
-const TEST_PASSWORD = "Gd6-Test-Passw0rd!";
-const TEST_EMAIL = "admin@ndthich.vn";
+// MOCK/LOCAL UX E2E (Task 14.1, class A) — run via `npm run test:e2e:mock`.
+// playwright.mock.config.ts's webServer starts `next dev` with
+// TEST_ADMIN_EMAIL/TEST_ADMIN_PASSWORD_HASH/TEST_AUTH_SECRET
+// (tests/e2e/testCredentials.ts) already wired into its env, so the real
+// login flow below is exercised end-to-end without any live secret.
+const TEST_PASSWORD = TEST_ADMIN_PASSWORD;
+const TEST_EMAIL = TEST_ADMIN_EMAIL;
 
 test.describe("real admin authentication", () => {
+  // Task 14.4 — deterministic auth isolation: Playwright already gives each
+  // test its own BrowserContext (a fresh cookie jar) by default, but this
+  // makes that guarantee explicit rather than implicit, so a future change
+  // to shared context/storageState can't silently leak a session between
+  // these tests.
+  test.beforeEach(async ({ context }) => {
+    await context.clearCookies();
+  });
+
   test("unauthenticated access to a protected page redirects to login", async ({ page }) => {
     await page.goto("/admin/bds");
     await expect(page).toHaveURL(/\/admin\/login$/);
