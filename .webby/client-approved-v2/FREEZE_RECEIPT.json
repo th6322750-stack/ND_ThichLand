@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "status": "PHA1_5_FREEZE_PACKAGE_DONE",
+  "baseCommit": "70bb3019e5aca6cba2c11966d06250ea04632760",
+  "branch": "webby/client-visual-freeze-v2",
+  "draftPr": 7,
+  "masterCount": 10,
+  "masterBreakdown": {"web": 5, "mobile": 5},
+  "masterBinaryStore": {
+    "folderId": "1bWvzzaz8E6A62uUQWTJ2Gm5dTjr3hbHi",
+    "index": ".webby/client-approved-v2/MASTER_INDEX.json"
+  },
+  "assetBinaryStore": {
+    "folderId": "11811puZBqrsaagbEXzodqkm1CwTxX7Rz",
+    "zipId": "1lFD8c2pPklwKBKD8MAYLPj1BCl3oFMWf",
+    "zipSha256": "ca0d65de44fda00b859fd8a7519aa108f66b2d2ee4ab3e39fab92fc85cac8072"
+  },
+  "fullFreezePackage": {
+    "driveId": "1-2cfKBu_qYdVFpqRavJFKqqJzbRsr4iq",
+    "sha256": "8b0367de8d90340a958b7b92f559379fa0f63947989336cc954819324ddc5bee"
+  },
+  "visualAuthority": "CLIENT_APPROVED_V2",
+  "oldRevision3PublicAuthority": "REVOKED_ON_CONFLICT",
+  "claudeDesignAuthority": "NONE",
+  "claudePhase2Authorized": false,
+  "backendChanged": false,
+  "liveTask15": "PAUSED",
+  "nextRequiredUserCommand": "START PHA 2"
+}

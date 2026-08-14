@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 2,
+  "status": "FROZEN",
+  "authority": "PHA1_CLIENT_APPROVED_MASTERS",
+  "sourcePdf": "NDTHICH - GĐ1 CLIENT REVIEW.pdf",
+  "assetStore": {
+    "folderId": "11811puZBqrsaagbEXzodqkm1CwTxX7Rz",
+    "folderUrl": "https://drive.google.com/drive/folders/11811puZBqrsaagbEXzodqkm1CwTxX7Rz",
+    "zipId": "1lFD8c2pPklwKBKD8MAYLPj1BCl3oFMWf",
+    "zipUrl": "https://drive.google.com/file/d/1lFD8c2pPklwKBKD8MAYLPj1BCl3oFMWf/view?usp=drivesdk",
+    "zipSha256": "ca0d65de44fda00b859fd8a7519aa108f66b2d2ee4ab3e39fab92fc85cac8072"
+  },
+  "fullFreezePackage": {
+    "driveId": "1-2cfKBu_qYdVFpqRavJFKqqJzbRsr4iq",
+    "url": "https://drive.google.com/file/d/1-2cfKBu_qYdVFpqRavJFKqqJzbRsr4iq/view?usp=drivesdk",
+    "sha256": "8b0367de8d90340a958b7b92f559379fa0f63947989336cc954819324ddc5bee"
+  },
+  "categories": {
+    "branding": [
+      "ndthich-logo-reference.png"
+    ],
+    "home": [
+      "hero-building.png",
+      "about-reception.png",
+      "contact-map.png"
+    ],
+    "properties": [
+      "sunrise-city-view.png",
+      "house-alley-8m.png",
+      "storefront-mt.png",
+      "office-abc.png",
+      "warehouse.png",
+      "room-furnished.png"
+    ],
+    "property-detail": [
+      "main-interior.png",
+      "thumb-living.png",
+      "thumb-kitchen.png",
+      "thumb-dining.png",
+      "map.png"
+    ],
+    "projects-photo": [
+      "sun-galaxy-photo.png",
+      "riverside-garden-photo.png",
+      "ndthich-office-photo.png",
+      "central-residence-photo.png",
+      "garden-city-photo.png",
+      "riverside-tower-photo.png",
+      "sunrise-riverside-photo.png",
+      "office-abc-photo.png",
+      "phu-gia-photo.png"
+    ],
+    "projects-card-reference-only": [
+      "sun-galaxy-card-reference.png",
+      "riverside-garden-card-reference.png",
+      "ndthich-office-card-reference.png",
+      "central-residence-card-reference.png",
+      "garden-city-card-reference.png",
+      "riverside-tower-card-reference.png",
+      "sunrise-riverside-card-reference.png",
+      "office-abc-card-reference.png",
+      "phu-gia-card-reference.png"
+    ],
+    "project-detail": [
+      "hero-reference.png",
+      "pool.png",
+      "gallery-1.png",
+      "gallery-2.png",
+      "gallery-3.png",
+      "gallery-4.png",
+      "gallery-5.png",
+      "progress-1.png",
+      "progress-2.png",
+      "progress-3.png",
+      "progress-4.png",
+      "progress-5.png"
+    ]
+  },
+  "sourceMethod": "Assets were cropped by ChatGPT from the approved PHA1 masters, then upscaled with deterministic Lanczos where needed. No Claude image generation or image selection is permitted.",
+  "rules": {
+    "noPlaceholderSubstitution": true,
+    "noClaudeAssetGeneration": true,
+    "noClaudeImageSearch": true,
+    "missingAssetPolicy": "VISUAL_BLOCKED_NEEDS_CHATGPT",
+    "cardReferenceUsage": "QA_REFERENCE_ONLY — do not render the whole card-reference PNG as production UI; implement text/CTA/overlay as real DOM.",
+    "dynamicProductionMedia": "Real backend/Drive media may replace only the image payload. Slot dimensions, aspect ratio, crop, overlays, radius and text hierarchy remain frozen.",
+    "visualFixtureMedia": "For visual QA, use the exact frozen assets so browser screenshots can be compared directly with PHA1 masters."
+  }
+}
