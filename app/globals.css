@@ -27,6 +27,42 @@
     @apply mx-auto w-full px-[18px] desktop:px-[40px];
     max-width: calc(1240px + 2 * 40px);
   }
+
+  /* Two overlapping <input type="range"> for a dual-handle slider: the
+     input element itself has pointer-events:none (so its invisible
+     full-width hit area never blocks the OTHER handle), and only the
+     thumb pseudo-element re-enables pointer-events so it stays
+     draggable. Track pseudo-elements are hidden since the visible
+     track/fill is drawn by sibling divs in RangeSlider2. */
+  .range-slider-thumb::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    pointer-events: auto;
+    width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    background: #880206;
+    border: 2px solid #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
+  .range-slider-thumb::-moz-range-thumb {
+    pointer-events: auto;
+    width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    background: #880206;
+    border: 2px solid #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
+  .range-slider-thumb::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    background: transparent;
+  }
+  .range-slider-thumb::-moz-range-track {
+    background: transparent;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

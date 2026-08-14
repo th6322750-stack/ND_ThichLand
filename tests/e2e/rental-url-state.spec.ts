@@ -11,6 +11,11 @@ import { test, expect } from "playwright/test";
 // is now a checkbox list, not a <select> — see components/public-v2/Filter2.
 // Rewritten to exercise the real controls while testing the same
 // URL-persisted-filter-state contract.
+//
+// PHA3 round 1: "Khoảng giá" is now a Từ/Đến slider bound to priceMin/
+// priceMax (continuous values), not the old single priceRange bucket
+// <select> — the legacy `price` bucket param/select no longer exists in
+// this UI, so the deep-link case below uses `priceMin` instead.
 test.describe("rental discovery URL state", () => {
   test("filters survive a full page reload", async ({ page }) => {
     await page.goto("/cho-thue");
@@ -31,9 +36,15 @@ test.describe("rental discovery URL state", () => {
   });
 
   test("deep link reconstructs the exact same filtered state", async ({ page }) => {
-    await page.goto("/cho-thue?type=X%C6%B0%E1%BB%9Fng&price=tren-30tr");
+    await page.goto("/cho-thue?type=X%C6%B0%E1%BB%9Fng&priceMin=30000000");
     await expect(page.getByRole("group", { name: "Loại bất động sản" }).getByLabel("Xưởng")).toBeChecked();
-    await expect(page.getByLabel("Khoảng giá")).toHaveValue("tren-30tr");
+    // "6" = the index of the 30-triệu stop in Filter2's PRICE_STOPS — the
+    // <select>'s DOM value is the stop index, not its label (RangeSlider2
+    // is index-driven so the two overlapping handles can compare positions).
+    // getByRole("combobox", ...) (not getByLabel) — RangeSlider2 also renders
+    // a same-named range <input aria-label="Từ — thanh trượt">, which
+    // getByLabel's substring match would also pick up.
+    await expect(page.getByRole("group", { name: "Khoảng giá" }).getByRole("combobox", { name: "Từ" })).toHaveValue("6");
     await expect(page.getByText(/Tìm thấy.*2.*bất động sản/)).toBeVisible();
   });
 

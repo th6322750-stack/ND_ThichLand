@@ -4,8 +4,17 @@ export interface RentalFilterState {
   q: string;
   location: string;
   propertyType: PropertyType | "";
+  /** @deprecated bucket-id form, still read by the pre-PHA2 components/public/Filter (out of PHA2 scope) — new UI uses priceMin/priceMax. */
   priceRange: string;
+  /** @deprecated bucket-id form, still read by the pre-PHA2 components/public/Filter (out of PHA2 scope) — new UI uses areaMin/areaMax. */
   areaRange: string;
+  // PHA3 round 1: continuous Từ/Đến range, adapted onto the same authoritative
+  // `price`/`area` fields the old bucket selects already checked — null means
+  // "no bound on this side" (e.g. priceMax: null == the master's "Trên 50 triệu").
+  priceMin: number | null;
+  priceMax: number | null;
+  areaMin: number | null;
+  areaMax: number | null;
 }
 
 export const EMPTY_RENTAL_FILTERS: RentalFilterState = {
@@ -14,6 +23,10 @@ export const EMPTY_RENTAL_FILTERS: RentalFilterState = {
   propertyType: "",
   priceRange: "",
   areaRange: "",
+  priceMin: null,
+  priceMax: null,
+  areaMin: null,
+  areaMax: null,
 };
 
 interface NumericRange {
@@ -83,13 +96,25 @@ export function filterProperties(
     if (filters.propertyType && p.propertyType !== filters.propertyType) return false;
     if (priceRange && !inRange(p.price, priceRange)) return false;
     if (areaRange && !inRange(p.area, areaRange)) return false;
+    if (filters.priceMin !== null && p.price < filters.priceMin) return false;
+    if (filters.priceMax !== null && p.price > filters.priceMax) return false;
+    if (filters.areaMin !== null && p.area < filters.areaMin) return false;
+    if (filters.areaMax !== null && p.area > filters.areaMax) return false;
     return true;
   });
 }
 
 export function hasActiveRentalFilters(filters: RentalFilterState): boolean {
   return Boolean(
-    filters.q || filters.location || filters.propertyType || filters.priceRange || filters.areaRange,
+    filters.q ||
+      filters.location ||
+      filters.propertyType ||
+      filters.priceRange ||
+      filters.areaRange ||
+      filters.priceMin !== null ||
+      filters.priceMax !== null ||
+      filters.areaMin !== null ||
+      filters.areaMax !== null,
   );
 }
 
@@ -99,6 +124,10 @@ const PARAM_KEYS = {
   propertyType: "type",
   priceRange: "price",
   areaRange: "area",
+  priceMin: "priceMin",
+  priceMax: "priceMax",
+  areaMin: "areaMin",
+  areaMax: "areaMax",
   page: "page",
 } as const;
 
@@ -109,8 +138,18 @@ export function rentalFiltersToParams(filters: RentalFilterState, page: number):
   if (filters.propertyType) params.set(PARAM_KEYS.propertyType, filters.propertyType);
   if (filters.priceRange) params.set(PARAM_KEYS.priceRange, filters.priceRange);
   if (filters.areaRange) params.set(PARAM_KEYS.areaRange, filters.areaRange);
+  if (filters.priceMin !== null) params.set(PARAM_KEYS.priceMin, String(filters.priceMin));
+  if (filters.priceMax !== null) params.set(PARAM_KEYS.priceMax, String(filters.priceMax));
+  if (filters.areaMin !== null) params.set(PARAM_KEYS.areaMin, String(filters.areaMin));
+  if (filters.areaMax !== null) params.set(PARAM_KEYS.areaMax, String(filters.areaMax));
   if (page > 1) params.set(PARAM_KEYS.page, String(page));
   return params;
+}
+
+function parseOptionalNumber(raw: string | null): number | null {
+  if (raw === null || raw === "") return null;
+  const n = Number(raw);
+  return Number.isFinite(n) ? n : null;
 }
 
 export function rentalFiltersFromParams(
@@ -123,6 +162,10 @@ export function rentalFiltersFromParams(
       propertyType: (params.get(PARAM_KEYS.propertyType) as PropertyType | null) ?? "",
       priceRange: params.get(PARAM_KEYS.priceRange) ?? "",
       areaRange: params.get(PARAM_KEYS.areaRange) ?? "",
+      priceMin: parseOptionalNumber(params.get(PARAM_KEYS.priceMin)),
+      priceMax: parseOptionalNumber(params.get(PARAM_KEYS.priceMax)),
+      areaMin: parseOptionalNumber(params.get(PARAM_KEYS.areaMin)),
+      areaMax: parseOptionalNumber(params.get(PARAM_KEYS.areaMax)),
     },
     page: Math.max(1, Number(params.get(PARAM_KEYS.page)) || 1),
   };

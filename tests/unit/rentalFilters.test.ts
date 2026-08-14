@@ -71,7 +71,7 @@ describe("hasActiveRentalFilters", () => {
 describe("URL param round-trip", () => {
   it("serializes only non-empty fields and omits page=1", () => {
     const params = rentalFiltersToParams(
-      { q: "studio", location: "", propertyType: "Studio", priceRange: "", areaRange: "" },
+      { ...EMPTY_RENTAL_FILTERS, q: "studio", location: "", propertyType: "Studio" },
       1,
     );
     expect(params.get("q")).toBe("studio");
@@ -81,7 +81,7 @@ describe("URL param round-trip", () => {
   });
 
   it("round-trips filters and page through params", () => {
-    const filters = { q: "vp", location: "Hà Nội", propertyType: "Văn phòng" as const, priceRange: "10-20tr", areaRange: "50-100" };
+    const filters = { ...EMPTY_RENTAL_FILTERS, q: "vp", location: "Hà Nội", propertyType: "Văn phòng" as const, priceRange: "10-20tr", areaRange: "50-100" };
     const params = rentalFiltersToParams(filters, 3);
     const parsed = rentalFiltersFromParams(params);
     expect(parsed.filters).toEqual(filters);
