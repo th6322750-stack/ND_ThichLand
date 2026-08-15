@@ -16,17 +16,20 @@ export function Breadcrumb2({
   className?: string;
 }) {
   return (
-    <nav aria-label="Breadcrumb" className={`${className} flex-wrap items-center gap-[6px] text-[13px] text-[#5F5D5D]`}>
+    <nav
+      aria-label="Breadcrumb"
+      className={`${className} flex-wrap items-center gap-1 text-[9px] text-[#5F5D5D] min-[900px]:gap-[6px] min-[900px]:text-[13px]`}
+    >
       {withHomeIcon && (
         <>
           <Link href="/" aria-label="Trang chủ" className="flex items-center hover:text-[#880206]">
-            <Icon name="home" size={15} />
+            <Icon name="home" size={10} className="min-[900px]:!h-[15px] min-[900px]:!w-[15px]" />
           </Link>
-          <Icon name="chevron-right" size={13} className="text-[#C9C6C5]" />
+          <Icon name="chevron-right" size={9} className="text-[#C9C6C5] min-[900px]:!h-[13px] min-[900px]:!w-[13px]" />
         </>
       )}
       {items.map((item, i) => (
-        <span key={item.label} className="flex items-center gap-[6px]">
+        <span key={item.label} className="flex items-center gap-1 min-[900px]:gap-[6px]">
           {item.href ? (
             <Link href={item.href} className="hover:text-[#880206]">
               {item.label}
@@ -34,7 +37,9 @@ export function Breadcrumb2({
           ) : (
             <span className="text-[#0C0D0D]">{item.label}</span>
           )}
-          {i < items.length - 1 && <Icon name="chevron-right" size={13} className="text-[#C9C6C5]" />}
+          {i < items.length - 1 && (
+            <Icon name="chevron-right" size={9} className="text-[#C9C6C5] min-[900px]:!h-[13px] min-[900px]:!w-[13px]" />
+          )}
         </span>
       ))}
     </nav>

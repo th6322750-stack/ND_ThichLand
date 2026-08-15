@@ -62,12 +62,18 @@ export default async function HomePageV2() {
     <>
       {/* ============ HERO ============ */}
       {/* Master (both WEB and MOBILE) shows a full-bleed photo occupying the
-          right ~50% of the hero at every width — text and photo sit side by
+          right side of the hero at every width — text and photo sit side by
           side even in the 362px-wide mobile capture, not stacked. The photo
           bleeds to the section's own edges (no rounded corners, no padding)
-          rather than sitting in a padded/rounded 4:3 card. */}
+          rather than sitting in a padded/rounded 4:3 card.
+          Round7: master shows a SOFT integration, not two rectangular
+          columns pasted together — the image layer is now wider than the
+          visible text column and overlaps under it, with a white->transparent
+          gradient over that overlap so the seam disappears instead of
+          sitting at a hard 50% line. Text column width/position is
+          unchanged. */}
       <section className="relative overflow-hidden bg-gradient-to-br from-white via-[#FBF7F5] to-[#F2E5E6]">
-        <div className="absolute inset-y-0 right-0 w-1/2">
+        <div className="absolute inset-y-0 right-0 w-[66%] min-[900px]:w-[58%]">
           <Image
             src="/assets/v2/home/hero-building.png"
             alt="NDTHICH — không gian sống & kinh doanh"
@@ -76,9 +82,10 @@ export default async function HomePageV2() {
             unoptimized
             priority
           />
+          <div className="absolute inset-y-0 left-0 w-[38%] bg-gradient-to-r from-white via-white/70 to-transparent" />
         </div>
         <div
-          className="relative mx-auto max-w-[1240px] px-3 py-3 min-[900px]:px-10 min-[900px]:py-[22px]"
+          className="relative mx-auto max-w-[1240px] px-3 py-3 min-[900px]:px-10 min-[900px]:py-5"
           data-qa-region="hero"
         >
           <div className="w-1/2 pr-2 min-[900px]:w-1/2 min-[900px]:pr-0">
@@ -118,7 +125,7 @@ export default async function HomePageV2() {
           section's own bottom edge (inset-y-0), so any overlap would sit
           directly on top of the photo instead of the old gradient-only
           backdrop, cutting into the metrics card's own icons/text. */}
-      <section className="mx-auto max-w-[1240px] px-3 pt-2 min-[900px]:px-10 min-[900px]:pt-4" data-qa-region="trustmetrics">
+      <section className="mx-auto max-w-[1240px] px-3 pt-2 min-[900px]:px-10 min-[900px]:pt-3" data-qa-region="trustmetrics">
         <TrustMetrics2 />
       </section>
 
@@ -130,7 +137,7 @@ export default async function HomePageV2() {
       {/* ============ FEATURED PROJECTS ============ */}
       {/* Business priority: this site exists to sell projects, so "Dự án
           nổi bật" now leads, ahead of the rentals grid. */}
-      <section className="mx-auto max-w-[1240px] px-3 py-3 min-[900px]:px-10 min-[900px]:py-4" data-qa-region="featured-projects">
+      <section className="mx-auto max-w-[1240px] px-3 py-2 min-[900px]:px-10 min-[900px]:py-3" data-qa-region="featured-projects">
         <div className="flex items-end justify-between">
           <h2 className="text-[12px] font-extrabold text-[#0C0D0D] min-[900px]:text-[17px]">Dự án nổi bật</h2>
           <Link href="/du-an" className="flex items-center gap-1 text-[9px] font-semibold text-[#880206] min-[900px]:text-[12px]">
@@ -154,7 +161,7 @@ export default async function HomePageV2() {
       </section>
 
       {/* ============ FEATURED RENTALS ============ */}
-      <section className="mx-auto max-w-[1240px] px-3 pb-5 min-[900px]:px-10 min-[900px]:pb-10" data-qa-region="featured-rentals">
+      <section className="mx-auto max-w-[1240px] px-3 pb-3 min-[900px]:px-10 min-[900px]:pb-6" data-qa-region="featured-rentals">
         <div className="flex items-end justify-between">
           <h2 className="text-[12px] font-extrabold text-[#0C0D0D] min-[900px]:text-[17px]">
             Bất động sản cho thuê nổi bật
@@ -179,7 +186,7 @@ export default async function HomePageV2() {
       {/* Master keeps image-left/text-right side by side at every width —
           stacking to grid-cols-1 on mobile is a FAIL, so this is grid-cols-2
           unconditionally, with mobile-only smaller type/spacing. */}
-      <section className="mx-auto max-w-[1240px] px-3 pb-5 min-[900px]:px-10 min-[900px]:pb-8" data-qa-region="about">
+      <section className="mx-auto max-w-[1240px] px-3 pb-3 min-[900px]:px-10 min-[900px]:pb-6" data-qa-region="about">
         <div className="grid grid-cols-2 gap-2 min-[900px]:items-center min-[900px]:gap-6">
           <div className="relative aspect-[4/3] overflow-hidden rounded-md min-[900px]:aspect-auto min-[900px]:h-[193px] min-[900px]:rounded-lg">
             <Image src="/assets/v2/home/about-reception.png" alt="Sảnh đón NDTHICH" fill className="object-cover" unoptimized />
@@ -215,7 +222,7 @@ export default async function HomePageV2() {
 
       {/* ============ TESTIMONIALS ============ */}
       {/* Master keeps 3 compact cards in one row at every width. */}
-      <section className="mx-auto max-w-[1240px] px-3 pb-5 min-[900px]:px-10 min-[900px]:pb-8" data-qa-region="testimonials">
+      <section className="mx-auto max-w-[1240px] px-3 pb-3 min-[900px]:px-10 min-[900px]:pb-6" data-qa-region="testimonials">
         <div className="flex items-end justify-between">
           <h2 className="text-[10px] font-extrabold text-[#0C0D0D] min-[900px]:text-[16px]">
             Khách hàng nói về chúng tôi
@@ -246,7 +253,7 @@ export default async function HomePageV2() {
       {/* ============ CONTACT + MAP ============ */}
       {/* Master keeps the burgundy panel and map side by side at every
           width — stacked below 900px is a FAIL, so `flex` applies always. */}
-      <section className="mx-auto max-w-[1240px] px-3 pb-5 min-[900px]:px-10 min-[900px]:pb-8" data-qa-region="contact-map">
+      <section className="mx-auto max-w-[1240px] px-3 pb-3 min-[900px]:px-10 min-[900px]:pb-6" data-qa-region="contact-map">
         <div className="flex overflow-hidden rounded-md border border-[#880206] min-[900px]:rounded-lg">
           <div className="w-[58%] bg-[#880206] p-[6px] text-white min-[900px]:w-[280px] min-[900px]:shrink-0 min-[900px]:p-3">
             <h2 className="text-[8px] font-bold min-[900px]:text-[14px]">Liên hệ với chúng tôi</h2>

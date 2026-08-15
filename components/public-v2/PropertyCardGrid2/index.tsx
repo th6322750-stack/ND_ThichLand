@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Icon2 as Icon } from "@/components/public-v2/Icon2";
@@ -8,7 +9,16 @@ import type { PropertyListing } from "@/lib/types";
 // and the "BĐS cùng khu vực" related grid on the detail page. Matches the
 // approved masters' compact grid card: photo with a status pill overlay,
 // title, location, a "•"-joined specs line, then the price.
-export function PropertyCardGrid2({ listing }: { listing: PropertyListing }) {
+export function PropertyCardGrid2({
+  listing,
+  mobileAspect = "2/1",
+  desktopAspect = "199/115",
+}: {
+  listing: PropertyListing;
+  /** Home's 3-col mobile grid is short/wide; the detail page's "related" strip is taller, per master. */
+  mobileAspect?: string;
+  desktopAspect?: string;
+}) {
   const specs = [
     `${listing.area}m²`,
     listing.bedroomCount !== null ? `${listing.bedroomCount}PN` : null,
@@ -20,7 +30,10 @@ export function PropertyCardGrid2({ listing }: { listing: PropertyListing }) {
       href={`/cho-thue/${listing.slug}`}
       className="block overflow-hidden rounded-lg border border-[#EDEBEA] bg-white transition-shadow hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
     >
-      <div className="relative aspect-[2/1] min-[900px]:aspect-[199/115]">
+      <div
+        className="relative aspect-[var(--mobile-aspect)] min-[900px]:aspect-[var(--desktop-aspect)]"
+        style={{ "--mobile-aspect": mobileAspect, "--desktop-aspect": desktopAspect } as CSSProperties}
+      >
         <Image src={listing.media[0]} alt={listing.roomNo} fill className="object-cover" unoptimized />
         <span className="absolute left-[10px] top-[10px] rounded-full bg-black/55 px-[10px] py-1 text-[11px] font-medium text-white">
           {listing.propertyType}

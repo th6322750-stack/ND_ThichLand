@@ -97,7 +97,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
   ];
 
   return (
-    <div className="mx-auto max-w-[1240px] px-3 py-3 min-[900px]:px-10 min-[900px]:py-8">
+    <div className="mx-auto max-w-[1240px] px-3 py-2 min-[900px]:px-10 min-[900px]:py-8">
       <Breadcrumb2
         withHomeIcon
         items={[{ label: "Trang chủ", href: "/" }, { label: "Cho thuê", href: "/cho-thue" }, { label: title }]}
@@ -106,12 +106,12 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
       {/* TOP: master keeps the gallery LEFT and title/price/facts/actions
           summary RIGHT as one compact band — a full-width gallery followed
           by info below (the old structure) is a FAIL. */}
-      <div className="mt-3 min-[900px]:mt-5 min-[900px]:grid min-[900px]:grid-cols-[1fr_360px] min-[900px]:items-start min-[900px]:gap-8">
+      <div className="mt-2 min-[900px]:mt-5 min-[900px]:grid min-[900px]:grid-cols-[1fr_360px] min-[900px]:items-start min-[900px]:gap-8">
         <div data-qa-region="gallery">
           <Gallery2 images={listing.media} sideBySideOnMobile />
         </div>
 
-        <div className="mt-3 min-[900px]:mt-0">
+        <div className="mt-2 min-[900px]:mt-0">
           <div data-qa-region="summary">
             <h1 className="text-[17px] font-extrabold text-[#0C0D0D] min-[900px]:text-[28px]">{title}</h1>
             <p className="mt-1 flex items-center gap-1 text-[11px] text-[#5F5D5D] min-[900px]:mt-2 min-[900px]:gap-[6px] min-[900px]:text-[13px]">
@@ -134,7 +134,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
           </div>
 
           {listing.highlights.length > 0 && (
-            <div className="mt-3 rounded-lg border border-[#EDEBEA] p-2 min-[900px]:mt-6 min-[900px]:border-0 min-[900px]:p-0" data-qa-region="highlights">
+            <div className="mt-2 rounded-lg border border-[#EDEBEA] p-2 min-[900px]:mt-6 min-[900px]:border-0 min-[900px]:p-0" data-qa-region="highlights">
               <h2 className="text-[12px] font-bold text-[#0C0D0D] min-[900px]:text-[16px]">Thông tin nổi bật</h2>
               <ul className="mt-1 flex flex-col gap-[6px] leading-tight min-[900px]:mt-3 min-[900px]:gap-2">
                 {listing.highlights.map((h) => (
@@ -146,7 +146,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
             </div>
           )}
 
-          <div className="mt-3 min-[900px]:mt-6" data-qa-region="actions">
+          <div className="mt-2 min-[900px]:mt-6" data-qa-region="actions">
             <ActionButtons />
           </div>
         </div>
@@ -168,7 +168,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
           <div className="mt-2 flex snap-x gap-2 overflow-x-auto min-[900px]:mt-5 min-[900px]:grid min-[900px]:grid-cols-4 min-[900px]:gap-5 min-[900px]:overflow-visible">
             {related.map((p) => (
               <div key={p.slug} className="w-[46%] shrink-0 snap-start min-[900px]:w-auto">
-                <PropertyCardGrid2 listing={p} />
+                <PropertyCardGrid2 listing={p} mobileAspect="4/3" />
               </div>
             ))}
           </div>

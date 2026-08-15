@@ -70,7 +70,7 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
   }
 
   return (
-    <div className="mx-auto max-w-[1240px] px-3 py-3 min-[900px]:px-10 min-[900px]:py-8">
+    <div className="mx-auto max-w-[1240px] px-3 py-2 min-[900px]:px-10 min-[900px]:py-8">
       <Breadcrumb2 items={[{ label: "Trang chủ", href: "/" }, { label: "Dự án" }]} />
 
       <div data-qa-region="heading">
