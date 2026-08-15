@@ -12,6 +12,8 @@ import type { ProjectListing } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
+const HOTLINE_TEL = "0984602303";
+
 const AMENITY_ICONS: IconName[] = ["pool", "dumbbell", "tree", "grill", "shop", "clock", "building"];
 
 // 05_ChiTietDuAn_WEB.png uses 5 frozen milestone photographs
@@ -274,21 +276,44 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
         </div>
       </section>
 
-      {/* Bottom consultation CTA before the footer, matching the master. */}
-      <section
-        className="mt-3 flex flex-col items-start justify-between gap-2 rounded-lg bg-[#880206] p-3 text-white min-[900px]:mt-10 min-[900px]:flex-row min-[900px]:items-center min-[900px]:gap-4 min-[900px]:p-6"
+      {/* Master's mobile bottom CTA is a fixed two-button bar (Gọi tư vấn
+          ngay + Đặt lịch xem dự án) always visible at the screen bottom,
+          not a scrolled-in-document block — round 4 rendered it in normal
+          flow, which pushed it below the canonical viewport entirely. WEB
+          keeps the original scrolled single-message + Zalo-button block. */}
+      <div className="h-[64px] min-[900px]:hidden" aria-hidden="true" />
+      <div
+        className="fixed inset-x-0 bottom-0 z-sticky-mobile-actions flex gap-2 border-t border-[#EDEBEA] bg-white p-2 min-[900px]:hidden"
         data-qa-region="bottom-cta"
       >
-        <div className="flex items-center gap-2 min-[900px]:gap-3">
-          <Icon name="phone" size={14} className="text-white min-[900px]:!h-5 min-[900px]:!w-5" />
+        <a
+          href={`tel:${HOTLINE_TEL}`}
+          className="flex flex-1 items-center justify-center gap-1 rounded-md border border-[#880206] px-2 py-2 text-[11px] font-semibold text-[#880206]"
+        >
+          <Icon name="phone" size={13} /> Gọi tư vấn ngay
+        </a>
+        <button
+          type="button"
+          className="flex flex-1 items-center justify-center gap-1 rounded-md bg-[#880206] px-2 py-2 text-[11px] font-semibold text-white hover:bg-[#750F0D]"
+        >
+          <Icon name="calendar" size={13} className="text-white" /> Đặt lịch xem dự án
+        </button>
+      </div>
+
+      <section
+        className="mt-10 hidden flex-col items-start justify-between gap-2 rounded-lg bg-[#880206] p-3 text-white min-[900px]:flex min-[900px]:flex-row min-[900px]:items-center min-[900px]:gap-4 min-[900px]:p-6"
+        data-qa-region="bottom-cta"
+      >
+        <div className="flex items-center gap-3">
+          <Icon name="phone" size={20} className="text-white" />
           <div>
-            <p className="text-[11px] font-bold min-[900px]:text-[14px]">Bạn cần tư vấn thêm thông tin dự án?</p>
-            <p className="text-[9px] text-white/80 min-[900px]:text-[12px]">Đội ngũ chuyên viên của NDTHICH luôn sẵn sàng hỗ trợ bạn.</p>
+            <p className="text-[14px] font-bold">Bạn cần tư vấn thêm thông tin dự án?</p>
+            <p className="text-[12px] text-white/80">Đội ngũ chuyên viên của NDTHICH luôn sẵn sàng hỗ trợ bạn.</p>
           </div>
         </div>
         <a
           href={getZaloHref()}
-          className="flex w-full items-center justify-center gap-2 rounded-md bg-white px-3 py-2 text-[11px] font-semibold text-[#880206] min-[900px]:w-auto min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px]"
+          className="flex items-center justify-center gap-2 rounded-md bg-white px-5 py-3 text-[13px] font-semibold text-[#880206]"
         >
           Liên hệ ngay <Icon name="arrow-right" size={13} />
         </a>

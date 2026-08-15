@@ -73,7 +73,7 @@ export function Gallery2({ images, sideBySideOnMobile = false }: Gallery2Props) 
           <button
             type="button"
             aria-label={`Xem ảnh 1 / ${images.length}`}
-            className="relative aspect-[3/2] overflow-hidden rounded-lg"
+            className="relative aspect-[21/20] overflow-hidden rounded-lg"
             onClick={() => setActiveIndex(0)}
           >
             <Image src={images[0]} alt="" fill className="object-cover" unoptimized priority />

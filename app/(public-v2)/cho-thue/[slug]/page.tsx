@@ -34,21 +34,21 @@ function ActionButtons() {
     <div className="flex gap-2 min-[900px]:gap-3">
       <a
         href="tel:0984602303"
-        className="flex flex-1 items-center justify-center gap-2 rounded-md bg-[#880206] px-3 py-2 text-[12px] font-semibold text-white hover:bg-[#750F0D] min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px]"
+        className="flex flex-1 items-center justify-center gap-1 rounded-md bg-[#880206] px-2 py-2 text-[10px] font-semibold leading-tight text-white hover:bg-[#750F0D] min-[900px]:gap-2 min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px]"
       >
-        <Icon name="phone" size={14} className="text-white min-[900px]:!h-4 min-[900px]:!w-4" /> Gọi ngay
+        <Icon name="phone" size={12} className="shrink-0 text-white min-[900px]:!h-4 min-[900px]:!w-4" /> Gọi ngay
       </a>
       <a
         href={getZaloHref()}
-        className="flex flex-1 items-center justify-center gap-2 rounded-md bg-[#0068FF] px-3 py-2 text-[12px] font-semibold text-white hover:bg-[#0056D6] min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px]"
+        className="flex flex-1 items-center justify-center gap-1 rounded-md bg-[#0068FF] px-2 py-2 text-[10px] font-semibold leading-tight text-white hover:bg-[#0056D6] min-[900px]:gap-2 min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px]"
       >
-        <Icon name="chat" size={14} className="text-white min-[900px]:!h-4 min-[900px]:!w-4" /> Nhắn Zalo
+        <Icon name="chat" size={12} className="shrink-0 text-white min-[900px]:!h-4 min-[900px]:!w-4" /> Nhắn Zalo
       </a>
       <button
         type="button"
-        className="flex flex-1 items-center justify-center gap-2 rounded-md border border-[#880206] px-3 py-2 text-[12px] font-semibold text-[#880206] hover:bg-[#F7F6F6] min-[900px]:hidden"
+        className="flex flex-1 items-center justify-center gap-1 rounded-md border border-[#880206] px-2 py-2 text-[10px] font-semibold leading-tight text-[#880206] hover:bg-[#F7F6F6] min-[900px]:hidden"
       >
-        <Icon name="calendar" size={14} /> Đặt lịch xem
+        <Icon name="calendar" size={12} className="shrink-0" /> Đặt lịch xem
       </button>
     </div>
   );
@@ -107,19 +107,23 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
           summary RIGHT as one compact band — a full-width gallery followed
           by info below (the old structure) is a FAIL. */}
       <div className="mt-3 min-[900px]:mt-5 min-[900px]:grid min-[900px]:grid-cols-[1fr_360px] min-[900px]:items-start min-[900px]:gap-8">
-        <Gallery2 images={listing.media} sideBySideOnMobile />
+        <div data-qa-region="gallery">
+          <Gallery2 images={listing.media} sideBySideOnMobile />
+        </div>
 
         <div className="mt-3 min-[900px]:mt-0">
-          <h1 className="text-[17px] font-extrabold text-[#0C0D0D] min-[900px]:text-[28px]">{title}</h1>
-          <p className="mt-1 flex items-center gap-1 text-[11px] text-[#5F5D5D] min-[900px]:mt-2 min-[900px]:gap-[6px] min-[900px]:text-[13px]">
-            <Icon name="pin" size={12} className="min-[900px]:!h-[15px] min-[900px]:!w-[15px]" /> {listing.address}
-          </p>
-          <p className="mt-1 text-[18px] font-extrabold text-[#880206] min-[900px]:mt-3 min-[900px]:text-[26px]">
-            {formatCurrencyVnd(listing.price)}
-            <span className="text-[11px] font-medium text-[#5F5D5D] min-[900px]:text-[14px]">/tháng</span>
-          </p>
+          <div data-qa-region="summary">
+            <h1 className="text-[17px] font-extrabold text-[#0C0D0D] min-[900px]:text-[28px]">{title}</h1>
+            <p className="mt-1 flex items-center gap-1 text-[11px] text-[#5F5D5D] min-[900px]:mt-2 min-[900px]:gap-[6px] min-[900px]:text-[13px]">
+              <Icon name="pin" size={12} className="min-[900px]:!h-[15px] min-[900px]:!w-[15px]" /> {listing.address}
+            </p>
+            <p className="mt-1 text-[18px] font-extrabold text-[#880206] min-[900px]:mt-3 min-[900px]:text-[26px]">
+              {formatCurrencyVnd(listing.price)}
+              <span className="text-[11px] font-medium text-[#5F5D5D] min-[900px]:text-[14px]">/tháng</span>
+            </p>
+          </div>
 
-          <div className="mt-2 grid grid-cols-4 gap-[6px] min-[900px]:mt-5 min-[900px]:gap-3">
+          <div className="mt-2 grid grid-cols-4 gap-[6px] min-[900px]:mt-5 min-[900px]:gap-3" data-qa-region="facts">
             {facts.map((fact) => (
               <div key={fact.label} className="min-w-0 rounded-lg border border-[#EDEBEA] p-[6px] text-center min-[900px]:p-3">
                 <Icon name={fact.icon} size={16} className="mx-auto text-[#880206] min-[900px]:!h-[22px] min-[900px]:!w-[22px]" />
@@ -130,7 +134,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
           </div>
 
           {listing.highlights.length > 0 && (
-            <div className="mt-3 rounded-lg border border-[#EDEBEA] p-2 min-[900px]:mt-6 min-[900px]:border-0 min-[900px]:p-0">
+            <div className="mt-3 rounded-lg border border-[#EDEBEA] p-2 min-[900px]:mt-6 min-[900px]:border-0 min-[900px]:p-0" data-qa-region="highlights">
               <h2 className="text-[12px] font-bold text-[#0C0D0D] min-[900px]:text-[16px]">Thông tin nổi bật</h2>
               <ul className="mt-1 flex flex-col gap-1 min-[900px]:mt-3 min-[900px]:gap-2">
                 {listing.highlights.map((h) => (
@@ -142,7 +146,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
             </div>
           )}
 
-          <div className="mt-3 min-[900px]:mt-6">
+          <div className="mt-3 min-[900px]:mt-6" data-qa-region="actions">
             <ActionButtons />
           </div>
         </div>
@@ -155,7 +159,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
       <TabbedDetails detailRows={detailRows} address={listing.address} />
 
       {related.length > 0 && (
-        <section className="mt-4 min-[900px]:mt-12">
+        <section className="mt-4 min-[900px]:mt-12" data-qa-region="related">
           <div className="flex items-end justify-between">
             <h2 className="text-[13px] font-extrabold text-[#0C0D0D] min-[900px]:text-[20px]">Bất động sản cùng khu vực</h2>
           </div>
@@ -172,7 +176,10 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
       )}
 
       {/* Bottom consultation CTA before the footer, matching the master. */}
-      <section className="mt-4 flex flex-col items-start justify-between gap-2 rounded-lg bg-[#880206] p-3 text-white min-[900px]:mt-12 min-[900px]:flex-row min-[900px]:items-center min-[900px]:gap-4 min-[900px]:p-8">
+      <section
+        className="mt-4 flex flex-col items-start justify-between gap-2 rounded-lg bg-[#880206] p-3 text-white min-[900px]:mt-12 min-[900px]:flex-row min-[900px]:items-center min-[900px]:gap-4 min-[900px]:p-8"
+        data-qa-region="bottom-cta"
+      >
         <div>
           <h2 className="text-[12px] font-bold min-[900px]:text-[19px]">Bạn cần tư vấn hoặc muốn xem nhà trực tiếp?</h2>
           <p className="mt-1 text-[10px] text-white/85 min-[900px]:text-[13px]">
@@ -199,7 +206,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
 
   function TabbedDetails({ detailRows, address }: { detailRows: [string, string][]; address: string }) {
     return (
-      <section className="mt-4 min-[900px]:mt-8">
+      <section className="mt-4 min-[900px]:mt-8" data-qa-region="detail-tabs">
         <div className="hidden border-b border-[#EDEBEA] min-[900px]:flex min-[900px]:gap-6">
           {DETAIL_TABS.map((tab, i) => (
             <span
@@ -237,7 +244,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
             row treatment, not an expanded details table). */}
         <div className="flex flex-col gap-1 min-[900px]:hidden">
           <details className="group rounded-lg border border-[#EDEBEA] open:pb-1">
-            <summary className="flex cursor-pointer list-none items-center gap-2 p-2">
+            <summary className="flex cursor-pointer list-none items-center gap-2 p-[6px] leading-tight">
               <Icon name="edit" size={16} className="shrink-0 text-[#0068FF]" />
               <span className="min-w-0 flex-1">
                 <span className="block text-[11px] font-bold text-[#0C0D0D]">Thông tin chi tiết</span>
@@ -258,7 +265,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
           </details>
 
           <details className="group rounded-lg border border-[#EDEBEA] open:pb-1">
-            <summary className="flex cursor-pointer list-none items-center gap-2 p-2">
+            <summary className="flex cursor-pointer list-none items-center gap-2 p-[6px] leading-tight">
               <Icon name="building" size={16} className="shrink-0 text-[#C08E47]" />
               <span className="min-w-0 flex-1">
                 <span className="block text-[11px] font-bold text-[#0C0D0D]">Tiện ích</span>
@@ -270,7 +277,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
           </details>
 
           <details className="group rounded-lg border border-[#EDEBEA] open:pb-1">
-            <summary className="flex cursor-pointer list-none items-center gap-2 p-2">
+            <summary className="flex cursor-pointer list-none items-center gap-2 p-[6px] leading-tight">
               <Icon name="pin" size={16} className="shrink-0 text-[#23825C]" />
               <span className="min-w-0 flex-1">
                 <span className="block text-[11px] font-bold text-[#0C0D0D]">Vị trí</span>
@@ -284,7 +291,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
           </details>
 
           <details className="group rounded-lg border border-[#EDEBEA] open:pb-1">
-            <summary className="flex cursor-pointer list-none items-center gap-2 p-2">
+            <summary className="flex cursor-pointer list-none items-center gap-2 p-[6px] leading-tight">
               <Icon name="youtube" size={16} className="shrink-0 text-[#880206]" />
               <span className="min-w-0 flex-1">
                 <span className="block text-[11px] font-bold text-[#0C0D0D]">Video &amp; Hình ảnh</span>

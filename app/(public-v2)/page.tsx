@@ -123,41 +123,21 @@ export default async function HomePageV2() {
       </section>
 
       {/* ============ SEARCH ============ */}
-      <section className="mx-auto max-w-[1240px] px-3 pt-2 min-[900px]:px-10 min-[900px]:pt-0" data-qa-region="search">
+      <section className="mx-auto max-w-[1240px] px-3 pt-2 min-[900px]:px-10 min-[900px]:pt-3" data-qa-region="search">
         <HomeSearchBar2 locationOptions={locationOptions} propertyTypeOptions={propertyTypeOptions} />
       </section>
 
-      {/* ============ FEATURED RENTALS ============ */}
-      <section className="mx-auto max-w-[1240px] px-3 py-3 min-[900px]:px-10 min-[900px]:py-4" data-qa-region="featured-rentals">
-        <div className="flex items-end justify-between">
-          <h2 className="text-[12px] font-extrabold text-[#0C0D0D] min-[900px]:text-[17px]">
-            Bất động sản cho thuê nổi bật
-          </h2>
-          <Link href="/cho-thue" className="flex items-center gap-1 text-[9px] font-semibold text-[#880206] min-[900px]:text-[12px]">
-            Xem tất cả <Icon name="arrow-right" size={10} className="min-[900px]:!h-[12px] min-[900px]:!w-[12px]" />
-          </Link>
-        </div>
-        <div className="mt-[6px] grid grid-cols-3 gap-[6px] min-[900px]:mt-3 min-[900px]:grid-cols-4 min-[900px]:gap-4">
-          {featuredProperties.map((p, i) => (
-            // Master mobile shows exactly 3 cards in one row — with 4 sliced
-            // in for desktop's 4-col row, the 4th must not wrap to its own
-            // row on the 3-col mobile grid.
-            <div key={p.slug} className={i === 3 ? "hidden min-[900px]:block" : undefined}>
-              <PropertyCardGrid2 listing={p} />
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* ============ FEATURED PROJECTS ============ */}
-      <section className="mx-auto max-w-[1240px] px-3 pb-3 min-[900px]:px-10 min-[900px]:pb-0" data-qa-region="featured-projects">
+      {/* Business priority: this site exists to sell projects, so "Dự án
+          nổi bật" now leads, ahead of the rentals grid. */}
+      <section className="mx-auto max-w-[1240px] px-3 py-3 min-[900px]:px-10 min-[900px]:py-4" data-qa-region="featured-projects">
         <div className="flex items-end justify-between">
           <h2 className="text-[12px] font-extrabold text-[#0C0D0D] min-[900px]:text-[17px]">Dự án nổi bật</h2>
           <Link href="/du-an" className="flex items-center gap-1 text-[9px] font-semibold text-[#880206] min-[900px]:text-[12px]">
             Xem tất cả dự án <Icon name="arrow-right" size={10} className="min-[900px]:!h-[12px] min-[900px]:!w-[12px]" />
           </Link>
         </div>
-        <div className="mt-[6px] grid grid-cols-4 gap-1 min-[900px]:mt-1 min-[900px]:gap-4">
+        <div className="mt-[6px] grid grid-cols-4 gap-1 min-[900px]:mt-3 min-[900px]:gap-4">
           {featuredProjects.map((p) => (
             <ProjectCardOverlay2
               key={p.slug}
@@ -173,11 +153,33 @@ export default async function HomePageV2() {
         </div>
       </section>
 
+      {/* ============ FEATURED RENTALS ============ */}
+      <section className="mx-auto max-w-[1240px] px-3 pb-5 min-[900px]:px-10 min-[900px]:pb-10" data-qa-region="featured-rentals">
+        <div className="flex items-end justify-between">
+          <h2 className="text-[12px] font-extrabold text-[#0C0D0D] min-[900px]:text-[17px]">
+            Bất động sản cho thuê nổi bật
+          </h2>
+          <Link href="/cho-thue" className="flex items-center gap-1 text-[9px] font-semibold text-[#880206] min-[900px]:text-[12px]">
+            Xem tất cả <Icon name="arrow-right" size={10} className="min-[900px]:!h-[12px] min-[900px]:!w-[12px]" />
+          </Link>
+        </div>
+        <div className="mt-[6px] grid grid-cols-3 gap-[6px] min-[900px]:mt-1 min-[900px]:grid-cols-4 min-[900px]:gap-4">
+          {featuredProperties.map((p, i) => (
+            // Master mobile shows exactly 3 cards in one row — with 4 sliced
+            // in for desktop's 4-col row, the 4th must not wrap to its own
+            // row on the 3-col mobile grid.
+            <div key={p.slug} className={i === 3 ? "hidden min-[900px]:block" : undefined}>
+              <PropertyCardGrid2 listing={p} />
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ============ ABOUT ============ */}
       {/* Master keeps image-left/text-right side by side at every width —
           stacking to grid-cols-1 on mobile is a FAIL, so this is grid-cols-2
           unconditionally, with mobile-only smaller type/spacing. */}
-      <section className="mx-auto max-w-[1240px] px-3 pb-2 min-[900px]:px-10 min-[900px]:pb-3" data-qa-region="about">
+      <section className="mx-auto max-w-[1240px] px-3 pb-5 min-[900px]:px-10 min-[900px]:pb-8" data-qa-region="about">
         <div className="grid grid-cols-2 gap-2 min-[900px]:items-center min-[900px]:gap-6">
           <div className="relative aspect-[4/3] overflow-hidden rounded-md min-[900px]:aspect-auto min-[900px]:h-[193px] min-[900px]:rounded-lg">
             <Image src="/assets/v2/home/about-reception.png" alt="Sảnh đón NDTHICH" fill className="object-cover" unoptimized />
@@ -213,7 +215,7 @@ export default async function HomePageV2() {
 
       {/* ============ TESTIMONIALS ============ */}
       {/* Master keeps 3 compact cards in one row at every width. */}
-      <section className="mx-auto max-w-[1240px] px-3 pb-2 min-[900px]:px-10 min-[900px]:pb-0" data-qa-region="testimonials">
+      <section className="mx-auto max-w-[1240px] px-3 pb-5 min-[900px]:px-10 min-[900px]:pb-8" data-qa-region="testimonials">
         <div className="flex items-end justify-between">
           <h2 className="text-[10px] font-extrabold text-[#0C0D0D] min-[900px]:text-[16px]">
             Khách hàng nói về chúng tôi
@@ -244,7 +246,7 @@ export default async function HomePageV2() {
       {/* ============ CONTACT + MAP ============ */}
       {/* Master keeps the burgundy panel and map side by side at every
           width — stacked below 900px is a FAIL, so `flex` applies always. */}
-      <section className="mx-auto max-w-[1240px] px-3 pb-2 min-[900px]:px-10 min-[900px]:pb-4" data-qa-region="contact-map">
+      <section className="mx-auto max-w-[1240px] px-3 pb-5 min-[900px]:px-10 min-[900px]:pb-8" data-qa-region="contact-map">
         <div className="flex overflow-hidden rounded-md border border-[#880206] min-[900px]:rounded-lg">
           <div className="w-[58%] bg-[#880206] p-[6px] text-white min-[900px]:w-[280px] min-[900px]:shrink-0 min-[900px]:p-3">
             <h2 className="text-[8px] font-bold min-[900px]:text-[14px]">Liên hệ với chúng tôi</h2>
