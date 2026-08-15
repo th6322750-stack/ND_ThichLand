@@ -21,11 +21,17 @@ const TABS: { value: TabValue; id: string; label: string }[] = [
 // reception-image-left / text-right composition as Home's About section,
 // with the 4 features in one row. The MOBILE master (04_DuAn_MOBILE.png)
 // is a genuinely different composition — centered, no photo at all, and
-// the 4 features in a 2x2 icon-on-top grid — round 4 wrongly reused the
-// WEB row layout there too (round 5 flagged the ~56% mobile diff this
-// caused). Both variants below share this one feature list; only the
-// per-viewport JSX differs.
-const ABOUT_FEATURES: { icon: "edit" | "pin" | "person" | "home"; title: string; desc: string }[] = [
+// the 4 features in a 2x2 icon-on-top grid, with its OWN icon set too
+// (round 5 first tried reusing one shared icon list for both, which
+// regressed WEB — the two masters really do use different icons, not just
+// a different layout).
+const ABOUT_FEATURES_WEB: { icon: "check" | "pin" | "clock" | "building"; title: string; desc: string }[] = [
+  { icon: "check", title: "Pháp lý minh bạch", desc: "Sổ hồng riêng, đầy đủ pháp lý" },
+  { icon: "pin", title: "Vị trí đắc địa", desc: "Kết nối thuận tiện, tiềm năng sinh lời cao" },
+  { icon: "clock", title: "Dịch vụ tận tâm", desc: "Hỗ trợ 24/7, đồng hành cùng khách hàng" },
+  { icon: "building", title: "Giá trị bền vững", desc: "Hướng đến cộng đồng & môi trường sống tốt đẹp" },
+];
+const ABOUT_FEATURES_MOBILE: { icon: "edit" | "pin" | "person" | "home"; title: string; desc: string }[] = [
   { icon: "edit", title: "Pháp lý minh bạch", desc: "Hồ sơ rõ ràng, an tâm giao dịch" },
   { icon: "pin", title: "Vị trí đắc địa", desc: "Kết nối thuận tiện, tiềm năng tăng giá" },
   { icon: "person", title: "Dịch vụ tận tâm", desc: "Đội ngũ chuyên nghiệp, hỗ trợ 24/7" },
@@ -143,7 +149,7 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
           lượng, pháp lý minh bạch và giá trị bền vững.
         </p>
         <div className="mt-3 grid grid-cols-2 gap-3">
-          {ABOUT_FEATURES.map((f) => (
+          {ABOUT_FEATURES_MOBILE.map((f) => (
             <div key={f.title} className="flex flex-col items-center gap-1">
               <Icon name={f.icon} size={20} className="text-[#C08E47]" />
               <p className="text-[10px] font-bold text-[#0C0D0D]">{f.title}</p>
@@ -179,7 +185,7 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
             và dịch vụ tận tâm cho khách hàng.
           </p>
           <div className="mt-4 grid grid-cols-4 gap-4">
-            {ABOUT_FEATURES.map((f) => (
+            {ABOUT_FEATURES_WEB.map((f) => (
               <div key={f.title} className="flex items-start gap-2">
                 <Icon name={f.icon} size={20} className="mt-[2px] shrink-0 text-[#C08E47]" />
                 <div className="min-w-0">
