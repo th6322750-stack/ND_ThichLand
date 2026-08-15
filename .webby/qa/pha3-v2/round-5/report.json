@@ -1,0 +1,1470 @@
+[
+  {
+    "route": "/",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 709869,
+    "diffPixelRatio": 0.45111003078917516,
+    "round4DiffPixelRatio": 0.2853346,
+    "absoluteImprovement": -0.16577543078917517,
+    "percentageImprovement": -0.5809860801640431,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound4": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-5\\master\\web-01-trangchu.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-5\\actual\\web-01-trangchu.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-5\\diff\\web-01-trangchu.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-5\\overlay\\web-01-trangchu.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 65.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "hero",
+        "masterBox": {
+          "x": 0,
+          "y": 64,
+          "width": 935,
+          "height": 281
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 65.5,
+          "width": 935,
+          "height": 280.875
+        },
+        "deltaX": 0,
+        "deltaY": 2,
+        "deltaWidth": 0,
+        "deltaHeight": 0
+      },
+      {
+        "name": "trustmetrics",
+        "masterBox": {
+          "x": 0,
+          "y": 345,
+          "width": 935,
+          "height": 95
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 346.375,
+          "width": 935,
+          "height": 97.25
+        },
+        "deltaX": 0,
+        "deltaY": 1,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "search",
+        "masterBox": {
+          "x": 0,
+          "y": 440,
+          "width": 935,
+          "height": 65
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 443.625,
+          "width": 935,
+          "height": 127
+        },
+        "deltaX": 0,
+        "deltaY": 4,
+        "deltaWidth": 0,
+        "deltaHeight": 62
+      },
+      {
+        "name": "featured-projects",
+        "masterBox": {
+          "x": 0,
+          "y": 505,
+          "width": 935,
+          "height": 290
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 570.625,
+          "width": 935,
+          "height": 206.359375
+        },
+        "deltaX": 0,
+        "deltaY": 66,
+        "deltaWidth": 0,
+        "deltaHeight": -84
+      },
+      {
+        "name": "featured-rentals",
+        "masterBox": {
+          "x": 0,
+          "y": 795,
+          "width": 935,
+          "height": 165
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 776.984375,
+          "width": 935,
+          "height": 276.171875
+        },
+        "deltaX": 0,
+        "deltaY": -18,
+        "deltaWidth": 0,
+        "deltaHeight": 111
+      },
+      {
+        "name": "about",
+        "masterBox": {
+          "x": 0,
+          "y": 960,
+          "width": 935,
+          "height": 205
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1053.15625,
+          "width": 935,
+          "height": 225
+        },
+        "deltaX": 0,
+        "deltaY": 93,
+        "deltaWidth": 0,
+        "deltaHeight": 20
+      },
+      {
+        "name": "testimonials",
+        "masterBox": {
+          "x": 0,
+          "y": 1165,
+          "width": 935,
+          "height": 135
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1278.15625,
+          "width": 935,
+          "height": 166
+        },
+        "deltaX": 0,
+        "deltaY": 113,
+        "deltaWidth": 0,
+        "deltaHeight": 31
+      },
+      {
+        "name": "contact-map",
+        "masterBox": {
+          "x": 0,
+          "y": 1300,
+          "width": 935,
+          "height": 200
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1444.15625,
+          "width": 935,
+          "height": 214.25
+        },
+        "deltaX": 0,
+        "deltaY": 144,
+        "deltaWidth": 0,
+        "deltaHeight": 14
+      },
+      {
+        "name": "footer",
+        "masterBox": {
+          "x": 0,
+          "y": 1500,
+          "width": 935,
+          "height": 183
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1658.40625,
+          "width": 935,
+          "height": 187
+        },
+        "deltaX": 0,
+        "deltaY": 158,
+        "deltaWidth": 0,
+        "deltaHeight": 4
+      }
+    ],
+    "implementationCommit": "44e763cbbb4c7525c83e6cf1bfaafb79295c0d68",
+    "captureSourceCommit": "44e763cbbb4c7525c83e6cf1bfaafb79295c0d68",
+    "gitStatusBeforeCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-5/",
+    "gitStatusAfterCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-5/",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "a8539576fdf591c41ad5330821133804b60dbef56a526d16a3dee077a2ddce89"
+  },
+  {
+    "route": "/",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 682636,
+    "diffPixelRatio": 0.43410101441754934,
+    "round4DiffPixelRatio": 0.4250862,
+    "absoluteImprovement": -0.00901481441754931,
+    "percentageImprovement": -0.021207026757277255,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound4": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-5\\master\\mobile-01-trangchu.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-5\\actual\\mobile-01-trangchu.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-5\\diff\\mobile-01-trangchu.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-5\\overlay\\mobile-01-trangchu.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 90
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 106
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 16
+      },
+      {
+        "name": "hero",
+        "masterBox": {
+          "x": 0,
+          "y": 90,
+          "width": 724,
+          "height": 282
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 106,
+          "width": 724,
+          "height": 262
+        },
+        "deltaX": 0,
+        "deltaY": 16,
+        "deltaWidth": 0,
+        "deltaHeight": -20
+      },
+      {
+        "name": "trustmetrics",
+        "masterBox": {
+          "x": 0,
+          "y": 372,
+          "width": 724,
+          "height": 100
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 368,
+          "width": 724,
+          "height": 117
+        },
+        "deltaX": 0,
+        "deltaY": -4,
+        "deltaWidth": 0,
+        "deltaHeight": 17
+      },
+      {
+        "name": "search",
+        "masterBox": {
+          "x": 0,
+          "y": 472,
+          "width": 724,
+          "height": 275
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 485,
+          "width": 724,
+          "height": 379.5
+        },
+        "deltaX": 0,
+        "deltaY": 13,
+        "deltaWidth": 0,
+        "deltaHeight": 105
+      },
+      {
+        "name": "featured-projects",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 864.5,
+          "width": 724,
+          "height": 165.84375
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "featured-rentals",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1030.34375,
+          "width": 724,
+          "height": 300.65625
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "about",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1331,
+          "width": 724,
+          "height": 287.5
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "testimonials",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1618.5,
+          "width": 724,
+          "height": 221
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "contact-map",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1839.5,
+          "width": 724,
+          "height": 235.625
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 2075.125,
+          "width": 724,
+          "height": 339
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "implementationCommit": "44e763cbbb4c7525c83e6cf1bfaafb79295c0d68",
+    "captureSourceCommit": "44e763cbbb4c7525c83e6cf1bfaafb79295c0d68",
+    "gitStatusBeforeCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-5/",
+    "gitStatusAfterCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-5/",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "96e454650fd72427b2f6751f10352078c3b74d37d78ff1b2907a94c98293a762"
+  },
+  {
+    "route": "/cho-thue",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 428582,
+    "diffPixelRatio": 0.27235678585159556,
+    "round4DiffPixelRatio": 0.2723568,
+    "absoluteImprovement": 1.4148404448022234e-8,
+    "percentageImprovement": 5.194804920612312e-8,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound4": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-5\\master\\web-02-chothue.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-5\\actual\\web-02-chothue.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-5\\diff\\web-02-chothue.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-5\\overlay\\web-02-chothue.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 65.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1468.9375,
+          "width": 935,
+          "height": 187
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "implementationCommit": "44e763cbbb4c7525c83e6cf1bfaafb79295c0d68",
+    "captureSourceCommit": "44e763cbbb4c7525c83e6cf1bfaafb79295c0d68",
+    "gitStatusBeforeCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-5/",
+    "gitStatusAfterCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-5/",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "bc2c19afacd66d93b2de97eae529125c0875fc9c2f03c6900de80bc697f8a637"
+  },
+  {
+    "route": "/cho-thue",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 704856,
+    "diffPixelRatio": 0.4482311284759318,
+    "round4DiffPixelRatio": 0.4482311,
+    "absoluteImprovement": -2.847593177923713e-8,
+    "percentageImprovement": -6.352957610312433e-8,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound4": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-5\\master\\mobile-02-chothue.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-5\\actual\\mobile-02-chothue.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-5\\diff\\mobile-02-chothue.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-5\\overlay\\mobile-02-chothue.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 90
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 106
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 16
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 2662.25,
+          "width": 724,
+          "height": 339
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "implementationCommit": "44e763cbbb4c7525c83e6cf1bfaafb79295c0d68",
+    "captureSourceCommit": "44e763cbbb4c7525c83e6cf1bfaafb79295c0d68",
+    "gitStatusBeforeCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-5/",
+    "gitStatusAfterCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-5/",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "d1e4a4128924fbfb4ebcf8741bafa3cbd48493c9274440ec703da30a7088c580"
+  },
+  {
+    "route": "/cho-thue/[slug]",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 508183,
+    "diffPixelRatio": 0.3229419072766037,
+    "round4DiffPixelRatio": 0.3235679,
+    "absoluteImprovement": 0.000625992723396307,
+    "percentageImprovement": 0.0019346564458226755,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound4": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-5\\master\\web-03-chitietbds.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-5\\actual\\web-03-chitietbds.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-5\\diff\\web-03-chitietbds.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-5\\overlay\\web-03-chitietbds.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 65.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "gallery",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 137,
+          "width": 463,
+          "height": 471
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "summary",
+        "masterBox": null,
+        "actualBox": {
+          "x": 535,
+          "y": 137,
+          "width": 360,
+          "height": 120.5
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "facts",
+        "masterBox": null,
+        "actualBox": {
+          "x": 535,
+          "y": 277.5,
+          "width": 360,
+          "height": 101
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "highlights",
+        "masterBox": null,
+        "actualBox": {
+          "x": 535,
+          "y": 402.5,
+          "width": 360,
+          "height": 138
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "actions",
+        "masterBox": null,
+        "actualBox": {
+          "x": 535,
+          "y": 564.5,
+          "width": 360,
+          "height": 40.25
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "detail-tabs",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 640,
+          "width": 855,
+          "height": 328
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "related",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 1016,
+          "width": 855,
+          "height": 254.9375
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "bottom-cta",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 1318.9375,
+          "width": 855,
+          "height": 116
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1466.9375,
+          "width": 935,
+          "height": 187
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "implementationCommit": "44e763cbbb4c7525c83e6cf1bfaafb79295c0d68",
+    "captureSourceCommit": "44e763cbbb4c7525c83e6cf1bfaafb79295c0d68",
+    "gitStatusBeforeCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-5/",
+    "gitStatusAfterCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-5/",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "befdfc369de18652e1e3be7357e7f9f5fc0fb4c8cfa8ef6a1d38d50b0ebe9b65"
+  },
+  {
+    "route": "/cho-thue/[slug]",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 546590,
+    "diffPixelRatio": 0.3475868156242687,
+    "round4DiffPixelRatio": 0.333037,
+    "absoluteImprovement": -0.014549815624268658,
+    "percentageImprovement": -0.043688285758845584,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound4": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-5\\master\\mobile-03-chitietbds.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-5\\actual\\mobile-03-chitietbds.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-5\\diff\\mobile-03-chitietbds.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-5\\overlay\\mobile-03-chitietbds.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 90
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 106
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 16
+      },
+      {
+        "name": "gallery",
+        "masterBox": {
+          "x": 0,
+          "y": 165,
+          "width": 724,
+          "height": 420
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 193,
+          "width": 676,
+          "height": 418.4375
+        },
+        "deltaX": 24,
+        "deltaY": 28,
+        "deltaWidth": -48,
+        "deltaHeight": -2
+      },
+      {
+        "name": "summary",
+        "masterBox": {
+          "x": 0,
+          "y": 600,
+          "width": 724,
+          "height": 145
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 635.4375,
+          "width": 676,
+          "height": 154
+        },
+        "deltaX": 24,
+        "deltaY": 35,
+        "deltaWidth": -48,
+        "deltaHeight": 9
+      },
+      {
+        "name": "facts",
+        "masterBox": {
+          "x": 0,
+          "y": 760,
+          "width": 724,
+          "height": 140
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 805.4375,
+          "width": 676,
+          "height": 141
+        },
+        "deltaX": 24,
+        "deltaY": 45,
+        "deltaWidth": -48,
+        "deltaHeight": 1
+      },
+      {
+        "name": "highlights",
+        "masterBox": {
+          "x": 0,
+          "y": 920,
+          "width": 724,
+          "height": 220
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 970.4375,
+          "width": 676,
+          "height": 236
+        },
+        "deltaX": 24,
+        "deltaY": 50,
+        "deltaWidth": -48,
+        "deltaHeight": 16
+      },
+      {
+        "name": "actions",
+        "masterBox": {
+          "x": 0,
+          "y": 1160,
+          "width": 724,
+          "height": 60
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 1230.4375,
+          "width": 676,
+          "height": 61
+        },
+        "deltaX": 24,
+        "deltaY": 70,
+        "deltaWidth": -48,
+        "deltaHeight": 1
+      },
+      {
+        "name": "detail-tabs",
+        "masterBox": {
+          "x": 0,
+          "y": 1280,
+          "width": 724,
+          "height": 320
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 1323.4375,
+          "width": 676,
+          "height": 336
+        },
+        "deltaX": 24,
+        "deltaY": 43,
+        "deltaWidth": -48,
+        "deltaHeight": 16
+      },
+      {
+        "name": "related",
+        "masterBox": {
+          "x": 0,
+          "y": 1620,
+          "width": 724,
+          "height": 460
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 1691.4375,
+          "width": 676,
+          "height": 314.46875
+        },
+        "deltaX": 24,
+        "deltaY": 71,
+        "deltaWidth": -48,
+        "deltaHeight": -146
+      },
+      {
+        "name": "bottom-cta",
+        "masterBox": null,
+        "actualBox": {
+          "x": 24,
+          "y": 2037.90625,
+          "width": 676,
+          "height": 203
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 2264.90625,
+          "width": 724,
+          "height": 339
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "implementationCommit": "44e763cbbb4c7525c83e6cf1bfaafb79295c0d68",
+    "captureSourceCommit": "44e763cbbb4c7525c83e6cf1bfaafb79295c0d68",
+    "gitStatusBeforeCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-5/",
+    "gitStatusAfterCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-5/",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "744497eb77bf7564dae7b2b44d628a82449f5c84ecc64f257c536eec67424d4e"
+  },
+  {
+    "route": "/du-an",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 818959,
+    "diffPixelRatio": 0.5204349249017384,
+    "round4DiffPixelRatio": 0.5158817,
+    "absoluteImprovement": -0.004553224901738373,
+    "percentageImprovement": -0.008826102770728973,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound4": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-5\\master\\web-04-duan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-5\\actual\\web-04-duan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-5\\diff\\web-04-duan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-5\\overlay\\web-04-duan.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 65.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "heading",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 133,
+          "width": 855,
+          "height": 165.5
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "project-grid",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 322.5,
+          "width": 855,
+          "height": 651.25
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "about",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 1013.75,
+          "width": 855,
+          "height": 418.5
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1464.25,
+          "width": 935,
+          "height": 187
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "implementationCommit": "44e763cbbb4c7525c83e6cf1bfaafb79295c0d68",
+    "captureSourceCommit": "44e763cbbb4c7525c83e6cf1bfaafb79295c0d68",
+    "gitStatusBeforeCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-5/",
+    "gitStatusAfterCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-5/",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "c56138c1ac7eeb43f5b8ebad457e06e07ed62ac691fac910d7e584cfa49f9e0f"
+  },
+  {
+    "route": "/du-an",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 914741,
+    "diffPixelRatio": 0.5817009299675427,
+    "round4DiffPixelRatio": 0.5628682,
+    "absoluteImprovement": -0.018832729967542705,
+    "percentageImprovement": -0.03345850763561115,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound4": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-5\\master\\mobile-04-duan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-5\\actual\\mobile-04-duan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-5\\diff\\mobile-04-duan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-5\\overlay\\mobile-04-duan.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 90
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 106
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 16
+      },
+      {
+        "name": "heading",
+        "masterBox": {
+          "x": 0,
+          "y": 100,
+          "width": 724,
+          "height": 200
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 185,
+          "width": 676,
+          "height": 193
+        },
+        "deltaX": 24,
+        "deltaY": 85,
+        "deltaWidth": -48,
+        "deltaHeight": -7
+      },
+      {
+        "name": "project-grid",
+        "masterBox": {
+          "x": 0,
+          "y": 300,
+          "width": 724,
+          "height": 1130
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 394,
+          "width": 676,
+          "height": 1129.5
+        },
+        "deltaX": 24,
+        "deltaY": 94,
+        "deltaWidth": -48,
+        "deltaHeight": 0
+      },
+      {
+        "name": "about",
+        "masterBox": {
+          "x": 0,
+          "y": 1500,
+          "width": 724,
+          "height": 400
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 1555.5,
+          "width": 676,
+          "height": 452.25
+        },
+        "deltaX": 24,
+        "deltaY": 56,
+        "deltaWidth": -48,
+        "deltaHeight": 52
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 2031.75,
+          "width": 724,
+          "height": 179
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "implementationCommit": "44e763cbbb4c7525c83e6cf1bfaafb79295c0d68",
+    "captureSourceCommit": "44e763cbbb4c7525c83e6cf1bfaafb79295c0d68",
+    "gitStatusBeforeCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-5/",
+    "gitStatusAfterCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-5/",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "cb91f488c8dc7d21fb916b9c1e4c77fa9283c15f86691b757fc2495a308eaea2"
+  },
+  {
+    "route": "/du-an/[slug]",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 584730,
+    "diffPixelRatio": 0.3715862621178758,
+    "round4DiffPixelRatio": 0.3715863,
+    "absoluteImprovement": 3.788212415978265e-8,
+    "percentageImprovement": 1.0194704207281768e-7,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound4": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-5\\master\\web-05-chitietduan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-5\\actual\\web-05-chitietduan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-5\\diff\\web-05-chitietduan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-5\\overlay\\web-05-chitietduan.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 65.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "amenities",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 561.375,
+          "width": 855,
+          "height": 92
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "progress",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 983.375,
+          "width": 855,
+          "height": 243.140625
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "bottom-cta",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 1266.515625,
+          "width": 855,
+          "height": 91.5
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1390.015625,
+          "width": 935,
+          "height": 187
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "implementationCommit": "44e763cbbb4c7525c83e6cf1bfaafb79295c0d68",
+    "captureSourceCommit": "44e763cbbb4c7525c83e6cf1bfaafb79295c0d68",
+    "gitStatusBeforeCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-5/",
+    "gitStatusAfterCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-5/",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "fa9cd0e51f0568a577549abe1293317539c828c834136aba5b849a1baa0673c8"
+  },
+  {
+    "route": "/du-an/[slug]",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 494756,
+    "diffPixelRatio": 0.31462460445855334,
+    "round4DiffPixelRatio": 0.3291286,
+    "absoluteImprovement": 0.014503995541446657,
+    "percentageImprovement": 0.044067867518795566,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound4": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-5\\master\\mobile-05-chitietduan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-5\\actual\\mobile-05-chitietduan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-5\\diff\\mobile-05-chitietduan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-5\\overlay\\mobile-05-chitietduan.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 90
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 106
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 16
+      },
+      {
+        "name": "amenities",
+        "masterBox": null,
+        "actualBox": {
+          "x": 24,
+          "y": 1286.75,
+          "width": 676,
+          "height": 109
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "progress",
+        "masterBox": null,
+        "actualBox": {
+          "x": 24,
+          "y": 1419.75,
+          "width": 676,
+          "height": 156
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "gallery-strip",
+        "masterBox": null,
+        "actualBox": {
+          "x": 24,
+          "y": 1599.75,
+          "width": 676,
+          "height": 211
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "map",
+        "masterBox": null,
+        "actualBox": {
+          "x": 24,
+          "y": 1834.75,
+          "width": 676,
+          "height": 339.5
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "bottom-cta",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 2069,
+          "width": 724,
+          "height": 103
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 2326.25,
+          "width": 724,
+          "height": 339
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "implementationCommit": "44e763cbbb4c7525c83e6cf1bfaafb79295c0d68",
+    "captureSourceCommit": "44e763cbbb4c7525c83e6cf1bfaafb79295c0d68",
+    "gitStatusBeforeCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-5/",
+    "gitStatusAfterCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-5/",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "32ee381e92af4fe949d912e3d9fdf3392593ae5e6e4bd3f7143775c8df943685"
+  }
+]
