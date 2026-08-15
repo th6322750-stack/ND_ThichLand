@@ -1,0 +1,1631 @@
+[
+  {
+    "route": "/",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 716609,
+    "diffPixelRatio": 0.4553931895234192,
+    "round7DiffPixelRatio": 0.449087922318498,
+    "absoluteImprovement": -0.006305267204921194,
+    "percentageImprovement": -0.014040162051940981,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound7": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-8\\master\\web-01-trangchu.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-8\\actual\\web-01-trangchu.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-8\\diff\\web-01-trangchu.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-8\\overlay\\web-01-trangchu.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 65.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "hero",
+        "masterBox": {
+          "x": 0,
+          "y": 64,
+          "width": 935,
+          "height": 281
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 65.5,
+          "width": 935,
+          "height": 276.875
+        },
+        "deltaX": 0,
+        "deltaY": 2,
+        "deltaWidth": 0,
+        "deltaHeight": -4
+      },
+      {
+        "name": "trustmetrics",
+        "masterBox": {
+          "x": 0,
+          "y": 345,
+          "width": 935,
+          "height": 95
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 342.375,
+          "width": 935,
+          "height": 93.25
+        },
+        "deltaX": 0,
+        "deltaY": -3,
+        "deltaWidth": 0,
+        "deltaHeight": -2
+      },
+      {
+        "name": "search",
+        "masterBox": {
+          "x": 0,
+          "y": 440,
+          "width": 935,
+          "height": 65
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 435.625,
+          "width": 935,
+          "height": 127
+        },
+        "deltaX": 0,
+        "deltaY": -4,
+        "deltaWidth": 0,
+        "deltaHeight": 62
+      },
+      {
+        "name": "featured-projects",
+        "masterBox": {
+          "x": 0,
+          "y": 505,
+          "width": 935,
+          "height": 290
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 562.625,
+          "width": 935,
+          "height": 198.359375
+        },
+        "deltaX": 0,
+        "deltaY": 58,
+        "deltaWidth": 0,
+        "deltaHeight": -92
+      },
+      {
+        "name": "featured-rentals",
+        "masterBox": {
+          "x": 0,
+          "y": 795,
+          "width": 935,
+          "height": 165
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 760.984375,
+          "width": 935,
+          "height": 260.171875
+        },
+        "deltaX": 0,
+        "deltaY": -34,
+        "deltaWidth": 0,
+        "deltaHeight": 95
+      },
+      {
+        "name": "about",
+        "masterBox": {
+          "x": 0,
+          "y": 960,
+          "width": 935,
+          "height": 205
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1021.15625,
+          "width": 935,
+          "height": 217
+        },
+        "deltaX": 0,
+        "deltaY": 61,
+        "deltaWidth": 0,
+        "deltaHeight": 12
+      },
+      {
+        "name": "testimonials",
+        "masterBox": {
+          "x": 0,
+          "y": 1165,
+          "width": 935,
+          "height": 135
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1238.15625,
+          "width": 935,
+          "height": 158
+        },
+        "deltaX": 0,
+        "deltaY": 73,
+        "deltaWidth": 0,
+        "deltaHeight": 23
+      },
+      {
+        "name": "contact-map",
+        "masterBox": {
+          "x": 0,
+          "y": 1300,
+          "width": 935,
+          "height": 200
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1396.15625,
+          "width": 935,
+          "height": 206.25
+        },
+        "deltaX": 0,
+        "deltaY": 96,
+        "deltaWidth": 0,
+        "deltaHeight": 6
+      },
+      {
+        "name": "footer",
+        "masterBox": {
+          "x": 0,
+          "y": 1500,
+          "width": 935,
+          "height": 183
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1602.40625,
+          "width": 935,
+          "height": 187
+        },
+        "deltaX": 0,
+        "deltaY": 102,
+        "deltaWidth": 0,
+        "deltaHeight": 4
+      }
+    ],
+    "classification": [
+      "USER_APPROVED_PRODUCT_DELTA",
+      "ASSET_DIFF"
+    ],
+    "implementationCommit": "92ef10103048d75fbfd8c5509209420bc12f59e6",
+    "captureSourceCommit": "92ef10103048d75fbfd8c5509209420bc12f59e6",
+    "gitStatusBeforeCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-8/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-8/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "ab7e72c7b7216b4d1b4d4393d9e5c35e0c086286b6f1cf7279b940385eafd9a5"
+  },
+  {
+    "route": "/",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 639208,
+    "diffPixelRatio": 0.40648433604997813,
+    "round7DiffPixelRatio": 0.4018879155092946,
+    "absoluteImprovement": -0.0045964205406835434,
+    "percentageImprovement": -0.011437070793379555,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound7": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-8\\master\\mobile-01-trangchu.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-8\\actual\\mobile-01-trangchu.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-8\\diff\\mobile-01-trangchu.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-8\\overlay\\mobile-01-trangchu.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 90
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 106
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 16
+      },
+      {
+        "name": "hero",
+        "masterBox": {
+          "x": 0,
+          "y": 90,
+          "width": 724,
+          "height": 282
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 106,
+          "width": 724,
+          "height": 262
+        },
+        "deltaX": 0,
+        "deltaY": 16,
+        "deltaWidth": 0,
+        "deltaHeight": -20
+      },
+      {
+        "name": "trustmetrics",
+        "masterBox": {
+          "x": 0,
+          "y": 372,
+          "width": 724,
+          "height": 100
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 368,
+          "width": 724,
+          "height": 117
+        },
+        "deltaX": 0,
+        "deltaY": -4,
+        "deltaWidth": 0,
+        "deltaHeight": 17
+      },
+      {
+        "name": "search",
+        "masterBox": {
+          "x": 0,
+          "y": 472,
+          "width": 724,
+          "height": 275
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 485,
+          "width": 724,
+          "height": 379.5
+        },
+        "deltaX": 0,
+        "deltaY": 13,
+        "deltaWidth": 0,
+        "deltaHeight": 105
+      },
+      {
+        "name": "featured-projects",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 864.5,
+          "width": 724,
+          "height": 149.84375
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "featured-rentals",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1014.34375,
+          "width": 724,
+          "height": 284.65625
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "about",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1299,
+          "width": 724,
+          "height": 271.5
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "testimonials",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1570.5,
+          "width": 724,
+          "height": 205
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "contact-map",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1775.5,
+          "width": 724,
+          "height": 219.625
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1995.125,
+          "width": 724,
+          "height": 339
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "classification": [
+      "USER_APPROVED_PRODUCT_DELTA",
+      "ASSET_DIFF"
+    ],
+    "implementationCommit": "92ef10103048d75fbfd8c5509209420bc12f59e6",
+    "captureSourceCommit": "92ef10103048d75fbfd8c5509209420bc12f59e6",
+    "gitStatusBeforeCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-8/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-8/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "08b3617be6f800bed3a003b1b95a3402fed64fa40bc86f3b97b8677aebfd902b"
+  },
+  {
+    "route": "/cho-thue",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 454147,
+    "diffPixelRatio": 0.28860292131761145,
+    "round7DiffPixelRatio": 0.27235678585159556,
+    "absoluteImprovement": -0.016246135466015887,
+    "percentageImprovement": -0.059650195295182555,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound7": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-8\\master\\web-02-chothue.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-8\\actual\\web-02-chothue.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-8\\diff\\web-02-chothue.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-8\\overlay\\web-02-chothue.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 65.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "hero",
+        "masterBox": {
+          "x": 0,
+          "y": 64,
+          "width": 935,
+          "height": 181
+        },
+        "actualBox": null,
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      },
+      {
+        "name": "sidebar",
+        "masterBox": {
+          "x": 0,
+          "y": 275,
+          "width": 260,
+          "height": 900
+        },
+        "actualBox": null,
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      },
+      {
+        "name": "list",
+        "masterBox": {
+          "x": 280,
+          "y": 300,
+          "width": 590,
+          "height": 1140
+        },
+        "actualBox": null,
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      },
+      {
+        "name": "pagination",
+        "masterBox": {
+          "x": 280,
+          "y": 1440,
+          "width": 590,
+          "height": 50
+        },
+        "actualBox": null,
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      },
+      {
+        "name": "footer",
+        "masterBox": {
+          "x": 0,
+          "y": 1500,
+          "width": 935,
+          "height": 183
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1468.9375,
+          "width": 935,
+          "height": 187
+        },
+        "deltaX": 0,
+        "deltaY": -31,
+        "deltaWidth": 0,
+        "deltaHeight": 4
+      }
+    ],
+    "classification": [
+      "ASSET_DIFF",
+      "DATA_TEXT_DIFF"
+    ],
+    "implementationCommit": "92ef10103048d75fbfd8c5509209420bc12f59e6",
+    "captureSourceCommit": "92ef10103048d75fbfd8c5509209420bc12f59e6",
+    "gitStatusBeforeCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-8/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-8/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "81b94179d3b6a6afa6d28bdbaf3aa9f53fa016505b7636c232acf49c729463d7"
+  },
+  {
+    "route": "/cho-thue",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 726268,
+    "diffPixelRatio": 0.4618474202049184,
+    "round7DiffPixelRatio": 0.4482311284759318,
+    "absoluteImprovement": -0.013616291728986651,
+    "percentageImprovement": -0.030377836040269106,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound7": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-8\\master\\mobile-02-chothue.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-8\\actual\\mobile-02-chothue.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-8\\diff\\mobile-02-chothue.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-8\\overlay\\mobile-02-chothue.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 90
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 106
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 16
+      },
+      {
+        "name": "heading",
+        "masterBox": {
+          "x": 0,
+          "y": 95,
+          "width": 724,
+          "height": 70
+        },
+        "actualBox": null,
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      },
+      {
+        "name": "filter-sort",
+        "masterBox": {
+          "x": 0,
+          "y": 175,
+          "width": 724,
+          "height": 60
+        },
+        "actualBox": null,
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      },
+      {
+        "name": "list",
+        "masterBox": {
+          "x": 0,
+          "y": 260,
+          "width": 724,
+          "height": 1750
+        },
+        "actualBox": null,
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      },
+      {
+        "name": "bottom-nav",
+        "masterBox": {
+          "x": 0,
+          "y": 2090,
+          "width": 724,
+          "height": 82
+        },
+        "actualBox": null,
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 2662.25,
+          "width": 724,
+          "height": 339
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "classification": [
+      "ASSET_DIFF",
+      "GEOMETRY_DIFF",
+      "DATA_TEXT_DIFF"
+    ],
+    "implementationCommit": "92ef10103048d75fbfd8c5509209420bc12f59e6",
+    "captureSourceCommit": "92ef10103048d75fbfd8c5509209420bc12f59e6",
+    "gitStatusBeforeCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-8/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-8/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "73ebf417fd37c07acc3ea427a1133c597f794369790c1208a6e7c86ee9ead4d4"
+  },
+  {
+    "route": "/cho-thue/[slug]",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 529611,
+    "diffPixelRatio": 0.3365590475373426,
+    "round7DiffPixelRatio": 0.3161867177595394,
+    "absoluteImprovement": -0.020372329777803233,
+    "percentageImprovement": -0.06443132691391683,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound7": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-8\\master\\web-03-chitietbds.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-8\\actual\\web-03-chitietbds.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-8\\diff\\web-03-chitietbds.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-8\\overlay\\web-03-chitietbds.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 65.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "gallery",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 137,
+          "width": 463,
+          "height": 471
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "summary",
+        "masterBox": null,
+        "actualBox": {
+          "x": 535,
+          "y": 137,
+          "width": 360,
+          "height": 120.5
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "facts",
+        "masterBox": null,
+        "actualBox": {
+          "x": 535,
+          "y": 277.5,
+          "width": 360,
+          "height": 101
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "highlights",
+        "masterBox": null,
+        "actualBox": {
+          "x": 535,
+          "y": 402.5,
+          "width": 360,
+          "height": 146.5
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "actions",
+        "masterBox": null,
+        "actualBox": {
+          "x": 535,
+          "y": 573,
+          "width": 360,
+          "height": 40.25
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "detail-tabs",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 645.25,
+          "width": 855,
+          "height": 328
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "related",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 1021.25,
+          "width": 855,
+          "height": 254.9375
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "bottom-cta",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 1324.1875,
+          "width": 855,
+          "height": 116
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1472.1875,
+          "width": 935,
+          "height": 187
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "classification": [
+      "ASSET_DIFF",
+      "GEOMETRY_DIFF",
+      "DATA_TEXT_DIFF"
+    ],
+    "implementationCommit": "92ef10103048d75fbfd8c5509209420bc12f59e6",
+    "captureSourceCommit": "92ef10103048d75fbfd8c5509209420bc12f59e6",
+    "gitStatusBeforeCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-8/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-8/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "35b3563f2d6762fb7092f0d6f41f3e9c7a40154eb2d51ac25198f44f7e44dee2"
+  },
+  {
+    "route": "/cho-thue/[slug]",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 558605,
+    "diffPixelRatio": 0.3552273790991321,
+    "round7DiffPixelRatio": 0.33458672913932214,
+    "absoluteImprovement": -0.020640649959809965,
+    "percentageImprovement": -0.06168998397786179,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound7": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-8\\master\\mobile-03-chitietbds.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-8\\actual\\mobile-03-chitietbds.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-8\\diff\\mobile-03-chitietbds.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-8\\overlay\\mobile-03-chitietbds.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 130
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 130
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 0
+      },
+      {
+        "name": "gallery",
+        "masterBox": {
+          "x": 0,
+          "y": 165,
+          "width": 724,
+          "height": 420
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 189,
+          "width": 676,
+          "height": 418.4375
+        },
+        "deltaX": 24,
+        "deltaY": 24,
+        "deltaWidth": -48,
+        "deltaHeight": -2
+      },
+      {
+        "name": "summary",
+        "masterBox": {
+          "x": 0,
+          "y": 600,
+          "width": 724,
+          "height": 145
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 623.4375,
+          "width": 676,
+          "height": 154
+        },
+        "deltaX": 24,
+        "deltaY": 23,
+        "deltaWidth": -48,
+        "deltaHeight": 9
+      },
+      {
+        "name": "facts",
+        "masterBox": {
+          "x": 0,
+          "y": 760,
+          "width": 724,
+          "height": 140
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 793.4375,
+          "width": 676,
+          "height": 141
+        },
+        "deltaX": 24,
+        "deltaY": 33,
+        "deltaWidth": -48,
+        "deltaHeight": 1
+      },
+      {
+        "name": "highlights",
+        "masterBox": {
+          "x": 0,
+          "y": 920,
+          "width": 724,
+          "height": 220
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 950.4375,
+          "width": 676,
+          "height": 220
+        },
+        "deltaX": 24,
+        "deltaY": 30,
+        "deltaWidth": -48,
+        "deltaHeight": 0
+      },
+      {
+        "name": "actions",
+        "masterBox": {
+          "x": 0,
+          "y": 1160,
+          "width": 724,
+          "height": 60
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 1186.4375,
+          "width": 676,
+          "height": 61
+        },
+        "deltaX": 24,
+        "deltaY": 26,
+        "deltaWidth": -48,
+        "deltaHeight": 1
+      },
+      {
+        "name": "detail-tabs",
+        "masterBox": {
+          "x": 0,
+          "y": 1280,
+          "width": 724,
+          "height": 320
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 1279.4375,
+          "width": 676,
+          "height": 336
+        },
+        "deltaX": 24,
+        "deltaY": -1,
+        "deltaWidth": -48,
+        "deltaHeight": 16
+      },
+      {
+        "name": "related",
+        "masterBox": {
+          "x": 0,
+          "y": 1620,
+          "width": 724,
+          "height": 460
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 1647.4375,
+          "width": 676,
+          "height": 391.1875
+        },
+        "deltaX": 24,
+        "deltaY": 27,
+        "deltaWidth": -48,
+        "deltaHeight": -69
+      },
+      {
+        "name": "bottom-cta",
+        "masterBox": null,
+        "actualBox": {
+          "x": 24,
+          "y": 2070.625,
+          "width": 676,
+          "height": 203
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 2289.625,
+          "width": 724,
+          "height": 339
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "classification": [
+      "ASSET_DIFF",
+      "GEOMETRY_DIFF",
+      "DATA_TEXT_DIFF",
+      "ANTIALIASING_NOISE"
+    ],
+    "implementationCommit": "92ef10103048d75fbfd8c5509209420bc12f59e6",
+    "captureSourceCommit": "92ef10103048d75fbfd8c5509209420bc12f59e6",
+    "gitStatusBeforeCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-8/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-8/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "6d578d2e511f08aff9b4e4a1421b06d591d60fb07e5b07cb4e1e5fe6021f40c7"
+  },
+  {
+    "route": "/du-an",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 849530,
+    "diffPixelRatio": 0.5398622907273426,
+    "round7DiffPixelRatio": 0.5204349249017384,
+    "absoluteImprovement": -0.019427365825604226,
+    "percentageImprovement": -0.037329097061024955,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound7": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-8\\master\\web-04-duan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-8\\actual\\web-04-duan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-8\\diff\\web-04-duan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-8\\overlay\\web-04-duan.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 65.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "heading",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 133,
+          "width": 855,
+          "height": 165.5
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "project-grid",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 322.5,
+          "width": 855,
+          "height": 651.25
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "about",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 1013.75,
+          "width": 855,
+          "height": 418.5
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1464.25,
+          "width": 935,
+          "height": 187
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "classification": [
+      "ASSET_DIFF",
+      "GEOMETRY_DIFF"
+    ],
+    "implementationCommit": "92ef10103048d75fbfd8c5509209420bc12f59e6",
+    "captureSourceCommit": "92ef10103048d75fbfd8c5509209420bc12f59e6",
+    "gitStatusBeforeCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-8/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-8/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "299e15a459a1edaf3e3dfc7fd51f281042790557ec1138cc5512969fff8b4a79"
+  },
+  {
+    "route": "/du-an",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 897595,
+    "diffPixelRatio": 0.5707974675172716,
+    "round7DiffPixelRatio": 0.5424889095774448,
+    "absoluteImprovement": -0.028308557939826784,
+    "percentageImprovement": -0.05218274040270588,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound7": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-8\\master\\mobile-04-duan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-8\\actual\\mobile-04-duan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-8\\diff\\mobile-04-duan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-8\\overlay\\mobile-04-duan.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 90
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 106
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 16
+      },
+      {
+        "name": "heading",
+        "masterBox": {
+          "x": 0,
+          "y": 100,
+          "width": 724,
+          "height": 200
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 165,
+          "width": 676,
+          "height": 193
+        },
+        "deltaX": 24,
+        "deltaY": 65,
+        "deltaWidth": -48,
+        "deltaHeight": -7
+      },
+      {
+        "name": "project-grid",
+        "masterBox": {
+          "x": 0,
+          "y": 300,
+          "width": 724,
+          "height": 1130
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 374,
+          "width": 676,
+          "height": 1129.5
+        },
+        "deltaX": 24,
+        "deltaY": 74,
+        "deltaWidth": -48,
+        "deltaHeight": 0
+      },
+      {
+        "name": "about",
+        "masterBox": {
+          "x": 0,
+          "y": 1500,
+          "width": 724,
+          "height": 400
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 1535.5,
+          "width": 676,
+          "height": 452.25
+        },
+        "deltaX": 24,
+        "deltaY": 36,
+        "deltaWidth": -48,
+        "deltaHeight": 52
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 2003.75,
+          "width": 724,
+          "height": 179
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "classification": [
+      "ASSET_DIFF",
+      "GEOMETRY_DIFF",
+      "DATA_TEXT_DIFF"
+    ],
+    "implementationCommit": "92ef10103048d75fbfd8c5509209420bc12f59e6",
+    "captureSourceCommit": "92ef10103048d75fbfd8c5509209420bc12f59e6",
+    "gitStatusBeforeCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-8/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-8/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "b5d83d93091c07e7eda4c2b3ba3cafe5b761840f24204b5ec3932865fc9bbfa9"
+  },
+  {
+    "route": "/du-an/[slug]",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 599506,
+    "diffPixelRatio": 0.38097616619164276,
+    "round7DiffPixelRatio": 0.3715862621178758,
+    "absoluteImprovement": -0.009389904073766941,
+    "percentageImprovement": -0.025269782634720347,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound7": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-8\\master\\web-05-chitietduan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-8\\actual\\web-05-chitietduan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-8\\diff\\web-05-chitietduan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-8\\overlay\\web-05-chitietduan.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 65.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "amenities",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 608.875,
+          "width": 855,
+          "height": 92
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "progress",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 1030.875,
+          "width": 855,
+          "height": 243.140625
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "bottom-cta",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 1314.015625,
+          "width": 855,
+          "height": 91.5
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1437.515625,
+          "width": 935,
+          "height": 187
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "classification": [
+      "ASSET_DIFF",
+      "GEOMETRY_DIFF"
+    ],
+    "implementationCommit": "92ef10103048d75fbfd8c5509209420bc12f59e6",
+    "captureSourceCommit": "92ef10103048d75fbfd8c5509209420bc12f59e6",
+    "gitStatusBeforeCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-8/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-8/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "e1a316d35fdcfba10dc57c139ef03b44a48c67db4d35efbdd6d97ef8dcb452fb"
+  },
+  {
+    "route": "/du-an/[slug]",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 512592,
+    "diffPixelRatio": 0.3259668508287293,
+    "round7DiffPixelRatio": 0.3014814362605944,
+    "absoluteImprovement": -0.024485414568134856,
+    "percentageImprovement": -0.08121698925094067,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound7": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-8\\master\\mobile-05-chitietduan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-8\\actual\\mobile-05-chitietduan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-8\\diff\\mobile-05-chitietduan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-8\\overlay\\mobile-05-chitietduan.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 90
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 106
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 16
+      },
+      {
+        "name": "amenities",
+        "masterBox": null,
+        "actualBox": {
+          "x": 24,
+          "y": 1274.75,
+          "width": 676,
+          "height": 109
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "progress",
+        "masterBox": null,
+        "actualBox": {
+          "x": 24,
+          "y": 1407.75,
+          "width": 676,
+          "height": 156
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "gallery-strip",
+        "masterBox": null,
+        "actualBox": {
+          "x": 24,
+          "y": 1587.75,
+          "width": 676,
+          "height": 211
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "map",
+        "masterBox": null,
+        "actualBox": {
+          "x": 24,
+          "y": 1822.75,
+          "width": 676,
+          "height": 339.5
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "bottom-cta",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 2069,
+          "width": 724,
+          "height": 103
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 2314.25,
+          "width": 724,
+          "height": 339
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "classification": [
+      "ASSET_DIFF",
+      "GEOMETRY_DIFF"
+    ],
+    "implementationCommit": "92ef10103048d75fbfd8c5509209420bc12f59e6",
+    "captureSourceCommit": "92ef10103048d75fbfd8c5509209420bc12f59e6",
+    "gitStatusBeforeCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-8/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: clean; untracked: ?? .vercel/\n?? .webby/qa/pha3-v2/round-8/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "8028410628b28712de2c2cf7a9102fe4a9bec05bdd6bb7efa9a05cbe5267f95c"
+  }
+]
