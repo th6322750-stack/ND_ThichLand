@@ -37,7 +37,7 @@ const HEADER_VARIANTS: Record<
   HeaderVariant,
   { tagline: boolean; hotlineTextMobile: boolean; hamburgerBorderMobile: boolean; mobilePadding: string }
 > = {
-  home: { tagline: false, hotlineTextMobile: false, hamburgerBorderMobile: true, mobilePadding: "py-2" },
+  home: { tagline: false, hotlineTextMobile: true, hamburgerBorderMobile: true, mobilePadding: "py-2" },
   "cho-thue": { tagline: false, hotlineTextMobile: false, hamburgerBorderMobile: true, mobilePadding: "py-2" },
   "cho-thue-detail": { tagline: true, hotlineTextMobile: true, hamburgerBorderMobile: false, mobilePadding: "py-[14px]" },
   "du-an": { tagline: false, hotlineTextMobile: true, hamburgerBorderMobile: false, mobilePadding: "py-2" },

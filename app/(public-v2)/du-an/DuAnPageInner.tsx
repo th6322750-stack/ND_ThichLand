@@ -129,7 +129,7 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
               name={project.name}
               location={project.location}
               image={project.cardMedia}
-              mobileAspect="5/2"
+              mobileAspect="2.8/1"
               desktopAspect="4/3"
               showButton
             />
@@ -167,7 +167,7 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
 
       {/* WEB: reception image LEFT / text+features RIGHT, matching master. */}
       <section
-        className="mt-10 hidden rounded-lg border border-[#EDEBEA] bg-white p-8 min-[900px]:flex min-[900px]:items-center min-[900px]:gap-8"
+        className="mt-6 hidden rounded-lg border border-[#EDEBEA] bg-white p-6 min-[900px]:flex min-[900px]:items-center min-[900px]:gap-6"
         data-qa-region="about"
       >
         <div className="relative h-[220px] w-[340px] shrink-0 overflow-hidden rounded-lg">

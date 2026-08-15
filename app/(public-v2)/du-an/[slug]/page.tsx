@@ -75,6 +75,8 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
     "Loại hình phát triển: Căn hộ cao cấp",
     "Quy mô: 2,5 ha",
     "Số lượng sản phẩm: 1.200 căn",
+    "Diện tích căn hộ: 50m² - 120m²",
+    "Pháp lý: Sở hữu lâu dài",
   ];
 
   return (
@@ -110,10 +112,12 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
 
         <div className="mt-2 grid grid-cols-4 gap-1">
           {facts.map((fact) => (
-            <div key={fact.label} className="rounded-lg border border-[#EDEBEA] p-1 text-center">
-              <Icon name={fact.icon} size={14} className="mx-auto text-[#880206]" />
-              <p className="mt-[2px] truncate text-[9px] font-bold text-[#0C0D0D]">{fact.value}</p>
-              <p className="truncate text-[7px] text-[#5F5D5D]">{fact.label}</p>
+            <div key={fact.label} className="flex items-center gap-1 rounded-lg border border-[#EDEBEA] p-1">
+              <Icon name={fact.icon} size={14} className="shrink-0 text-[#880206]" />
+              <div className="min-w-0">
+                <p className="truncate text-[9px] font-bold text-[#0C0D0D]">{fact.value}</p>
+                <p className="truncate text-[7px] text-[#5F5D5D]">{fact.label}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -128,7 +132,7 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
           form RIGHT, as one three-column band — a full-width hero first is
           a FAIL. */}
       <div className="mt-5 hidden min-[900px]:grid min-[900px]:grid-cols-[1.3fr_1fr_260px] min-[900px]:items-start min-[900px]:gap-6">
-        <Gallery2 images={project.media} />
+        <Gallery2 images={project.media} desktopAspect="15/16" />
 
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">

@@ -14,9 +14,13 @@ interface Gallery2Props {
   // top/below strip instead), so this renders both arrangements and picks
   // one per breakpoint via CSS rather than fighting one grid to do both.
   sideBySideOnMobile?: boolean;
+  /** WEB main-photo aspect ratio — /du-an/[slug] (05_ChiTietDuAn_WEB.png)
+      measures nearly square (~15/16); /cho-thue/[slug] (03_ChiTietBDS_WEB.png)
+      keeps the original 4/3. */
+  desktopAspect?: string;
 }
 
-export function Gallery2({ images, sideBySideOnMobile = false }: Gallery2Props) {
+export function Gallery2({ images, sideBySideOnMobile = false, desktopAspect = "4/3" }: Gallery2Props) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const open = activeIndex !== null;
   const close = () => setActiveIndex(null);
@@ -86,7 +90,8 @@ export function Gallery2({ images, sideBySideOnMobile = false }: Gallery2Props) 
         <button
           type="button"
           aria-label={`Xem ảnh 1 / ${images.length}`}
-          className="relative aspect-[4/3] w-full overflow-hidden rounded-lg"
+          className="relative w-full overflow-hidden rounded-lg"
+          style={{ aspectRatio: desktopAspect }}
           onClick={() => setActiveIndex(0)}
         >
           <Image src={images[0]} alt="" fill className="object-cover" unoptimized priority />
