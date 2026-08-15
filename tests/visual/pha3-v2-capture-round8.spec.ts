@@ -184,12 +184,21 @@ const CAPTURES: CaptureSpec[] = [
     route: "/du-an",
     navigateTo: "/du-an",
     masterRegions: {
-      WEB: { header: SHARED_HEADER_WEB },
+      // Ruler-overlay re-measured this round (round-8 report/message,
+      // "FINAL TARGETED CONVERGENCE" section) — replaces the previous
+      // notVisibleInMaster placeholders with real boxes.
+      WEB: {
+        header: SHARED_HEADER_WEB,
+        heading: { x: 0, y: 85, width: 935, height: 170 },
+        "project-grid": { x: 0, y: 290, width: 935, height: 905 },
+        about: { x: 0, y: 1230, width: 935, height: 220 },
+        footer: { x: 0, y: 1500, width: 935, height: 183 },
+      },
       MOBILE: {
         header: mobileHeader(),
-        heading: { x: 0, y: 100, width: 724, height: 200 },
-        "project-grid": { x: 0, y: 300, width: 724, height: 1130 },
-        about: { x: 0, y: 1500, width: 724, height: 400 },
+        heading: { x: 0, y: 95, width: 724, height: 185 },
+        "project-grid": { x: 0, y: 290, width: 724, height: 1230 },
+        about: { x: 0, y: 1560, width: 724, height: 290 },
       },
     },
   },
@@ -198,7 +207,17 @@ const CAPTURES: CaptureSpec[] = [
     route: "/du-an/[slug]",
     navigateTo: "/du-an/sun-galaxy-complex",
     masterRegions: {
-      WEB: { header: SHARED_HEADER_WEB },
+      // Ruler-overlay re-measured this round. Only "amenities"/"progress"/
+      // "bottom-cta" carry a data-qa-region on this page currently — the
+      // top gallery/summary/form band isn't individually tagged, so it's
+      // intentionally left unmeasured here rather than inventing a region
+      // name the actual capture can never match.
+      WEB: {
+        header: SHARED_HEADER_WEB,
+        amenities: { x: 0, y: 590, width: 935, height: 100 },
+        progress: { x: 0, y: 1010, width: 935, height: 240 },
+        "bottom-cta": { x: 0, y: 1250, width: 935, height: 60 },
+      },
       MOBILE: { header: mobileHeader() },
     },
   },
