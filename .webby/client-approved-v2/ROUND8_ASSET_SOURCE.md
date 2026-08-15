@@ -10,10 +10,10 @@ The Round 8 demo binaries are intentionally stored on Google Drive rather than c
 
 ## Google Drive source
 
-Folder:
-`https://drive.google.com/drive/folders/14hT8Tz8SWLfP6lpgGib9MzpXQrJsljGz`
+Dedicated folder:
+`https://drive.google.com/drive/folders/1GVCEkRLfppmeHPKWiukv4ExQzbEkJhJq`
 
-Folder name: `ND Thích Land`
+Folder name: `NDTHICH ROUND8 DEMO ASSETS 20 4K`
 
 Approved Round-8 binary files are prefixed `R8_01-` through `R8_20-`.
 
