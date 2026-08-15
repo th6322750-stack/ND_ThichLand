@@ -39,6 +39,20 @@ const PRICE_STOPS: RangeStop[] = [
 
 const BEDROOM_OPTIONS = ["Tất cả", "1 phòng", "2 phòng", "3 phòng", "4 phòng trở lên"];
 
+// 02_ChoThue_WEB.png's "Loại bất động sản" checkboxes show full descriptive
+// labels in a fixed order — PropertyType's short internal values ("Căn hộ",
+// "Xưởng", "Studio"...) are the real filter/URL-state/data values (used for
+// matching listings, unchanged), this is DISPLAY TEXT ONLY.
+const PROPERTY_TYPE_ORDER: PropertyType[] = ["Căn hộ", "Nhà", "Văn phòng", "Mặt bằng", "Xưởng", "Studio"];
+const PROPERTY_TYPE_LABELS: Record<PropertyType, string> = {
+  "Căn hộ": "Căn hộ chung cư",
+  "Nhà": "Nhà riêng / Nhà nguyên căn",
+  "Văn phòng": "Văn phòng",
+  "Mặt bằng": "Mặt bằng kinh doanh",
+  "Xưởng": "Kho xưởng / Đất",
+  Studio: "Phòng trọ",
+};
+
 function priceIndexForMin(min: number | null): number {
   if (min === null) return 0;
   const i = PRICE_STOPS.findIndex((s) => s.value === min);
@@ -104,15 +118,15 @@ export function Filter2({ value, onChange, onApply, onReset, locationOptions, pr
             />
             Tất cả
           </label>
-          {propertyTypeOptions.map((type) => (
+          {PROPERTY_TYPE_ORDER.filter((type) => propertyTypeOptions.includes(type)).map((type) => (
             <label key={type} className="flex items-center gap-2 text-[13px] text-[#3A3838]">
               <input
                 type="checkbox"
                 checked={value.propertyType === type}
-                onChange={() => onChange({ propertyType: value.propertyType === type ? "" : (type as PropertyType) })}
+                onChange={() => onChange({ propertyType: value.propertyType === type ? "" : type })}
                 className={CHECKBOX_CLASS}
               />
-              {type}
+              {PROPERTY_TYPE_LABELS[type]}
             </label>
           ))}
         </div>
