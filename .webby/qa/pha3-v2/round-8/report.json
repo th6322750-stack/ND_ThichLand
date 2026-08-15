@@ -11,11 +11,11 @@
       "height": 1683
     },
     "dimensionPass": true,
-    "diffPixels": 716612,
-    "diffPixelRatio": 0.4553950959738943,
+    "diffPixels": 716751,
+    "diffPixelRatio": 0.4554834281792445,
     "round7DiffPixelRatio": 0.449087922318498,
-    "absoluteImprovement": -0.0063071736553963476,
-    "percentageImprovement": -0.014044407212811286,
+    "absoluteImprovement": -0.006395505860746498,
+    "percentageImprovement": -0.01424109966647185,
     "threshold": 0.12,
     "maxDiffPixelRatio": 0.005,
     "automatedPass": false,
@@ -221,12 +221,12 @@
       "USER_APPROVED_PRODUCT_DELTA",
       "ASSET_DIFF"
     ],
-    "implementationCommit": "7c6ee6a556d429eb151356a00d9f2868ac00af58",
-    "captureSourceCommit": "7c6ee6a556d429eb151356a00d9f2868ac00af58",
-    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json\n M tests/visual/pha3-v2-capture-round8.spec.ts; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
-    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json\n M tests/visual/pha3-v2-capture-round8.spec.ts; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "implementationCommit": "6eef224f837e64059e329522798540a9d062ea99",
+    "captureSourceCommit": "6eef224f837e64059e329522798540a9d062ea99",
+    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
     "browserVersion": "151.0.7922.34",
-    "screenshotSha256": "e3ab9c2984a3099fc58f1ce85f3051504cadff3b6b652e28ad3c6f0ca50a6395"
+    "screenshotSha256": "6a98e907943abe3b79833afc4a96b190c761ffca23365189f7c9eace90259e35"
   },
   {
     "route": "/",
@@ -240,15 +240,15 @@
       "height": 2172
     },
     "dimensionPass": true,
-    "diffPixels": 644295,
-    "diffPixelRatio": 0.4097192546015079,
+    "diffPixels": 621565,
+    "diffPixelRatio": 0.3952648219936306,
     "round7DiffPixelRatio": 0.4018879155092946,
-    "absoluteImprovement": -0.007831339092213285,
-    "percentageImprovement": -0.019486376151143982,
+    "absoluteImprovement": 0.00662309351566398,
+    "percentageImprovement": 0.016479951897212013,
     "threshold": 0.12,
     "maxDiffPixelRatio": 0.005,
     "automatedPass": false,
-    "regressedVsRound7": true,
+    "regressedVsRound7": false,
     "playwrightToHaveScreenshotPass": false,
     "masterPath": ".webby\\qa\\pha3-v2\\round-8\\master\\mobile-01-trangchu.png",
     "actualPath": ".webby\\qa\\pha3-v2\\round-8\\actual\\mobile-01-trangchu.png",
@@ -267,12 +267,12 @@
           "x": 0,
           "y": 0,
           "width": 724,
-          "height": 106
+          "height": 90
         },
         "deltaX": 0,
         "deltaY": 0,
         "deltaWidth": 0,
-        "deltaHeight": 16
+        "deltaHeight": 0
       },
       {
         "name": "hero",
@@ -284,12 +284,12 @@
         },
         "actualBox": {
           "x": 0,
-          "y": 106,
+          "y": 90,
           "width": 724,
           "height": 262
         },
         "deltaX": 0,
-        "deltaY": 16,
+        "deltaY": 0,
         "deltaWidth": 0,
         "deltaHeight": -20
       },
@@ -303,12 +303,12 @@
         },
         "actualBox": {
           "x": 0,
-          "y": 368,
+          "y": 352,
           "width": 724,
           "height": 117
         },
         "deltaX": 0,
-        "deltaY": -4,
+        "deltaY": -20,
         "deltaWidth": 0,
         "deltaHeight": 17
       },
@@ -322,12 +322,12 @@
         },
         "actualBox": {
           "x": 0,
-          "y": 485,
+          "y": 469,
           "width": 724,
           "height": 379.5
         },
         "deltaX": 0,
-        "deltaY": 13,
+        "deltaY": -3,
         "deltaWidth": 0,
         "deltaHeight": 105
       },
@@ -336,7 +336,7 @@
         "masterBox": null,
         "actualBox": {
           "x": 0,
-          "y": 864.5,
+          "y": 848.5,
           "width": 724,
           "height": 149.84375
         },
@@ -351,7 +351,7 @@
         "masterBox": null,
         "actualBox": {
           "x": 0,
-          "y": 1014.34375,
+          "y": 998.34375,
           "width": 724,
           "height": 284.65625
         },
@@ -366,7 +366,7 @@
         "masterBox": null,
         "actualBox": {
           "x": 0,
-          "y": 1299,
+          "y": 1283,
           "width": 724,
           "height": 271.5
         },
@@ -381,7 +381,7 @@
         "masterBox": null,
         "actualBox": {
           "x": 0,
-          "y": 1570.5,
+          "y": 1554.5,
           "width": 724,
           "height": 205
         },
@@ -396,7 +396,7 @@
         "masterBox": null,
         "actualBox": {
           "x": 0,
-          "y": 1775.5,
+          "y": 1759.5,
           "width": 724,
           "height": 219.625
         },
@@ -411,7 +411,7 @@
         "masterBox": null,
         "actualBox": {
           "x": 0,
-          "y": 1995.125,
+          "y": 1979.125,
           "width": 724,
           "height": 339
         },
@@ -426,12 +426,12 @@
       "USER_APPROVED_PRODUCT_DELTA",
       "ASSET_DIFF"
     ],
-    "implementationCommit": "7c6ee6a556d429eb151356a00d9f2868ac00af58",
-    "captureSourceCommit": "7c6ee6a556d429eb151356a00d9f2868ac00af58",
-    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json\n M tests/visual/pha3-v2-capture-round8.spec.ts; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
-    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json\n M tests/visual/pha3-v2-capture-round8.spec.ts; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "implementationCommit": "6eef224f837e64059e329522798540a9d062ea99",
+    "captureSourceCommit": "6eef224f837e64059e329522798540a9d062ea99",
+    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
     "browserVersion": "151.0.7922.34",
-    "screenshotSha256": "7f85e307419d1dfa5fa982d7c9f7c66687e09cec01fb539ba1b066a5b977845b"
+    "screenshotSha256": "8dc21de4a2306ae22816bc003e354d2dd5f0dd3ed87e538b98e0491755b6a64d"
   },
   {
     "route": "/cho-thue",
@@ -445,11 +445,11 @@
       "height": 1683
     },
     "dimensionPass": true,
-    "diffPixels": 454147,
-    "diffPixelRatio": 0.28860292131761145,
+    "diffPixels": 454302,
+    "diffPixelRatio": 0.28870142125882925,
     "round7DiffPixelRatio": 0.27235678585159556,
-    "absoluteImprovement": -0.016246135466015887,
-    "percentageImprovement": -0.059650195295182555,
+    "absoluteImprovement": -0.016344635407233687,
+    "percentageImprovement": -0.06001185304095824,
     "threshold": 0.12,
     "maxDiffPixelRatio": 0.005,
     "automatedPass": false,
@@ -487,11 +487,16 @@
           "width": 935,
           "height": 181
         },
-        "actualBox": null,
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null
+        "actualBox": {
+          "x": 0,
+          "y": 65.5,
+          "width": 935,
+          "height": 186
+        },
+        "deltaX": 0,
+        "deltaY": 2,
+        "deltaWidth": 0,
+        "deltaHeight": 5
       },
       {
         "name": "sidebar",
@@ -501,11 +506,16 @@
           "width": 260,
           "height": 900
         },
-        "actualBox": null,
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null
+        "actualBox": {
+          "x": 40,
+          "y": 319,
+          "width": 205.75,
+          "height": 1125.9375
+        },
+        "deltaX": 40,
+        "deltaY": 44,
+        "deltaWidth": -54,
+        "deltaHeight": 226
       },
       {
         "name": "list",
@@ -515,11 +525,16 @@
           "width": 590,
           "height": 1140
         },
-        "actualBox": null,
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null
+        "actualBox": {
+          "x": 277.75,
+          "y": 319,
+          "width": 617.25,
+          "height": 1125.9375
+        },
+        "deltaX": -2,
+        "deltaY": 19,
+        "deltaWidth": 27,
+        "deltaHeight": -14
       },
       {
         "name": "pagination",
@@ -529,11 +544,16 @@
           "width": 590,
           "height": 50
         },
-        "actualBox": null,
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null
+        "actualBox": {
+          "x": 277.75,
+          "y": 1444.9375,
+          "width": 617.25,
+          "height": 0
+        },
+        "deltaX": -2,
+        "deltaY": 5,
+        "deltaWidth": 27,
+        "deltaHeight": -50
       },
       {
         "name": "footer",
@@ -559,12 +579,12 @@
       "ASSET_DIFF",
       "DATA_TEXT_DIFF"
     ],
-    "implementationCommit": "7c6ee6a556d429eb151356a00d9f2868ac00af58",
-    "captureSourceCommit": "7c6ee6a556d429eb151356a00d9f2868ac00af58",
-    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json\n M tests/visual/pha3-v2-capture-round8.spec.ts; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
-    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json\n M tests/visual/pha3-v2-capture-round8.spec.ts; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "implementationCommit": "6eef224f837e64059e329522798540a9d062ea99",
+    "captureSourceCommit": "6eef224f837e64059e329522798540a9d062ea99",
+    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
     "browserVersion": "151.0.7922.34",
-    "screenshotSha256": "6cbf2d8cd6ae21a4c65466783da37a03102b4709566e2404f533117771ed25a1"
+    "screenshotSha256": "ee20fa7a6871fb524e74dc640cec8d50a5ebbbf42bd04f80aeb19d09a222fd95"
   },
   {
     "route": "/cho-thue",
@@ -620,11 +640,16 @@
           "width": 724,
           "height": 70
         },
-        "actualBox": null,
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null
+        "actualBox": {
+          "x": 24,
+          "y": 130,
+          "width": 676,
+          "height": 136
+        },
+        "deltaX": 24,
+        "deltaY": 35,
+        "deltaWidth": -48,
+        "deltaHeight": 66
       },
       {
         "name": "filter-sort",
@@ -634,11 +659,16 @@
           "width": 724,
           "height": 60
         },
-        "actualBox": null,
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null
+        "actualBox": {
+          "x": 24,
+          "y": 194,
+          "width": 676,
+          "height": 72
+        },
+        "deltaX": 24,
+        "deltaY": 19,
+        "deltaWidth": -48,
+        "deltaHeight": 12
       },
       {
         "name": "list",
@@ -648,11 +678,16 @@
           "width": 724,
           "height": 1750
         },
-        "actualBox": null,
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null
+        "actualBox": {
+          "x": 24,
+          "y": 334,
+          "width": 676,
+          "height": 2192.25
+        },
+        "deltaX": 24,
+        "deltaY": 74,
+        "deltaWidth": -48,
+        "deltaHeight": 442
       },
       {
         "name": "bottom-nav",
@@ -662,11 +697,16 @@
           "width": 724,
           "height": 82
         },
-        "actualBox": null,
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null
+        "actualBox": {
+          "x": 0,
+          "y": 2064,
+          "width": 724,
+          "height": 108
+        },
+        "deltaX": 0,
+        "deltaY": -26,
+        "deltaWidth": 0,
+        "deltaHeight": 26
       },
       {
         "name": "footer",
@@ -689,10 +729,10 @@
       "GEOMETRY_DIFF",
       "DATA_TEXT_DIFF"
     ],
-    "implementationCommit": "7c6ee6a556d429eb151356a00d9f2868ac00af58",
-    "captureSourceCommit": "7c6ee6a556d429eb151356a00d9f2868ac00af58",
-    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json\n M tests/visual/pha3-v2-capture-round8.spec.ts; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
-    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json\n M tests/visual/pha3-v2-capture-round8.spec.ts; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "implementationCommit": "6eef224f837e64059e329522798540a9d062ea99",
+    "captureSourceCommit": "6eef224f837e64059e329522798540a9d062ea99",
+    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
     "browserVersion": "151.0.7922.34",
     "screenshotSha256": "73ebf417fd37c07acc3ea427a1133c597f794369790c1208a6e7c86ee9ead4d4"
   },
@@ -708,11 +748,11 @@
       "height": 1683
     },
     "dimensionPass": true,
-    "diffPixels": 529611,
-    "diffPixelRatio": 0.3365590475373426,
+    "diffPixels": 529715,
+    "diffPixelRatio": 0.33662513782048226,
     "round7DiffPixelRatio": 0.3161867177595394,
-    "absoluteImprovement": -0.020372329777803233,
-    "percentageImprovement": -0.06443132691391683,
+    "absoluteImprovement": -0.020438420060942875,
+    "percentageImprovement": -0.06464034987227495,
     "threshold": 0.12,
     "maxDiffPixelRatio": 0.005,
     "automatedPass": false,
@@ -744,138 +784,174 @@
       },
       {
         "name": "gallery",
-        "masterBox": null,
+        "masterBox": {
+          "x": 37,
+          "y": 100,
+          "width": 460,
+          "height": 400
+        },
         "actualBox": {
           "x": 40,
           "y": 137,
           "width": 463,
           "height": 471
         },
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null,
-        "notVisibleInMaster": true
+        "deltaX": 3,
+        "deltaY": 37,
+        "deltaWidth": 3,
+        "deltaHeight": 71
       },
       {
         "name": "summary",
-        "masterBox": null,
+        "masterBox": {
+          "x": 520,
+          "y": 100,
+          "width": 380,
+          "height": 120
+        },
         "actualBox": {
           "x": 535,
           "y": 137,
           "width": 360,
           "height": 120.5
         },
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null,
-        "notVisibleInMaster": true
+        "deltaX": 15,
+        "deltaY": 37,
+        "deltaWidth": -20,
+        "deltaHeight": 1
       },
       {
         "name": "facts",
-        "masterBox": null,
+        "masterBox": {
+          "x": 520,
+          "y": 240,
+          "width": 380,
+          "height": 90
+        },
         "actualBox": {
           "x": 535,
           "y": 277.5,
           "width": 360,
           "height": 101
         },
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null,
-        "notVisibleInMaster": true
+        "deltaX": 15,
+        "deltaY": 38,
+        "deltaWidth": -20,
+        "deltaHeight": 11
       },
       {
         "name": "highlights",
-        "masterBox": null,
+        "masterBox": {
+          "x": 520,
+          "y": 340,
+          "width": 380,
+          "height": 145
+        },
         "actualBox": {
           "x": 535,
           "y": 402.5,
           "width": 360,
           "height": 146.5
         },
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null,
-        "notVisibleInMaster": true
+        "deltaX": 15,
+        "deltaY": 63,
+        "deltaWidth": -20,
+        "deltaHeight": 2
       },
       {
         "name": "actions",
-        "masterBox": null,
+        "masterBox": {
+          "x": 520,
+          "y": 490,
+          "width": 380,
+          "height": 40
+        },
         "actualBox": {
           "x": 535,
           "y": 573,
           "width": 360,
           "height": 40.25
         },
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null,
-        "notVisibleInMaster": true
+        "deltaX": 15,
+        "deltaY": 83,
+        "deltaWidth": -20,
+        "deltaHeight": 0
       },
       {
         "name": "detail-tabs",
-        "masterBox": null,
+        "masterBox": {
+          "x": 37,
+          "y": 600,
+          "width": 855,
+          "height": 430
+        },
         "actualBox": {
           "x": 40,
           "y": 645.25,
           "width": 855,
           "height": 328
         },
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null,
-        "notVisibleInMaster": true
+        "deltaX": 3,
+        "deltaY": 45,
+        "deltaWidth": 0,
+        "deltaHeight": -102
       },
       {
         "name": "related",
-        "masterBox": null,
+        "masterBox": {
+          "x": 37,
+          "y": 1060,
+          "width": 855,
+          "height": 240
+        },
         "actualBox": {
           "x": 40,
           "y": 1021.25,
           "width": 855,
           "height": 254.9375
         },
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null,
-        "notVisibleInMaster": true
+        "deltaX": 3,
+        "deltaY": -39,
+        "deltaWidth": 0,
+        "deltaHeight": 15
       },
       {
         "name": "bottom-cta",
-        "masterBox": null,
+        "masterBox": {
+          "x": 37,
+          "y": 1330,
+          "width": 855,
+          "height": 90
+        },
         "actualBox": {
           "x": 40,
           "y": 1324.1875,
           "width": 855,
           "height": 116
         },
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null,
-        "notVisibleInMaster": true
+        "deltaX": 3,
+        "deltaY": -6,
+        "deltaWidth": 0,
+        "deltaHeight": 26
       },
       {
         "name": "footer",
-        "masterBox": null,
+        "masterBox": {
+          "x": 0,
+          "y": 1460,
+          "width": 935,
+          "height": 187
+        },
         "actualBox": {
           "x": 0,
           "y": 1472.1875,
           "width": 935,
           "height": 187
         },
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null,
-        "notVisibleInMaster": true
+        "deltaX": 0,
+        "deltaY": 12,
+        "deltaWidth": 0,
+        "deltaHeight": 0
       }
     ],
     "classification": [
@@ -883,12 +959,12 @@
       "GEOMETRY_DIFF",
       "DATA_TEXT_DIFF"
     ],
-    "implementationCommit": "7c6ee6a556d429eb151356a00d9f2868ac00af58",
-    "captureSourceCommit": "7c6ee6a556d429eb151356a00d9f2868ac00af58",
-    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json\n M tests/visual/pha3-v2-capture-round8.spec.ts; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
-    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json\n M tests/visual/pha3-v2-capture-round8.spec.ts; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "implementationCommit": "6eef224f837e64059e329522798540a9d062ea99",
+    "captureSourceCommit": "6eef224f837e64059e329522798540a9d062ea99",
+    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
     "browserVersion": "151.0.7922.34",
-    "screenshotSha256": "a6cf65d88ac83862ae9322d14b1118b619d7e7ce88ecee1f68b552241a85e2a7"
+    "screenshotSha256": "9c88e04ab11a0187dcf8e86eb13a6c876f2ff8ba127cda2efff95923365ba32e"
   },
   {
     "route": "/cho-thue/[slug]",
@@ -902,11 +978,11 @@
       "height": 2172
     },
     "dimensionPass": true,
-    "diffPixels": 558605,
-    "diffPixelRatio": 0.3552273790991321,
+    "diffPixels": 558616,
+    "diffPixelRatio": 0.3552343742051016,
     "round7DiffPixelRatio": 0.33458672913932214,
-    "absoluteImprovement": -0.020640649959809965,
-    "percentageImprovement": -0.06168998397786179,
+    "absoluteImprovement": -0.020647645065779485,
+    "percentageImprovement": -0.061710890682642086,
     "threshold": 0.12,
     "maxDiffPixelRatio": 0.005,
     "automatedPass": false,
@@ -1106,12 +1182,12 @@
       "DATA_TEXT_DIFF",
       "ANTIALIASING_NOISE"
     ],
-    "implementationCommit": "7c6ee6a556d429eb151356a00d9f2868ac00af58",
-    "captureSourceCommit": "7c6ee6a556d429eb151356a00d9f2868ac00af58",
-    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json\n M tests/visual/pha3-v2-capture-round8.spec.ts; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
-    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json\n M tests/visual/pha3-v2-capture-round8.spec.ts; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "implementationCommit": "6eef224f837e64059e329522798540a9d062ea99",
+    "captureSourceCommit": "6eef224f837e64059e329522798540a9d062ea99",
+    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
     "browserVersion": "151.0.7922.34",
-    "screenshotSha256": "6d578d2e511f08aff9b4e4a1421b06d591d60fb07e5b07cb4e1e5fe6021f40c7"
+    "screenshotSha256": "ead9fc7875fa52eba4424eeefd82467914c00a1e76ea4c510ef4bb606e43d896"
   },
   {
     "route": "/du-an",
@@ -1125,11 +1201,11 @@
       "height": 1683
     },
     "dimensionPass": true,
-    "diffPixels": 746824,
-    "diffPixelRatio": 0.4745943232259684,
+    "diffPixels": 718876,
+    "diffPixelRatio": 0.4568338305991656,
     "round7DiffPixelRatio": 0.5204349249017384,
-    "absoluteImprovement": 0.045840601675769976,
-    "percentageImprovement": 0.08808133252091986,
+    "absoluteImprovement": 0.06360109430257277,
+    "percentageImprovement": 0.1222075830413977,
     "threshold": 0.12,
     "maxDiffPixelRatio": 0.005,
     "automatedPass": false,
@@ -1209,12 +1285,12 @@
           "x": 40,
           "y": 1173.25,
           "width": 855,
-          "height": 350
+          "height": 238.875
         },
         "deltaX": 40,
         "deltaY": -57,
         "deltaWidth": -80,
-        "deltaHeight": 130
+        "deltaHeight": 19
       },
       {
         "name": "footer",
@@ -1226,12 +1302,12 @@
         },
         "actualBox": {
           "x": 0,
-          "y": 1555.25,
+          "y": 1444.125,
           "width": 935,
           "height": 187
         },
         "deltaX": 0,
-        "deltaY": 55,
+        "deltaY": -56,
         "deltaWidth": 0,
         "deltaHeight": 4
       }
@@ -1240,12 +1316,12 @@
       "ASSET_DIFF",
       "GEOMETRY_DIFF"
     ],
-    "implementationCommit": "7c6ee6a556d429eb151356a00d9f2868ac00af58",
-    "captureSourceCommit": "7c6ee6a556d429eb151356a00d9f2868ac00af58",
-    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json\n M tests/visual/pha3-v2-capture-round8.spec.ts; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
-    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json\n M tests/visual/pha3-v2-capture-round8.spec.ts; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "implementationCommit": "6eef224f837e64059e329522798540a9d062ea99",
+    "captureSourceCommit": "6eef224f837e64059e329522798540a9d062ea99",
+    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
     "browserVersion": "151.0.7922.34",
-    "screenshotSha256": "cbd502b4aea590be7b7623fa79408dfd709d09f6833671d48832a0265c8239e3"
+    "screenshotSha256": "a8f4afe14e9c302c47d72d55ce486d3512c6810f25f41b2440ee0f00b9292bdb"
   },
   {
     "route": "/du-an",
@@ -1259,11 +1335,11 @@
       "height": 2172
     },
     "dimensionPass": true,
-    "diffPixels": 1069265,
-    "diffPixelRatio": 0.679965634952128,
+    "diffPixels": 871314,
+    "diffPixelRatio": 0.554084887518696,
     "round7DiffPixelRatio": 0.5424889095774448,
-    "absoluteImprovement": -0.13747672537468325,
-    "percentageImprovement": -0.2534184993417959,
+    "absoluteImprovement": -0.011595977941251223,
+    "percentageImprovement": -0.021375511529412753,
     "threshold": 0.12,
     "maxDiffPixelRatio": 0.005,
     "automatedPass": false,
@@ -1286,12 +1362,12 @@
           "x": 0,
           "y": 0,
           "width": 724,
-          "height": 106
+          "height": 90
         },
         "deltaX": 0,
         "deltaY": 0,
         "deltaWidth": 0,
-        "deltaHeight": 16
+        "deltaHeight": 0
       },
       {
         "name": "heading",
@@ -1303,14 +1379,14 @@
         },
         "actualBox": {
           "x": 24,
-          "y": 165,
+          "y": 133,
           "width": 676,
-          "height": 193
+          "height": 185
         },
         "deltaX": 24,
-        "deltaY": 70,
+        "deltaY": 38,
         "deltaWidth": -48,
-        "deltaHeight": 8
+        "deltaHeight": 0
       },
       {
         "name": "project-grid",
@@ -1322,14 +1398,14 @@
         },
         "actualBox": {
           "x": 24,
-          "y": 374,
+          "y": 326,
           "width": 676,
-          "height": 1364
+          "height": 1276
         },
         "deltaX": 24,
-        "deltaY": 84,
+        "deltaY": 36,
         "deltaWidth": -48,
-        "deltaHeight": 134
+        "deltaHeight": 46
       },
       {
         "name": "about",
@@ -1341,21 +1417,21 @@
         },
         "actualBox": {
           "x": 24,
-          "y": 1770,
+          "y": 1634,
           "width": 676,
-          "height": 452.25
+          "height": 316.75
         },
         "deltaX": 24,
-        "deltaY": 210,
+        "deltaY": 74,
         "deltaWidth": -48,
-        "deltaHeight": 162
+        "deltaHeight": 27
       },
       {
         "name": "footer",
         "masterBox": null,
         "actualBox": {
           "x": 0,
-          "y": 2238.25,
+          "y": 1958.75,
           "width": 724,
           "height": 179
         },
@@ -1371,12 +1447,12 @@
       "GEOMETRY_DIFF",
       "DATA_TEXT_DIFF"
     ],
-    "implementationCommit": "7c6ee6a556d429eb151356a00d9f2868ac00af58",
-    "captureSourceCommit": "7c6ee6a556d429eb151356a00d9f2868ac00af58",
-    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json\n M tests/visual/pha3-v2-capture-round8.spec.ts; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
-    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json\n M tests/visual/pha3-v2-capture-round8.spec.ts; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "implementationCommit": "6eef224f837e64059e329522798540a9d062ea99",
+    "captureSourceCommit": "6eef224f837e64059e329522798540a9d062ea99",
+    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
     "browserVersion": "151.0.7922.34",
-    "screenshotSha256": "7dc7ac7c529a0c34905f6b4992dea82dbb74a235a018a19a1d29cbdbbd50e846"
+    "screenshotSha256": "3e0cec4b8545476e10b4130f689ff1fd0288e0c595da1b868381fe9861183c50"
   },
   {
     "route": "/du-an/[slug]",
@@ -1390,11 +1466,11 @@
       "height": 1683
     },
     "dimensionPass": true,
-    "diffPixels": 654059,
-    "diffPixelRatio": 0.4156436971158582,
+    "diffPixels": 650767,
+    "diffPixelRatio": 0.41355168546109095,
     "round7DiffPixelRatio": 0.3715862621178758,
-    "absoluteImprovement": -0.04405743499798237,
-    "percentageImprovement": -0.11856583380363594,
+    "absoluteImprovement": -0.041965423343215125,
+    "percentageImprovement": -0.11293588493834768,
     "threshold": 0.12,
     "maxDiffPixelRatio": 0.005,
     "automatedPass": false,
@@ -1453,12 +1529,12 @@
         },
         "actualBox": {
           "x": 40,
-          "y": 1085.875,
+          "y": 1022.0625,
           "width": 855,
           "height": 243.140625
         },
         "deltaX": 40,
-        "deltaY": 76,
+        "deltaY": 12,
         "deltaWidth": -80,
         "deltaHeight": 3
       },
@@ -1472,21 +1548,21 @@
         },
         "actualBox": {
           "x": 40,
-          "y": 1369.015625,
+          "y": 1289.203125,
           "width": 855,
-          "height": 91.5
+          "height": 68
         },
         "deltaX": 40,
-        "deltaY": 119,
+        "deltaY": 39,
         "deltaWidth": -80,
-        "deltaHeight": 32
+        "deltaHeight": 8
       },
       {
         "name": "footer",
         "masterBox": null,
         "actualBox": {
           "x": 0,
-          "y": 1492.515625,
+          "y": 1389.203125,
           "width": 935,
           "height": 187
         },
@@ -1501,12 +1577,12 @@
       "ASSET_DIFF",
       "GEOMETRY_DIFF"
     ],
-    "implementationCommit": "7c6ee6a556d429eb151356a00d9f2868ac00af58",
-    "captureSourceCommit": "7c6ee6a556d429eb151356a00d9f2868ac00af58",
-    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json\n M tests/visual/pha3-v2-capture-round8.spec.ts; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
-    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json\n M tests/visual/pha3-v2-capture-round8.spec.ts; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "implementationCommit": "6eef224f837e64059e329522798540a9d062ea99",
+    "captureSourceCommit": "6eef224f837e64059e329522798540a9d062ea99",
+    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
     "browserVersion": "151.0.7922.34",
-    "screenshotSha256": "2c912537b8171c326f0208c809da046ea76516474f776a59ac9bf9df9b9496dd"
+    "screenshotSha256": "d04e4c5d7f42317582ec1ae8eb54cddc4e7d25ae6511defcc87162e9c18a591d"
   },
   {
     "route": "/du-an/[slug]",
@@ -1520,11 +1596,11 @@
       "height": 2172
     },
     "dimensionPass": true,
-    "diffPixels": 523114,
-    "diffPixelRatio": 0.3326579876479147,
+    "diffPixels": 523122,
+    "diffPixelRatio": 0.3326630749977107,
     "round7DiffPixelRatio": 0.3014814362605944,
-    "absoluteImprovement": -0.031176551387320284,
-    "percentageImprovement": -0.10341118104655674,
+    "absoluteImprovement": -0.03118163873711627,
+    "percentageImprovement": -0.10342805555086812,
     "threshold": 0.12,
     "maxDiffPixelRatio": 0.005,
     "automatedPass": false,
@@ -1556,78 +1632,98 @@
       },
       {
         "name": "amenities",
-        "masterBox": null,
+        "masterBox": {
+          "x": 0,
+          "y": 1195,
+          "width": 724,
+          "height": 200
+        },
         "actualBox": {
           "x": 24,
           "y": 1222.75,
           "width": 676,
           "height": 109
         },
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null,
-        "notVisibleInMaster": true
+        "deltaX": 24,
+        "deltaY": 28,
+        "deltaWidth": -48,
+        "deltaHeight": -91
       },
       {
         "name": "progress",
-        "masterBox": null,
+        "masterBox": {
+          "x": 0,
+          "y": 1420,
+          "width": 724,
+          "height": 100
+        },
         "actualBox": {
           "x": 24,
           "y": 1355.75,
           "width": 676,
           "height": 156
         },
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null,
-        "notVisibleInMaster": true
+        "deltaX": 24,
+        "deltaY": -64,
+        "deltaWidth": -48,
+        "deltaHeight": 56
       },
       {
         "name": "gallery-strip",
-        "masterBox": null,
+        "masterBox": {
+          "x": 0,
+          "y": 1560,
+          "width": 724,
+          "height": 250
+        },
         "actualBox": {
           "x": 24,
           "y": 1535.75,
           "width": 676,
           "height": 211
         },
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null,
-        "notVisibleInMaster": true
+        "deltaX": 24,
+        "deltaY": -24,
+        "deltaWidth": -48,
+        "deltaHeight": -39
       },
       {
         "name": "map",
-        "masterBox": null,
+        "masterBox": {
+          "x": 0,
+          "y": 1850,
+          "width": 724,
+          "height": 220
+        },
         "actualBox": {
           "x": 24,
           "y": 1770.75,
           "width": 676,
           "height": 339.5
         },
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null,
-        "notVisibleInMaster": true
+        "deltaX": 24,
+        "deltaY": -79,
+        "deltaWidth": -48,
+        "deltaHeight": 120
       },
       {
         "name": "bottom-cta",
-        "masterBox": null,
+        "masterBox": {
+          "x": 0,
+          "y": 2090,
+          "width": 724,
+          "height": 82
+        },
         "actualBox": {
           "x": 0,
           "y": 2069,
           "width": 724,
           "height": 103
         },
-        "deltaX": null,
-        "deltaY": null,
-        "deltaWidth": null,
-        "deltaHeight": null,
-        "notVisibleInMaster": true
+        "deltaX": 0,
+        "deltaY": -21,
+        "deltaWidth": 0,
+        "deltaHeight": 21
       },
       {
         "name": "footer",
@@ -1649,11 +1745,11 @@
       "ASSET_DIFF",
       "GEOMETRY_DIFF"
     ],
-    "implementationCommit": "7c6ee6a556d429eb151356a00d9f2868ac00af58",
-    "captureSourceCommit": "7c6ee6a556d429eb151356a00d9f2868ac00af58",
-    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json\n M tests/visual/pha3-v2-capture-round8.spec.ts; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
-    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json\n M tests/visual/pha3-v2-capture-round8.spec.ts; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "implementationCommit": "6eef224f837e64059e329522798540a9d062ea99",
+    "captureSourceCommit": "6eef224f837e64059e329522798540a9d062ea99",
+    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n M .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
     "browserVersion": "151.0.7922.34",
-    "screenshotSha256": "2eab54b97d5601d350b96bf96da320fefb393fcc9ed46f8fdd2b863299aa4b10"
+    "screenshotSha256": "fc9b730b0bf60c9b7f1557459ce068ba5ec762478a1e0dc291300d6660545b2b"
   }
 ]
