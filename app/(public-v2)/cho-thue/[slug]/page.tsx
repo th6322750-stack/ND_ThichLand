@@ -136,10 +136,10 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
           {listing.highlights.length > 0 && (
             <div className="mt-3 rounded-lg border border-[#EDEBEA] p-2 min-[900px]:mt-6 min-[900px]:border-0 min-[900px]:p-0" data-qa-region="highlights">
               <h2 className="text-[12px] font-bold text-[#0C0D0D] min-[900px]:text-[16px]">Thông tin nổi bật</h2>
-              <ul className="mt-1 flex flex-col gap-1 min-[900px]:mt-3 min-[900px]:gap-2">
+              <ul className="mt-1 flex flex-col gap-[6px] leading-tight min-[900px]:mt-3 min-[900px]:gap-2">
                 {listing.highlights.map((h) => (
-                  <li key={h} className="flex items-start gap-1 text-[11px] text-[#3A3838] min-[900px]:gap-2 min-[900px]:text-[13px]">
-                    <Icon name="check" size={12} className="mt-[2px] shrink-0 text-[#23825C] min-[900px]:!h-4 min-[900px]:!w-4" /> {h}
+                  <li key={h} className="flex items-start gap-1 text-[10px] text-[#3A3838] min-[900px]:gap-2 min-[900px]:text-[13px]">
+                    <Icon name="check" size={11} className="mt-[2px] shrink-0 text-[#23825C] min-[900px]:!h-4 min-[900px]:!w-4" /> {h}
                   </li>
                 ))}
               </ul>

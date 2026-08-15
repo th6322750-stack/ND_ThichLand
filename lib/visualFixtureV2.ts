@@ -34,10 +34,10 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       description:
         "Căn hộ cao cấp view sông thoáng mát, nội thất đầy đủ, sẵn sàng vào ở ngay. Khu căn hộ an ninh 24/7, tiện ích đầy đủ: hồ bơi, gym, siêu thị, công viên. Gần trung tâm, di chuyển thuận tiện.",
       highlights: [
-        "Vị trí đẹp, view sông thoáng mát",
-        "Khu căn hộ cao cấp, an ninh 24/7",
-        "Tiện ích đầy đủ: Hồ bơi, gym, siêu thị, công viên",
-        "Gần trung tâm, di chuyển thuận tiện",
+        "Căn góc thoáng mát, view sông và công viên",
+        "Full nội thất cao cấp, dọn vào ở ngay",
+        "Tiện ích 5 sao: hồ bơi, gym, BBQ, công viên nội khu",
+        "Vị trí thuận tiện: gần Lotte Mart, Vivo City, trường quốc tế",
       ],
       availability: "Còn trống",
       media: [

@@ -39,7 +39,7 @@ const HEADER_VARIANTS: Record<
 > = {
   home: { tagline: false, hotlineTextMobile: false, hamburgerBorderMobile: true, mobilePadding: "py-2" },
   "cho-thue": { tagline: false, hotlineTextMobile: false, hamburgerBorderMobile: true, mobilePadding: "py-2" },
-  "cho-thue-detail": { tagline: true, hotlineTextMobile: true, hamburgerBorderMobile: false, mobilePadding: "py-2" },
+  "cho-thue-detail": { tagline: true, hotlineTextMobile: true, hamburgerBorderMobile: false, mobilePadding: "py-[14px]" },
   "du-an": { tagline: false, hotlineTextMobile: true, hamburgerBorderMobile: false, mobilePadding: "py-2" },
   "du-an-detail": { tagline: false, hotlineTextMobile: true, hamburgerBorderMobile: true, mobilePadding: "py-2" },
 };
