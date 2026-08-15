@@ -1,6 +1,12 @@
-import { Header } from "@/components/public/Header";
-import { Footer } from "@/components/public/Footer";
+import { Header2 } from "@/components/public-v2/Header2";
+import { Footer2 } from "@/components/public-v2/Footer2";
 
+// Minimal sync patch: /gioi-thieu, /lien-he, /tin-tuc(/[slug]) were never
+// part of the PHA1-3 v2 migration scope (only /, /cho-thue(/[slug]),
+// /du-an(/[slug]) have approved v2 masters), so this route group keeps its
+// own legacy page bodies/tokens — only the header/footer chrome swaps to
+// the v2 components so nav, branding and hotline read as one site instead
+// of visibly switching design systems mid-browse.
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
@@ -10,9 +16,9 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
       >
         Bỏ qua đến nội dung
       </a>
-      <Header />
+      <Header2 />
       <main id="main">{children}</main>
-      <Footer />
+      <Footer2 />
     </>
   );
 }
