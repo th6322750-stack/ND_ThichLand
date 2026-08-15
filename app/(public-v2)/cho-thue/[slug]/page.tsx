@@ -14,6 +14,13 @@ import type { PropertyListing } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
+// Round 8 asset map, section 3 "/cho-thue/[slug] Related properties": R8_05/07/08.
+const RELATED_IMAGES = [
+  "/assets/round8/R8_05-quang-truong-hien-dai-duoi-thap-kinh.png",
+  "/assets/round8/R8_07-bo-song-do-thi-luc-hoang-hon.png",
+  "/assets/round8/R8_08-hoang-hon-ben-pho-ven-song.png",
+];
+
 function buildFacts(listing: PropertyListing): { icon: IconName; label: string; value: string }[] {
   return [
     { icon: "area", label: "Diện tích", value: formatArea(listing.area) },
@@ -166,9 +173,9 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
           {/* Mobile: horizontal scroll strip with the next card peeking at
               the edge (master), not a wrapped 2-col grid. */}
           <div className="mt-2 flex snap-x gap-2 overflow-x-auto min-[900px]:mt-5 min-[900px]:grid min-[900px]:grid-cols-4 min-[900px]:gap-5 min-[900px]:overflow-visible">
-            {related.map((p) => (
+            {related.map((p, i) => (
               <div key={p.slug} className="w-[46%] shrink-0 snap-start min-[900px]:w-auto">
-                <PropertyCardGrid2 listing={p} mobileAspect="4/3" />
+                <PropertyCardGrid2 listing={p} mobileAspect="4/3" imageOverride={RELATED_IMAGES[i % RELATED_IMAGES.length]} />
               </div>
             ))}
           </div>

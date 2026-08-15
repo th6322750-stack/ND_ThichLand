@@ -13,11 +13,14 @@ export function PropertyCardGrid2({
   listing,
   mobileAspect = "2/1",
   desktopAspect = "199/115",
+  imageOverride,
 }: {
   listing: PropertyListing;
   /** Home's 3-col mobile grid is short/wide; the detail page's "related" strip is taller, per master. */
   mobileAspect?: string;
   desktopAspect?: string;
+  /** Route-specific demo-asset slot (Round 8 asset map) — falls back to listing.media[0] when unset. */
+  imageOverride?: string;
 }) {
   const specs = [
     `${listing.area}m²`,
@@ -34,7 +37,7 @@ export function PropertyCardGrid2({
         className="relative aspect-[var(--mobile-aspect)] min-[900px]:aspect-[var(--desktop-aspect)]"
         style={{ "--mobile-aspect": mobileAspect, "--desktop-aspect": desktopAspect } as CSSProperties}
       >
-        <Image src={listing.media[0]} alt={listing.roomNo} fill className="object-cover" unoptimized />
+        <Image src={imageOverride ?? listing.media[0]} alt={listing.roomNo} fill className="object-cover" unoptimized />
         <span className="absolute left-[10px] top-[10px] rounded-full bg-black/55 px-[10px] py-1 text-[11px] font-medium text-white">
           {listing.propertyType}
         </span>

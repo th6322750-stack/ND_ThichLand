@@ -143,8 +143,8 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
             {facts.map((fact) => (
               <div key={fact.label} className="rounded-lg border border-[#EDEBEA] p-2 text-center">
                 <Icon name={fact.icon} size={20} className="mx-auto text-[#880206]" />
-                <p className="mt-1 truncate text-[11px] font-bold text-[#0C0D0D]">{fact.value}</p>
-                <p className="truncate text-[9px] text-[#5F5D5D]">{fact.label}</p>
+                <p className="mt-1 leading-tight text-[11px] font-bold text-[#0C0D0D]">{fact.value}</p>
+                <p className="leading-tight text-[9px] text-[#5F5D5D]">{fact.label}</p>
               </div>
             ))}
           </div>
@@ -202,7 +202,14 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
           </ul>
         </div>
         <div className="relative aspect-[16/10] overflow-hidden rounded-lg">
-          <Image src={project.media[Math.min(1, project.media.length - 1)]} alt={`${project.name} — tiện ích hồ bơi`} fill className="object-cover" unoptimized />
+          {/* Round 8 asset map, section 3 "/du-an/[slug] Amenity/detail
+              imagery": R8_13 is the one semantically-matching "hồ bơi" (pool)
+              photo of that 5-image set; R8_14/15/16/19 are finished-landscape
+              scenes, not construction-stage photography, so they aren't
+              forced into the "Tiến độ dự án" milestone slots below, which
+              keep their already-approved (round 7) construction-stage
+              progress-1..5.png set instead. */}
+          <Image src="/assets/round8/R8_13-ho-boi-sang-trong-luc-hoang-hon.png" alt={`${project.name} — tiện ích hồ bơi`} fill className="object-cover" unoptimized />
         </div>
       </section>
 

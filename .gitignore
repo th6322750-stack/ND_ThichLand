@@ -36,3 +36,8 @@ next-env.d.ts
 /playwright-report/
 /playwright/.cache/
 _qa_shot2.mjs
+
+# Round 8 demo binaries — Drive is the binary source of truth, Git is the
+# contract/manifest authority (.webby/client-approved-v2/ROUND8_ASSET_SOURCE.md).
+# ~500MB of PNGs is intentionally not committed; re-download via the manifest.
+/public/assets/round8/

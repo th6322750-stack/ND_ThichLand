@@ -38,19 +38,22 @@ export function ChoThuePageInner({ properties }: { properties: PropertyListing[]
           all — just the title/Lọc/Sắp xếp/count block rendered below. */}
       <section className="relative hidden overflow-hidden bg-gradient-to-br from-white via-[#FBF7F5] to-[#F2E5E6] min-[900px]:block">
         {/*
-          ASSET_BLOCKED_NEEDS_CHATGPT
-          Route: /cho-thue WEB
-          Slot: hero image
-          The master's hero photo is a low-rise modern townhouse building
-          (daytime); no frozen asset in .webby/client-approved-v2/assets
-          (properties or projects categories) matches it. Per
-          missingAssetPolicy=VISUAL_BLOCKED_NEEDS_CHATGPT /
-          noClaudeImageSearch / noClaudeAssetGeneration, this keeps the
-          nearest approved asset (office-abc.png) as a geometry stand-in
-          rather than substituting a guessed or generated image.
+          Round 8 resolves the prior ASSET_BLOCKED_NEEDS_CHATGPT on this slot:
+          .webby/client-approved-v2/ROUND8_ASSET_SOURCE.md section 3
+          explicitly maps R8_08 (or R8_06) here — "chọn ảnh crop/composition
+          gần master hơn". R8_08's left-side trees + street-level human scale
+          reads closer to the master's low-rise/pedestrian composition than
+          R8_06's aerial high-rise framing, so R8_08 was picked.
         */}
         <div className="absolute inset-y-0 right-0 w-[42%]">
-          <Image src="/assets/v2/properties/office-abc.png" alt="" fill className="object-cover" unoptimized />
+          <Image
+            src="/assets/round8/R8_08-hoang-hon-ben-pho-ven-song.png"
+            alt=""
+            fill
+            className="object-cover"
+            unoptimized
+            priority
+          />
         </div>
         <div className="relative mx-auto max-w-[1240px] px-8 py-[28px]">
           <div className="w-[55%]">

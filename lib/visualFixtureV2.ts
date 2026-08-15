@@ -18,6 +18,30 @@ export function isVisualFixtureV2Enabled(): boolean {
 }
 
 const ASSET = (path: string) => `/assets/v2/${path}`;
+// Round 8 approved demo binaries (.webby/client-approved-v2/ROUND8_ASSET_SOURCE.md,
+// SHA256-verified against ROUND8_ASSET_MANIFEST.json before use). Temporary
+// demo/visual assets only — never factual evidence for a named real property.
+const R8 = (n: string) => `/assets/round8/${n}`;
+const R8_01 = R8("R8_01-toa-thap-ven-song-luc-hoang-hon.png");
+const R8_02 = R8("R8_02-khu-phuc-hop-ven-song-hien-dai.png");
+const R8_03 = R8("R8_03-khu-do-thi-cao-tang-ben-song.png");
+const R8_04 = R8("R8_04-toa-nha-kinh-giua-quang-truong-xanh.png");
+const R8_05 = R8("R8_05-quang-truong-hien-dai-duoi-thap-kinh.png");
+const R8_06 = R8("R8_06-do-thi-ven-song-luc-hoang-hon.png");
+const R8_07 = R8("R8_07-bo-song-do-thi-luc-hoang-hon.png");
+const R8_08 = R8("R8_08-hoang-hon-ben-pho-ven-song.png");
+const R8_09 = R8("R8_09-pho-thi-hien-dai-luc-chang-vang.png");
+const R8_10 = R8("R8_10-hoang-hon-tren-khu-do-thi-xanh.png");
+const R8_11 = R8("R8_11-sanh-sang-trong-hien-dai.png");
+const R8_12 = R8("R8_12-sanh-sang-trong-doi-xung.png");
+const R8_13 = R8("R8_13-ho-boi-sang-trong-luc-hoang-hon.png");
+const R8_14 = R8("R8_14-san-chung-cu-xanh-mat.png");
+const R8_15 = R8("R8_15-khu-do-thi-xanh-ben-san-golf.png");
+const R8_16 = R8("R8_16-ben-nuoc-do-thi-luc-hoang-hon.png");
+const R8_17 = R8("R8_17-noi-that-can-ho-cao-cap.png");
+const R8_18 = R8("R8_18-ngoai-that-ban-dem-cao-cap.png");
+const R8_19 = R8("R8_19-canh-quan-tien-ich-noi-khu.png");
+const R8_20 = R8("R8_20-building-facade-cao-cap.png");
 
 export function getVisualFixtureProperties(): PropertyListing[] {
   return [
@@ -40,13 +64,8 @@ export function getVisualFixtureProperties(): PropertyListing[] {
         "Vị trí thuận tiện: gần Lotte Mart, Vivo City, trường quốc tế",
       ],
       availability: "Còn trống",
-      media: [
-        ASSET("property-detail/main-interior.png"),
-        ASSET("property-detail/thumb-living.png"),
-        ASSET("property-detail/thumb-kitchen.png"),
-        ASSET("property-detail/thumb-dining.png"),
-        ASSET("properties/sunrise-city-view.png"),
-      ],
+      // Round 8 asset map, section 3 "/cho-thue/[slug] Gallery": R8_11/13/14/17.
+      media: [R8_11, R8_13, R8_14, R8_17],
       bedroomCount: 2,
       furnishingStatus: "Đầy đủ",
     },
@@ -64,7 +83,7 @@ export function getVisualFixtureProperties(): PropertyListing[] {
         "Nhà nguyên căn hẻm xe hơi 8m, thiết kế hiện đại, phù hợp gia đình hoặc kinh doanh nhỏ.",
       highlights: ["Hẻm xe hơi 8m", "4 phòng ngủ, 3 vệ sinh", "An ninh khu vực tốt"],
       availability: "Còn trống",
-      media: [ASSET("properties/house-alley-8m.png")],
+      media: [R8_12],
       bedroomCount: 4,
       furnishingStatus: "Cơ bản",
     },
@@ -81,7 +100,7 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       description: "Mặt bằng kinh doanh mặt tiền đường lớn, khu dân cư đông đúc, phù hợp F&B/bán lẻ.",
       highlights: ["Mặt tiền 6m", "Khu dân cư đông đúc", "Phù hợp F&B, bán lẻ"],
       availability: "Còn trống",
-      media: [ASSET("properties/storefront-mt.png")],
+      media: [R8_13],
       bedroomCount: null,
       furnishingStatus: null,
     },
@@ -98,7 +117,7 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       description: "Văn phòng hạng B, tầng 5, view thoáng, sẵn sàng vào làm việc ngay.",
       highlights: ["Tầng 5, view thoáng", "Có thang máy", "Sẵn nội thất cơ bản"],
       availability: "Còn trống",
-      media: [ASSET("properties/office-abc.png")],
+      media: [R8_14],
       bedroomCount: null,
       furnishingStatus: "Cơ bản",
     },
@@ -115,7 +134,7 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       description: "Kho xưởng diện tích lớn, xe container ra vào thuận tiện, gần cảng.",
       highlights: ["Xe container ra vào được", "Trần cao, nền tải trọng lớn", "Gần cảng, quốc lộ"],
       availability: "Còn trống",
-      media: [ASSET("properties/warehouse.png")],
+      media: [R8_15],
       bedroomCount: null,
       furnishingStatus: null,
     },
@@ -132,7 +151,7 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       description: "Phòng trọ cao cấp, full nội thất, giờ giấc tự do, an ninh camera 24/7.",
       highlights: ["Full nội thất", "Giờ giấc tự do", "Camera an ninh 24/7"],
       availability: "Còn trống",
-      media: [ASSET("properties/room-furnished.png")],
+      media: [R8_16],
       bedroomCount: null,
       furnishingStatus: "Đầy đủ",
     },
@@ -151,16 +170,10 @@ export function getVisualFixtureProjects(): ProjectFixture[] {
       location: "Quận 7, TP. HCM",
       investor: "Sun Group",
       status: "Đang triển khai",
-      media: [
-        ASSET("project-detail/hero-reference.png"),
-        ASSET("project-detail/pool.png"),
-        ASSET("project-detail/gallery-1.png"),
-        ASSET("project-detail/gallery-2.png"),
-        ASSET("project-detail/gallery-3.png"),
-        ASSET("project-detail/gallery-4.png"),
-        ASSET("project-detail/gallery-5.png"),
-      ],
-      cardMedia: ASSET("projects/sun-galaxy-photo.png"),
+      // Round 8 asset map, section 3 "/du-an/[slug]": hero R8_01, gallery
+      // thumbnails R8_03/04/05/06/10.
+      media: [R8_01, R8_03, R8_04, R8_05, R8_06, R8_10],
+      cardMedia: R8_01,
       summary:
         "Sun Galaxy Complex là khu căn hộ cao cấp được phát triển bởi Sun Group, tọa lạc tại vị trí đắc địa Quận 7, TP. HCM. Dự án sở hữu thiết kế hiện đại, hệ thống tiện ích đẳng cấp mang đến không gian sống lý tưởng cho cư dân.",
       amenities: ["Hồ bơi vô cực", "Gym & Yoga", "Công viên nội khu", "Khu BBQ", "Shophouse", "An ninh 24/7", "Sảnh đón sang trọng"],
@@ -173,8 +186,8 @@ export function getVisualFixtureProjects(): ProjectFixture[] {
       location: "Thủ Đức, TP. HCM",
       investor: "NDTHICH Land",
       status: "Đang triển khai",
-      media: [ASSET("projects/riverside-garden-photo.png")],
-      cardMedia: ASSET("projects/riverside-garden-photo.png"),
+      media: [R8_02],
+      cardMedia: R8_02,
       summary: "Khu nhà phố ven sông, không gian xanh, kết nối thuận tiện về trung tâm TP. Thủ Đức.",
       amenities: ["Công viên nội khu", "An ninh 24/7"],
       progressText: "Hoàn thành thi công phần móng",
@@ -186,8 +199,8 @@ export function getVisualFixtureProjects(): ProjectFixture[] {
       location: "Bình Thạnh, TP. HCM",
       investor: "NDTHICH Land",
       status: "Đang triển khai",
-      media: [ASSET("projects/ndthich-office-photo.png")],
-      cardMedia: ASSET("projects/ndthich-office-photo.png"),
+      media: [R8_03],
+      cardMedia: R8_03,
       summary: "Toà văn phòng hạng A tại trung tâm Bình Thạnh, thiết kế hiện đại, view sông Sài Gòn.",
       amenities: ["Thang máy tốc độ cao", "An ninh 24/7"],
       progressText: "Đang thi công phần thân",
@@ -199,8 +212,8 @@ export function getVisualFixtureProjects(): ProjectFixture[] {
       location: "Bình Tân, TP. HCM",
       investor: "Central Group",
       status: "Tiêu biểu",
-      media: [ASSET("projects/central-residence-photo.png")],
-      cardMedia: ASSET("projects/central-residence-photo.png"),
+      media: [R8_04],
+      cardMedia: R8_04,
       summary: "Khu căn hộ trung tâm Bình Tân, đầy đủ tiện ích nội khu, giá hợp lý.",
       amenities: ["Hồ bơi", "Công viên nội khu"],
       progressText: "Đã bàn giao",
@@ -212,8 +225,8 @@ export function getVisualFixtureProjects(): ProjectFixture[] {
       location: "Thủ Đức, TP. HCM",
       investor: "Garden Group",
       status: "Đang triển khai",
-      media: [ASSET("projects/garden-city-photo.png")],
-      cardMedia: ASSET("projects/garden-city-photo.png"),
+      media: [R8_09],
+      cardMedia: R8_09,
       summary: "Khu đô thị xanh tại Thủ Đức, quy hoạch đồng bộ, nhiều mảng xanh nội khu.",
       amenities: ["Công viên trung tâm", "Trường học nội khu"],
       progressText: "Đang thi công hạ tầng",
@@ -225,8 +238,8 @@ export function getVisualFixtureProjects(): ProjectFixture[] {
       location: "Phú Nhuận, TP. HCM",
       investor: "Riverside Corp",
       status: "Đã hoàn thành",
-      media: [ASSET("projects/riverside-tower-photo.png")],
-      cardMedia: ASSET("projects/riverside-tower-photo.png"),
+      media: [R8_10],
+      cardMedia: R8_10,
       summary: "Căn hộ cao tầng view sông tại Phú Nhuận, đã bàn giao và đi vào vận hành ổn định.",
       amenities: ["Hồ bơi", "Gym"],
       progressText: "Đã bàn giao",

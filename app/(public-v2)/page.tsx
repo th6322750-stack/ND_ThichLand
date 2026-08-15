@@ -54,6 +54,15 @@ export default async function HomePageV2() {
   }
 
   const featuredProperties = properties.slice(0, 4);
+  // Round 8 asset map, section 3 "HOME Featured Rentals": R8_05-08 — distinct
+  // from the R8_11-16 set used by the /cho-thue list for the same demo
+  // listings, so the Home teaser is decoupled via an explicit override.
+  const HOME_RENTAL_IMAGES = [
+    "/assets/round8/R8_05-quang-truong-hien-dai-duoi-thap-kinh.png",
+    "/assets/round8/R8_06-do-thi-ven-song-luc-hoang-hon.png",
+    "/assets/round8/R8_07-bo-song-do-thi-luc-hoang-hon.png",
+    "/assets/round8/R8_08-hoang-hon-ben-pho-ven-song.png",
+  ];
   const featuredProjects = projects.slice(0, 4);
   const locationOptions = getLocationOptions(properties);
   const propertyTypeOptions = getPropertyTypeOptions(properties);
@@ -176,7 +185,7 @@ export default async function HomePageV2() {
             // in for desktop's 4-col row, the 4th must not wrap to its own
             // row on the 3-col mobile grid.
             <div key={p.slug} className={i === 3 ? "hidden min-[900px]:block" : undefined}>
-              <PropertyCardGrid2 listing={p} />
+              <PropertyCardGrid2 listing={p} imageOverride={HOME_RENTAL_IMAGES[i]} />
             </div>
           ))}
         </div>
@@ -189,7 +198,7 @@ export default async function HomePageV2() {
       <section className="mx-auto max-w-[1240px] px-3 pb-3 min-[900px]:px-10 min-[900px]:pb-6" data-qa-region="about">
         <div className="grid grid-cols-2 gap-2 min-[900px]:items-center min-[900px]:gap-6">
           <div className="relative aspect-[4/3] overflow-hidden rounded-md min-[900px]:aspect-auto min-[900px]:h-[193px] min-[900px]:rounded-lg">
-            <Image src="/assets/v2/home/about-reception.png" alt="Sảnh đón NDTHICH" fill className="object-cover" unoptimized />
+            <Image src="/assets/round8/R8_11-sanh-sang-trong-hien-dai.png" alt="Sảnh đón NDTHICH" fill className="object-cover" unoptimized />
           </div>
           <div>
             <h2 className="text-[10px] font-extrabold text-[#0C0D0D] min-[900px]:text-[16px]">
