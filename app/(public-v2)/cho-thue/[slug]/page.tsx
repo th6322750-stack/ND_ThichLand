@@ -115,7 +115,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
           by info below (the old structure) is a FAIL. */}
       <div className="mt-2 min-[900px]:mt-5 min-[900px]:grid min-[900px]:grid-cols-[1fr_360px] min-[900px]:items-start min-[900px]:gap-8">
         <div data-qa-region="gallery">
-          <Gallery2 images={listing.media} sideBySideOnMobile />
+          <Gallery2 images={listing.media} sideBySideOnMobile desktopAspect="3/2" />
         </div>
 
         <div className="mt-2 min-[900px]:mt-0">
@@ -130,9 +130,9 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
             </p>
           </div>
 
-          <div className="mt-2 grid grid-cols-4 gap-[6px] min-[900px]:mt-5 min-[900px]:gap-3" data-qa-region="facts">
+          <div className="mt-2 grid grid-cols-4 gap-[6px] min-[900px]:mt-3 min-[900px]:gap-2" data-qa-region="facts">
             {facts.map((fact) => (
-              <div key={fact.label} className="min-w-0 rounded-lg border border-[#EDEBEA] p-[6px] text-center min-[900px]:p-3">
+              <div key={fact.label} className="min-w-0 rounded-lg border border-[#EDEBEA] p-[6px] text-center min-[900px]:p-2">
                 <Icon name={fact.icon} size={16} className="mx-auto text-[#880206] min-[900px]:!h-[22px] min-[900px]:!w-[22px]" />
                 <p className="mt-1 truncate text-[11px] font-bold text-[#0C0D0D] min-[900px]:mt-2 min-[900px]:text-[15px]">{fact.value}</p>
                 <p className="truncate text-[8px] text-[#5F5D5D] min-[900px]:text-[11px]">{fact.label}</p>
@@ -141,7 +141,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
           </div>
 
           {listing.highlights.length > 0 && (
-            <div className="mt-2 rounded-lg border border-[#EDEBEA] p-2 min-[900px]:mt-6 min-[900px]:border-0 min-[900px]:p-0" data-qa-region="highlights">
+            <div className="mt-2 rounded-lg border border-[#EDEBEA] p-2 min-[900px]:mt-3 min-[900px]:border-0 min-[900px]:p-0" data-qa-region="highlights">
               <h2 className="text-[12px] font-bold text-[#0C0D0D] min-[900px]:text-[16px]">Thông tin nổi bật</h2>
               <ul className="mt-1 flex flex-col gap-[6px] leading-tight min-[900px]:mt-3 min-[900px]:gap-2">
                 {listing.highlights.map((h) => (
@@ -153,7 +153,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
             </div>
           )}
 
-          <div className="mt-2 min-[900px]:mt-6" data-qa-region="actions">
+          <div className="mt-2 min-[900px]:mt-3" data-qa-region="actions">
             <ActionButtons />
           </div>
         </div>
@@ -231,7 +231,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
           <div className="rounded-lg border border-[#EDEBEA]">
             <div className="divide-y divide-[#EDEBEA]">
               {detailRows.map(([label, value]) => (
-                <div key={label} className="flex items-center justify-between px-5 py-3 text-[13px]">
+                <div key={label} className="flex items-center justify-between px-5 py-5 text-[13px]">
                   <span className="text-[#5F5D5D]">{label}</span>
                   <span className="font-bold text-[#0C0D0D]">{value}</span>
                 </div>

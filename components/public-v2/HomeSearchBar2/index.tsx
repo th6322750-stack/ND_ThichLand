@@ -32,14 +32,14 @@ interface FilterFieldProps {
 // cell) and WEB (one shared row, per the user's reference).
 function FilterField({ icon, label, value, placeholder, onChange, children }: FilterFieldProps) {
   return (
-    <label className="flex min-w-0 cursor-pointer items-center gap-2 rounded-md border border-[#E4E1E0] px-2 py-2 hover:border-[#C9C5C3] hover:bg-[#FAFAFA] min-[900px]:flex-1 min-[900px]:rounded-none min-[900px]:border-0 min-[900px]:px-4 min-[900px]:py-[10px] min-[900px]:hover:bg-[#F7F6F6]">
-      <Icon name={icon} size={16} className="shrink-0 text-[#5F5D5D] min-[900px]:!h-[18px] min-[900px]:!w-[18px]" />
+    <label className="flex min-w-0 cursor-pointer items-center gap-1 rounded-md border border-[#E4E1E0] px-1 py-1 hover:border-[#C9C5C3] hover:bg-[#FAFAFA] min-[900px]:flex-1 min-[900px]:gap-2 min-[900px]:rounded-none min-[900px]:border-0 min-[900px]:px-3 min-[900px]:py-1 min-[900px]:hover:bg-[#F7F6F6]">
+      <Icon name={icon} size={13} className="shrink-0 text-[#5F5D5D] min-[900px]:!h-[16px] min-[900px]:!w-[16px]" />
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-[8px] font-bold leading-tight text-[#0C0D0D] min-[900px]:text-[12px]">{label}</span>
+        <span className="block truncate text-[8px] font-bold leading-tight text-[#0C0D0D] min-[900px]:text-[11px]">{label}</span>
         <select
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className={`block w-full appearance-none border-0 bg-transparent p-0 text-[9px] leading-tight focus:outline-none min-[900px]:mt-[2px] min-[900px]:text-[12px] ${
+          className={`block w-full appearance-none border-0 bg-transparent p-0 text-[9px] leading-tight focus:outline-none min-[900px]:mt-0 min-[900px]:text-[11px] ${
             value ? "text-[#0C0D0D]" : "text-[#5F5D5D]"
           }`}
         >
@@ -84,39 +84,39 @@ export function HomeSearchBar2({ locationOptions, propertyTypeOptions }: HomeSea
   return (
     <div className="flex flex-col divide-y divide-[#EDEBEA] rounded-lg border border-[#EDEBEA] bg-white min-[900px]:rounded-xl min-[900px]:shadow-[0_20px_45px_-24px_rgba(12,13,13,0.18)]">
       {/* Keyword + search button */}
-      <div className="order-2 p-2 min-[900px]:order-1 min-[900px]:p-2">
-        <div className="flex items-center gap-2">
+      <div className="order-2 p-1 min-[900px]:order-1 min-[900px]:p-1">
+        <div className="flex items-center gap-1">
           <div className="relative min-w-0 flex-1">
             <Icon
               name="search"
               size={14}
               className="pointer-events-none absolute left-3 top-1/2 hidden -translate-y-1/2 text-[#A6A6A6] min-[900px]:block"
             />
-            <span className="mb-[2px] block text-[8px] font-bold leading-tight text-[#0C0D0D] min-[900px]:hidden">Từ khóa</span>
+            <span className="mb-[1px] block text-[7px] font-bold leading-tight text-[#0C0D0D] min-[900px]:hidden">Từ khóa</span>
             <input
               type="search"
               aria-label="Từ khóa"
               value={state.q}
               onChange={(e) => setState((s) => ({ ...s, q: e.target.value }))}
               placeholder="Nhập từ khóa, vị trí, dự án..."
-              className="block w-full min-w-0 rounded-md border border-[#E4E1E0] bg-white px-2 py-2 text-[10px] leading-tight text-[#0C0D0D] placeholder:text-[#A6A6A6] focus:outline-none min-[900px]:h-[44px] min-[900px]:rounded-none min-[900px]:border-0 min-[900px]:px-0 min-[900px]:pl-8 min-[900px]:pr-2 min-[900px]:text-[13px] min-[900px]:font-medium"
+              className="block w-full min-w-0 rounded-md border border-[#E4E1E0] bg-white px-2 py-1 text-[9px] leading-tight text-[#0C0D0D] placeholder:text-[#A6A6A6] focus:outline-none min-[900px]:h-[28px] min-[900px]:rounded-none min-[900px]:border-0 min-[900px]:px-0 min-[900px]:pl-8 min-[900px]:pr-2 min-[900px]:text-[12px] min-[900px]:font-medium"
             />
           </div>
           <button
             type="button"
             onClick={handleSearch}
-            className="flex shrink-0 items-center justify-center gap-1 rounded-md bg-[#880206] px-3 py-2 text-[11px] font-semibold leading-tight text-white hover:bg-[#750F0D] min-[900px]:h-[44px] min-[900px]:gap-2 min-[900px]:rounded-lg min-[900px]:bg-[#0C0D0D] min-[900px]:px-5 min-[900px]:text-[13px] min-[900px]:font-bold min-[900px]:hover:bg-[#2A2A2A]"
+            className="flex shrink-0 items-center justify-center gap-1 rounded-md bg-[#880206] px-2 py-1 text-[9px] font-semibold leading-tight text-white hover:bg-[#750F0D] min-[900px]:h-[28px] min-[900px]:gap-2 min-[900px]:rounded-lg min-[900px]:bg-[#0C0D0D] min-[900px]:px-4 min-[900px]:text-[12px] min-[900px]:font-bold min-[900px]:hover:bg-[#2A2A2A]"
           >
-            <Icon name="search" size={13} className="text-white min-[900px]:hidden" />
+            <Icon name="search" size={11} className="text-white min-[900px]:hidden" />
             Tìm kiếm
           </button>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="order-1 p-2 min-[900px]:order-2 min-[900px]:p-0">
-        <p className="mb-1 text-[11px] font-bold leading-tight text-[#0C0D0D] min-[900px]:hidden">Tìm kiếm bất động sản</p>
-        <div className="grid grid-cols-2 gap-2 min-[900px]:flex min-[900px]:gap-0 min-[900px]:divide-x min-[900px]:divide-[#EDEBEA]">
+      <div className="order-1 p-1 min-[900px]:order-2 min-[900px]:p-0">
+        <p className="mb-1 text-[10px] font-bold leading-tight text-[#0C0D0D] min-[900px]:hidden">Tìm kiếm bất động sản</p>
+        <div className="grid grid-cols-2 gap-1 min-[900px]:flex min-[900px]:gap-0 min-[900px]:divide-x min-[900px]:divide-[#EDEBEA]">
           <FilterField
             icon="building"
             label="Loại bất động sản"

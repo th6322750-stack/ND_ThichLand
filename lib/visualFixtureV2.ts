@@ -155,6 +155,45 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       bedroomCount: null,
       furnishingStatus: "Đầy đủ",
     },
+    // 2 more demo listings so /cho-thue's fixture list exceeds PAGE_SIZE
+    // (6) — master (02_ChoThue_WEB.png) shows numbered pagination, which
+    // Pagination2 correctly hides at total<=1 page; reusing already-approved
+    // Round 8 images (no new asset) so pagination genuinely renders instead
+    // of leaving that region permanently empty in QA capture.
+    {
+      slug: "can-ho-riverside-quan-2",
+      roomNo: "Căn hộ Riverside Quận 2",
+      location: "Quận 2, TP. HCM",
+      address: "Đường Nguyễn Thị Định, Quận 2, TP. HCM",
+      price: 14_000_000,
+      serviceFee: "Đã bao gồm",
+      area: 65,
+      verticalAccess: "Thang máy",
+      propertyType: "Căn hộ",
+      description: "Căn hộ view sông, nội thất đầy đủ, gần trung tâm Quận 2.",
+      highlights: ["View sông thoáng mát", "Nội thất đầy đủ", "Gần trung tâm"],
+      availability: "Còn trống",
+      media: [R8_17],
+      bedroomCount: 2,
+      furnishingStatus: "Đầy đủ",
+    },
+    {
+      slug: "nha-pho-thuong-mai-binh-thanh",
+      roomNo: "Nhà phố thương mại Bình Thạnh",
+      location: "Bình Thạnh, TP. HCM",
+      address: "Đường Xô Viết Nghệ Tĩnh, Bình Thạnh, TP. HCM",
+      price: 22_000_000,
+      serviceFee: "Không áp dụng",
+      area: 90,
+      verticalAccess: "Thang bộ",
+      propertyType: "Nhà",
+      description: "Nhà phố thương mại mặt tiền đường lớn, phù hợp kinh doanh.",
+      highlights: ["Mặt tiền đường lớn", "Phù hợp kinh doanh", "Khu dân cư sầm uất"],
+      availability: "Còn trống",
+      media: [R8_09],
+      bedroomCount: 3,
+      furnishingStatus: "Cơ bản",
+    },
   ];
 }
 

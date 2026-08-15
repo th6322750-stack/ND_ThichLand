@@ -98,7 +98,7 @@ export function ChoThuePageInner({ properties }: { properties: PropertyListing[]
 
         {/* Sidebar targets ~25% of the content column (master), not a fixed
             280px rail — 1fr/3fr keeps that ratio at any content width. */}
-        <div className="mt-2 grid grid-cols-1 gap-8 min-[900px]:mt-6 min-[900px]:grid-cols-[1fr_3fr]">
+        <div className="mt-2 grid grid-cols-1 gap-8 min-[900px]:mt-6 min-[900px]:grid-cols-[260px_1fr]">
           {/* Desktop sidebar */}
           <aside className="hidden min-[900px]:block" data-qa-region="sidebar">
             <div className="rounded-lg border border-[#EDEBEA] bg-white p-5">
