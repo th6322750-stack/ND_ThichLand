@@ -40,7 +40,7 @@ function ActionButtons() {
   return (
     <div className="flex gap-2 min-[900px]:gap-3">
       <a
-        href="tel:0984602303"
+        href="tel:0986602203"
         className="flex flex-1 items-center justify-center gap-1 rounded-md bg-[#880206] px-2 py-2 text-[10px] font-semibold leading-tight text-white hover:bg-[#750F0D] min-[900px]:gap-2 min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px]"
       >
         <Icon name="phone" size={12} className="shrink-0 text-white min-[900px]:!h-4 min-[900px]:!w-4" /> Gọi ngay
@@ -195,10 +195,10 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
         </div>
         <div className="flex w-full gap-2 min-[900px]:w-auto min-[900px]:gap-3">
           <a
-            href="tel:0984602303"
+            href="tel:0986602203"
             className="flex flex-1 items-center justify-center gap-2 rounded-md bg-white px-3 py-2 text-[11px] font-semibold text-[#880206] min-[900px]:flex-none min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px]"
           >
-            <Icon name="phone" size={13} className="min-[900px]:!h-4 min-[900px]:!w-4" /> 0984 602 303
+            <Icon name="phone" size={13} className="min-[900px]:!h-4 min-[900px]:!w-4" /> 0986 602 203
           </a>
           <a
             href={getZaloHref()}

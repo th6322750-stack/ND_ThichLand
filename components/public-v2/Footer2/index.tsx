@@ -5,8 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Icon2 as Icon } from "@/components/public-v2/Icon2";
 
-const HOTLINE_LABEL = "0984 602 303 - 0989 811 396";
-const HOTLINE_TEL = "0984602303";
+const HOTLINE_LABEL = "0986 602 203 - 0985 551 396";
+const HOTLINE_TEL = "0986602203";
 
 const QUICK_LINKS = [
   { label: "Trang chủ", href: "/" },

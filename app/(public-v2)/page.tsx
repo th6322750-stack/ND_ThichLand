@@ -272,7 +272,7 @@ export default async function HomePageV2() {
                 120 Nguyễn Xí, Phường 26, Quận Bình Thạnh, TP. HCM
               </li>
               <li className="flex items-center gap-1 min-[900px]:gap-1">
-                <Icon name="phone" size={13} className="hidden shrink-0 text-white min-[900px]:block" /> 0984 602 303 - 0989 811 396
+                <Icon name="phone" size={13} className="hidden shrink-0 text-white min-[900px]:block" /> 0986 602 203 - 0985 551 396
               </li>
               <li className="flex items-center gap-1 min-[900px]:gap-1">
                 <Icon name="chat" size={13} className="hidden shrink-0 text-white min-[900px]:block" /> info@ndthich.com.vn

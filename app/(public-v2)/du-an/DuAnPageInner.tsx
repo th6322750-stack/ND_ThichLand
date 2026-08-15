@@ -70,11 +70,11 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
   }
 
   return (
-    <div className="mx-auto max-w-[1240px] px-3 py-2 min-[900px]:px-10 min-[900px]:py-8">
+    <div className="mx-auto max-w-[1240px] px-3 py-1 min-[900px]:px-10 min-[900px]:py-8">
       <Breadcrumb2 items={[{ label: "Trang chủ", href: "/" }, { label: "Dự án" }]} />
 
       <div data-qa-region="heading">
-        <h1 className="mt-2 text-[17px] font-extrabold text-[#0C0D0D] min-[900px]:mt-4 min-[900px]:text-[36px]">
+        <h1 className="mt-1 text-[17px] font-extrabold text-[#0C0D0D] min-[900px]:mt-4 min-[900px]:text-[36px]">
           Các dự án <span className="text-[#880206]">tiêu biểu</span>
         </h1>
         <p className="mt-1 line-clamp-2 max-w-2xl text-[10px] text-[#5F5D5D] min-[900px]:mt-2 min-[900px]:line-clamp-none min-[900px]:text-[14px]">
@@ -82,7 +82,7 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
           chất lượng, bền vững cho cộng đồng.
         </p>
 
-        <div className="mt-2 flex flex-nowrap gap-[6px] min-[900px]:mt-5 min-[900px]:flex-wrap min-[900px]:gap-2" role="tablist" aria-label="Lọc dự án theo trạng thái">
+        <div className="mt-1 flex flex-nowrap gap-[6px] min-[900px]:mt-5 min-[900px]:flex-wrap min-[900px]:gap-2" role="tablist" aria-label="Lọc dự án theo trạng thái">
           {TABS.map((t, index) => {
             const selected = tab === t.value;
             return (
@@ -114,7 +114,7 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
         id="du-an-tabpanel"
         role="tabpanel"
         aria-labelledby={`du-an-tab-${TABS.find((t) => t.value === tab)?.id}`}
-        className="mt-2 grid grid-cols-1 gap-2 min-[900px]:mt-6 min-[900px]:grid-cols-3 min-[900px]:gap-5"
+        className="mt-1 grid grid-cols-1 gap-1 min-[900px]:mt-6 min-[900px]:grid-cols-3 min-[900px]:gap-5"
         data-qa-region="project-grid"
       >
         {visible.map((project, i) => (
@@ -148,12 +148,12 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
           Đơn vị uy tín trong lĩnh vực bất động sản, chúng tôi cam kết mang đến những sản phẩm chất
           lượng, pháp lý minh bạch và giá trị bền vững.
         </p>
-        <div className="mt-3 grid grid-cols-2 gap-3">
+        <div className="mt-3 grid grid-cols-4 gap-1">
           {ABOUT_FEATURES_MOBILE.map((f) => (
             <div key={f.title} className="flex flex-col items-center gap-1">
-              <Icon name={f.icon} size={20} className="text-[#C08E47]" />
-              <p className="text-[10px] font-bold text-[#0C0D0D]">{f.title}</p>
-              <p className="text-[8px] leading-snug text-[#5F5D5D]">{f.desc}</p>
+              <Icon name={f.icon} size={18} className="text-[#C08E47]" />
+              <p className="text-[8px] font-bold leading-tight text-[#0C0D0D]">{f.title}</p>
+              <p className="text-[6.5px] leading-tight text-[#5F5D5D]">{f.desc}</p>
             </div>
           ))}
         </div>
@@ -167,13 +167,13 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
 
       {/* WEB: reception image LEFT / text+features RIGHT, matching master. */}
       <section
-        className="mt-6 hidden rounded-lg border border-[#EDEBEA] bg-white p-6 min-[900px]:flex min-[900px]:items-center min-[900px]:gap-6"
+        className="mt-6 hidden min-[900px]:flex min-[900px]:items-center min-[900px]:gap-6"
         data-qa-region="about"
       >
-        <div className="relative h-[220px] w-[340px] shrink-0 overflow-hidden rounded-lg">
+        <div className="relative h-[190px] w-[340px] shrink-0 overflow-hidden rounded-lg">
           <Image src="/assets/v2/home/about-reception.png" alt="Sảnh đón NDTHICH" fill className="object-cover" unoptimized />
         </div>
-        <div>
+        <div className="min-w-0 flex-1">
           <p className="text-[12px] font-bold uppercase tracking-wide text-[#880206]">Về Nguyễn Đắc Thích</p>
           <h2 className="mt-2 text-[24px] font-extrabold leading-snug text-[#0C0D0D]">
             Kiến tạo không gian sống
@@ -184,13 +184,13 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
             Với hơn 10 năm kinh nghiệm, chúng tôi cam kết mang đến những giá trị thực, pháp lý minh bạch
             và dịch vụ tận tâm cho khách hàng.
           </p>
-          <div className="mt-4 grid grid-cols-4 gap-4">
+          <div className="mt-4 grid grid-cols-4 gap-1">
             {ABOUT_FEATURES_WEB.map((f) => (
-              <div key={f.title} className="flex items-start gap-2">
-                <Icon name={f.icon} size={20} className="mt-[2px] shrink-0 text-[#C08E47]" />
+              <div key={f.title} className="flex items-start gap-1">
+                <Icon name={f.icon} size={16} className="mt-[2px] shrink-0 text-[#C08E47]" />
                 <div className="min-w-0">
-                  <p className="truncate text-[13px] font-bold text-[#0C0D0D]">{f.title}</p>
-                  <p className="text-[11px] text-[#5F5D5D]">{f.desc}</p>
+                  <p className="truncate text-[10px] font-bold text-[#0C0D0D]">{f.title}</p>
+                  <p className="truncate text-[7.5px] leading-tight text-[#5F5D5D]">{f.desc}</p>
                 </div>
               </div>
             ))}

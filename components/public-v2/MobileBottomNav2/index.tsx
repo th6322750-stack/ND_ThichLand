@@ -37,6 +37,7 @@ export function MobileBottomNav2() {
       <nav
         aria-label="Điều hướng nhanh"
         className="fixed inset-x-0 bottom-0 z-sticky-mobile-actions flex items-center justify-around border-t border-[#EDEBEA] bg-white py-1 min-[900px]:hidden"
+        data-qa-region="bottom-nav"
       >
         {TABS.map((tab) => {
           const active = tab.href === "/" ? pathname === "/" : pathname.startsWith(tab.href);

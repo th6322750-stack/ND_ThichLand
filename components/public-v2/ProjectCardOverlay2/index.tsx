@@ -76,7 +76,7 @@ export function ProjectCardOverlay2({
   return (
     <Link href={`/du-an/${slug}`} className="block overflow-hidden rounded-lg border border-[#EDEBEA] bg-white">
       {media}
-      <div className="p-2 min-[900px]:p-3">
+      <div className="p-1 min-[900px]:p-3">
         <span className="inline-flex items-center gap-[6px] rounded-md bg-white px-[10px] py-1 text-[11px] font-semibold text-[#0C0D0D] ring-1 ring-inset ring-[#E4E1E0] min-[900px]:px-[14px] min-[900px]:py-2 min-[900px]:text-[12px]">
           Xem chi tiết <Icon name="arrow-right" size={12} className="min-[900px]:!h-[13px] min-[900px]:!w-[13px]" />
         </span>

@@ -166,7 +166,21 @@ const CAPTURES: CaptureSpec[] = [
     route: "/cho-thue/[slug]",
     navigateTo: "/cho-thue/can-ho-sunrise-city-view",
     masterRegions: {
-      WEB: { header: SHARED_HEADER_WEB },
+      // Ruler-overlay re-measured this round (blocker 4). detail-tabs here
+      // is a WIDER combined region (detail table + map side by side, per
+      // master) than the raw detail-table content alone accounts for.
+      WEB: {
+        header: SHARED_HEADER_WEB,
+        gallery: { x: 37, y: 100, width: 460, height: 400 },
+        summary: { x: 520, y: 100, width: 380, height: 120 },
+        facts: { x: 520, y: 240, width: 380, height: 90 },
+        highlights: { x: 520, y: 340, width: 380, height: 145 },
+        actions: { x: 520, y: 490, width: 380, height: 40 },
+        "detail-tabs": { x: 37, y: 600, width: 855, height: 430 },
+        related: { x: 37, y: 1060, width: 855, height: 240 },
+        "bottom-cta": { x: 37, y: 1330, width: 855, height: 90 },
+        footer: { x: 0, y: 1460, width: 935, height: 187 },
+      },
       MOBILE: {
         header: mobileHeader(130),
         gallery: { x: 0, y: 165, width: 724, height: 420 },
@@ -218,7 +232,17 @@ const CAPTURES: CaptureSpec[] = [
         progress: { x: 0, y: 1010, width: 935, height: 240 },
         "bottom-cta": { x: 0, y: 1250, width: 935, height: 60 },
       },
-      MOBILE: { header: mobileHeader() },
+      // First-pass visual estimate from mobile-05-chitietduan.png this
+      // round (blocker 4) — not full ruler-overlay precision on every
+      // boundary, but real measured boxes, not notVisibleInMaster.
+      MOBILE: {
+        header: mobileHeader(),
+        amenities: { x: 0, y: 1195, width: 724, height: 200 },
+        progress: { x: 0, y: 1420, width: 724, height: 100 },
+        "gallery-strip": { x: 0, y: 1560, width: 724, height: 250 },
+        map: { x: 0, y: 1850, width: 724, height: 220 },
+        "bottom-cta": { x: 0, y: 2090, width: 724, height: 82 },
+      },
     },
   },
 ];

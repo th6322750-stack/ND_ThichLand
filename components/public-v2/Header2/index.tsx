@@ -16,12 +16,12 @@ const NAV = [
   { label: "Liên hệ", href: "/lien-he" },
 ];
 
-const HOTLINE_LABEL = "0984 602 303 - 0989 811 396";
+const HOTLINE_LABEL = "0986 602 203 - 0985 551 396";
 // Mobile masters show a single-number hotline pill — each of the 5 mobile
 // master exports uses a different mock number, so this uses the one real
 // hotline number everywhere rather than fabricating a route-specific one.
-const HOTLINE_MOBILE_LABEL = "0984 602 303";
-const HOTLINE_TEL = "0984602303";
+const HOTLINE_MOBILE_LABEL = "0986 602 203";
+const HOTLINE_TEL = "0986602203";
 
 type HeaderVariant = "home" | "cho-thue" | "cho-thue-detail" | "du-an" | "du-an-detail";
 
@@ -37,10 +37,10 @@ const HEADER_VARIANTS: Record<
   HeaderVariant,
   { tagline: boolean; hotlineTextMobile: boolean; hamburgerBorderMobile: boolean; mobilePadding: string }
 > = {
-  home: { tagline: false, hotlineTextMobile: true, hamburgerBorderMobile: true, mobilePadding: "py-2" },
+  home: { tagline: false, hotlineTextMobile: true, hamburgerBorderMobile: true, mobilePadding: "py-1" },
   "cho-thue": { tagline: false, hotlineTextMobile: false, hamburgerBorderMobile: true, mobilePadding: "py-2" },
   "cho-thue-detail": { tagline: true, hotlineTextMobile: true, hamburgerBorderMobile: false, mobilePadding: "py-[14px]" },
-  "du-an": { tagline: false, hotlineTextMobile: true, hamburgerBorderMobile: false, mobilePadding: "py-2" },
+  "du-an": { tagline: false, hotlineTextMobile: true, hamburgerBorderMobile: false, mobilePadding: "py-1" },
   "du-an-detail": { tagline: false, hotlineTextMobile: true, hamburgerBorderMobile: true, mobilePadding: "py-2" },
 };
 

@@ -12,7 +12,7 @@ import type { ProjectListing } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
-const HOTLINE_TEL = "0984602303";
+const HOTLINE_TEL = "0986602203";
 
 const AMENITY_ICONS: IconName[] = ["pool", "dumbbell", "tree", "grill", "shop", "clock", "building"];
 
@@ -40,12 +40,19 @@ function progressStepIndex(progressPercent: number): number {
   return 0;
 }
 
-function projectFacts(project: ProjectListing): { icon: IconName; label: string; value: string }[] {
+// ProjectListing has no real fields backing "Loại hình"/"Quy mô"/"Số lượng"/
+// apartment-area-range/legal-status — the master shows specific values for
+// these, which is fine as VISUAL_FIXTURE_V2 QA content (matches the master
+// exactly for deterministic capture), but production has no CMS-backed
+// source for them yet, so it must show "Đang cập nhật" rather than invent a
+// project scale/unit count/legal status that isn't real (Round 8 blocker 2).
+function projectFacts(project: ProjectListing, isFixture: boolean): { icon: IconName; label: string; value: string }[] {
+  const tbd = "Đang cập nhật";
   return [
     { icon: "building", label: "Chủ đầu tư", value: project.investor || "—" },
-    { icon: "shop", label: "Loại hình", value: "Căn hộ cao cấp" },
-    { icon: "area", label: "Quy mô", value: "2,5 ha" },
-    { icon: "building", label: "Số lượng", value: "1.200 căn" },
+    { icon: "shop", label: "Loại hình", value: isFixture ? "Căn hộ cao cấp" : tbd },
+    { icon: "area", label: "Quy mô", value: isFixture ? "2,5 ha" : tbd },
+    { icon: "building", label: "Số lượng", value: isFixture ? "1.200 căn" : tbd },
   ];
 }
 
@@ -63,20 +70,23 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
   const project = projects.find((p) => p.slug === slug);
   if (!project) notFound();
 
+  const isFixture = isVisualFixtureV2Enabled();
   const stepIndex = progressStepIndex(project.progressPercent);
-  const facts = projectFacts(project);
+  const facts = projectFacts(project, isFixture);
 
-  // Reuses the SAME already-hardcoded fact values above (this codebase has
-  // never had per-project structured fields for these — see projectFacts)
-  // rather than inventing new project-specific specifics that don't exist.
+  // Reuses the SAME fixture-vs-production rule as projectFacts above: only
+  // VISUAL_FIXTURE_V2 QA mode shows the master-matching specific values;
+  // production shows "Đang cập nhật" for fields with no real CMS source
+  // (Round 8 blocker 2 — these must never render as real production facts).
+  const tbd = "Đang cập nhật";
   const checklist = [
     `Vị trí: ${project.location}`,
     `Chủ đầu tư: ${project.investor || "—"}`,
-    "Loại hình phát triển: Căn hộ cao cấp",
-    "Quy mô: 2,5 ha",
-    "Số lượng sản phẩm: 1.200 căn",
-    "Diện tích căn hộ: 50m² - 120m²",
-    "Pháp lý: Sở hữu lâu dài",
+    `Loại hình phát triển: ${isFixture ? "Căn hộ cao cấp" : tbd}`,
+    `Quy mô: ${isFixture ? "2,5 ha" : tbd}`,
+    `Số lượng sản phẩm: ${isFixture ? "1.200 căn" : tbd}`,
+    `Diện tích căn hộ: ${isFixture ? "50m² - 120m²" : tbd}`,
+    `Pháp lý: ${isFixture ? "Sở hữu lâu dài" : tbd}`,
   ];
 
   return (
@@ -196,11 +206,11 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
       <section className="mt-8 hidden min-[900px]:grid min-[900px]:grid-cols-2 min-[900px]:items-start min-[900px]:gap-8">
         <div>
           <h2 className="text-[16px] font-bold text-[#0C0D0D]">Thông tin chi tiết dự án</h2>
-          <p className="mt-3 text-[13px] leading-relaxed text-[#3A3838]">{project.summary}</p>
-          <ul className="mt-4 flex flex-col gap-2">
+          <p className="mt-3 text-[12px] leading-snug text-[#3A3838]">{project.summary}</p>
+          <ul className="mt-2 flex flex-col gap-1">
             {checklist.map((item) => (
-              <li key={item} className="flex items-start gap-2 text-[13px] text-[#3A3838]">
-                <Icon name="check" size={16} className="mt-[2px] shrink-0 text-[#23825C]" /> {item}
+              <li key={item} className="flex items-start gap-2 text-[12px] leading-snug text-[#3A3838]">
+                <Icon name="check" size={14} className="mt-[2px] shrink-0 text-[#23825C]" /> {item}
               </li>
             ))}
           </ul>
@@ -312,19 +322,19 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
       </div>
 
       <section
-        className="mt-10 hidden flex-col items-start justify-between gap-2 rounded-lg bg-[#880206] p-3 text-white min-[900px]:flex min-[900px]:flex-row min-[900px]:items-center min-[900px]:gap-4 min-[900px]:p-6"
+        className="mt-6 hidden flex-col items-start justify-between gap-2 rounded-lg bg-[#880206] p-3 text-white min-[900px]:flex min-[900px]:flex-row min-[900px]:items-center min-[900px]:gap-4 min-[900px]:p-4"
         data-qa-region="bottom-cta"
       >
         <div className="flex items-center gap-3">
-          <Icon name="phone" size={20} className="text-white" />
+          <Icon name="phone" size={18} className="text-white" />
           <div>
-            <p className="text-[14px] font-bold">Bạn cần tư vấn thêm thông tin dự án?</p>
-            <p className="text-[12px] text-white/80">Đội ngũ chuyên viên của NDTHICH luôn sẵn sàng hỗ trợ bạn.</p>
+            <p className="text-[13px] font-bold">Bạn cần tư vấn thêm thông tin dự án?</p>
+            <p className="text-[11px] text-white/80">Đội ngũ chuyên viên của NDTHICH luôn sẵn sàng hỗ trợ bạn.</p>
           </div>
         </div>
         <a
           href={getZaloHref()}
-          className="flex items-center justify-center gap-2 rounded-md bg-white px-5 py-3 text-[13px] font-semibold text-[#880206]"
+          className="flex items-center justify-center gap-2 rounded-md bg-white px-4 py-2 text-[12px] font-semibold text-[#880206]"
         >
           Liên hệ ngay <Icon name="arrow-right" size={13} />
         </a>

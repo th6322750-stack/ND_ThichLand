@@ -36,7 +36,10 @@ export function ChoThuePageInner({ properties }: { properties: PropertyListing[]
           block plus a second boxed image band below it. Hidden entirely on
           mobile: 02_ChoThue_MOBILE.png has no hero photo or breadcrumb at
           all — just the title/Lọc/Sắp xếp/count block rendered below. */}
-      <section className="relative hidden overflow-hidden bg-gradient-to-br from-white via-[#FBF7F5] to-[#F2E5E6] min-[900px]:block">
+      <section
+        className="relative hidden overflow-hidden bg-gradient-to-br from-white via-[#FBF7F5] to-[#F2E5E6] min-[900px]:block"
+        data-qa-region="hero"
+      >
         {/*
           Round 8 resolves the prior ASSET_BLOCKED_NEEDS_CHATGPT on this slot:
           .webby/client-approved-v2/ROUND8_ASSET_SOURCE.md section 3
@@ -73,9 +76,9 @@ export function ChoThuePageInner({ properties }: { properties: PropertyListing[]
         <Breadcrumb2 items={[{ label: "Trang chủ", href: "/" }, { label: "Cho thuê" }]} className="hidden min-[900px]:flex" />
 
         {/* Mobile title/controls block — replaces the WEB hero+breadcrumb entirely on mobile. */}
-        <div className="min-[900px]:hidden">
+        <div className="min-[900px]:hidden" data-qa-region="heading">
           <h1 className="text-[16px] font-extrabold text-[#0C0D0D]">Cho thuê bất động sản</h1>
-          <div className="mt-2 grid grid-cols-2 gap-2">
+          <div className="mt-2 grid grid-cols-2 gap-2" data-qa-region="filter-sort">
             <button
               type="button"
               onClick={() => setDrawerOpen(true)}
@@ -97,7 +100,7 @@ export function ChoThuePageInner({ properties }: { properties: PropertyListing[]
             280px rail — 1fr/3fr keeps that ratio at any content width. */}
         <div className="mt-2 grid grid-cols-1 gap-8 min-[900px]:mt-6 min-[900px]:grid-cols-[1fr_3fr]">
           {/* Desktop sidebar */}
-          <aside className="hidden min-[900px]:block">
+          <aside className="hidden min-[900px]:block" data-qa-region="sidebar">
             <div className="rounded-lg border border-[#EDEBEA] bg-white p-5">
               <Filter2
                 value={filters}
@@ -109,7 +112,7 @@ export function ChoThuePageInner({ properties }: { properties: PropertyListing[]
             </div>
           </aside>
 
-          <div>
+          <div data-qa-region="list">
             <div className="hidden items-center justify-between min-[900px]:flex">
               <p className="text-[15px] text-[#0C0D0D]">
                 Tìm thấy <span className="font-bold">{filtered.length}</span> bất động sản
@@ -142,7 +145,7 @@ export function ChoThuePageInner({ properties }: { properties: PropertyListing[]
             {/* Master's mobile viewport shows the fixed bottom tab bar
                 instead of numbered pagination — desktop-style pagination
                 is desktop-only. */}
-            <div className="mt-8 hidden min-[900px]:block">
+            <div className="mt-8 hidden min-[900px]:block" data-qa-region="pagination">
               <Pagination2 page={safePage} total={totalPages} onChange={setPage} />
             </div>
           </div>
