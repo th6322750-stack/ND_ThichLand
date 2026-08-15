@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Breadcrumb2 } from "@/components/public-v2/Breadcrumb2";
 import { Gallery2 } from "@/components/public-v2/Gallery2";
 import { ProjectInquiryForm2 } from "@/components/public-v2/ProjectInquiryForm2";
-import { Icon, type IconName } from "@/components/icons";
+import { Icon2 as Icon, type IconName } from "@/components/public-v2/Icon2";
 import { getZaloHref } from "@/lib/zalo";
 import { getProjectRepository } from "@/lib/server/projects/providers";
 import { toPublicProjectListings } from "@/lib/server/projects/dto";
@@ -76,47 +76,49 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
   ];
 
   return (
-    <div className="mx-auto max-w-[1240px] px-4 py-6 min-[900px]:px-10 min-[900px]:py-8">
+    <div className="mx-auto max-w-[1240px] px-3 py-3 min-[900px]:px-10 min-[900px]:py-8">
       <Breadcrumb2 withHomeIcon items={[{ label: "Dự án", href: "/du-an" }, { label: project.name }]} />
 
       {/* MOBILE top: single hero photo (no thumbnail row here — that's a
           separate "Thư viện dự án" section further down on mobile), title,
-          burgundy consultation form, then facts. */}
+          burgundy consultation form, then facts. Every block here is
+          deliberately compact — the master fits hero through bottom CTA
+          entirely within the canonical 724x2172 viewport. */}
       <div className="min-[900px]:hidden">
-        <div className="relative mt-4 aspect-[16/9] overflow-hidden rounded-lg">
+        <div className="relative mt-2 aspect-[16/7] overflow-hidden rounded-lg">
           <Image src={project.media[0]} alt={project.name} fill className="object-cover" unoptimized priority />
-          <span className="absolute right-4 top-4 rounded-full bg-white px-[14px] py-[6px] text-[12px] font-bold text-[#880206]">
+          <span className="absolute right-2 top-2 rounded-full bg-white px-2 py-1 text-[9px] font-bold text-[#880206]">
             {project.status}
           </span>
         </div>
-        <h1 className="mt-4 text-[22px] font-extrabold text-[#0C0D0D]">{project.name}</h1>
-        <p className="mt-2 flex items-center gap-[6px] text-[13px] text-[#5F5D5D]">
-          <Icon name="pin" size={15} /> {project.location}
+        <h1 className="mt-2 text-[15px] font-extrabold text-[#0C0D0D]">{project.name}</h1>
+        <p className="mt-1 flex items-center gap-1 text-[10px] text-[#5F5D5D]">
+          <Icon name="pin" size={11} /> {project.location}
         </p>
 
-        <div className="mt-4 rounded-lg border-2 border-[#880206] bg-[#880206] p-5">
-          <h2 className="text-[16px] font-bold text-white">Liên hệ tư vấn dự án</h2>
-          <p className="mt-1 text-[12px] text-white/80">
-            Để lại thông tin, chuyên viên NDTHICH sẽ liên hệ với bạn trong thời gian sớm nhất.
+        <div className="mt-2 rounded-lg border-2 border-[#880206] bg-[#880206] p-2">
+          <h2 className="text-[11px] font-bold text-white">Liên hệ tư vấn dự án</h2>
+          <p className="mt-[2px] line-clamp-1 text-[9px] text-white/80">
+            Để lại thông tin, chuyên viên NDTHICH sẽ liên hệ với bạn sớm nhất.
           </p>
-          <div className="mt-4">
+          <div className="mt-[6px]">
             <ProjectInquiryForm2 projectName={project.name} variant="inline" />
           </div>
         </div>
 
-        <div className="mt-5 grid grid-cols-4 gap-2">
+        <div className="mt-2 grid grid-cols-4 gap-1">
           {facts.map((fact) => (
-            <div key={fact.label} className="rounded-lg border border-[#EDEBEA] p-2 text-center">
-              <Icon name={fact.icon} size={20} className="mx-auto text-[#880206]" />
-              <p className="mt-1 text-[11px] font-bold text-[#0C0D0D]">{fact.value}</p>
-              <p className="text-[9px] text-[#5F5D5D]">{fact.label}</p>
+            <div key={fact.label} className="rounded-lg border border-[#EDEBEA] p-1 text-center">
+              <Icon name={fact.icon} size={14} className="mx-auto text-[#880206]" />
+              <p className="mt-[2px] truncate text-[9px] font-bold text-[#0C0D0D]">{fact.value}</p>
+              <p className="truncate text-[7px] text-[#5F5D5D]">{fact.label}</p>
             </div>
           ))}
         </div>
 
-        <section className="mt-6">
-          <h2 className="text-[16px] font-bold text-[#0C0D0D]">Thông tin dự án</h2>
-          <p className="mt-3 text-[13px] leading-relaxed text-[#3A3838]">{project.summary}</p>
+        <section className="mt-2">
+          <h2 className="text-[11px] font-bold text-[#0C0D0D]">Thông tin dự án</h2>
+          <p className="mt-1 line-clamp-3 text-[10px] leading-snug text-[#3A3838]">{project.summary}</p>
         </section>
       </div>
 
@@ -139,8 +141,8 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
             {facts.map((fact) => (
               <div key={fact.label} className="rounded-lg border border-[#EDEBEA] p-2 text-center">
                 <Icon name={fact.icon} size={20} className="mx-auto text-[#880206]" />
-                <p className="mt-1 text-[11px] font-bold text-[#0C0D0D]">{fact.value}</p>
-                <p className="text-[9px] text-[#5F5D5D]">{fact.label}</p>
+                <p className="mt-1 truncate text-[11px] font-bold text-[#0C0D0D]">{fact.value}</p>
+                <p className="truncate text-[9px] text-[#5F5D5D]">{fact.label}</p>
               </div>
             ))}
           </div>
@@ -163,17 +165,17 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
       </div>
 
       {project.amenities.length > 0 && (
-        <section className="mt-8">
-          <h2 className="text-[16px] font-bold text-[#0C0D0D]">Tiện ích nổi bật</h2>
+        <section className="mt-3 min-[900px]:mt-8" data-qa-region="amenities">
+          <h2 className="text-[12px] font-bold text-[#0C0D0D] min-[900px]:text-[16px]">Tiện ích nổi bật</h2>
           {/* Master keeps every amenity in ONE row (7 WEB / 5 visible on
               MOBILE before wrapping) — real data isn't truncated, entries
               past the master-visible count are just hidden on narrow
               widths, same pattern as the /du-an card cap above. */}
-          <div className="mt-4 grid grid-cols-5 gap-2 min-[900px]:grid-cols-7 min-[900px]:gap-4">
+          <div className="mt-[6px] grid grid-cols-5 gap-1 min-[900px]:mt-4 min-[900px]:grid-cols-7 min-[900px]:gap-4">
             {project.amenities.map((amenity, i) => (
-              <div key={amenity} className={`flex flex-col items-center gap-2 text-center ${i >= 5 ? "hidden min-[900px]:flex" : ""}`}>
-                <Icon name={AMENITY_ICONS[i % AMENITY_ICONS.length]} size={26} className="text-[#C08E47]" />
-                <p className="text-[10px] font-medium text-[#0C0D0D] min-[900px]:text-[12px]">{amenity}</p>
+              <div key={amenity} className={`flex flex-col items-center gap-1 text-center min-[900px]:gap-2 ${i >= 5 ? "hidden min-[900px]:flex" : ""}`}>
+                <Icon name={AMENITY_ICONS[i % AMENITY_ICONS.length]} size={16} className="text-[#C08E47] min-[900px]:!h-[26px] min-[900px]:!w-[26px]" />
+                <p className="truncate text-[7px] font-medium text-[#0C0D0D] min-[900px]:text-[12px]">{amenity}</p>
               </div>
             ))}
           </div>
@@ -181,8 +183,11 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
       )}
 
       {/* Master (WEB) puts the description+checklist LEFT and a large pool
-          photo RIGHT, side by side. */}
-      <section className="mt-8 min-[900px]:grid min-[900px]:grid-cols-2 min-[900px]:items-start min-[900px]:gap-8">
+          photo RIGHT, side by side — WEB only. Mobile's flow is hero -> title
+          -> form -> facts -> info -> amenities -> progress -> gallery -> map
+          -> CTA (no second "info" block; "Thông tin dự án" above already
+          covers it), so this whole section is desktop-only. */}
+      <section className="mt-8 hidden min-[900px]:grid min-[900px]:grid-cols-2 min-[900px]:items-start min-[900px]:gap-8">
         <div>
           <h2 className="text-[16px] font-bold text-[#0C0D0D]">Thông tin chi tiết dự án</h2>
           <p className="mt-3 text-[13px] leading-relaxed text-[#3A3838]">{project.summary}</p>
@@ -194,14 +199,14 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
             ))}
           </ul>
         </div>
-        <div className="relative mt-5 aspect-[16/10] overflow-hidden rounded-lg min-[900px]:mt-0">
+        <div className="relative aspect-[16/10] overflow-hidden rounded-lg">
           <Image src={project.media[Math.min(1, project.media.length - 1)]} alt={`${project.name} — tiện ích hồ bơi`} fill className="object-cover" unoptimized />
         </div>
       </section>
 
       {/* WEB: 5 frozen milestone photos. MOBILE: compact 3-step abstract timeline. */}
-      <section className="mt-8">
-        <h2 className="text-[16px] font-bold text-[#0C0D0D]">Tiến độ dự án</h2>
+      <section className="mt-3 min-[900px]:mt-8" data-qa-region="progress">
+        <h2 className="text-[12px] font-bold text-[#0C0D0D] min-[900px]:text-[16px]">Tiến độ dự án</h2>
 
         <div className="mt-5 hidden min-[900px]:grid min-[900px]:grid-cols-5 min-[900px]:gap-4">
           {PROGRESS_PHOTOS.map((step, i) => (
@@ -211,22 +216,22 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
               </div>
               <div className={`mt-3 h-3 w-3 rounded-full border-2 border-white ${i <= stepIndex ? "bg-[#880206]" : "bg-[#E4E1E0]"}`} />
               <p className={`mt-1 text-[13px] font-semibold ${i === stepIndex ? "text-[#880206]" : "text-[#0C0D0D]"}`}>{step.label}</p>
-              <p className="text-[11px] text-[#5F5D5D]">{i === stepIndex ? project.progressText : " "}</p>
+              <p className="text-[11px] text-[#5F5D5D]">{i === stepIndex ? project.progressText : " "}</p>
             </div>
           ))}
         </div>
 
-        <div className="mt-5 flex items-center justify-between min-[900px]:hidden">
+        <div className="mt-[6px] flex items-center justify-between min-[900px]:hidden">
           {PROGRESS_STEPS.map((step, i) => (
-            <div key={step.label} className="flex flex-1 flex-col items-center gap-2 text-center">
+            <div key={step.label} className="flex flex-1 flex-col items-center gap-1 text-center">
               <div
-                className={`flex h-[36px] w-[36px] items-center justify-center rounded-full ${
+                className={`flex h-[22px] w-[22px] items-center justify-center rounded-full ${
                   i <= stepIndex ? "bg-[#880206] text-white" : "border border-[#E4E1E0] text-[#A6A6A6]"
                 }`}
               >
-                <Icon name={i === stepIndex ? "calendar" : "check"} size={16} className={i <= stepIndex ? "invert" : ""} />
+                <Icon name={i === stepIndex ? "calendar" : "check"} size={11} className={i <= stepIndex ? "text-white" : ""} />
               </div>
-              <p className={`text-[12px] font-semibold ${i === stepIndex ? "text-[#880206]" : "text-[#5F5D5D]"}`}>
+              <p className={`text-[8px] font-semibold ${i === stepIndex ? "text-[#880206]" : "text-[#5F5D5D]"}`}>
                 {i === stepIndex ? project.progressText || step.label : step.label}
               </p>
               {i < PROGRESS_STEPS.length - 1 && <div className="h-px w-full bg-[#E4E1E0]" />}
@@ -238,16 +243,16 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
       {/* Mobile-only compact thumbnail strip — WEB already showed the full
           gallery (main + thumbnails) at the top, so it isn't repeated here. */}
       {project.media.length > 1 && (
-        <section className="mt-8 min-[900px]:hidden">
-          <h2 className="text-[16px] font-bold text-[#0C0D0D]">Thư viện dự án</h2>
-          <div className="mt-4 grid grid-cols-4 gap-2">
+        <section className="mt-3 min-[900px]:hidden" data-qa-region="gallery-strip">
+          <h2 className="text-[12px] font-bold text-[#0C0D0D]">Thư viện dự án</h2>
+          <div className="mt-[6px] grid grid-cols-4 gap-1">
             {project.media.slice(0, 4).map((src, i) => {
               const isLast = i === 3 && project.media.length > 4;
               return (
                 <div key={src + i} className="relative aspect-square overflow-hidden rounded-lg">
                   <Image src={src} alt="" fill className="object-cover" unoptimized />
                   {isLast && (
-                    <span className="absolute inset-0 flex items-center justify-center bg-black/55 text-[13px] font-bold text-white">
+                    <span className="absolute inset-0 flex items-center justify-center bg-black/55 text-[10px] font-bold text-white">
                       +{project.media.length - 4} ảnh
                     </span>
                   )}
@@ -258,28 +263,31 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
         </section>
       )}
 
-      <section className="mt-8">
-        <h2 className="text-[16px] font-bold text-[#0C0D0D]">Vị trí dự án</h2>
-        <p className="mt-2 text-[13px] text-[#5F5D5D]">{project.location}</p>
-        <div className="relative mt-3 aspect-[16/9] overflow-hidden rounded-lg">
+      <section className="mt-3 min-[900px]:mt-8" data-qa-region="map">
+        <h2 className="text-[12px] font-bold text-[#0C0D0D] min-[900px]:text-[16px]">Vị trí dự án</h2>
+        <p className="mt-1 text-[10px] text-[#5F5D5D] min-[900px]:mt-2 min-[900px]:text-[13px]">{project.location}</p>
+        <div className="relative mt-[6px] aspect-[16/9] overflow-hidden rounded-lg min-[900px]:mt-3">
           <Image src="/assets/v2/property-detail/map.png" alt={`Bản đồ ${project.location}`} fill className="object-cover" unoptimized />
         </div>
       </section>
 
       {/* Bottom consultation CTA before the footer, matching the master. */}
-      <section className="mt-10 flex flex-col items-start justify-between gap-4 rounded-lg bg-[#880206] p-5 text-white min-[900px]:flex-row min-[900px]:items-center min-[900px]:p-6">
-        <div className="flex items-center gap-3">
-          <Icon name="phone" size={20} className="invert" />
+      <section
+        className="mt-3 flex flex-col items-start justify-between gap-2 rounded-lg bg-[#880206] p-3 text-white min-[900px]:mt-10 min-[900px]:flex-row min-[900px]:items-center min-[900px]:gap-4 min-[900px]:p-6"
+        data-qa-region="bottom-cta"
+      >
+        <div className="flex items-center gap-2 min-[900px]:gap-3">
+          <Icon name="phone" size={14} className="text-white min-[900px]:!h-5 min-[900px]:!w-5" />
           <div>
-            <p className="text-[14px] font-bold">Bạn cần tư vấn thêm thông tin dự án?</p>
-            <p className="text-[12px] text-white/80">Đội ngũ chuyên viên của NDTHICH luôn sẵn sàng hỗ trợ bạn.</p>
+            <p className="text-[11px] font-bold min-[900px]:text-[14px]">Bạn cần tư vấn thêm thông tin dự án?</p>
+            <p className="text-[9px] text-white/80 min-[900px]:text-[12px]">Đội ngũ chuyên viên của NDTHICH luôn sẵn sàng hỗ trợ bạn.</p>
           </div>
         </div>
         <a
           href={getZaloHref()}
-          className="flex w-full items-center justify-center gap-2 rounded-md bg-white px-5 py-3 text-[13px] font-semibold text-[#880206] min-[900px]:w-auto"
+          className="flex w-full items-center justify-center gap-2 rounded-md bg-white px-3 py-2 text-[11px] font-semibold text-[#880206] min-[900px]:w-auto min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px]"
         >
-          Liên hệ ngay <Icon name="arrow-right" size={14} />
+          Liên hệ ngay <Icon name="arrow-right" size={13} />
         </a>
       </section>
     </div>

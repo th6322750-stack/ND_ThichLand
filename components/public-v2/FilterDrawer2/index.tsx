@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useFocusTrap } from "@/lib/useFocusTrap";
-import { Icon } from "@/components/icons";
+import { Icon2 as Icon } from "@/components/public-v2/Icon2";
 import { Filter2 } from "@/components/public-v2/Filter2";
 import { EMPTY_RENTAL_FILTERS, type RentalFilterState } from "@/lib/rentalFilters";
 import type { PropertyType } from "@/lib/types";

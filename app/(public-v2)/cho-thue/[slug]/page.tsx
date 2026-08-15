@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Breadcrumb2 } from "@/components/public-v2/Breadcrumb2";
 import { Gallery2 } from "@/components/public-v2/Gallery2";
 import { PropertyCardGrid2 } from "@/components/public-v2/PropertyCardGrid2";
-import { Icon, type IconName } from "@/components/icons";
+import { Icon2 as Icon, type IconName } from "@/components/public-v2/Icon2";
 import { formatArea, formatCurrencyVnd } from "@/lib/format";
 import { getRentalProviders } from "@/lib/server/rental/providers";
 import { buildMergedRentalData } from "@/lib/server/rental/merge";
@@ -23,33 +23,33 @@ function buildFacts(listing: PropertyListing): { icon: IconName; label: string; 
   ];
 }
 
-// Master shows Gọi ngay + Nhắn Zalo on WEB; MOBILE additionally shows a
-// third "Đặt lịch xem" action in the same row (no new Leads/Viewing
-// persistence backend for it — a non-persistent visual action, same as the
-// pre-existing PHA2 note this codebase already documents elsewhere).
-function ActionButtons({ withSchedule = false }: { withSchedule?: boolean }) {
+// Master shows only Gọi ngay + Nhắn Zalo on WEB; MOBILE additionally shows
+// a third "Đặt lịch xem" action in the SAME row (visual-only, no new
+// Leads/Viewing persistence backend — same as the pre-existing PHA2 note
+// this codebase already documents elsewhere). This renders once, with the
+// third button responsive (mobile-only) rather than being duplicated by a
+// separate mobile-only action block elsewhere on the page.
+function ActionButtons() {
   return (
-    <div className="flex gap-3">
+    <div className="flex gap-2 min-[900px]:gap-3">
       <a
         href="tel:0984602303"
-        className="flex flex-1 items-center justify-center gap-2 rounded-md bg-[#880206] px-5 py-3 text-[13px] font-semibold text-white hover:bg-[#750F0D]"
+        className="flex flex-1 items-center justify-center gap-2 rounded-md bg-[#880206] px-3 py-2 text-[12px] font-semibold text-white hover:bg-[#750F0D] min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px]"
       >
-        <Icon name="phone" size={16} className="invert" /> Gọi ngay
+        <Icon name="phone" size={14} className="text-white min-[900px]:!h-4 min-[900px]:!w-4" /> Gọi ngay
       </a>
       <a
         href={getZaloHref()}
-        className="flex flex-1 items-center justify-center gap-2 rounded-md bg-[#0068FF] px-5 py-3 text-[13px] font-semibold text-white hover:bg-[#0056D6]"
+        className="flex flex-1 items-center justify-center gap-2 rounded-md bg-[#0068FF] px-3 py-2 text-[12px] font-semibold text-white hover:bg-[#0056D6] min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px]"
       >
-        <Icon name="chat" size={16} className="invert" /> Nhắn Zalo
+        <Icon name="chat" size={14} className="text-white min-[900px]:!h-4 min-[900px]:!w-4" /> Nhắn Zalo
       </a>
-      {withSchedule && (
-        <button
-          type="button"
-          className="flex flex-1 items-center justify-center gap-2 rounded-md border border-[#880206] px-5 py-3 text-[13px] font-semibold text-[#880206] hover:bg-[#F7F6F6]"
-        >
-          <Icon name="calendar" size={16} /> Đặt lịch xem
-        </button>
-      )}
+      <button
+        type="button"
+        className="flex flex-1 items-center justify-center gap-2 rounded-md border border-[#880206] px-3 py-2 text-[12px] font-semibold text-[#880206] hover:bg-[#F7F6F6] min-[900px]:hidden"
+      >
+        <Icon name="calendar" size={14} /> Đặt lịch xem
+      </button>
     </div>
   );
 }
@@ -97,7 +97,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
   ];
 
   return (
-    <div className="mx-auto max-w-[1240px] px-4 py-6 min-[900px]:px-10 min-[900px]:py-8">
+    <div className="mx-auto max-w-[1240px] px-3 py-3 min-[900px]:px-10 min-[900px]:py-8">
       <Breadcrumb2
         withHomeIcon
         items={[{ label: "Trang chủ", href: "/" }, { label: "Cho thuê", href: "/cho-thue" }, { label: title }]}
@@ -106,44 +106,44 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
       {/* TOP: master keeps the gallery LEFT and title/price/facts/actions
           summary RIGHT as one compact band — a full-width gallery followed
           by info below (the old structure) is a FAIL. */}
-      <div className="mt-5 min-[900px]:grid min-[900px]:grid-cols-[1fr_360px] min-[900px]:items-start min-[900px]:gap-8">
+      <div className="mt-3 min-[900px]:mt-5 min-[900px]:grid min-[900px]:grid-cols-[1fr_360px] min-[900px]:items-start min-[900px]:gap-8">
         <Gallery2 images={listing.media} sideBySideOnMobile />
 
-        <div className="mt-5 min-[900px]:mt-0">
-          <h1 className="text-[22px] font-extrabold text-[#0C0D0D] min-[900px]:text-[28px]">{title}</h1>
-          <p className="mt-2 flex items-center gap-[6px] text-[13px] text-[#5F5D5D]">
-            <Icon name="pin" size={15} /> {listing.address}
+        <div className="mt-3 min-[900px]:mt-0">
+          <h1 className="text-[17px] font-extrabold text-[#0C0D0D] min-[900px]:text-[28px]">{title}</h1>
+          <p className="mt-1 flex items-center gap-1 text-[11px] text-[#5F5D5D] min-[900px]:mt-2 min-[900px]:gap-[6px] min-[900px]:text-[13px]">
+            <Icon name="pin" size={12} className="min-[900px]:!h-[15px] min-[900px]:!w-[15px]" /> {listing.address}
           </p>
-          <p className="mt-3 text-[24px] font-extrabold text-[#880206] min-[900px]:text-[26px]">
+          <p className="mt-1 text-[18px] font-extrabold text-[#880206] min-[900px]:mt-3 min-[900px]:text-[26px]">
             {formatCurrencyVnd(listing.price)}
-            <span className="text-[14px] font-medium text-[#5F5D5D]">/tháng</span>
+            <span className="text-[11px] font-medium text-[#5F5D5D] min-[900px]:text-[14px]">/tháng</span>
           </p>
 
-          <div className="mt-5 grid grid-cols-4 gap-2 min-[900px]:gap-3">
+          <div className="mt-2 grid grid-cols-4 gap-[6px] min-[900px]:mt-5 min-[900px]:gap-3">
             {facts.map((fact) => (
-              <div key={fact.label} className="rounded-lg border border-[#EDEBEA] p-2 text-center min-[900px]:p-3">
-                <Icon name={fact.icon} size={22} className="mx-auto text-[#880206]" />
-                <p className="mt-2 text-[13px] font-bold text-[#0C0D0D] min-[900px]:text-[15px]">{fact.value}</p>
-                <p className="text-[10px] text-[#5F5D5D] min-[900px]:text-[11px]">{fact.label}</p>
+              <div key={fact.label} className="min-w-0 rounded-lg border border-[#EDEBEA] p-[6px] text-center min-[900px]:p-3">
+                <Icon name={fact.icon} size={16} className="mx-auto text-[#880206] min-[900px]:!h-[22px] min-[900px]:!w-[22px]" />
+                <p className="mt-1 truncate text-[11px] font-bold text-[#0C0D0D] min-[900px]:mt-2 min-[900px]:text-[15px]">{fact.value}</p>
+                <p className="truncate text-[8px] text-[#5F5D5D] min-[900px]:text-[11px]">{fact.label}</p>
               </div>
             ))}
           </div>
 
           {listing.highlights.length > 0 && (
-            <div className="mt-6 rounded-lg border border-[#EDEBEA] p-4 min-[900px]:border-0 min-[900px]:p-0">
-              <h2 className="text-[16px] font-bold text-[#0C0D0D]">Thông tin nổi bật</h2>
-              <ul className="mt-3 flex flex-col gap-2">
+            <div className="mt-3 rounded-lg border border-[#EDEBEA] p-2 min-[900px]:mt-6 min-[900px]:border-0 min-[900px]:p-0">
+              <h2 className="text-[12px] font-bold text-[#0C0D0D] min-[900px]:text-[16px]">Thông tin nổi bật</h2>
+              <ul className="mt-1 flex flex-col gap-1 min-[900px]:mt-3 min-[900px]:gap-2">
                 {listing.highlights.map((h) => (
-                  <li key={h} className="flex items-start gap-2 text-[13px] text-[#3A3838]">
-                    <Icon name="check" size={16} className="mt-[2px] shrink-0 text-[#23825C]" /> {h}
+                  <li key={h} className="flex items-start gap-1 text-[11px] text-[#3A3838] min-[900px]:gap-2 min-[900px]:text-[13px]">
+                    <Icon name="check" size={12} className="mt-[2px] shrink-0 text-[#23825C] min-[900px]:!h-4 min-[900px]:!w-4" /> {h}
                   </li>
                 ))}
               </ul>
             </div>
           )}
 
-          <div className="mt-6">
-            <ActionButtons withSchedule />
+          <div className="mt-3 min-[900px]:mt-6">
+            <ActionButtons />
           </div>
         </div>
       </div>
@@ -155,11 +155,11 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
       <TabbedDetails detailRows={detailRows} address={listing.address} />
 
       {related.length > 0 && (
-        <section className="mt-12">
+        <section className="mt-4 min-[900px]:mt-12">
           <div className="flex items-end justify-between">
-            <h2 className="text-[18px] font-extrabold text-[#0C0D0D] min-[900px]:text-[20px]">Bất động sản cùng khu vực</h2>
+            <h2 className="text-[13px] font-extrabold text-[#0C0D0D] min-[900px]:text-[20px]">Bất động sản cùng khu vực</h2>
           </div>
-          <div className="mt-5 grid grid-cols-2 gap-3 min-[900px]:grid-cols-4 min-[900px]:gap-5">
+          <div className="mt-2 grid grid-cols-2 gap-2 min-[900px]:mt-5 min-[900px]:grid-cols-4 min-[900px]:gap-5">
             {related.map((p) => (
               <PropertyCardGrid2 key={p.slug} listing={p} />
             ))}
@@ -168,25 +168,25 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
       )}
 
       {/* Bottom consultation CTA before the footer, matching the master. */}
-      <section className="mt-12 flex flex-col items-start justify-between gap-4 rounded-lg bg-[#880206] p-6 text-white min-[900px]:flex-row min-[900px]:items-center min-[900px]:p-8">
+      <section className="mt-4 flex flex-col items-start justify-between gap-2 rounded-lg bg-[#880206] p-3 text-white min-[900px]:mt-12 min-[900px]:flex-row min-[900px]:items-center min-[900px]:gap-4 min-[900px]:p-8">
         <div>
-          <h2 className="text-[16px] font-bold min-[900px]:text-[19px]">Bạn cần tư vấn hoặc muốn xem nhà trực tiếp?</h2>
-          <p className="mt-1 text-[12px] text-white/85 min-[900px]:text-[13px]">
+          <h2 className="text-[12px] font-bold min-[900px]:text-[19px]">Bạn cần tư vấn hoặc muốn xem nhà trực tiếp?</h2>
+          <p className="mt-1 text-[10px] text-white/85 min-[900px]:text-[13px]">
             Liên hệ ngay để được hỗ trợ nhanh chóng và tận tâm!
           </p>
         </div>
-        <div className="flex w-full gap-3 min-[900px]:w-auto">
+        <div className="flex w-full gap-2 min-[900px]:w-auto min-[900px]:gap-3">
           <a
             href="tel:0984602303"
-            className="flex flex-1 items-center justify-center gap-2 rounded-md bg-white px-5 py-3 text-[13px] font-semibold text-[#880206] min-[900px]:flex-none"
+            className="flex flex-1 items-center justify-center gap-2 rounded-md bg-white px-3 py-2 text-[11px] font-semibold text-[#880206] min-[900px]:flex-none min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px]"
           >
-            <Icon name="phone" size={16} /> 0984 602 303
+            <Icon name="phone" size={13} className="min-[900px]:!h-4 min-[900px]:!w-4" /> 0984 602 303
           </a>
           <a
             href={getZaloHref()}
-            className="flex flex-1 items-center justify-center gap-2 rounded-md bg-[#0068FF] px-5 py-3 text-[13px] font-semibold text-white hover:bg-[#0056D6] min-[900px]:flex-none"
+            className="flex flex-1 items-center justify-center gap-2 rounded-md bg-[#0068FF] px-3 py-2 text-[11px] font-semibold text-white hover:bg-[#0056D6] min-[900px]:flex-none min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px]"
           >
-            <Icon name="chat" size={16} className="invert" /> Nhắn Zalo ngay
+            <Icon name="chat" size={13} className="text-white min-[900px]:!h-4 min-[900px]:!w-4" /> Nhắn Zalo ngay
           </a>
         </div>
       </section>
@@ -195,7 +195,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
 
   function TabbedDetails({ detailRows, address }: { detailRows: [string, string][]; address: string }) {
     return (
-      <section className="mt-8">
+      <section className="mt-4 min-[900px]:mt-8">
         <div className="hidden border-b border-[#EDEBEA] min-[900px]:flex min-[900px]:gap-6">
           {DETAIL_TABS.map((tab, i) => (
             <span
@@ -228,21 +228,23 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
           </div>
         </div>
 
-        {/* Mobile: compact accordion rows, matching the master. */}
-        <div className="flex flex-col gap-2 min-[900px]:hidden">
-          <details className="group rounded-lg border border-[#EDEBEA] open:pb-2" open>
-            <summary className="flex cursor-pointer list-none items-center gap-3 p-4">
-              <Icon name="edit" size={20} className="shrink-0 text-[#0068FF]" />
+        {/* Mobile: compact accordion rows, matching the master — all rows
+            start COLLAPSED (no `open` default; master shows the collapsed
+            row treatment, not an expanded details table). */}
+        <div className="flex flex-col gap-1 min-[900px]:hidden">
+          <details className="group rounded-lg border border-[#EDEBEA] open:pb-1">
+            <summary className="flex cursor-pointer list-none items-center gap-2 p-2">
+              <Icon name="edit" size={16} className="shrink-0 text-[#0068FF]" />
               <span className="min-w-0 flex-1">
-                <span className="block text-[14px] font-bold text-[#0C0D0D]">Thông tin chi tiết</span>
-                <span className="block text-[11px] text-[#5F5D5D]">Thông tin mô tả, pháp lý, chi phí liên quan</span>
+                <span className="block text-[11px] font-bold text-[#0C0D0D]">Thông tin chi tiết</span>
+                <span className="block text-[9px] text-[#5F5D5D]">Thông tin mô tả, pháp lý, chi phí liên quan</span>
               </span>
-              <Icon name="chevron-right" size={16} className="shrink-0 rotate-90 text-[#5F5D5D] group-open:-rotate-90" />
+              <Icon name="chevron-right" size={13} className="shrink-0 rotate-90 text-[#5F5D5D] group-open:-rotate-90" />
             </summary>
-            <div className="border-t border-[#EDEBEA] px-4 pt-2">
+            <div className="border-t border-[#EDEBEA] px-2 pt-1">
               <div className="divide-y divide-[#EDEBEA]">
                 {detailRows.map(([label, value]) => (
-                  <div key={label} className="flex items-center justify-between py-[10px] text-[12px]">
+                  <div key={label} className="flex items-center justify-between py-1 text-[10px]">
                     <span className="text-[#5F5D5D]">{label}</span>
                     <span className="font-bold text-[#0C0D0D]">{value}</span>
                   </div>
@@ -251,42 +253,42 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
             </div>
           </details>
 
-          <details className="group rounded-lg border border-[#EDEBEA] open:pb-2">
-            <summary className="flex cursor-pointer list-none items-center gap-3 p-4">
-              <Icon name="building" size={20} className="shrink-0 text-[#C08E47]" />
+          <details className="group rounded-lg border border-[#EDEBEA] open:pb-1">
+            <summary className="flex cursor-pointer list-none items-center gap-2 p-2">
+              <Icon name="building" size={16} className="shrink-0 text-[#C08E47]" />
               <span className="min-w-0 flex-1">
-                <span className="block text-[14px] font-bold text-[#0C0D0D]">Tiện ích</span>
-                <span className="block text-[11px] text-[#5F5D5D]">Tiện ích nội khu và ngoại khu nổi bật</span>
+                <span className="block text-[11px] font-bold text-[#0C0D0D]">Tiện ích</span>
+                <span className="block text-[9px] text-[#5F5D5D]">Tiện ích nội khu và ngoại khu nổi bật</span>
               </span>
-              <Icon name="chevron-right" size={16} className="shrink-0 rotate-90 text-[#5F5D5D] group-open:-rotate-90" />
+              <Icon name="chevron-right" size={13} className="shrink-0 rotate-90 text-[#5F5D5D] group-open:-rotate-90" />
             </summary>
-            <p className="border-t border-[#EDEBEA] px-4 pt-2 text-[12px] text-[#5F5D5D]">Thông tin đang được cập nhật.</p>
+            <p className="border-t border-[#EDEBEA] px-2 pt-1 text-[10px] text-[#5F5D5D]">Thông tin đang được cập nhật.</p>
           </details>
 
-          <details className="group rounded-lg border border-[#EDEBEA] open:pb-2">
-            <summary className="flex cursor-pointer list-none items-center gap-3 p-4">
-              <Icon name="pin" size={20} className="shrink-0 text-[#23825C]" />
+          <details className="group rounded-lg border border-[#EDEBEA] open:pb-1">
+            <summary className="flex cursor-pointer list-none items-center gap-2 p-2">
+              <Icon name="pin" size={16} className="shrink-0 text-[#23825C]" />
               <span className="min-w-0 flex-1">
-                <span className="block text-[14px] font-bold text-[#0C0D0D]">Vị trí</span>
-                <span className="block text-[11px] text-[#5F5D5D]">Vị trí trên bản đồ, kết nối và xung quanh</span>
+                <span className="block text-[11px] font-bold text-[#0C0D0D]">Vị trí</span>
+                <span className="block text-[9px] text-[#5F5D5D]">Vị trí trên bản đồ, kết nối và xung quanh</span>
               </span>
-              <Icon name="chevron-right" size={16} className="shrink-0 rotate-90 text-[#5F5D5D] group-open:-rotate-90" />
+              <Icon name="chevron-right" size={13} className="shrink-0 rotate-90 text-[#5F5D5D] group-open:-rotate-90" />
             </summary>
-            <div className="relative mt-2 aspect-[16/9] overflow-hidden rounded-lg border-t border-[#EDEBEA]">
+            <div className="relative mt-1 aspect-[16/9] overflow-hidden rounded-lg border-t border-[#EDEBEA]">
               <Image src="/assets/v2/property-detail/map.png" alt={`Bản đồ ${address}`} fill className="object-cover" unoptimized />
             </div>
           </details>
 
-          <details className="group rounded-lg border border-[#EDEBEA] open:pb-2">
-            <summary className="flex cursor-pointer list-none items-center gap-3 p-4">
-              <Icon name="youtube" size={20} className="shrink-0 text-[#880206]" />
+          <details className="group rounded-lg border border-[#EDEBEA] open:pb-1">
+            <summary className="flex cursor-pointer list-none items-center gap-2 p-2">
+              <Icon name="youtube" size={16} className="shrink-0 text-[#880206]" />
               <span className="min-w-0 flex-1">
-                <span className="block text-[14px] font-bold text-[#0C0D0D]">Video &amp; Hình ảnh</span>
-                <span className="block text-[11px] text-[#5F5D5D]">Video thực tế và bộ sưu tập hình ảnh</span>
+                <span className="block text-[11px] font-bold text-[#0C0D0D]">Video &amp; Hình ảnh</span>
+                <span className="block text-[9px] text-[#5F5D5D]">Video thực tế và bộ sưu tập hình ảnh</span>
               </span>
-              <Icon name="chevron-right" size={16} className="shrink-0 rotate-90 text-[#5F5D5D] group-open:-rotate-90" />
+              <Icon name="chevron-right" size={13} className="shrink-0 rotate-90 text-[#5F5D5D] group-open:-rotate-90" />
             </summary>
-            <p className="border-t border-[#EDEBEA] px-4 pt-2 text-[12px] text-[#5F5D5D]">Thông tin đang được cập nhật.</p>
+            <p className="border-t border-[#EDEBEA] px-2 pt-1 text-[10px] text-[#5F5D5D]">Thông tin đang được cập nhật.</p>
           </details>
         </div>
       </section>

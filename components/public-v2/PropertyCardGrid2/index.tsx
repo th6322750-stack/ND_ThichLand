@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Icon } from "@/components/icons";
+import { Icon2 as Icon } from "@/components/public-v2/Icon2";
 import { formatCurrencyVnd } from "@/lib/format";
 import type { PropertyListing } from "@/lib/types";
 
@@ -20,21 +20,21 @@ export function PropertyCardGrid2({ listing }: { listing: PropertyListing }) {
       href={`/cho-thue/${listing.slug}`}
       className="block overflow-hidden rounded-lg border border-[#EDEBEA] bg-white transition-shadow hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
     >
-      <div className="relative aspect-[4/3]">
+      <div className="relative aspect-[3/2] min-[900px]:aspect-[199/115]">
         <Image src={listing.media[0]} alt={listing.roomNo} fill className="object-cover" unoptimized />
         <span className="absolute left-[10px] top-[10px] rounded-full bg-black/55 px-[10px] py-1 text-[11px] font-medium text-white">
           {listing.propertyType}
         </span>
       </div>
-      <div className="p-3 min-[900px]:p-4">
-        <h3 className="line-clamp-1 text-[14px] font-bold text-[#0C0D0D] min-[900px]:text-[15px]">
+      <div className="p-1 min-[900px]:p-2">
+        <h3 className="line-clamp-1 text-[10px] font-bold text-[#0C0D0D] min-[900px]:text-[13px]">
           {listing.roomNo}
         </h3>
-        <p className="mt-[6px] flex items-center gap-1 text-[12px] text-[#5F5D5D]">
-          <Icon name="pin" size={13} /> {listing.location}
+        <p className="mt-[2px] line-clamp-1 flex items-center gap-1 text-[8px] text-[#5F5D5D] min-[900px]:mt-1 min-[900px]:text-[11px]">
+          <Icon name="pin" size={8} className="shrink-0 min-[900px]:!h-[11px] min-[900px]:!w-[11px]" /> {listing.location}
         </p>
-        <p className="mt-[6px] text-[12px] text-[#5F5D5D]">{specs.join(" • ")}</p>
-        <p className="mt-2 text-[15px] font-bold text-[#880206] min-[900px]:text-[16px]">
+        <p className="mt-[2px] line-clamp-1 text-[8px] text-[#5F5D5D] min-[900px]:mt-1 min-[900px]:text-[11px]">{specs.join(" • ")}</p>
+        <p className="mt-[2px] line-clamp-1 text-[10px] font-bold text-[#880206] min-[900px]:mt-1 min-[900px]:text-[14px]">
           {formatCurrencyVnd(listing.price)}/tháng
         </p>
       </div>

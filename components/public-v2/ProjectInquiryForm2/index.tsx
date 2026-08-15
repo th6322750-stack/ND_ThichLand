@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { Icon } from "@/components/icons";
+import { Icon2 as Icon } from "@/components/public-v2/Icon2";
 import { submitContactAction } from "@/app/actions/contact";
 
 interface ProjectInquiryForm2Props {
@@ -64,35 +64,40 @@ export function ProjectInquiryForm2({ projectName, variant = "panel" }: ProjectI
   }
 
   const inputClass = isPanel
-    ? "w-full rounded-md border border-[#E4E1E0] px-[14px] py-3 text-[13px] text-[#0C0D0D] placeholder:text-[#A6A6A6]"
-    : "w-full rounded-md border border-white/30 bg-white/10 px-[14px] py-3 text-[13px] text-white placeholder:text-white/70";
+    ? "w-full min-w-0 rounded-md border border-[#E4E1E0] px-2 py-2 text-[11px] text-[#0C0D0D] placeholder:text-[#A6A6A6] min-[900px]:px-[14px] min-[900px]:py-3 min-[900px]:text-[13px]"
+    : "w-full min-w-0 rounded-md border border-white/30 bg-white/10 px-2 py-2 text-[11px] text-white placeholder:text-white/70 min-[900px]:px-[14px] min-[900px]:py-3 min-[900px]:text-[13px]";
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-3">
-      <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Họ và tên*" className={inputClass} />
-      <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Số điện thoại*" className={inputClass} />
+    // Master's mobile form pairs Họ và tên / Số điện thoại on ONE row (not
+    // each field as its own full-width block), with a short 2-row textarea
+    // — this is the compact multi-column geometry the master shows.
+    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-2 min-[900px]:gap-3">
+      <div className="grid grid-cols-2 gap-2">
+        <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Họ và tên*" className={inputClass} />
+        <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Số điện thoại*" className={inputClass} />
+      </div>
       <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" type="email" className={inputClass} />
       <textarea
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         placeholder="Nội dung"
-        rows={3}
+        rows={2}
         className={inputClass}
       />
       {error && (
-        <p role="alert" className={`text-[12px] ${isPanel ? "text-[#C43D45]" : "text-white"}`}>
+        <p role="alert" className={`text-[10px] min-[900px]:text-[12px] ${isPanel ? "text-[#C43D45]" : "text-white"}`}>
           {error}
         </p>
       )}
       <button
         type="submit"
         disabled={submitting}
-        className={`mt-1 flex items-center justify-center gap-2 rounded-md px-5 py-3 text-[13px] font-semibold uppercase disabled:opacity-60 ${
+        className={`mt-1 flex items-center justify-center gap-2 rounded-md px-3 py-2 text-[11px] font-semibold uppercase disabled:opacity-60 min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px] ${
           isPanel ? "bg-[#880206] text-white hover:bg-[#750F0D]" : "bg-white text-[#880206]"
         }`}
       >
         {submitting ? "Đang gửi..." : isPanel ? "Gửi thông tin" : "Nhận tư vấn miễn phí"}
-        <Icon name="arrow-right" size={14} className={isPanel ? "invert" : ""} />
+        <Icon name="arrow-right" size={13} className={isPanel ? "text-white" : ""} />
       </button>
     </form>
   );

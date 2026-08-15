@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useFocusTrap } from "@/lib/useFocusTrap";
-import { Icon } from "@/components/icons";
+import { Icon2 as Icon } from "@/components/public-v2/Icon2";
 
 const NAV = [
   { label: "Trang chủ", href: "/" },
@@ -17,22 +17,42 @@ const NAV = [
 ];
 
 const HOTLINE_LABEL = "0984 602 303 - 0989 811 396";
-// Mobile masters show a single-number hotline pill (not both numbers, which
-// don't fit a compact pill) — the 5 mobile master exports disagree with each
-// other on the exact phone number shown (each screenshot has a different
-// mock number) and on hamburger border/pill-vs-icon treatment, so this
-// reproduces the majority pattern (pill+text, borderless hamburger, seen in
-// 3 of 5 masters) using the one real hotline number rather than fabricating
-// a different number per route.
+// Mobile masters show a single-number hotline pill — each of the 5 mobile
+// master exports uses a different mock number, so this uses the one real
+// hotline number everywhere rather than fabricating a route-specific one.
 const HOTLINE_MOBILE_LABEL = "0984 602 303";
 const HOTLINE_TEL = "0984602303";
+
+type HeaderVariant = "home" | "cho-thue" | "cho-thue-detail" | "du-an" | "du-an-detail";
+
+// The 5 mobile masters genuinely disagree with each other on hotline
+// button style (icon-only square vs icon+text pill) and hamburger style
+// (bordered square vs plain icon) — round 2 wrongly "normalized" this to
+// one majority pattern. Each route now reproduces its OWN master exactly
+// instead.
+const HEADER_VARIANTS: Record<HeaderVariant, { tagline: boolean; hotlineTextMobile: boolean; hamburgerBorderMobile: boolean }> = {
+  home: { tagline: false, hotlineTextMobile: false, hamburgerBorderMobile: true },
+  "cho-thue": { tagline: false, hotlineTextMobile: false, hamburgerBorderMobile: true },
+  "cho-thue-detail": { tagline: true, hotlineTextMobile: true, hamburgerBorderMobile: false },
+  "du-an": { tagline: false, hotlineTextMobile: true, hamburgerBorderMobile: false },
+  "du-an-detail": { tagline: false, hotlineTextMobile: true, hamburgerBorderMobile: true },
+};
 
 function isActive(pathname: string, href: string): boolean {
   return href === "/" ? pathname === "/" : pathname.startsWith(href);
 }
 
+function headerVariantFor(pathname: string): HeaderVariant {
+  if (pathname.startsWith("/cho-thue/")) return "cho-thue-detail";
+  if (pathname.startsWith("/cho-thue")) return "cho-thue";
+  if (pathname.startsWith("/du-an/")) return "du-an-detail";
+  if (pathname.startsWith("/du-an")) return "du-an";
+  return "home";
+}
+
 export function Header2() {
   const pathname = usePathname() ?? "";
+  const variant = HEADER_VARIANTS[headerVariantFor(pathname)];
   const [mobileOpen, setMobileOpen] = useState(false);
   const drawerRef = useFocusTrap(mobileOpen, () => setMobileOpen(false));
 
@@ -44,7 +64,7 @@ export function Header2() {
   }, [mobileOpen]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#EDEBEA] bg-white">
+    <header className="sticky top-0 z-50 border-b border-[#EDEBEA] bg-white" data-qa-region="header">
       <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-4 px-4 py-3 min-[900px]:px-10">
         <Link href="/" className="flex shrink-0 items-center gap-2">
           <Image
@@ -55,6 +75,13 @@ export function Header2() {
             className="h-[36px] w-auto min-[900px]:h-8"
             unoptimized
           />
+          {variant.tagline && (
+            <span className="whitespace-nowrap text-[8px] leading-tight text-[#5F5D5D] min-[900px]:hidden">
+              Không gian sống &amp;
+              <br />
+              Kinh doanh lý tưởng
+            </span>
+          )}
           <span className="hidden whitespace-nowrap text-[9px] leading-tight text-[#5F5D5D] min-[900px]:block">
             CÔNG TY TNHH MTV
             <br />
@@ -87,19 +114,31 @@ export function Header2() {
             href={`tel:${HOTLINE_TEL}`}
             className="hidden shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-[#880206] px-4 py-2 text-[11px] font-semibold text-white hover:bg-[#750F0D] min-[900px]:flex"
           >
-            <Icon name="phone" size={14} className="invert" /> {HOTLINE_LABEL}
+            <Icon name="phone" size={14} className="text-white" /> {HOTLINE_LABEL}
           </a>
-          <a
-            href={`tel:${HOTLINE_TEL}`}
-            className="flex items-center gap-[6px] rounded-full bg-[#880206] px-[14px] py-2 text-[12px] font-semibold text-white min-[900px]:hidden"
-          >
-            <Icon name="phone" size={14} className="invert" /> {HOTLINE_MOBILE_LABEL}
-          </a>
+          {variant.hotlineTextMobile ? (
+            <a
+              href={`tel:${HOTLINE_TEL}`}
+              className="flex items-center gap-[6px] rounded-full bg-[#880206] px-[14px] py-2 text-[12px] font-semibold text-white min-[900px]:hidden"
+            >
+              <Icon name="phone" size={14} className="text-white" /> {HOTLINE_MOBILE_LABEL}
+            </a>
+          ) : (
+            <a
+              href={`tel:${HOTLINE_TEL}`}
+              aria-label={`Gọi ${HOTLINE_MOBILE_LABEL}`}
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#880206] text-white min-[900px]:hidden"
+            >
+              <Icon name="phone" size={16} className="text-white" />
+            </a>
+          )}
           <button
             type="button"
             onClick={() => setMobileOpen(true)}
             aria-label="Mở menu"
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md min-[900px]:hidden"
+            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-md min-[900px]:hidden ${
+              variant.hamburgerBorderMobile ? "border border-[#E4E1E0]" : ""
+            }`}
           >
             <Icon name="menu" size={20} />
           </button>
@@ -118,7 +157,7 @@ export function Header2() {
             role="dialog"
             aria-modal="true"
             aria-label="Menu điều hướng"
-            className="fixed inset-y-0 right-0 z-drawer-panel w-72 bg-white p-6 shadow-xl"
+            className="fixed inset-y-0 right-0 z-drawer-panel w-[288px] bg-white p-6 shadow-xl"
           >
             <button
               type="button"

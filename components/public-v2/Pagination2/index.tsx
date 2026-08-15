@@ -1,6 +1,6 @@
 "use client";
 
-import { Icon } from "@/components/icons";
+import { Icon2 as Icon } from "@/components/public-v2/Icon2";
 
 interface Pagination2Props {
   page: number;

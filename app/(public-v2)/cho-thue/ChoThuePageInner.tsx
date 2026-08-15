@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import { Icon } from "@/components/icons";
+import { Icon2 as Icon } from "@/components/public-v2/Icon2";
 import { Breadcrumb2 } from "@/components/public-v2/Breadcrumb2";
 import { Filter2 } from "@/components/public-v2/Filter2";
 import { FilterDrawer2 } from "@/components/public-v2/FilterDrawer2";
@@ -54,33 +54,33 @@ export function ChoThuePageInner({ properties }: { properties: PropertyListing[]
         </div>
       </section>
 
-      <div className="mx-auto max-w-[1240px] px-4 py-6 min-[900px]:px-10">
+      <div className="mx-auto max-w-[1240px] px-3 py-3 min-[900px]:px-10 min-[900px]:py-6">
         <Breadcrumb2 items={[{ label: "Trang chủ", href: "/" }, { label: "Cho thuê" }]} className="hidden min-[900px]:flex" />
 
         {/* Mobile title/controls block — replaces the WEB hero+breadcrumb entirely on mobile. */}
         <div className="min-[900px]:hidden">
-          <h1 className="text-[18px] font-extrabold text-[#0C0D0D]">Cho thuê bất động sản</h1>
-          <div className="mt-3 grid grid-cols-2 gap-3">
+          <h1 className="text-[16px] font-extrabold text-[#0C0D0D]">Cho thuê bất động sản</h1>
+          <div className="mt-2 grid grid-cols-2 gap-2">
             <button
               type="button"
               onClick={() => setDrawerOpen(true)}
-              className="flex items-center justify-center gap-2 rounded-md border border-[#E4E1E0] px-4 py-3 text-[13px] font-semibold text-[#0C0D0D]"
+              className="flex items-center justify-center gap-2 rounded-md border border-[#E4E1E0] px-4 py-2 text-[12px] font-semibold text-[#0C0D0D]"
             >
-              <Icon name="filter" size={16} /> Lọc
+              <Icon name="filter" size={14} /> Lọc
             </button>
             <button
               type="button"
-              className="flex items-center justify-center gap-2 rounded-md border border-[#E4E1E0] px-4 py-3 text-[13px] font-semibold text-[#0C0D0D]"
+              className="flex items-center justify-center gap-2 rounded-md border border-[#E4E1E0] px-4 py-2 text-[12px] font-semibold text-[#0C0D0D]"
             >
-              <Icon name="sort" size={16} /> Sắp xếp
+              <Icon name="sort" size={14} /> Sắp xếp
             </button>
           </div>
         </div>
-        <p className="mt-3 text-[14px] font-bold text-[#0C0D0D] min-[900px]:hidden">{filtered.length} kết quả</p>
+        <p className="mt-2 text-[12px] font-bold text-[#0C0D0D] min-[900px]:hidden">{filtered.length} kết quả</p>
 
         {/* Sidebar targets ~25% of the content column (master), not a fixed
             280px rail — 1fr/3fr keeps that ratio at any content width. */}
-        <div className="mt-4 grid grid-cols-1 gap-8 min-[900px]:mt-6 min-[900px]:grid-cols-[1fr_3fr]">
+        <div className="mt-2 grid grid-cols-1 gap-8 min-[900px]:mt-6 min-[900px]:grid-cols-[1fr_3fr]">
           {/* Desktop sidebar */}
           <aside className="hidden min-[900px]:block">
             <div className="rounded-lg border border-[#EDEBEA] bg-white p-5">
@@ -117,7 +117,7 @@ export function ChoThuePageInner({ properties }: { properties: PropertyListing[]
                 />
               </div>
             ) : (
-              <div className="mt-4 flex flex-col gap-4 min-[900px]:mt-0 min-[900px]:gap-5">
+              <div className="mt-2 flex flex-col gap-2 min-[900px]:mt-0 min-[900px]:gap-5">
                 {visible.map((listing) => (
                   <PropertyListRow2 key={listing.slug} listing={listing} />
                 ))}

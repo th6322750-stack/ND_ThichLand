@@ -1,4 +1,4 @@
-import { Icon, type IconName } from "@/components/icons";
+import { Icon2 as Icon, type IconName } from "@/components/public-v2/Icon2";
 
 const METRICS: { icon: IconName; value: string; label: string }[] = [
   { icon: "person", value: "500+", label: "Bất động sản cho thuê" },

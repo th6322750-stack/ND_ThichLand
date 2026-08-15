@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Icon } from "@/components/icons";
+import { Icon2 as Icon } from "@/components/public-v2/Icon2";
 
 const HOTLINE_LABEL = "0984 602 303 - 0989 811 396";
 const HOTLINE_TEL = "0984602303";
@@ -38,10 +38,10 @@ export function Footer2() {
   const compact = pathname === "/du-an";
 
   return (
-    <footer className="bg-[#1C1F1E] text-white">
-      <div className="mx-auto max-w-[1240px] px-3 py-4 min-[900px]:px-10 min-[900px]:py-12">
+    <footer className="bg-[#1C1F1E] text-white" data-qa-region="footer">
+      <div className="mx-auto max-w-[1240px] px-3 py-2 min-[900px]:px-10 min-[900px]:py-6">
         <div
-          className={`grid gap-2 min-[900px]:grid-cols-[1.4fr_1fr_1fr_1.2fr] min-[900px]:gap-10 ${compact ? "grid-cols-2" : "grid-cols-3"}`}
+          className={`grid gap-2 min-[900px]:grid-cols-[1.4fr_1fr_1fr_1.2fr] min-[900px]:gap-6 ${compact ? "grid-cols-2" : "grid-cols-3"}`}
         >
           <div>
             <Image
@@ -60,7 +60,7 @@ export function Footer2() {
                 ? "Chuyên cho thuê mặt bằng & kinh doanh bất động sản."
                 : "Chuyên cho thuê nhà, căn hộ, mặt bằng kinh doanh tại các vị trí đắc địa. Pháp lý rõ ràng, hỗ trợ tận tâm."}
             </p>
-            <div className="mt-[6px] flex items-center gap-1 min-[900px]:mt-4 min-[900px]:gap-3">
+            <div className="mt-[6px] flex items-center gap-1 min-[900px]:mt-2 min-[900px]:gap-1">
               {SOCIALS.map((s) => (
                 <a
                   key={s.name}
@@ -68,7 +68,7 @@ export function Footer2() {
                   aria-label={s.label}
                   className="flex h-4 w-4 items-center justify-center rounded-full bg-white/10 text-white hover:bg-[#880206] min-[900px]:h-8 min-[900px]:w-8"
                 >
-                  <Icon name={s.name} size={8} className="invert min-[900px]:!h-4 min-[900px]:!w-4" />
+                  <Icon name={s.name} size={8} className="text-white min-[900px]:!h-4 min-[900px]:!w-4" />
                 </a>
               ))}
             </div>
@@ -76,7 +76,7 @@ export function Footer2() {
 
           <div className={compact ? "hidden min-[900px]:block" : ""}>
             <h3 className="text-[7px] font-bold uppercase tracking-wide text-white min-[900px]:text-[13px]">Quick Links</h3>
-            <ul className="mt-[6px] flex flex-col gap-1 min-[900px]:mt-4 min-[900px]:gap-3">
+            <ul className="mt-[6px] flex flex-col gap-1 min-[900px]:mt-2 min-[900px]:gap-1">
               {QUICK_LINKS.map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className="text-[6px] text-[#A6A6A6] hover:text-white min-[900px]:text-[13px]">
@@ -89,7 +89,7 @@ export function Footer2() {
 
           <div className="hidden min-[900px]:block">
             <h3 className="text-[13px] font-bold uppercase tracking-wide text-white">Loại hình</h3>
-            <ul className="mt-4 flex flex-col gap-3">
+            <ul className="mt-2 flex flex-col gap-1">
               {PROPERTY_TYPES.map((t) => (
                 <li key={t}>
                   <Link href="/cho-thue" className="text-[13px] text-[#A6A6A6] hover:text-white">
@@ -105,25 +105,25 @@ export function Footer2() {
               <span className={compact ? "min-[900px]:hidden" : "hidden"}>Liên hệ</span>
               <span className={compact ? "hidden min-[900px]:inline" : "inline"}>Thông tin liên hệ</span>
             </h3>
-            <ul className="mt-[6px] flex flex-col gap-1 text-[6px] text-[#A6A6A6] min-[900px]:mt-4 min-[900px]:gap-3 min-[900px]:text-[13px]">
+            <ul className="mt-[6px] flex flex-col gap-1 text-[6px] text-[#A6A6A6] min-[900px]:mt-2 min-[900px]:gap-1 min-[900px]:text-[13px]">
               <li className="flex items-start gap-1 min-[900px]:gap-2">
-                <Icon name="pin" size={16} className="mt-[2px] hidden shrink-0 invert min-[900px]:block" />
+                <Icon name="pin" size={16} className="mt-[2px] hidden shrink-0 text-white min-[900px]:block" />
                 <span>120 Nguyễn Xí, Phường 26, Quận Bình Thạnh, TP. HCM</span>
               </li>
               <li className="flex items-center gap-1 min-[900px]:gap-2">
-                <Icon name="phone" size={16} className="hidden shrink-0 invert min-[900px]:block" />
+                <Icon name="phone" size={16} className="hidden shrink-0 text-white min-[900px]:block" />
                 <a href={`tel:${HOTLINE_TEL}`} className="hover:text-white">
                   {HOTLINE_LABEL}
                 </a>
               </li>
               <li className="flex items-center gap-1 min-[900px]:gap-2">
-                <Icon name="chat" size={16} className="hidden shrink-0 invert min-[900px]:block" />
+                <Icon name="chat" size={16} className="hidden shrink-0 text-white min-[900px]:block" />
                 <a href="mailto:info@ndthich.com.vn" className="hover:text-white">
                   info@ndthich.com.vn
                 </a>
               </li>
               <li className="flex items-start gap-1 min-[900px]:gap-2">
-                <Icon name="clock" size={16} className="mt-[2px] hidden shrink-0 invert min-[900px]:block" />
+                <Icon name="clock" size={16} className="mt-[2px] hidden shrink-0 text-white min-[900px]:block" />
                 <span>
                   Thứ 2 - Thứ 7: 8:00 - 18:00
                   <br />

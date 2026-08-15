@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Icon, type IconName } from "@/components/icons";
+import { Icon2 as Icon, type IconName } from "@/components/public-v2/Icon2";
 
 const TABS: { label: string; href: string; icon: IconName }[] = [
   { label: "Trang chủ", href: "/", icon: "home" },
