@@ -37,10 +37,22 @@ export function ChoThuePageInner({ properties }: { properties: PropertyListing[]
           mobile: 02_ChoThue_MOBILE.png has no hero photo or breadcrumb at
           all — just the title/Lọc/Sắp xếp/count block rendered below. */}
       <section className="relative hidden overflow-hidden bg-gradient-to-br from-white via-[#FBF7F5] to-[#F2E5E6] min-[900px]:block">
+        {/*
+          ASSET_BLOCKED_NEEDS_CHATGPT
+          Route: /cho-thue WEB
+          Slot: hero image
+          The master's hero photo is a low-rise modern townhouse building
+          (daytime); no frozen asset in .webby/client-approved-v2/assets
+          (properties or projects categories) matches it. Per
+          missingAssetPolicy=VISUAL_BLOCKED_NEEDS_CHATGPT /
+          noClaudeImageSearch / noClaudeAssetGeneration, this keeps the
+          nearest approved asset (office-abc.png) as a geometry stand-in
+          rather than substituting a guessed or generated image.
+        */}
         <div className="absolute inset-y-0 right-0 w-[42%]">
           <Image src="/assets/v2/properties/office-abc.png" alt="" fill className="object-cover" unoptimized />
         </div>
-        <div className="relative mx-auto max-w-[1240px] px-10 py-10">
+        <div className="relative mx-auto max-w-[1240px] px-8 py-[28px]">
           <div className="w-[55%]">
             <h1 className="text-[32px] font-extrabold leading-tight text-[#0C0D0D]">
               Cho thuê

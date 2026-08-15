@@ -18,7 +18,6 @@ export function ProjectInquiryForm2({ projectName, variant = "panel" }: ProjectI
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string>();
@@ -37,7 +36,7 @@ export function ProjectInquiryForm2({ projectName, variant = "panel" }: ProjectI
         phone: phone.trim(),
         need: `Tư vấn dự án: ${projectName}`,
         area: "",
-        message: [email.trim() && `Email: ${email.trim()}`, message.trim()].filter(Boolean).join(" — "),
+        message: email.trim() ? `Email: ${email.trim()}` : "",
         website: "",
       });
       if (!result.ok) {
@@ -68,22 +67,15 @@ export function ProjectInquiryForm2({ projectName, variant = "panel" }: ProjectI
     : "w-full min-w-0 rounded-md border border-white/30 bg-white/10 px-2 py-2 text-[11px] text-white placeholder:text-white/70 min-[900px]:px-[14px] min-[900px]:py-3 min-[900px]:text-[13px]";
 
   return (
-    // Master's mobile form pairs Họ và tên / Số điện thoại on ONE row (not
-    // each field as its own full-width block), with a short 2-row textarea
-    // — this is the compact multi-column geometry the master shows.
+    // Master's MOBILE form pairs Họ và tên / Số điện thoại on ONE row (not
+    // each field as its own full-width block); the WEB master's panel is a
+    // narrow single column instead, so each field stacks full-width there.
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-2 min-[900px]:gap-3">
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-2 min-[900px]:grid-cols-1">
         <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Họ và tên*" className={inputClass} />
         <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Số điện thoại*" className={inputClass} />
       </div>
       <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" type="email" className={inputClass} />
-      <textarea
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder="Nội dung"
-        rows={2}
-        className={inputClass}
-      />
       {error && (
         <p role="alert" className={`text-[10px] min-[900px]:text-[12px] ${isPanel ? "text-[#C43D45]" : "text-white"}`}>
           {error}

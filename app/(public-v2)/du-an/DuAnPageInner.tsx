@@ -117,18 +117,22 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
               location={project.location}
               image={project.cardMedia}
               mobileAspect="5/2"
+              desktopAspect="4/3"
               showButton
             />
           </div>
         ))}
       </div>
 
-      {/* Reception image LEFT / text+features RIGHT, matching master. */}
+      {/* Reception image LEFT / text+features RIGHT on WEB, matching
+          master — but the MOBILE master has NO reception photo in this
+          section at all (round-3 wrongly forced it in on every viewport;
+          round-4 flagged that as a regression), so the image is WEB-only. */}
       <section className="mt-4 rounded-lg border border-[#EDEBEA] bg-white p-3 min-[900px]:mt-10 min-[900px]:flex min-[900px]:items-center min-[900px]:gap-8 min-[900px]:p-8">
-        <div className="relative aspect-[16/10] overflow-hidden rounded-md min-[900px]:aspect-auto min-[900px]:h-[220px] min-[900px]:w-[340px] min-[900px]:shrink-0 min-[900px]:rounded-lg">
+        <div className="relative hidden aspect-[16/10] overflow-hidden rounded-md min-[900px]:block min-[900px]:aspect-auto min-[900px]:h-[220px] min-[900px]:w-[340px] min-[900px]:shrink-0 min-[900px]:rounded-lg">
           <Image src="/assets/v2/home/about-reception.png" alt="Sảnh đón NDTHICH" fill className="object-cover" unoptimized />
         </div>
-        <div className="mt-2 min-[900px]:mt-0">
+        <div className="mt-0 min-[900px]:mt-0">
           <p className="text-[9px] font-bold uppercase tracking-wide text-[#880206] min-[900px]:text-[12px]">Về Nguyễn Đắc Thích</p>
           <h2 className="mt-1 text-[13px] font-extrabold leading-snug text-[#0C0D0D] min-[900px]:mt-2 min-[900px]:text-[24px]">
             Kiến tạo không gian sống

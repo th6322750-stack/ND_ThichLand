@@ -73,12 +73,12 @@ export function Gallery2({ images, sideBySideOnMobile = false }: Gallery2Props) 
           <button
             type="button"
             aria-label={`Xem ảnh 1 / ${images.length}`}
-            className="relative aspect-[4/3] overflow-hidden rounded-lg"
+            className="relative aspect-[3/2] overflow-hidden rounded-lg"
             onClick={() => setActiveIndex(0)}
           >
             <Image src={images[0]} alt="" fill className="object-cover" unoptimized priority />
           </button>
-          <div className="grid grid-rows-3 gap-2">{thumbs.map((src, i) => renderThumb(src, i, true))}</div>
+          <div className="grid grid-rows-3 gap-1">{thumbs.map((src, i) => renderThumb(src, i, true))}</div>
         </div>
       )}
 

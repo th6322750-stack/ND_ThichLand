@@ -30,12 +30,18 @@ type HeaderVariant = "home" | "cho-thue" | "cho-thue-detail" | "du-an" | "du-an-
 // (bordered square vs plain icon) — round 2 wrongly "normalized" this to
 // one majority pattern. Each route now reproduces its OWN master exactly
 // instead.
-const HEADER_VARIANTS: Record<HeaderVariant, { tagline: boolean; hotlineTextMobile: boolean; hamburgerBorderMobile: boolean }> = {
-  home: { tagline: false, hotlineTextMobile: false, hamburgerBorderMobile: true },
-  "cho-thue": { tagline: false, hotlineTextMobile: false, hamburgerBorderMobile: true },
-  "cho-thue-detail": { tagline: true, hotlineTextMobile: true, hamburgerBorderMobile: false },
-  "du-an": { tagline: false, hotlineTextMobile: true, hamburgerBorderMobile: false },
-  "du-an-detail": { tagline: false, hotlineTextMobile: true, hamburgerBorderMobile: true },
+// mobilePadding: measured per-route from the mobile masters — Property
+// Detail/Project Detail show a visibly taller header band (~78px) than
+// Home/Cho Thue/Project List (~64px).
+const HEADER_VARIANTS: Record<
+  HeaderVariant,
+  { tagline: boolean; hotlineTextMobile: boolean; hamburgerBorderMobile: boolean; mobilePadding: string }
+> = {
+  home: { tagline: false, hotlineTextMobile: false, hamburgerBorderMobile: true, mobilePadding: "py-2" },
+  "cho-thue": { tagline: false, hotlineTextMobile: false, hamburgerBorderMobile: true, mobilePadding: "py-2" },
+  "cho-thue-detail": { tagline: true, hotlineTextMobile: true, hamburgerBorderMobile: false, mobilePadding: "py-2" },
+  "du-an": { tagline: false, hotlineTextMobile: true, hamburgerBorderMobile: false, mobilePadding: "py-2" },
+  "du-an-detail": { tagline: false, hotlineTextMobile: true, hamburgerBorderMobile: true, mobilePadding: "py-2" },
 };
 
 function isActive(pathname: string, href: string): boolean {
@@ -65,14 +71,14 @@ export function Header2() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#EDEBEA] bg-white" data-qa-region="header">
-      <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-4 px-4 py-3 min-[900px]:px-10">
+      <div className={`mx-auto flex max-w-[1240px] items-center justify-between gap-4 px-4 ${variant.mobilePadding} min-[900px]:px-10 min-[900px]:py-4`}>
         <Link href="/" className="flex shrink-0 items-center gap-2">
           <Image
             src="/assets/v2/branding/ndthich-logo-reference.png"
             alt="NDTHICH"
             width={168}
             height={128}
-            className="h-[36px] w-auto min-[900px]:h-8"
+            className="h-[30px] w-auto min-[900px]:h-8"
             unoptimized
           />
           {variant.tagline && (
@@ -119,28 +125,28 @@ export function Header2() {
           {variant.hotlineTextMobile ? (
             <a
               href={`tel:${HOTLINE_TEL}`}
-              className="flex items-center gap-[6px] rounded-full bg-[#880206] px-[14px] py-2 text-[12px] font-semibold text-white min-[900px]:hidden"
+              className="flex items-center gap-[6px] rounded-full bg-[#880206] px-3 py-[6px] text-[11px] font-semibold text-white min-[900px]:hidden"
             >
-              <Icon name="phone" size={14} className="text-white" /> {HOTLINE_MOBILE_LABEL}
+              <Icon name="phone" size={12} className="text-white" /> {HOTLINE_MOBILE_LABEL}
             </a>
           ) : (
             <a
               href={`tel:${HOTLINE_TEL}`}
               aria-label={`Gọi ${HOTLINE_MOBILE_LABEL}`}
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#880206] text-white min-[900px]:hidden"
+              className="flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-lg bg-[#880206] text-white min-[900px]:hidden"
             >
-              <Icon name="phone" size={16} className="text-white" />
+              <Icon name="phone" size={15} className="text-white" />
             </a>
           )}
           <button
             type="button"
             onClick={() => setMobileOpen(true)}
             aria-label="Mở menu"
-            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-md min-[900px]:hidden ${
+            className={`flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-md min-[900px]:hidden ${
               variant.hamburgerBorderMobile ? "border border-[#E4E1E0]" : ""
             }`}
           >
-            <Icon name="menu" size={20} />
+            <Icon name="menu" size={18} />
           </button>
         </div>
       </div>

@@ -18,27 +18,27 @@ export function PropertyListRow2({ listing }: { listing: PropertyListing }) {
   ].filter(Boolean);
 
   return (
-    <div className="overflow-hidden rounded-lg border border-[#EDEBEA] bg-white min-[900px]:flex min-[900px]:gap-5 min-[900px]:overflow-visible min-[900px]:border-0 min-[900px]:border-b min-[900px]:border-[#EDEBEA] min-[900px]:pb-5">
+    <div className="overflow-hidden rounded-lg border border-[#EDEBEA] bg-white min-[900px]:flex min-[900px]:gap-4 min-[900px]:overflow-visible min-[900px]:border-0 min-[900px]:border-b min-[900px]:border-[#EDEBEA] min-[900px]:pb-3">
       {/* Master mobile row is a short, wide banner photo (~684x200, ~3.4:1)
           — the old 16:10 (near-square) crop was the main reason only ~2.5
           cards fit the canonical viewport where master shows ~5. */}
-      <div className="relative aspect-[16/5] min-[900px]:aspect-[5/3] min-[900px]:w-[278px] min-[900px]:shrink-0 min-[900px]:overflow-hidden min-[900px]:rounded-lg">
+      <div className="relative aspect-[16/4.2] min-[900px]:aspect-[3/2] min-[900px]:w-[220px] min-[900px]:shrink-0 min-[900px]:overflow-hidden min-[900px]:rounded-lg">
         <Image src={listing.media[0]} alt={listing.roomNo} fill className="object-cover" unoptimized />
-        <span className="absolute bottom-[10px] left-[10px] rounded-full bg-black/55 px-[10px] py-1 text-[11px] font-medium text-white min-[900px]:hidden">
+        <span className="absolute bottom-1 left-1 rounded-full bg-black/55 px-2 py-[2px] text-[9px] font-medium text-white min-[900px]:hidden">
           {listing.propertyType}
         </span>
         <button
           type="button"
           aria-label="Yêu thích"
-          className="absolute right-[10px] top-[10px] flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#880206] min-[900px]:hidden"
+          className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-white text-[#880206] min-[900px]:hidden"
         >
-          <Icon name="heart" size={16} />
+          <Icon name="heart" size={12} />
         </button>
       </div>
 
-      <div className="flex min-w-0 flex-1 flex-col p-3 min-[900px]:p-0">
+      <div className="flex min-w-0 flex-1 flex-col p-2 min-[900px]:p-0">
         <div className="flex items-start justify-between gap-3">
-          <Link href={`/cho-thue/${listing.slug}`} className="text-[14px] font-bold text-[#0C0D0D] hover:text-[#880206] min-[900px]:text-[16px]">
+          <Link href={`/cho-thue/${listing.slug}`} className="text-[11px] font-bold text-[#0C0D0D] hover:text-[#880206] min-[900px]:text-[16px]">
             {listing.roomNo}
           </Link>
           <button
@@ -49,14 +49,14 @@ export function PropertyListRow2({ listing }: { listing: PropertyListing }) {
             <Icon name="heart" size={20} />
           </button>
         </div>
-        <p className="mt-1 flex items-center gap-1 text-[11px] text-[#5F5D5D] min-[900px]:mt-[6px] min-[900px]:text-[13px]">
-          <Icon name="pin" size={12} className="min-[900px]:!h-[14px] min-[900px]:!w-[14px]" /> {listing.location}
+        <p className="mt-[2px] flex items-center gap-1 text-[9px] text-[#5F5D5D] min-[900px]:mt-1 min-[900px]:text-[12px]">
+          <Icon name="pin" size={9} className="min-[900px]:!h-3 min-[900px]:!w-3" /> {listing.location}
         </p>
-        <p className="mt-1 flex items-center gap-1 text-[11px] text-[#5F5D5D] min-[900px]:mt-[6px] min-[900px]:gap-[6px] min-[900px]:text-[13px]">
-          <Icon name="area" size={12} className="min-[900px]:!h-[14px] min-[900px]:!w-[14px]" /> {specs.join(" • ")}
+        <p className="mt-[2px] flex items-center gap-1 text-[9px] text-[#5F5D5D] min-[900px]:mt-1 min-[900px]:gap-1 min-[900px]:text-[12px]">
+          <Icon name="area" size={9} className="min-[900px]:!h-3 min-[900px]:!w-3" /> {specs.join(" • ")}
         </p>
-        <div className="mt-[6px] flex flex-1 items-end gap-3 min-[900px]:mt-3">
-          <p className="min-w-0 flex-1 text-[15px] font-bold text-[#880206] min-[900px]:text-[18px]">{formatCurrencyVnd(listing.price)}/tháng</p>
+        <div className="mt-[3px] flex flex-1 items-end gap-3 min-[900px]:mt-2">
+          <p className="min-w-0 flex-1 text-[12px] font-bold text-[#880206] min-[900px]:text-[18px]">{formatCurrencyVnd(listing.price)}/tháng</p>
           <Link
             href={`/cho-thue/${listing.slug}`}
             className="hidden shrink-0 rounded-md border border-[#880206] px-4 py-2 text-[13px] font-semibold text-[#880206] hover:bg-[#F7F6F6] min-[900px]:block"

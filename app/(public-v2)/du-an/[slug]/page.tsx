@@ -85,7 +85,7 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
           deliberately compact — the master fits hero through bottom CTA
           entirely within the canonical 724x2172 viewport. */}
       <div className="min-[900px]:hidden">
-        <div className="relative mt-2 aspect-[16/7] overflow-hidden rounded-lg">
+        <div className="relative -mx-3 aspect-[16/7] overflow-hidden">
           <Image src={project.media[0]} alt={project.name} fill className="object-cover" unoptimized priority />
           <span className="absolute right-2 top-2 rounded-full bg-white px-2 py-1 text-[9px] font-bold text-[#880206]">
             {project.status}
@@ -118,19 +118,19 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
 
         <section className="mt-2">
           <h2 className="text-[11px] font-bold text-[#0C0D0D]">Thông tin dự án</h2>
-          <p className="mt-1 line-clamp-3 text-[10px] leading-snug text-[#3A3838]">{project.summary}</p>
+          <p className="mt-1 text-[10px] leading-snug text-[#3A3838]">{project.summary}</p>
         </section>
       </div>
 
       {/* WEB top: gallery LEFT / title+facts+summary CENTER / consultation
           form RIGHT, as one three-column band — a full-width hero first is
           a FAIL. */}
-      <div className="mt-5 hidden min-[900px]:grid min-[900px]:grid-cols-[1fr_1fr_340px] min-[900px]:items-start min-[900px]:gap-8">
+      <div className="mt-5 hidden min-[900px]:grid min-[900px]:grid-cols-[1.3fr_1fr_260px] min-[900px]:items-start min-[900px]:gap-6">
         <Gallery2 images={project.media} />
 
-        <div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-[22px] font-extrabold text-[#0C0D0D]">{project.name}</h1>
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-center gap-2">
+            <h1 className="text-[20px] font-extrabold leading-tight text-[#0C0D0D]">{project.name}</h1>
             <span className="shrink-0 rounded-full bg-[#FBEFE3] px-3 py-1 text-[12px] font-bold text-[#C08E47]">{project.status}</span>
           </div>
           <p className="mt-2 flex items-center gap-[6px] text-[13px] text-[#5F5D5D]">
@@ -263,10 +263,13 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
         </section>
       )}
 
-      <section className="mt-3 min-[900px]:mt-8" data-qa-region="map">
-        <h2 className="text-[12px] font-bold text-[#0C0D0D] min-[900px]:text-[16px]">Vị trí dự án</h2>
-        <p className="mt-1 text-[10px] text-[#5F5D5D] min-[900px]:mt-2 min-[900px]:text-[13px]">{project.location}</p>
-        <div className="relative mt-[6px] aspect-[16/9] overflow-hidden rounded-lg min-[900px]:mt-3">
+      {/* Master's canonical WEB composition ends with the burgundy CTA right
+          after progress — no large map section there (mobile's master DOES
+          show one), so this is mobile-only. */}
+      <section className="mt-3 min-[900px]:hidden" data-qa-region="map">
+        <h2 className="text-[12px] font-bold text-[#0C0D0D]">Vị trí dự án</h2>
+        <p className="mt-1 text-[10px] text-[#5F5D5D]">{project.location}</p>
+        <div className="relative mt-[6px] aspect-[16/6] overflow-hidden rounded-lg">
           <Image src="/assets/v2/property-detail/map.png" alt={`Bản đồ ${project.location}`} fill className="object-cover" unoptimized />
         </div>
       </section>

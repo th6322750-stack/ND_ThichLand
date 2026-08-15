@@ -78,23 +78,23 @@ export default async function HomePageV2() {
           />
         </div>
         <div
-          className="relative mx-auto max-w-[1240px] px-3 py-3 min-[900px]:px-10 min-[900px]:py-5"
+          className="relative mx-auto max-w-[1240px] px-3 py-3 min-[900px]:px-10 min-[900px]:py-[22px]"
           data-qa-region="hero"
         >
           <div className="w-1/2 pr-2 min-[900px]:w-1/2 min-[900px]:pr-0">
-            <h1 className="text-[14px] font-extrabold leading-[1.15] text-[#0C0D0D] min-[900px]:text-[36px]">
+            <h1 className="text-[14px] font-extrabold leading-[1.15] text-[#0C0D0D] min-[900px]:text-[38px]">
               Không gian sống &amp;
               <br />
               <span className="text-[#880206]">Kinh doanh lý tưởng</span>
             </h1>
-            <p className="mt-1 text-[9px] font-bold text-[#0C0D0D] min-[900px]:mt-2 min-[900px]:text-[16px]">
+            <p className="mt-1 text-[9px] font-bold text-[#0C0D0D] min-[900px]:mt-3 min-[900px]:text-[17px]">
               Từ Nguyễn Đắc Thích
             </p>
-            <p className="mt-1 max-w-md text-[6.5px] leading-snug text-[#5F5D5D] min-[900px]:mt-2 min-[900px]:text-[13px]">
+            <p className="mt-1 max-w-md text-[6.5px] leading-snug text-[#5F5D5D] min-[900px]:mt-3 min-[900px]:text-[14px]">
               Chuyên cho thuê nhà, căn hộ, mặt bằng kinh doanh tại các vị trí đắc địa. Pháp lý rõ ràng, hỗ
               trợ tận tâm.
             </p>
-            <div className="mt-[6px] flex flex-wrap gap-[6px] min-[900px]:mt-4 min-[900px]:gap-3">
+            <div className="mt-[6px] flex flex-wrap gap-[6px] min-[900px]:mt-5 min-[900px]:gap-3">
               <Link
                 href="/cho-thue"
                 className="flex items-center gap-1 rounded-md bg-[#880206] px-2 py-1 text-[7px] font-semibold text-white hover:bg-[#750F0D] min-[900px]:gap-2 min-[900px]:px-5 min-[900px]:py-[10px] min-[900px]:text-[13px]"
@@ -118,26 +118,26 @@ export default async function HomePageV2() {
           section's own bottom edge (inset-y-0), so any overlap would sit
           directly on top of the photo instead of the old gradient-only
           backdrop, cutting into the metrics card's own icons/text. */}
-      <section className="mx-auto max-w-[1240px] px-3 pt-2 min-[900px]:px-10 min-[900px]:pt-6" data-qa-region="trustmetrics">
+      <section className="mx-auto max-w-[1240px] px-3 pt-2 min-[900px]:px-10 min-[900px]:pt-4" data-qa-region="trustmetrics">
         <TrustMetrics2 />
       </section>
 
       {/* ============ SEARCH ============ */}
-      <section className="mx-auto max-w-[1240px] px-3 pt-2 min-[900px]:px-10 min-[900px]:pt-4" data-qa-region="search">
+      <section className="mx-auto max-w-[1240px] px-3 pt-2 min-[900px]:px-10 min-[900px]:pt-0" data-qa-region="search">
         <HomeSearchBar2 locationOptions={locationOptions} propertyTypeOptions={propertyTypeOptions} />
       </section>
 
       {/* ============ FEATURED RENTALS ============ */}
-      <section className="mx-auto max-w-[1240px] px-3 py-3 min-[900px]:px-10 min-[900px]:py-6" data-qa-region="featured-rentals">
+      <section className="mx-auto max-w-[1240px] px-3 py-3 min-[900px]:px-10 min-[900px]:py-4" data-qa-region="featured-rentals">
         <div className="flex items-end justify-between">
-          <h2 className="text-[12px] font-extrabold text-[#0C0D0D] min-[900px]:text-[19px]">
+          <h2 className="text-[12px] font-extrabold text-[#0C0D0D] min-[900px]:text-[17px]">
             Bất động sản cho thuê nổi bật
           </h2>
-          <Link href="/cho-thue" className="flex items-center gap-1 text-[9px] font-semibold text-[#880206] min-[900px]:text-[13px]">
-            Xem tất cả <Icon name="arrow-right" size={10} className="min-[900px]:!h-[13px] min-[900px]:!w-[13px]" />
+          <Link href="/cho-thue" className="flex items-center gap-1 text-[9px] font-semibold text-[#880206] min-[900px]:text-[12px]">
+            Xem tất cả <Icon name="arrow-right" size={10} className="min-[900px]:!h-[12px] min-[900px]:!w-[12px]" />
           </Link>
         </div>
-        <div className="mt-[6px] grid grid-cols-3 gap-[6px] min-[900px]:mt-4 min-[900px]:grid-cols-4 min-[900px]:gap-4">
+        <div className="mt-[6px] grid grid-cols-3 gap-[6px] min-[900px]:mt-3 min-[900px]:grid-cols-4 min-[900px]:gap-4">
           {featuredProperties.map((p, i) => (
             // Master mobile shows exactly 3 cards in one row — with 4 sliced
             // in for desktop's 4-col row, the 4th must not wrap to its own
@@ -150,14 +150,14 @@ export default async function HomePageV2() {
       </section>
 
       {/* ============ FEATURED PROJECTS ============ */}
-      <section className="mx-auto max-w-[1240px] px-3 pb-3 min-[900px]:px-10 min-[900px]:pb-4" data-qa-region="featured-projects">
+      <section className="mx-auto max-w-[1240px] px-3 pb-3 min-[900px]:px-10 min-[900px]:pb-0" data-qa-region="featured-projects">
         <div className="flex items-end justify-between">
-          <h2 className="text-[12px] font-extrabold text-[#0C0D0D] min-[900px]:text-[19px]">Dự án nổi bật</h2>
-          <Link href="/du-an" className="flex items-center gap-1 text-[9px] font-semibold text-[#880206] min-[900px]:text-[13px]">
-            Xem tất cả dự án <Icon name="arrow-right" size={10} className="min-[900px]:!h-[13px] min-[900px]:!w-[13px]" />
+          <h2 className="text-[12px] font-extrabold text-[#0C0D0D] min-[900px]:text-[17px]">Dự án nổi bật</h2>
+          <Link href="/du-an" className="flex items-center gap-1 text-[9px] font-semibold text-[#880206] min-[900px]:text-[12px]">
+            Xem tất cả dự án <Icon name="arrow-right" size={10} className="min-[900px]:!h-[12px] min-[900px]:!w-[12px]" />
           </Link>
         </div>
-        <div className="mt-[6px] grid grid-cols-4 gap-1 min-[900px]:mt-4 min-[900px]:gap-4">
+        <div className="mt-[6px] grid grid-cols-4 gap-1 min-[900px]:mt-1 min-[900px]:gap-4">
           {featuredProjects.map((p) => (
             <ProjectCardOverlay2
               key={p.slug}
@@ -166,6 +166,7 @@ export default async function HomePageV2() {
               location={p.location}
               image={p.cardMedia}
               compact
+              mobileAspect="7/3"
               desktopAspect="199/135"
             />
           ))}
@@ -176,36 +177,35 @@ export default async function HomePageV2() {
       {/* Master keeps image-left/text-right side by side at every width —
           stacking to grid-cols-1 on mobile is a FAIL, so this is grid-cols-2
           unconditionally, with mobile-only smaller type/spacing. */}
-      <section className="mx-auto max-w-[1240px] px-3 pb-2 min-[900px]:px-10 min-[900px]:pb-6" data-qa-region="about">
+      <section className="mx-auto max-w-[1240px] px-3 pb-2 min-[900px]:px-10 min-[900px]:pb-3" data-qa-region="about">
         <div className="grid grid-cols-2 gap-2 min-[900px]:items-center min-[900px]:gap-6">
-          <div className="relative aspect-[3/2] overflow-hidden rounded-md min-[900px]:aspect-auto min-[900px]:h-[160px] min-[900px]:rounded-lg">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-md min-[900px]:aspect-auto min-[900px]:h-[193px] min-[900px]:rounded-lg">
             <Image src="/assets/v2/home/about-reception.png" alt="Sảnh đón NDTHICH" fill className="object-cover" unoptimized />
           </div>
           <div>
-            <h2 className="text-[10px] font-extrabold text-[#0C0D0D] min-[900px]:text-[19px]">
+            <h2 className="text-[10px] font-extrabold text-[#0C0D0D] min-[900px]:text-[16px]">
               Về <span className="text-[#880206]">Nguyễn Đắc Thích</span>
             </h2>
-            <p className="mt-[2px] line-clamp-2 text-[6px] leading-snug text-[#5F5D5D] min-[900px]:mt-2 min-[900px]:line-clamp-none min-[900px]:text-[12px]">
+            <p className="mt-[2px] line-clamp-2 text-[6px] leading-snug text-[#5F5D5D] min-[900px]:mt-1 min-[900px]:text-[11px]">
               Với nhiều năm kinh nghiệm trong lĩnh vực bất động sản, chúng tôi cam kết mang đến những sản
               phẩm chất lượng, pháp lý minh bạch và dịch vụ tận tâm.
             </p>
-            <div className="mt-1 grid grid-cols-2 gap-1 min-[900px]:mt-3 min-[900px]:gap-2">
+            <div className="mt-1 grid grid-cols-2 gap-1 min-[900px]:mt-2 min-[900px]:grid-cols-4 min-[900px]:gap-2">
               {ABOUT_FEATURES.map((f) => (
                 <div key={f.title} className="flex items-start gap-[2px] min-[900px]:gap-1">
-                  <Icon name={f.icon} size={8} className="mt-[2px] hidden shrink-0 text-[#C08E47] min-[900px]:block min-[900px]:!h-4 min-[900px]:!w-4" />
+                  <Icon name={f.icon} size={8} className="mt-[2px] hidden shrink-0 text-[#C08E47] min-[900px]:block min-[900px]:!h-3 min-[900px]:!w-3" />
                   <div className="min-w-0">
-                    <p className="truncate text-[6px] font-bold text-[#0C0D0D] min-[900px]:text-[12px]">{f.title}</p>
-                    <p className="hidden text-[11px] text-[#5F5D5D] min-[900px]:block">{f.desc}</p>
+                    <p className="truncate text-[6px] font-bold text-[#0C0D0D] min-[900px]:text-[10px]">{f.title}</p>
                   </div>
                 </div>
               ))}
             </div>
             <Link
               href="/gioi-thieu"
-              className="mt-1 inline-flex items-center gap-1 rounded-md bg-[#880206] px-[6px] py-1 text-[6px] font-semibold text-white hover:bg-[#750F0D] min-[900px]:mt-3 min-[900px]:gap-2 min-[900px]:px-4 min-[900px]:py-2 min-[900px]:text-[12px]"
+              className="mt-1 inline-flex items-center gap-1 rounded-md bg-[#880206] px-[6px] py-1 text-[6px] font-semibold text-white hover:bg-[#750F0D] min-[900px]:mt-2 min-[900px]:gap-2 min-[900px]:px-4 min-[900px]:py-[6px] min-[900px]:text-[11px]"
             >
               Tìm hiểu thêm về chúng tôi
-              <Icon name="arrow-right" size={14} className="hidden text-white min-[900px]:block" />
+              <Icon name="arrow-right" size={13} className="hidden text-white min-[900px]:block" />
             </Link>
           </div>
         </div>
@@ -213,29 +213,29 @@ export default async function HomePageV2() {
 
       {/* ============ TESTIMONIALS ============ */}
       {/* Master keeps 3 compact cards in one row at every width. */}
-      <section className="mx-auto max-w-[1240px] px-3 pb-2 min-[900px]:px-10 min-[900px]:pb-4" data-qa-region="testimonials">
+      <section className="mx-auto max-w-[1240px] px-3 pb-2 min-[900px]:px-10 min-[900px]:pb-0" data-qa-region="testimonials">
         <div className="flex items-end justify-between">
-          <h2 className="text-[10px] font-extrabold text-[#0C0D0D] min-[900px]:text-[19px]">
+          <h2 className="text-[10px] font-extrabold text-[#0C0D0D] min-[900px]:text-[16px]">
             Khách hàng nói về chúng tôi
           </h2>
-          <Link href="/lien-he" className="hidden items-center gap-1 text-[13px] font-semibold text-[#880206] min-[900px]:flex">
-            Xem tất cả đánh giá <Icon name="arrow-right" size={13} />
+          <Link href="/lien-he" className="hidden items-center gap-1 text-[12px] font-semibold text-[#880206] min-[900px]:flex">
+            Xem tất cả đánh giá <Icon name="arrow-right" size={12} />
           </Link>
         </div>
-        <div className="mt-1 grid grid-cols-3 gap-1 min-[900px]:mt-3 min-[900px]:gap-3">
+        <div className="mt-1 grid grid-cols-3 gap-1 min-[900px]:mt-1 min-[900px]:gap-2">
           {TESTIMONIALS.map((t) => (
-            <div key={t.name} className="rounded-md border border-[#EDEBEA] bg-white p-1 min-[900px]:rounded-lg min-[900px]:p-3">
-              <Icon name="quote" size={7} className="text-[#C08E47] min-[900px]:!h-4 min-[900px]:!w-4" />
-              <p className="mt-[2px] line-clamp-2 text-[6px] leading-snug text-[#3A3838] min-[900px]:mt-2 min-[900px]:text-[12px]">
+            <div key={t.name} className="rounded-md border border-[#EDEBEA] bg-white p-1 min-[900px]:rounded-lg min-[900px]:p-1">
+              <Icon name="quote" size={7} className="text-[#C08E47] min-[900px]:!h-3 min-[900px]:!w-3" />
+              <p className="mt-[2px] line-clamp-2 text-[6px] leading-snug text-[#3A3838] min-[900px]:mt-[2px] min-[900px]:text-[10px]">
                 &ldquo;{t.quote}&rdquo;
               </p>
-              <div className="mt-[2px] flex gap-[2px] text-[#C08E47] min-[900px]:mt-2">
+              <div className="mt-[2px] flex gap-[2px] text-[#C08E47] min-[900px]:mt-[2px]">
                 {Array.from({ length: 5 }, (_, i) => (
-                  <Icon key={i} name="star" size={6} className="min-[900px]:!h-3 min-[900px]:!w-3" />
+                  <Icon key={i} name="star" size={6} className="min-[900px]:!h-[10px] min-[900px]:!w-[10px]" />
                 ))}
               </div>
-              <p className="mt-[2px] truncate text-[6px] font-bold text-[#0C0D0D] min-[900px]:mt-2 min-[900px]:text-[12px]">{t.name}</p>
-              <p className="hidden text-[11px] text-[#5F5D5D] min-[900px]:block">{t.role}</p>
+              <p className="mt-[2px] truncate text-[6px] font-bold text-[#0C0D0D] min-[900px]:mt-[2px] min-[900px]:text-[10px]">{t.name}</p>
+              <p className="hidden truncate text-[9px] text-[#5F5D5D] min-[900px]:block">{t.role}</p>
             </div>
           ))}
         </div>
@@ -273,7 +273,7 @@ export default async function HomePageV2() {
               Gửi yêu cầu tư vấn <Icon name="arrow-right" size={13} className="hidden min-[900px]:block" />
             </Link>
           </div>
-          <div className="relative min-h-[70px] flex-1 min-[900px]:min-h-[110px]">
+          <div className="relative min-h-[95px] flex-1 min-[900px]:min-h-[110px]">
             <Image src="/assets/v2/home/contact-map.png" alt="Bản đồ NDTHICH" fill className="object-cover" unoptimized />
           </div>
         </div>

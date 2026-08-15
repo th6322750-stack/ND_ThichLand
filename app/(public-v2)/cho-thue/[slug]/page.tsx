@@ -159,9 +159,13 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
           <div className="flex items-end justify-between">
             <h2 className="text-[13px] font-extrabold text-[#0C0D0D] min-[900px]:text-[20px]">Bất động sản cùng khu vực</h2>
           </div>
-          <div className="mt-2 grid grid-cols-2 gap-2 min-[900px]:mt-5 min-[900px]:grid-cols-4 min-[900px]:gap-5">
+          {/* Mobile: horizontal scroll strip with the next card peeking at
+              the edge (master), not a wrapped 2-col grid. */}
+          <div className="mt-2 flex snap-x gap-2 overflow-x-auto min-[900px]:mt-5 min-[900px]:grid min-[900px]:grid-cols-4 min-[900px]:gap-5 min-[900px]:overflow-visible">
             {related.map((p) => (
-              <PropertyCardGrid2 key={p.slug} listing={p} />
+              <div key={p.slug} className="w-[46%] shrink-0 snap-start min-[900px]:w-auto">
+                <PropertyCardGrid2 listing={p} />
+              </div>
             ))}
           </div>
         </section>

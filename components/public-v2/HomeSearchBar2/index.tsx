@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Icon2 as Icon } from "@/components/public-v2/Icon2";
 import { AREA_RANGES, EMPTY_RENTAL_FILTERS, PRICE_RANGES, rentalFiltersToParams } from "@/lib/rentalFilters";
@@ -16,8 +16,18 @@ interface HomeSearchState {
 
 const EMPTY_STATE: HomeSearchState = { propertyType: "", location: "", priceRange: "", areaRange: "", q: "" };
 
-const SELECT_CLASS = "mt-1 w-full rounded-md border border-[#E4E1E0] px-3 py-[10px] text-[13px] text-[#0C0D0D]";
-const DESKTOP_SELECT_CLASS = "mt-1 w-full rounded-md border border-[#E4E1E0] px-2 py-2 text-[12px] text-[#0C0D0D]";
+// Mobile boxes label+value together in ONE bordered field (small grey label
+// line, larger value line below); WEB shows the label above a separately
+// bordered select. Same underlying <select> for both — see the field()
+// helper below — so there is only ever ONE live element per filter, never
+// two competing for the same accessible name (a duplicated mobile+desktop
+// pair previously broke tests/e2e/rental-url-state.spec.ts's getByLabel
+// query, and no amount of hydration-timing tuning fixed that reliably).
+const FIELD_LABEL_CLASS =
+  "min-w-0 rounded-md border border-[#E4E1E0] px-2 py-1 min-[900px]:min-w-[90px] min-[900px]:flex-1 min-[900px]:border-0 min-[900px]:p-0";
+const FIELD_TEXT_CLASS = "block text-[8px] leading-tight text-[#5F5D5D] min-[900px]:text-[10px]";
+const FIELD_CONTROL_CLASS =
+  "block w-full border-0 bg-transparent p-0 text-[10px] leading-tight text-[#0C0D0D] focus:outline-none min-[900px]:mt-1 min-[900px]:rounded-md min-[900px]:border min-[900px]:border-[#E4E1E0] min-[900px]:bg-white min-[900px]:px-2 min-[900px]:py-[6px] min-[900px]:text-[11px] min-[900px]:leading-normal";
 
 interface HomeSearchBar2Props {
   locationOptions: string[];
@@ -29,30 +39,14 @@ interface HomeSearchBar2Props {
 // (only non-empty fields are set), instead of a native form GET submission
 // that would serialize every empty field into the URL.
 //
-// Rendered as two SEPARATE markup blocks (mobile / desktop), each fully
-// self-contained, rather than toggling display:grid/flex on shared
-// elements via responsive prefixes — the master's WEB layout (one compact
-// row: 4 selects + keyword + button, ~70px tall) and MOBILE layout (2x2
-// grid + keyword + button stacked) are different enough structurally that
-// sharing DOM nodes across both was fragile.
+// ONE shared grid of fields (not two CSS-toggled copies): mobile is a 2x2
+// grid of selects + a full-width keyword-and-button row; WEB is the same
+// six fields flowed into one row via grid-template-columns. Only col-span
+// and the field() styling change per breakpoint — no duplicated DOM, so no
+// duplicated accessible names either.
 export function HomeSearchBar2({ locationOptions, propertyTypeOptions }: HomeSearchBar2Props) {
   const router = useRouter();
   const [state, setState] = useState<HomeSearchState>(EMPTY_STATE);
-
-  // Both blocks below render during SSR/first paint (CSS alone decides which
-  // is visible, avoiding a hydration mismatch). Once mounted, only the block
-  // matching the real viewport stays in the DOM — two live <select> elements
-  // sharing the same visible label ("Loại bất động sản" etc.) would otherwise
-  // both match a11y/test queries like getByLabel regardless of which one CSS
-  // hides, which is exactly what broke tests/e2e/rental-url-state.spec.ts.
-  const [isDesktop, setIsDesktop] = useState<boolean | null>(null);
-  useEffect(() => {
-    const mql = window.matchMedia("(min-width: 900px)");
-    setIsDesktop(mql.matches);
-    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
-    mql.addEventListener("change", handler);
-    return () => mql.removeEventListener("change", handler);
-  }, []);
 
   function handleSearch() {
     const params = rentalFiltersToParams({ ...EMPTY_RENTAL_FILTERS, ...state }, 1);
@@ -61,88 +55,13 @@ export function HomeSearchBar2({ locationOptions, propertyTypeOptions }: HomeSea
   }
 
   return (
-    <div className="rounded-lg border border-[#EDEBEA] bg-white p-4 min-[900px]:p-3">
-      {/* MOBILE */}
-      {isDesktop !== true && (
-      <div className="min-[900px]:hidden">
-        <p className="mb-3 text-[15px] font-bold text-[#0C0D0D]">Tìm kiếm bất động sản</p>
-        <div className="grid grid-cols-2 gap-3">
-          <label>
-            <span className="block text-[12px] text-[#5F5D5D]">Loại bất động sản</span>
-            <select
-              className={SELECT_CLASS}
-              value={state.propertyType}
-              onChange={(e) => setState((s) => ({ ...s, propertyType: e.target.value as PropertyType | "" }))}
-            >
-              <option value="">Chọn loại</option>
-              {propertyTypeOptions.map((t) => (
-                <option key={t} value={t}>
-                  {t}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            <span className="block text-[12px] text-[#5F5D5D]">Khu vực</span>
-            <select className={SELECT_CLASS} value={state.location} onChange={(e) => setState((s) => ({ ...s, location: e.target.value }))}>
-              <option value="">Chọn khu vực</option>
-              {locationOptions.map((l) => (
-                <option key={l} value={l}>
-                  {l}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            <span className="block text-[12px] text-[#5F5D5D]">Khoảng giá</span>
-            <select className={SELECT_CLASS} value={state.priceRange} onChange={(e) => setState((s) => ({ ...s, priceRange: e.target.value }))}>
-              <option value="">Chọn khoảng giá</option>
-              {PRICE_RANGES.map((r) => (
-                <option key={r.id} value={r.id}>
-                  {r.label}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            <span className="block text-[12px] text-[#5F5D5D]">Diện tích</span>
-            <select className={SELECT_CLASS} value={state.areaRange} onChange={(e) => setState((s) => ({ ...s, areaRange: e.target.value }))}>
-              <option value="">Chọn diện tích</option>
-              {AREA_RANGES.map((r) => (
-                <option key={r.id} value={r.id}>
-                  {r.label}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-        <label className="mt-3 block">
-          <span className="block text-[12px] text-[#5F5D5D]">Từ khóa</span>
-          <input
-            type="search"
-            value={state.q}
-            onChange={(e) => setState((s) => ({ ...s, q: e.target.value }))}
-            placeholder="Nhập từ khóa, vị trí, dự án..."
-            className="mt-1 w-full rounded-md border border-[#E4E1E0] px-3 py-[10px] text-[13px] text-[#0C0D0D] placeholder:text-[#A6A6A6]"
-          />
-        </label>
-        <button
-          type="button"
-          onClick={handleSearch}
-          className="mt-3 flex w-full items-center justify-center gap-2 rounded-md bg-[#880206] px-6 py-[10px] text-[13px] font-semibold text-white hover:bg-[#750F0D]"
-        >
-          <Icon name="search" size={16} className="text-white" /> Tìm kiếm
-        </button>
-      </div>
-      )}
-
-      {/* WEB — one compact row, matching 01_TrangChu_WEB.png exactly. */}
-      {isDesktop !== false && (
-      <div className="hidden min-[900px]:flex min-[900px]:items-end min-[900px]:gap-2">
-        <label className="min-[900px]:min-w-[90px] min-[900px]:flex-1">
-          <span className="block text-[11px] text-[#5F5D5D]">Loại bất động sản</span>
+    <div className="rounded-lg border border-[#EDEBEA] bg-white p-2 min-[900px]:p-1">
+      <p className="mb-1 text-[11px] font-bold leading-tight text-[#0C0D0D] min-[900px]:hidden">Tìm kiếm bất động sản</p>
+      <div className="grid grid-cols-2 gap-1 min-[900px]:grid-cols-[1fr_1fr_1fr_1fr_1.4fr_auto] min-[900px]:items-end min-[900px]:gap-2">
+        <label className={FIELD_LABEL_CLASS}>
+          <span className={FIELD_TEXT_CLASS}>Loại bất động sản</span>
           <select
-            className={DESKTOP_SELECT_CLASS}
+            className={FIELD_CONTROL_CLASS}
             value={state.propertyType}
             onChange={(e) => setState((s) => ({ ...s, propertyType: e.target.value as PropertyType | "" }))}
           >
@@ -154,9 +73,9 @@ export function HomeSearchBar2({ locationOptions, propertyTypeOptions }: HomeSea
             ))}
           </select>
         </label>
-        <label className="min-[900px]:min-w-[90px] min-[900px]:flex-1">
-          <span className="block text-[11px] text-[#5F5D5D]">Khu vực</span>
-          <select className={DESKTOP_SELECT_CLASS} value={state.location} onChange={(e) => setState((s) => ({ ...s, location: e.target.value }))}>
+        <label className={FIELD_LABEL_CLASS}>
+          <span className={FIELD_TEXT_CLASS}>Khu vực</span>
+          <select className={FIELD_CONTROL_CLASS} value={state.location} onChange={(e) => setState((s) => ({ ...s, location: e.target.value }))}>
             <option value="">Chọn khu vực</option>
             {locationOptions.map((l) => (
               <option key={l} value={l}>
@@ -165,9 +84,9 @@ export function HomeSearchBar2({ locationOptions, propertyTypeOptions }: HomeSea
             ))}
           </select>
         </label>
-        <label className="min-[900px]:min-w-[90px] min-[900px]:flex-1">
-          <span className="block text-[11px] text-[#5F5D5D]">Khoảng giá</span>
-          <select className={DESKTOP_SELECT_CLASS} value={state.priceRange} onChange={(e) => setState((s) => ({ ...s, priceRange: e.target.value }))}>
+        <label className={FIELD_LABEL_CLASS}>
+          <span className={FIELD_TEXT_CLASS}>Khoảng giá</span>
+          <select className={FIELD_CONTROL_CLASS} value={state.priceRange} onChange={(e) => setState((s) => ({ ...s, priceRange: e.target.value }))}>
             <option value="">Chọn khoảng giá</option>
             {PRICE_RANGES.map((r) => (
               <option key={r.id} value={r.id}>
@@ -176,9 +95,9 @@ export function HomeSearchBar2({ locationOptions, propertyTypeOptions }: HomeSea
             ))}
           </select>
         </label>
-        <label className="min-[900px]:min-w-[90px] min-[900px]:flex-1">
-          <span className="block text-[11px] text-[#5F5D5D]">Diện tích</span>
-          <select className={DESKTOP_SELECT_CLASS} value={state.areaRange} onChange={(e) => setState((s) => ({ ...s, areaRange: e.target.value }))}>
+        <label className={FIELD_LABEL_CLASS}>
+          <span className={FIELD_TEXT_CLASS}>Diện tích</span>
+          <select className={FIELD_CONTROL_CLASS} value={state.areaRange} onChange={(e) => setState((s) => ({ ...s, areaRange: e.target.value }))}>
             <option value="">Chọn diện tích</option>
             {AREA_RANGES.map((r) => (
               <option key={r.id} value={r.id}>
@@ -187,25 +106,26 @@ export function HomeSearchBar2({ locationOptions, propertyTypeOptions }: HomeSea
             ))}
           </select>
         </label>
-        <label className="min-[900px]:min-w-[130px] min-[900px]:flex-[1.4]">
-          <span className="block text-[11px] text-[#5F5D5D]">Từ khóa</span>
+        <label
+          className={`col-span-2 min-[900px]:col-span-1 min-[900px]:min-w-[130px] min-[900px]:flex-[1.4] ${FIELD_LABEL_CLASS}`}
+        >
+          <span className={FIELD_TEXT_CLASS}>Từ khóa</span>
           <input
             type="search"
             value={state.q}
             onChange={(e) => setState((s) => ({ ...s, q: e.target.value }))}
             placeholder="Nhập từ khóa, vị trí, dự án..."
-            className="mt-1 w-full rounded-md border border-[#E4E1E0] px-2 py-2 text-[12px] text-[#0C0D0D] placeholder:text-[#A6A6A6]"
+            className={`${FIELD_CONTROL_CLASS} placeholder:text-[#A6A6A6]`}
           />
         </label>
         <button
           type="button"
           onClick={handleSearch}
-          className="flex shrink-0 items-center justify-center gap-2 rounded-md bg-[#880206] px-4 py-2 text-[12px] font-semibold text-white hover:bg-[#750F0D]"
+          className="col-span-2 flex items-center justify-center gap-1 rounded-md bg-[#880206] px-3 py-2 text-[11px] font-semibold leading-tight text-white hover:bg-[#750F0D] min-[900px]:col-span-1 min-[900px]:shrink-0 min-[900px]:gap-2 min-[900px]:px-4 min-[900px]:text-[12px]"
         >
-          <Icon name="search" size={14} className="text-white" /> Tìm kiếm
+          Tìm kiếm <Icon name="search" size={13} className="text-white" />
         </button>
       </div>
-      )}
     </div>
   );
 }
