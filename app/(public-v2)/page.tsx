@@ -111,7 +111,11 @@ export default async function HomePageV2() {
       </section>
 
       {/* ============ TRUST METRICS ============ */}
-      <section className="mx-auto max-w-[1240px] px-4 min-[900px]:-mt-10 min-[900px]:px-10">
+      {/* No negative margin here — the hero photo is now full-bleed to the
+          section's own bottom edge (inset-y-0), so any overlap would sit
+          directly on top of the photo instead of the old gradient-only
+          backdrop, cutting into the metrics card's own icons/text. */}
+      <section className="mx-auto max-w-[1240px] px-4 pt-6 min-[900px]:px-10 min-[900px]:pt-10">
         <TrustMetrics2 />
       </section>
 
