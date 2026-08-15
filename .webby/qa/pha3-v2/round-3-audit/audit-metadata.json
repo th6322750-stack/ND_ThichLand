@@ -1,0 +1,212 @@
+[
+  {
+    "route": "/",
+    "viewport": "WEB",
+    "implementationCommit": "a20313b18d91b500ff35bf2851c66a2ffe828362",
+    "captureSourceCommit": "a20313b18d91b500ff35bf2851c66a2ffe828362",
+    "gitStatusBeforeCapture": "?? .vercel/ (untracked, non-source); ?? playwright.pha3-v2-round3-audit.config.ts; ?? tests/visual/pha3-v2-capture-round3-audit.spec.ts (audit tooling itself, not app source)",
+    "gitStatusAfterCapture": "unknown",
+    "browserVersion": "151.0.7922.34",
+    "renderMode": "next start (production build)",
+    "viewportCss": {
+      "width": 935,
+      "height": 1683
+    },
+    "deviceScaleFactor": 1,
+    "screenshotDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "screenshotPath": ".webby\\qa\\pha3-v2\\round-3-audit\\web-01-trangchu.png",
+    "screenshotSha256": "ea920aade92fd91c7288b849735f990cbc6ac88bcfbd465fdd727b4c9ec9eeb5"
+  },
+  {
+    "route": "/",
+    "viewport": "MOBILE",
+    "implementationCommit": "a20313b18d91b500ff35bf2851c66a2ffe828362",
+    "captureSourceCommit": "a20313b18d91b500ff35bf2851c66a2ffe828362",
+    "gitStatusBeforeCapture": "?? .vercel/ (untracked, non-source); ?? playwright.pha3-v2-round3-audit.config.ts; ?? tests/visual/pha3-v2-capture-round3-audit.spec.ts (audit tooling itself, not app source)",
+    "gitStatusAfterCapture": "unknown",
+    "browserVersion": "151.0.7922.34",
+    "renderMode": "next start (production build)",
+    "viewportCss": {
+      "width": 362,
+      "height": 1086
+    },
+    "deviceScaleFactor": 2,
+    "screenshotDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "screenshotPath": ".webby\\qa\\pha3-v2\\round-3-audit\\mobile-01-trangchu.png",
+    "screenshotSha256": "cc9b95fd1894d095e8220c83d8b3b44185c37841fef383d66dea19b5c46bb258"
+  },
+  {
+    "route": "/cho-thue",
+    "viewport": "WEB",
+    "implementationCommit": "a20313b18d91b500ff35bf2851c66a2ffe828362",
+    "captureSourceCommit": "a20313b18d91b500ff35bf2851c66a2ffe828362",
+    "gitStatusBeforeCapture": "?? .vercel/ (untracked, non-source); ?? playwright.pha3-v2-round3-audit.config.ts; ?? tests/visual/pha3-v2-capture-round3-audit.spec.ts (audit tooling itself, not app source)",
+    "gitStatusAfterCapture": "unknown",
+    "browserVersion": "151.0.7922.34",
+    "renderMode": "next start (production build)",
+    "viewportCss": {
+      "width": 935,
+      "height": 1683
+    },
+    "deviceScaleFactor": 1,
+    "screenshotDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "screenshotPath": ".webby\\qa\\pha3-v2\\round-3-audit\\web-02-chothue.png",
+    "screenshotSha256": "9eaef4080b1149ea0dcc27d69cc776b8666365551cdf8a6a298dbc4d844fb0d5"
+  },
+  {
+    "route": "/cho-thue",
+    "viewport": "MOBILE",
+    "implementationCommit": "a20313b18d91b500ff35bf2851c66a2ffe828362",
+    "captureSourceCommit": "a20313b18d91b500ff35bf2851c66a2ffe828362",
+    "gitStatusBeforeCapture": "?? .vercel/ (untracked, non-source); ?? playwright.pha3-v2-round3-audit.config.ts; ?? tests/visual/pha3-v2-capture-round3-audit.spec.ts (audit tooling itself, not app source)",
+    "gitStatusAfterCapture": "unknown",
+    "browserVersion": "151.0.7922.34",
+    "renderMode": "next start (production build)",
+    "viewportCss": {
+      "width": 362,
+      "height": 1086
+    },
+    "deviceScaleFactor": 2,
+    "screenshotDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "screenshotPath": ".webby\\qa\\pha3-v2\\round-3-audit\\mobile-02-chothue.png",
+    "screenshotSha256": "9fd9cfe51e9bdf4af63fc8e11f6676d6114b0a8a1dc954f5eec964af15e9c0e0"
+  },
+  {
+    "route": "/cho-thue/[slug]",
+    "viewport": "WEB",
+    "implementationCommit": "a20313b18d91b500ff35bf2851c66a2ffe828362",
+    "captureSourceCommit": "a20313b18d91b500ff35bf2851c66a2ffe828362",
+    "gitStatusBeforeCapture": "?? .vercel/ (untracked, non-source); ?? playwright.pha3-v2-round3-audit.config.ts; ?? tests/visual/pha3-v2-capture-round3-audit.spec.ts (audit tooling itself, not app source)",
+    "gitStatusAfterCapture": "unknown",
+    "browserVersion": "151.0.7922.34",
+    "renderMode": "next start (production build)",
+    "viewportCss": {
+      "width": 935,
+      "height": 1683
+    },
+    "deviceScaleFactor": 1,
+    "screenshotDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "screenshotPath": ".webby\\qa\\pha3-v2\\round-3-audit\\web-03-chitietbds.png",
+    "screenshotSha256": "f192981cdbd62f34b47aab9f04172c686a2bea694f56aab6be156958abb90e10"
+  },
+  {
+    "route": "/cho-thue/[slug]",
+    "viewport": "MOBILE",
+    "implementationCommit": "a20313b18d91b500ff35bf2851c66a2ffe828362",
+    "captureSourceCommit": "a20313b18d91b500ff35bf2851c66a2ffe828362",
+    "gitStatusBeforeCapture": "?? .vercel/ (untracked, non-source); ?? playwright.pha3-v2-round3-audit.config.ts; ?? tests/visual/pha3-v2-capture-round3-audit.spec.ts (audit tooling itself, not app source)",
+    "gitStatusAfterCapture": "unknown",
+    "browserVersion": "151.0.7922.34",
+    "renderMode": "next start (production build)",
+    "viewportCss": {
+      "width": 362,
+      "height": 1086
+    },
+    "deviceScaleFactor": 2,
+    "screenshotDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "screenshotPath": ".webby\\qa\\pha3-v2\\round-3-audit\\mobile-03-chitietbds.png",
+    "screenshotSha256": "33ddfbc6301e0fda75840ea0e217309949d4e4e8132812a3948508dc21003807"
+  },
+  {
+    "route": "/du-an",
+    "viewport": "WEB",
+    "implementationCommit": "a20313b18d91b500ff35bf2851c66a2ffe828362",
+    "captureSourceCommit": "a20313b18d91b500ff35bf2851c66a2ffe828362",
+    "gitStatusBeforeCapture": "?? .vercel/ (untracked, non-source); ?? playwright.pha3-v2-round3-audit.config.ts; ?? tests/visual/pha3-v2-capture-round3-audit.spec.ts (audit tooling itself, not app source)",
+    "gitStatusAfterCapture": "unknown",
+    "browserVersion": "151.0.7922.34",
+    "renderMode": "next start (production build)",
+    "viewportCss": {
+      "width": 935,
+      "height": 1683
+    },
+    "deviceScaleFactor": 1,
+    "screenshotDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "screenshotPath": ".webby\\qa\\pha3-v2\\round-3-audit\\web-04-duan.png",
+    "screenshotSha256": "c417fa06aa0199dfb465e7cd0f1d5d9fd7412ee436ffc28fe4b6f0c3c49beb63"
+  },
+  {
+    "route": "/du-an",
+    "viewport": "MOBILE",
+    "implementationCommit": "a20313b18d91b500ff35bf2851c66a2ffe828362",
+    "captureSourceCommit": "a20313b18d91b500ff35bf2851c66a2ffe828362",
+    "gitStatusBeforeCapture": "?? .vercel/ (untracked, non-source); ?? playwright.pha3-v2-round3-audit.config.ts; ?? tests/visual/pha3-v2-capture-round3-audit.spec.ts (audit tooling itself, not app source)",
+    "gitStatusAfterCapture": "unknown",
+    "browserVersion": "151.0.7922.34",
+    "renderMode": "next start (production build)",
+    "viewportCss": {
+      "width": 362,
+      "height": 1086
+    },
+    "deviceScaleFactor": 2,
+    "screenshotDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "screenshotPath": ".webby\\qa\\pha3-v2\\round-3-audit\\mobile-04-duan.png",
+    "screenshotSha256": "3650880ffd650a8c43b7b3012a672c6fb6189b4183c1bd49f4c899cc23c0a6aa"
+  },
+  {
+    "route": "/du-an/[slug]",
+    "viewport": "WEB",
+    "implementationCommit": "a20313b18d91b500ff35bf2851c66a2ffe828362",
+    "captureSourceCommit": "a20313b18d91b500ff35bf2851c66a2ffe828362",
+    "gitStatusBeforeCapture": "?? .vercel/ (untracked, non-source); ?? playwright.pha3-v2-round3-audit.config.ts; ?? tests/visual/pha3-v2-capture-round3-audit.spec.ts (audit tooling itself, not app source)",
+    "gitStatusAfterCapture": "unknown",
+    "browserVersion": "151.0.7922.34",
+    "renderMode": "next start (production build)",
+    "viewportCss": {
+      "width": 935,
+      "height": 1683
+    },
+    "deviceScaleFactor": 1,
+    "screenshotDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "screenshotPath": ".webby\\qa\\pha3-v2\\round-3-audit\\web-05-chitietduan.png",
+    "screenshotSha256": "a15b2e0755e7f80d53b30d9c76f1cca76e8ecfc26c300fdb5a9983052de48b34"
+  },
+  {
+    "route": "/du-an/[slug]",
+    "viewport": "MOBILE",
+    "implementationCommit": "a20313b18d91b500ff35bf2851c66a2ffe828362",
+    "captureSourceCommit": "a20313b18d91b500ff35bf2851c66a2ffe828362",
+    "gitStatusBeforeCapture": "?? .vercel/ (untracked, non-source); ?? playwright.pha3-v2-round3-audit.config.ts; ?? tests/visual/pha3-v2-capture-round3-audit.spec.ts (audit tooling itself, not app source)",
+    "gitStatusAfterCapture": "unknown",
+    "browserVersion": "151.0.7922.34",
+    "renderMode": "next start (production build)",
+    "viewportCss": {
+      "width": 362,
+      "height": 1086
+    },
+    "deviceScaleFactor": 2,
+    "screenshotDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "screenshotPath": ".webby\\qa\\pha3-v2\\round-3-audit\\mobile-05-chitietduan.png",
+    "screenshotSha256": "1a324170d34ddff2a287587f37b9dceafbb5aaa575bd2a3e48ac09ce876b8a8b"
+  }
+]
