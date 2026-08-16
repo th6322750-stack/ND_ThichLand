@@ -52,12 +52,12 @@ test.describe("rental discovery URL state", () => {
     await page.goto("/");
     // HomeSearchBar2 renders separate MOBILE (2x2 grid) and WEB (single
     // row) selects for the same field, toggled by CSS breakpoint — both
-    // exist in the DOM. Playwright's default viewport is >=900px, so the
-    // WEB one is the visible/actionable one; `exact: true` picks it out
-    // from the MOBILE select's longer, non-exact accessible name (its
-    // wrapping <label> concatenates the visible "Chọn loại"/option text
-    // too).
-    await page.getByLabel("Loại bất động sản", { exact: true }).selectOption("Studio");
+    // exist in the DOM with the identical accessible name (both now
+    // single-line selects using their own aria-label), so `exact: true`
+    // alone no longer disambiguates. Playwright's default viewport is
+    // >=900px, so filtering to the one CSS makes visible picks the WEB
+    // select.
+    await page.locator('[aria-label="Loại bất động sản"]:visible').selectOption("Studio");
     await page.getByRole("button", { name: "Tìm kiếm" }).click();
     await page.waitForURL("**/cho-thue?type=Studio");
 

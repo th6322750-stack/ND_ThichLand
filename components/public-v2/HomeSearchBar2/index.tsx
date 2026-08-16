@@ -29,31 +29,28 @@ interface FilterFieldProps {
   options: FieldOption[];
 }
 
-// MOBILE_PROJECT_FIRST_POLISH section 2B: compact 2-line box (bold label
-// over a lighter value/placeholder line) in a 2x2 grid, sized down (~41px
-// control height) so the filter grid takes less vertical room and "Dự án
-// nổi bật" appears sooner on the page.
-function MobileField({ label, placeholder, value, onChange, options }: FilterFieldProps) {
+// MOBILE_PROJECT_FIRST_POLISH: client feedback after seeing the 2-line
+// box (bold label + separate "Chọn ..." placeholder line) live — drop the
+// placeholder line entirely, same single-line collapse WebField already
+// uses (the field's own name doubles as the empty-state option text), so
+// each box is just one compact line instead of two.
+function MobileField({ label, value, onChange, options }: Omit<FilterFieldProps, "placeholder">) {
   return (
-    <label className="flex min-w-0 cursor-pointer items-center gap-1 rounded-md border border-[#E4E1E0] px-2 py-1 hover:border-[#C9C5C3] hover:bg-[#FAFAFA]">
-      <span className="min-w-0 flex-1">
-        <span className="block truncate text-[13px] font-bold leading-tight text-[#0C0D0D]">{label}</span>
-        <select
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className={`mt-[2px] block w-full appearance-none border-0 bg-transparent p-0 text-[11px] leading-tight focus:outline-none ${
-            value ? "text-[#0C0D0D]" : "text-[#5F5D5D]"
-          }`}
-        >
-          <option value="">{placeholder}</option>
-          {options.map((o) => (
-            <option key={o.value} value={o.value}>
-              {o.label}
-            </option>
-          ))}
-        </select>
-      </span>
-      <Icon name="chevron-right" size={12} className="shrink-0 rotate-90 text-[#A6A6A6]" />
+    <label className="flex min-w-0 cursor-pointer items-center gap-1 rounded-md border border-[#E4E1E0] px-2 py-2 hover:border-[#C9C5C3] hover:bg-[#FAFAFA]">
+      <select
+        aria-label={label}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="min-w-0 flex-1 appearance-none truncate border-0 bg-transparent p-0 text-[12px] font-bold leading-tight text-[#0C0D0D] focus:outline-none"
+      >
+        <option value="">{label}</option>
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+      <Icon name="chevron-right" size={11} className="shrink-0 rotate-90 text-[#A6A6A6]" />
     </label>
   );
 }
@@ -155,7 +152,6 @@ export function HomeSearchBar2({ locationOptions, propertyTypeOptions }: HomeSea
         <div>
           <div className="flex items-center gap-2">
             <div className="relative min-w-0 w-[63%]">
-              <span className="mb-[2px] block text-[12px] font-bold leading-tight text-[#0C0D0D] min-[900px]:hidden">Từ khóa</span>
               <input
                 type="search"
                 aria-label="Từ khóa"
@@ -181,7 +177,7 @@ export function HomeSearchBar2({ locationOptions, propertyTypeOptions }: HomeSea
         <div>
           <div className="grid grid-cols-2 gap-2 min-[900px]:hidden">
             {FIELDS.map((f) => (
-              <MobileField key={f.key} label={f.label} placeholder={f.placeholder} value={f.value} onChange={f.onChange} options={f.options} />
+              <MobileField key={f.key} label={f.label} value={f.value} onChange={f.onChange} options={f.options} />
             ))}
           </div>
           <div className="hidden min-[900px]:flex min-[900px]:divide-x min-[900px]:divide-[#E4E1E0] min-[900px]:rounded-md min-[900px]:border min-[900px]:border-[#E4E1E0]">
