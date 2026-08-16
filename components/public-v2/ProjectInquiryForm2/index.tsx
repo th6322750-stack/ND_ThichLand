@@ -1,12 +1,16 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useId, useState, type FormEvent } from "react";
 import { Icon2 as Icon } from "@/components/public-v2/Icon2";
 import { submitContactAction } from "@/app/actions/contact";
 
 interface ProjectInquiryForm2Props {
   projectName: string;
   variant?: "panel" | "inline";
+  /** Overrides the "need" line written to WEB_CONTACTS — lets the same form
+      serve a viewing request as well as a project consultation. */
+  need?: string;
+  submitLabel?: string;
 }
 
 // Routes through the existing approved WEB_CONTACTS backend
@@ -14,13 +18,19 @@ interface ProjectInquiryForm2Props {
 // creating a new Leads/Viewing persistence flow for a visual control alone,
 // so this reuses the same already-approved contact channel the public
 // /lien-he form uses, tagging the project name into the message for context.
-export function ProjectInquiryForm2({ projectName, variant = "panel" }: ProjectInquiryForm2Props) {
+export function ProjectInquiryForm2({
+  projectName,
+  variant = "panel",
+  need,
+  submitLabel,
+}: ProjectInquiryForm2Props) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string>();
+  const errorId = useId();
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -34,7 +44,7 @@ export function ProjectInquiryForm2({ projectName, variant = "panel" }: ProjectI
       const result = await submitContactAction({
         name: name.trim(),
         phone: phone.trim(),
-        need: `Tư vấn dự án: ${projectName}`,
+        need: need ?? `Tư vấn dự án: ${projectName}`,
         area: "",
         message: email.trim() ? `Email: ${email.trim()}` : "",
         website: "",
@@ -72,12 +82,44 @@ export function ProjectInquiryForm2({ projectName, variant = "panel" }: ProjectI
     // narrow single column instead, so each field stacks full-width there.
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-2 min-[900px]:gap-3">
       <div className="grid grid-cols-2 gap-2 min-[900px]:grid-cols-1">
-        <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Họ và tên*" className={inputClass} />
-        <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Số điện thoại*" className={inputClass} />
+        {/* aria-label, not placeholder-only labelling: the placeholder is the
+            only visible label here by design, and it disappears on typing. */}
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Họ và tên*"
+          aria-label="Họ và tên"
+          autoComplete="name"
+          required
+          aria-invalid={error ? true : undefined}
+          aria-describedby={error ? errorId : undefined}
+          className={inputClass}
+        />
+        <input
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          placeholder="Số điện thoại*"
+          aria-label="Số điện thoại"
+          type="tel"
+          inputMode="tel"
+          autoComplete="tel"
+          required
+          aria-invalid={error ? true : undefined}
+          aria-describedby={error ? errorId : undefined}
+          className={inputClass}
+        />
       </div>
-      <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" type="email" className={inputClass} />
+      <input
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Email"
+        aria-label="Email (không bắt buộc)"
+        type="email"
+        autoComplete="email"
+        className={inputClass}
+      />
       {error && (
-        <p role="alert" className={`text-[10px] min-[900px]:text-[12px] ${isPanel ? "text-[#C43D45]" : "text-white"}`}>
+        <p id={errorId} role="alert" className={`text-[10px] min-[900px]:text-[12px] ${isPanel ? "text-[#C43D45]" : "text-white"}`}>
           {error}
         </p>
       )}
@@ -88,7 +130,7 @@ export function ProjectInquiryForm2({ projectName, variant = "panel" }: ProjectI
           isPanel ? "bg-[#880206] text-white hover:bg-[#750F0D]" : "bg-white text-[#880206]"
         }`}
       >
-        {submitting ? "Đang gửi..." : isPanel ? "Gửi thông tin" : "Nhận tư vấn miễn phí"}
+        {submitting ? "Đang gửi..." : (submitLabel ?? (isPanel ? "Gửi thông tin" : "Nhận tư vấn miễn phí"))}
         <Icon name="arrow-right" size={13} className={isPanel ? "text-white" : ""} />
       </button>
     </form>

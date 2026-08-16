@@ -10,7 +10,11 @@ import { Icon2 } from "@/components/public-v2/Icon2";
 import { saveBdsAction, type BdsFormInput } from "@/app/actions/bds";
 import { uploadMediaAction } from "@/app/actions/media";
 import { formatArea, formatCurrencyVnd } from "@/lib/format";
-import type { AdminPropertyRecord } from "@/lib/types";
+import type { AdminPropertyRecord, Availability, PropertyType } from "@/lib/types";
+
+// Mirrors the closed sets app/actions/bds.ts validates against.
+const PROPERTY_TYPE_OPTIONS: PropertyType[] = ["Căn hộ", "Nhà", "Mặt bằng", "Văn phòng", "Xưởng", "Studio"];
+const AVAILABILITY_OPTIONS: Availability[] = ["Còn trống", "Đã cho thuê", "Sắp trống"];
 
 // Client asked for this section to BE the real /cho-thue/[slug] page layout
 // (not a separate preview panel next to a plain form) — "để admin biết nội
@@ -24,6 +28,14 @@ const wysiwygInput =
 
 interface BdsFormProps {
   initial?: AdminPropertyRecord;
+}
+
+/** Empty -> null ("chưa biết"); a non-numeric or negative entry is also null
+    rather than persisting NaN into the sheet. */
+function parseCount(raw: string): number | null {
+  if (!raw) return null;
+  const n = Number(raw);
+  return Number.isFinite(n) && n >= 0 ? Math.floor(n) : null;
 }
 
 function readInput(form: HTMLFormElement, initial: AdminPropertyRecord | undefined, media: string[]): BdsFormInput {
@@ -54,8 +66,8 @@ function readInput(form: HTMLFormElement, initial: AdminPropertyRecord | undefin
     // Empty input -> null ("unknown"), never a fabricated 0/"" — an admin
     // clearing the field is a deliberate "no data" the same way a
     // sheet-derived record starts null until explicitly set.
-    bedroomCount: get("bedroomCount") ? Number(get("bedroomCount")) : null,
-    bathroomCount: get("bathroomCount") ? Number(get("bathroomCount")) : null,
+    bedroomCount: parseCount(get("bedroomCount")),
+    bathroomCount: parseCount(get("bathroomCount")),
     furnishingStatus: get("furnishingStatus") || null,
     // Backs the Tiện ích/Vị trí/Video tabs — same empty-input -> null/[]
     // convention as every other field above.
@@ -347,16 +359,34 @@ export function BdsForm({ initial }: BdsFormProps) {
           <div className="border-t border-line px-6 py-6">
             <p className="text-[16px] font-bold text-[#0C0D0D]">Thông tin chi tiết</p>
             <div className="mt-3 divide-y divide-[#EDEBEA] rounded-lg border border-[#EDEBEA]">
+              {/* Loại BĐS / Tình trạng are closed sets the server rejects
+                  anything outside of. They were free-text boxes, so an
+                  operator typing "chung cư" only found out after a failed
+                  save — and the propertyType error was never even rendered.
+                  A select can only produce a value that saves. */}
               <div className="flex items-center justify-between px-4 py-3 text-[13px]">
                 <span className="text-[#5F5D5D]">Loại BĐS</span>
-                <input
+                <select
                   name="propertyType"
-                  placeholder="Studio"
-                  defaultValue={initial?.propertyType ?? undefined}
+                  defaultValue={initial?.propertyType ?? ""}
                   aria-label="Loại phòng / BĐS"
-                  className={`${wysiwygInput} w-[160px] text-right font-bold text-[#0C0D0D] placeholder:text-[#C9C6C5]`}
-                />
+                  aria-invalid={fieldErrors.propertyType ? true : undefined}
+                  aria-describedby={fieldErrors.propertyType ? "bds-propertyType-error" : undefined}
+                  className="w-[200px] rounded-md border border-[#EDEBEA] px-2 py-1 text-right font-bold text-[#0C0D0D] outline-none transition-colors duration-fast ease-base focus:border-[#880206]"
+                >
+                  <option value="">— Chọn loại —</option>
+                  {PROPERTY_TYPE_OPTIONS.map((t) => (
+                    <option key={t} value={t}>
+                      {t}
+                    </option>
+                  ))}
+                </select>
               </div>
+              {fieldErrors.propertyType && (
+                <p id="bds-propertyType-error" className="px-4 py-2 text-right text-body text-error">
+                  {fieldErrors.propertyType}
+                </p>
+              )}
               <div className="flex items-center justify-between px-4 py-3 text-[13px]">
                 <span className="text-[#5F5D5D]">Diện tích</span>
                 <span className="font-bold text-[#0C0D0D]">(nhập ở ô Diện tích phía trên)</span>
@@ -387,15 +417,27 @@ export function BdsForm({ initial }: BdsFormProps) {
               </div>
               <div className="flex items-center justify-between px-4 py-3 text-[13px]">
                 <span className="text-[#5F5D5D]">Tình trạng</span>
-                <input
+                <select
                   name="availability"
-                  placeholder="Còn trống"
-                  defaultValue={initial?.availability ?? undefined}
+                  defaultValue={initial?.availability ?? ""}
                   aria-label="Thời gian vào / trạng thái"
-                  className={`${wysiwygInput} w-[160px] text-right font-bold text-[#0C0D0D] placeholder:text-[#C9C6C5]`}
-                />
-                {fieldErrors.availability && <p className="mt-1 w-full text-right text-body text-error">{fieldErrors.availability}</p>}
+                  aria-invalid={fieldErrors.availability ? true : undefined}
+                  aria-describedby={fieldErrors.availability ? "bds-availability-error" : undefined}
+                  className="w-[200px] rounded-md border border-[#EDEBEA] px-2 py-1 text-right font-bold text-[#0C0D0D] outline-none transition-colors duration-fast ease-base focus:border-[#880206]"
+                >
+                  <option value="">— Chọn tình trạng —</option>
+                  {AVAILABILITY_OPTIONS.map((a) => (
+                    <option key={a} value={a}>
+                      {a}
+                    </option>
+                  ))}
+                </select>
               </div>
+              {fieldErrors.availability && (
+                <p id="bds-availability-error" className="px-4 py-2 text-right text-body text-error">
+                  {fieldErrors.availability}
+                </p>
+              )}
             </div>
           </div>
 
@@ -464,14 +506,11 @@ export function BdsForm({ initial }: BdsFormProps) {
         {/* Vận hành nội bộ — không hiển thị ở bất kỳ đâu trên trang public
             (dùng để nhóm dữ liệu và filter), nên KHÔNG đưa vào khối "giao
             diện thật" ở trên để khỏi gây nhầm "cái này có hiện trên web". */}
+        {/* "Khu / tòa nhà" used to live here. readInput() never read it and
+            no such field exists on the record, so everything typed into it
+            was discarded on save — the building name is already part of
+            roomNo ("P.301 - Tòa A"), which IS persisted. */}
         <FormSection title="Dữ liệu vận hành (không hiển thị trực tiếp)">
-          <FormField
-            label="Khu / tòa nhà"
-            name="building"
-            placeholder="VD: Tòa A"
-            defaultValue={initial?.roomNo.split(" - ")[1]}
-            hint="Dùng để nhóm dữ liệu"
-          />
           <FormField
             label="Vị trí / khu vực"
             name="location"

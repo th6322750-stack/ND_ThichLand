@@ -63,7 +63,12 @@ export interface ProjectListing {
   name: string;
   location: string;
   investor: string;
-  status: ProjectStatus;
+  // Nullable for the same reason PropertyListing keeps propertyType/
+  // availability strict but AdminPropertyRecord allows null: a CMS row can
+  // hold an empty or unrecognized status, and inventing "Đang triển khai"
+  // for it would publish a fabricated project fact. null renders as
+  // "Đang cập nhật" (see lib/projectStatus.ts).
+  status: ProjectStatus | null;
   media: string[];
   summary: string;
   amenities: string[];

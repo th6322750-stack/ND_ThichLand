@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { ProjectListing } from "@/lib/types";
+import type { ProjectListing, ProjectStatus } from "@/lib/types";
+import { projectStatusLabel } from "@/lib/projectStatus";
+import { firstMedia, PROJECT_PLACEHOLDER } from "@/lib/media";
 import { Icon } from "@/components/icons";
 
 interface ProjectCardProps {
@@ -8,11 +10,14 @@ interface ProjectCardProps {
   selected?: boolean;
 }
 
-const STATUS_STYLES: Record<ProjectListing["status"], string> = {
+const STATUS_STYLES: Record<ProjectStatus, string> = {
   "Đang triển khai": "bg-gold text-surface",
   "Tiêu biểu": "bg-primary text-surface",
   "Đã hoàn thành": "bg-success text-surface",
 };
+// Unknown status keeps a neutral chip rather than borrowing another
+// status's colour, which would read as a claim about the project.
+const UNKNOWN_STATUS_STYLE = "bg-soft text-muted";
 
 export function ProjectCard({ project, selected = false }: ProjectCardProps) {
   return (
@@ -23,11 +28,19 @@ export function ProjectCard({ project, selected = false }: ProjectCardProps) {
       }`}
     >
       <div className="relative aspect-[4/3]">
-        <Image src={project.media[0]} alt={project.name} fill className="object-cover" unoptimized />
+        <Image
+          src={firstMedia(project.media, PROJECT_PLACEHOLDER)}
+          alt={project.name}
+          fill
+          className="object-cover"
+          unoptimized
+        />
         <span
-          className={`absolute left-3 top-3 rounded-full px-3 py-1 text-label ${STATUS_STYLES[project.status]}`}
+          className={`absolute left-3 top-3 rounded-full px-3 py-1 text-label ${
+            project.status ? STATUS_STYLES[project.status] : UNKNOWN_STATUS_STYLE
+          }`}
         >
-          {project.status}
+          {projectStatusLabel(project.status)}
         </span>
       </div>
       <div className="p-4">

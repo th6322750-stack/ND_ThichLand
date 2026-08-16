@@ -1,11 +1,12 @@
 import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import DuAnPage from "@/app/(public-v2)/du-an/page";
+import { renderWithNav } from "../helpers/renderWithNav";
 
 describe("/du-an project tabs", () => {
   it("exposes tablist/tab/tabpanel semantics with aria-selected", async () => {
-    render(await DuAnPage());
+    renderWithNav(await DuAnPage(), "/du-an");
     const tablist = screen.getByRole("tablist", { name: "Lọc dự án theo trạng thái" });
     expect(tablist).toBeInTheDocument();
     const tabs = screen.getAllByRole("tab");
@@ -17,7 +18,7 @@ describe("/du-an project tabs", () => {
 
   it("ArrowRight moves focus and selection to the next tab", async () => {
     const user = userEvent.setup();
-    render(await DuAnPage());
+    renderWithNav(await DuAnPage(), "/du-an");
     const tabs = screen.getAllByRole("tab");
     tabs[0].focus();
     await user.keyboard("{ArrowRight}");
@@ -28,7 +29,7 @@ describe("/du-an project tabs", () => {
 
   it("ArrowLeft wraps from the first tab to the last", async () => {
     const user = userEvent.setup();
-    render(await DuAnPage());
+    renderWithNav(await DuAnPage(), "/du-an");
     const tabs = screen.getAllByRole("tab");
     tabs[0].focus();
     await user.keyboard("{ArrowLeft}");
@@ -38,7 +39,7 @@ describe("/du-an project tabs", () => {
 
   it("Home/End jump to the first/last tab", async () => {
     const user = userEvent.setup();
-    render(await DuAnPage());
+    renderWithNav(await DuAnPage(), "/du-an");
     const tabs = screen.getAllByRole("tab");
     tabs[1].focus();
     await user.keyboard("{End}");
@@ -48,7 +49,7 @@ describe("/du-an project tabs", () => {
   });
 
   it("only the selected tab is in the tab order (roving tabindex)", async () => {
-    render(await DuAnPage());
+    renderWithNav(await DuAnPage(), "/du-an");
     const tabs = screen.getAllByRole("tab");
     expect(tabs[0]).toHaveAttribute("tabindex", "0");
     expect(tabs[1]).toHaveAttribute("tabindex", "-1");

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { PropertyListing } from "@/lib/types";
 import { formatArea, formatCurrencyVnd } from "@/lib/format";
+import { firstMedia, PROPERTY_PLACEHOLDER } from "@/lib/media";
 import { Icon } from "@/components/icons";
 
 type PropertyCardState = "default" | "hover" | "unavailable" | "loading";
@@ -41,7 +42,7 @@ export function PropertyCard({ listing, state = "default" }: PropertyCardProps) 
     >
       <div className="relative aspect-[4/3]">
         <Image
-          src={listing.media[0]}
+          src={firstMedia(listing.media, PROPERTY_PLACEHOLDER)}
           alt={listing.roomNo}
           fill
           className="object-cover"

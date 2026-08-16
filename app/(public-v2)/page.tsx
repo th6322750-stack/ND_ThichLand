@@ -12,6 +12,7 @@ import { getLocationOptions, getPropertyTypeOptions } from "@/lib/rentalFilters"
 import { getProjectRepository } from "@/lib/server/projects/providers";
 import { toPublicProjectListings } from "@/lib/server/projects/dto";
 import { isVisualFixtureV2Enabled, getVisualFixtureProperties, getVisualFixtureProjects } from "@/lib/visualFixtureV2";
+import { firstMedia, PROJECT_PLACEHOLDER } from "@/lib/media";
 
 export const dynamic = "force-dynamic";
 
@@ -50,14 +51,18 @@ export default async function HomePageV2() {
     const merged = await buildMergedRentalData(source, overlay);
     properties = toPublicPropertyListings(merged.admin);
     const projectRepo = await getProjectRepository();
-    projects = toPublicProjectListings(await projectRepo.list()).map((p) => ({ ...p, cardMedia: p.media[0] }));
+    projects = toPublicProjectListings(await projectRepo.list()).map((p) => ({
+      ...p,
+      cardMedia: firstMedia(p.media, PROJECT_PLACEHOLDER),
+    }));
   }
 
   const featuredProperties = properties.slice(0, 4);
-  // Round 8 asset map, section 3 "HOME Featured Rentals": R8_05-08 — distinct
-  // from the R8_11-16 set used by the /cho-thue list for the same demo
-  // listings, so the Home teaser is decoupled via an explicit override.
-  const HOME_RENTAL_IMAGES = [
+  // Round 8 asset map, section 3 "HOME Featured Rentals": R8_05-08.
+  // Decorative filler ONLY for a listing with no photo of its own — a real
+  // listing always shows its own photo (see the call site below), because a
+  // stock skyline presented as a specific rental misrepresents it.
+  const HOME_RENTAL_FALLBACK_IMAGES = [
     "/assets/round8/R8_05-quang-truong-hien-dai-duoi-thap-kinh.png",
     "/assets/round8/R8_06-do-thi-ven-song-luc-hoang-hon.png",
     "/assets/round8/R8_07-bo-song-do-thi-luc-hoang-hon.png",
@@ -246,7 +251,7 @@ export default async function HomePageV2() {
               key={p.slug}
               listing={p}
               mobileAspect="3/2"
-              imageOverride={HOME_RENTAL_IMAGES[i]}
+              imageOverride={p.media.length > 0 ? undefined : HOME_RENTAL_FALLBACK_IMAGES[i]}
               wideAspect="16/10"
             />
           ))}

@@ -1,19 +1,25 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef } from "react";
 import type { KeyboardEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Icon2 as Icon } from "@/components/public-v2/Icon2";
 import { Breadcrumb2 } from "@/components/public-v2/Breadcrumb2";
 import { ProjectCardOverlay2 } from "@/components/public-v2/ProjectCardOverlay2";
 import { EmptySearchResults } from "@/components/public/EmptySearchResults";
-import type { ProjectListing, ProjectStatus } from "@/lib/types";
+import { useProjectFilters } from "@/lib/useProjectFilters";
+import {
+  filterProjects,
+  getProjectLocationOptions,
+  hasActiveProjectFilters,
+  type ProjectStatusFilter,
+} from "@/lib/projectFilters";
+import type { ProjectListing } from "@/lib/types";
 
-type TabValue = "all" | ProjectStatus;
-
-const TABS: { value: TabValue; id: string; label: string }[] = [
-  { value: "all", id: "all", label: "Tất cả" },
+const TABS: { value: ProjectStatusFilter; id: string; label: string }[] = [
+  { value: "", id: "all", label: "Tất cả" },
   { value: "Đang triển khai", id: "in-progress", label: "Đang triển khai" },
   { value: "Đã hoàn thành", id: "done", label: "Đã hoàn thành" },
 ];
@@ -44,9 +50,11 @@ interface ProjectFixtureLike extends ProjectListing {
 }
 
 export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) {
-  const [tab, setTab] = useState<TabValue>("all");
-  const [keyword, setKeyword] = useState("");
-  const [location, setLocation] = useState("");
+  // Keyword/khu vực/trạng thái now live in the URL (?q=&kv=&tt=) so a
+  // filtered project list survives reload and can be shared — they used to
+  // be local useState, so every shared /du-an link landed unfiltered.
+  const { filters, setFilters, reset } = useProjectFilters();
+  const router = useRouter();
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   // MOBILE_PROJECT_FIRST_POLISH follow-up: client noticed /du-an had no
@@ -54,20 +62,12 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
   // MOBILE.png's approved master doesn't have one either — this is a new
   // addition, not a master-parity fix). Location options are the real
   // `location` values already on each project (no separate lookup table).
-  const locationOptions = useMemo(() => Array.from(new Set(projects.map((p) => p.location))).sort(), [projects]);
-
-  const visible = useMemo(() => {
-    const q = keyword.trim().toLowerCase();
-    return projects.filter((p) => {
-      if (tab !== "all" && p.status !== tab) return false;
-      if (location && p.location !== location) return false;
-      if (q && !p.name.toLowerCase().includes(q)) return false;
-      return true;
-    });
-  }, [projects, tab, location, keyword]);
+  const locationOptions = useMemo(() => getProjectLocationOptions(projects), [projects]);
+  const visible = useMemo(() => filterProjects(projects, filters), [projects, filters]);
+  const noSourceData = projects.length === 0;
 
   function activate(index: number) {
-    setTab(TABS[index].value);
+    setFilters({ status: TABS[index].value });
     tabRefs.current[index]?.focus();
   }
 
@@ -172,18 +172,18 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
             />
             <input
               type="search"
-              aria-label="Tìm theo tên dự án"
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
+              aria-label="Tìm theo tên dự án, chủ đầu tư hoặc khu vực"
+              value={filters.q}
+              onChange={(e) => setFilters({ q: e.target.value })}
               placeholder="Tìm theo tên dự án..."
-              className="h-[40px] w-full rounded-md border border-[#E4E1E0] bg-white pl-[36px] pr-3 text-[13px] text-[#0C0D0D] placeholder:text-[#A6A6A6] focus:outline-none min-[900px]:h-[46px] min-[900px]:text-[14px] wide:h-[48px]"
+              className="h-[40px] w-full rounded-md border border-[#E4E1E0] bg-white pl-[36px] pr-3 text-[13px] text-[#0C0D0D] transition-colors duration-fast ease-base placeholder:text-[#A6A6A6] focus:border-[#880206] focus:outline-none min-[900px]:h-[46px] min-[900px]:text-[14px] wide:h-[48px]"
             />
           </div>
           <select
             aria-label="Khu vực"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            className="h-[40px] w-full rounded-md border border-[#E4E1E0] bg-white px-3 text-[13px] text-[#0C0D0D] focus:outline-none min-[900px]:h-[46px] min-[900px]:w-[220px] min-[900px]:text-[14px] wide:h-[48px]"
+            value={filters.location}
+            onChange={(e) => setFilters({ location: e.target.value })}
+            className="h-[40px] w-full rounded-md border border-[#E4E1E0] bg-white px-3 text-[13px] text-[#0C0D0D] transition-colors duration-fast ease-base focus:border-[#880206] focus:outline-none min-[900px]:h-[46px] min-[900px]:w-[220px] min-[900px]:text-[14px] wide:h-[48px]"
           >
             <option value="">Tất cả khu vực</option>
             {locationOptions.map((loc) => (
@@ -200,10 +200,10 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
           aria-label="Lọc dự án theo trạng thái"
         >
           {TABS.map((t, index) => {
-            const selected = tab === t.value;
+            const selected = filters.status === t.value;
             return (
               <button
-                key={t.value}
+                key={t.id}
                 ref={(el) => {
                   tabRefs.current[index] = el;
                 }}
@@ -213,9 +213,9 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
                 aria-selected={selected}
                 aria-controls="du-an-tabpanel"
                 tabIndex={selected ? 0 : -1}
-                onClick={() => setTab(t.value)}
+                onClick={() => setFilters({ status: t.value })}
                 onKeyDown={(e) => handleKeyDown(e, index)}
-                className={`shrink-0 whitespace-nowrap rounded-md border px-2 py-[6px] text-[10px] font-semibold min-[900px]:px-4 min-[900px]:py-[10px] min-[900px]:text-[13px] wide:h-[44px] wide:rounded-[10px] wide:px-5 wide:text-[15px] ${
+                className={`shrink-0 whitespace-nowrap rounded-md border px-2 py-[6px] text-[10px] font-semibold transition-colors duration-fast ease-base min-[900px]:px-4 min-[900px]:py-[10px] min-[900px]:text-[13px] wide:h-[44px] wide:rounded-[10px] wide:px-5 wide:text-[15px] ${
                   selected ? "border-[#880206] bg-[#880206] text-white" : "border-[#E4E1E0] text-[#0C0D0D] hover:border-[#880206]"
                 }`}
               >
@@ -228,42 +228,52 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
 
       {visible.length === 0 ? (
         <div className="mt-4 min-[900px]:mt-6">
-          <EmptySearchResults
-            title="Không tìm thấy dự án phù hợp?"
-            message="Thử từ khóa khác, đổi khu vực hoặc bỏ bớt bộ lọc trạng thái."
-            resetLabel="Đặt lại bộ lọc"
-            onReset={() => {
-              setKeyword("");
-              setLocation("");
-              setTab("all");
-            }}
-          />
+          {noSourceData ? (
+            // Honest empty-source state: nothing was filtered out, there is
+            // simply no published project yet (production fails closed when
+            // the CMS provider is not configured).
+            <EmptySearchResults
+              title="Hiện chưa có dự án nào được đăng"
+              message="Danh mục dự án đang được cập nhật. Anh/chị có thể liên hệ để được tư vấn trực tiếp."
+              resetLabel="Liên hệ tư vấn"
+              onReset={() => router.push("/lien-he")}
+            />
+          ) : (
+            <EmptySearchResults
+              title="Không tìm thấy dự án phù hợp?"
+              message={
+                hasActiveProjectFilters(filters)
+                  ? "Thử từ khóa khác, đổi khu vực hoặc bỏ bớt bộ lọc trạng thái."
+                  : "Danh sách đang trống ở bộ lọc hiện tại."
+              }
+              resetLabel="Đặt lại bộ lọc"
+              onReset={reset}
+            />
+          )}
         </div>
       ) : (
         <div
           id="du-an-tabpanel"
           role="tabpanel"
-          aria-labelledby={`du-an-tab-${TABS.find((t) => t.value === tab)?.id}`}
+          aria-labelledby={`du-an-tab-${TABS.find((t) => t.value === filters.status)?.id}`}
           className="mt-1 grid grid-cols-1 gap-1 min-[900px]:mt-6 min-[900px]:grid-cols-3 min-[900px]:gap-5 wide:gap-6"
           data-qa-region="project-grid"
         >
-          {visible.map((project, i) => (
-            // 04_DuAn_MOBILE.png's canonical viewport only has room for 4
-            // cards before "Về ..." — real data isn't truncated (every
-            // project still renders, in the DOM, for real production use),
-            // just visually capped past the 4th on narrow widths so the
-            // canonical mobile capture matches the master's visible set.
-            <div key={project.slug} className={i >= 4 ? "hidden min-[900px]:block" : undefined}>
-              <ProjectCardOverlay2
-                slug={project.slug}
-                name={project.name}
-                location={project.location}
-                image={project.cardMedia}
-                mobileAspect="2.8/1"
-                desktopAspect="4/3"
-                showButton
-              />
-            </div>
+          {/* Every project renders at every width. A previous revision hid
+              the 5th card onwards below 900px to match a canonical capture,
+              which meant a phone visitor could never reach projects 5+ —
+              there is no pagination or "xem thêm" here to reach them with. */}
+          {visible.map((project) => (
+            <ProjectCardOverlay2
+              key={project.slug}
+              slug={project.slug}
+              name={project.name}
+              location={project.location}
+              image={project.cardMedia}
+              mobileAspect="2.8/1"
+              desktopAspect="4/3"
+              showButton
+            />
           ))}
         </div>
       )}

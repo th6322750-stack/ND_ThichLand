@@ -124,7 +124,7 @@ describe("Project admin actions", () => {
         name: target.name,
         location: target.location,
         investor: "Chủ đầu tư đã cập nhật",
-        status: target.status,
+        status: target.status ?? "",
         summary: target.summary,
         amenities: target.amenities,
         progressText: target.progressText,

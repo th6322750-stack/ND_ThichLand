@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { Icon2 as Icon, type IconName } from "@/components/public-v2/Icon2";
+import { useSavedListings } from "@/lib/useSavedListings";
 
 const TABS: { label: string; href: string; icon: IconName }[] = [
   { label: "Trang chủ", href: "/", icon: "home" },
@@ -22,15 +23,17 @@ const MENU_LINKS = [
 
 // 02_ChoThue_MOBILE.png's fixed bottom tab bar (Trang chủ / Cho thuê / Dự án
 // / Yêu thích / Menu) — real DOM buttons/links, not a screenshot overlay.
-// "Yêu thích" has no backing route (favorites are a visual-only affordance
-// everywhere else in this codebase too, e.g. PropertyListRow2's heart button
-// — no persistence layer exists for it), so it renders as a real but
-// non-navigating button rather than linking to a page that doesn't exist.
+// "Yêu thích" is now a real destination: it deep-links to /cho-thue?luu=1,
+// the saved-listings view backed by lib/useSavedListings.ts (the same store
+// PropertyListRow2's heart writes to). It used to be an inert button.
 // "Menu" opens a lightweight local sheet with the same site links
 // Header2's hamburger drawer shows.
 export function MobileBottomNav2() {
   const pathname = usePathname() ?? "";
+  const searchParams = useSearchParams();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { saved } = useSavedListings();
+  const savedActive = pathname.startsWith("/cho-thue") && searchParams.get("luu") === "1";
 
   return (
     <>
@@ -54,14 +57,26 @@ export function MobileBottomNav2() {
             </Link>
           );
         })}
-        <button type="button" className="flex flex-col items-center gap-[2px] px-2 py-1 text-[10px] font-medium text-[#3A3838]">
+        <Link
+          href="/cho-thue?luu=1"
+          aria-current={savedActive ? "page" : undefined}
+          className={`relative flex flex-col items-center gap-[2px] px-2 py-1 text-[10px] font-medium transition-colors duration-fast ease-base ${
+            savedActive ? "text-[#880206]" : "text-[#3A3838]"
+          }`}
+        >
           <Icon name="heart" size={20} />
+          {saved.length > 0 && (
+            <span className="absolute right-0 top-0 min-w-[16px] rounded-full bg-[#880206] px-1 text-center text-[9px] font-bold leading-4 text-white">
+              {saved.length}
+            </span>
+          )}
           Yêu thích
-        </button>
+        </Link>
         <button
           type="button"
           onClick={() => setMenuOpen(true)}
-          className="flex flex-col items-center gap-[2px] px-2 py-1 text-[10px] font-medium text-[#3A3838]"
+          aria-expanded={menuOpen}
+          className="flex flex-col items-center gap-[2px] px-2 py-1 text-[10px] font-medium text-[#3A3838] transition-colors duration-fast ease-base"
         >
           <Icon name="menu" size={20} />
           Menu

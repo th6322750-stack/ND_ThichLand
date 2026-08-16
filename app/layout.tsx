@@ -15,9 +15,27 @@ const beVietnamPro = localFont({
   display: "swap",
 });
 
+/**
+ * Set NEXT_PUBLIC_SITE_URL on the deployment to the real origin. Without it,
+ * relative `alternates.canonical`/OG URLs resolve against localhost — which
+ * is correct for local QA and harmless in preview, and the sitemap/robots
+ * routes fall back to the same value.
+ */
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
 export const metadata: Metadata = {
-  title: "NDTHICH LAND",
-  description: "Công ty TNHH Đầu tư & Kinh doanh Nguyễn Đắc Thích",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "NDTHICH LAND — Cho thuê bất động sản & dự án",
+    template: "%s",
+  },
+  description:
+    "Công ty TNHH Đầu tư & Kinh doanh Nguyễn Đắc Thích — cho thuê nhà, căn hộ, mặt bằng kinh doanh và giới thiệu các dự án đã, đang triển khai.",
+  openGraph: {
+    siteName: "NDTHICH LAND",
+    locale: "vi_VN",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -2,7 +2,8 @@
 import { readSheetRange, appendSheetRow, updateSheetRange } from "@/lib/server/google/sheets";
 import { requireGoogleSpreadsheetEnv } from "@/lib/server/env";
 import { CMS_TABS } from "@/lib/server/cmsSheetSchema";
-import type { ProjectListing, ProjectStatus } from "@/lib/types";
+import { parseProjectStatus } from "@/lib/projectStatus";
+import type { ProjectListing } from "@/lib/types";
 
 export interface ProjectRecord extends ProjectListing {
   id: string;
@@ -41,6 +42,14 @@ function safeProgressPhotos(json: string | undefined): { label: string; image: s
   }
 }
 
+/** Clamped to 0-100: the value drives a milestone indicator, and a stray
+    "550" or "-3" in the sheet would otherwise index past the last step. */
+function safeProgressPercent(raw: string | undefined): number {
+  const n = Number(raw);
+  if (!Number.isFinite(n)) return 0;
+  return Math.min(100, Math.max(0, Math.round(n)));
+}
+
 function rowToRecord(row: string[]): ProjectRecord | null {
   const [
     id,
@@ -66,11 +75,13 @@ function rowToRecord(row: string[]): ProjectRecord | null {
     name: name ?? "",
     location: location ?? "",
     investor: investor ?? "",
-    status: (status as ProjectStatus) || "Đang triển khai",
+    // An empty/unrecognized cell stays null ("chưa biết") instead of being
+    // promoted to "Đang triển khai" — see lib/projectStatus.ts.
+    status: parseProjectStatus(status),
     summary: summary ?? "",
     amenities: safeJsonArray(amenitiesJson),
     progressText: progressText ?? "",
-    progressPercent: progressPercent ? Number(progressPercent) : 0,
+    progressPercent: safeProgressPercent(progressPercent),
     media: safeJsonArray(mediaJson),
     published: published === "true",
     createdAt: createdAt ?? "",
@@ -88,7 +99,7 @@ function recordToRow(r: ProjectRecord): (string | number)[] {
     r.name,
     r.location,
     r.investor,
-    r.status,
+    r.status ?? "",
     r.summary,
     JSON.stringify(r.amenities),
     r.progressText,

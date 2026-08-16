@@ -1,14 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { NewsArticle } from "@/lib/types";
+import { mediaSrc, NEWS_PLACEHOLDER } from "@/lib/media";
 
 interface NewsCardProps {
   article: NewsArticle;
   state?: "default" | "hover" | "loading";
 }
 
+/** An article saved without a publish date rendered "undefined.undefined.undefined". */
 function formatDate(iso: string): string {
   const [y, m, d] = iso.split("-");
+  if (!y || !m || !d) return "—";
   return `${d}.${m}.${y}`;
 }
 
@@ -31,7 +34,13 @@ export function NewsCard({ article, state = "default" }: NewsCardProps) {
       className="block overflow-hidden rounded-md border border-line bg-surface transition-colors duration-fast hover:border-primary"
     >
       <div className="relative aspect-[4/3]">
-        <Image src={article.cover} alt={article.title} fill className="object-cover" unoptimized />
+        <Image
+          src={mediaSrc(article.cover, NEWS_PLACEHOLDER)}
+          alt={article.title}
+          fill
+          className="object-cover"
+          unoptimized
+        />
         <span className="absolute left-3 top-3 rounded-full bg-black/40 px-3 py-1 text-label text-surface">
           Tin tức
         </span>

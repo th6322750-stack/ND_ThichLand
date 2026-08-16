@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
+import { useRef, useState, type ChangeEvent, type FormEvent, type MouseEvent } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { FormField } from "@/components/public/FormField";
@@ -9,10 +9,8 @@ import { Uploader, type UploaderState } from "@/components/admin/Uploader";
 import { saveProjectAction, type ProjectFormInput } from "@/app/actions/projects";
 import { uploadMediaAction } from "@/app/actions/media";
 import { PROJECT_AMENITY_CATALOG } from "@/lib/projectAmenities";
+import { KNOWN_PROJECT_STATUSES } from "@/lib/projectStatus";
 import type { ProjectRecord } from "@/lib/server/projects/repository";
-import type { ProjectStatus } from "@/lib/types";
-
-const PROJECT_STATUS_OPTIONS: ProjectStatus[] = ["Đang triển khai", "Tiêu biểu", "Đã hoàn thành"];
 
 // Same WYSIWYG approach as BdsForm — "để admin biết nội dung sẽ hiển thị ở
 // đâu, đồng nhất 1:1 với giao diện web" — the inputs below are styled with
@@ -28,7 +26,7 @@ interface DuAnFormProps {
 
 export function DuAnForm({ initial }: DuAnFormProps) {
   const router = useRouter();
-  const [saving, setSaving] = useState(false);
+  const [saving, setSaving] = useState<"draft" | "publish" | null>(null);
   const [error, setError] = useState<string>();
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [saved, setSaved] = useState<string>();
@@ -100,13 +98,12 @@ export function DuAnForm({ initial }: DuAnFormProps) {
     setSelectedAmenities((prev) => (prev.includes(label) ? prev.filter((a) => a !== label) : [...prev, label]));
   }
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setSaving(true);
+  async function save(form: HTMLFormElement, publish: boolean) {
+    setSaving(publish ? "publish" : "draft");
     setError(undefined);
     setSaved(undefined);
     try {
-      const data = new FormData(e.currentTarget);
+      const data = new FormData(form);
       const get = (name: string) => String(data.get(name) ?? "").trim();
       const progressMatch = get("progress").match(/(\d+)\s*%/);
 
@@ -124,18 +121,31 @@ export function DuAnForm({ initial }: DuAnFormProps) {
         progressPhotos,
       };
 
-      const result = await saveProjectAction(input, true);
+      const result = await saveProjectAction(input, publish);
       if (!result.ok) {
         setFieldErrors(result.fieldErrors ?? {});
         setError(result.error);
         return;
       }
       setFieldErrors({});
-      setSaved("Đã lưu dự án.");
+      setSaved(publish ? "Đã lưu và đăng lên website." : "Đã lưu nháp (chưa hiện trên website).");
       router.refresh();
     } finally {
-      setSaving(false);
+      setSaving(null);
     }
+  }
+
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    void save(e.currentTarget, true);
+  }
+
+  // Saving used to hardcode publish=true, so there was no way to park a
+  // half-finished project as a draft — and re-saving a project an operator
+  // had deliberately unpublished silently pushed it back onto the website.
+  function handleSaveDraft(e: MouseEvent<HTMLButtonElement>) {
+    const form = e.currentTarget.closest("form");
+    if (form) void save(form, false);
   }
 
   return (
@@ -143,15 +153,28 @@ export function DuAnForm({ initial }: DuAnFormProps) {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-admin-title-mobile text-ink desktop:text-admin-title">Thêm / sửa dự án</h1>
-          <p className="mt-1 text-body text-muted">Form bám đúng giao diện thật trên website.</p>
+          <p className="mt-1 text-body text-muted">
+            Form bám đúng giao diện thật trên website.{" "}
+            {initial ? (initial.published ? "Đang hiện trên website." : "Đang là bản nháp.") : "Dự án mới."}
+          </p>
         </div>
-        <button
-          type="submit"
-          disabled={saving}
-          className="rounded-md bg-primary px-6 py-3 text-button uppercase text-surface hover:bg-primaryHover disabled:opacity-60"
-        >
-          {saving ? "Đang lưu..." : "Lưu"}
-        </button>
+        <div className="flex gap-3">
+          <button
+            type="button"
+            onClick={handleSaveDraft}
+            disabled={saving !== null}
+            className="rounded-md border border-primary px-6 py-3 text-button uppercase text-primary transition-colors duration-fast ease-base hover:bg-soft disabled:opacity-60"
+          >
+            {saving === "draft" ? "Đang lưu..." : "Lưu nháp"}
+          </button>
+          <button
+            type="submit"
+            disabled={saving !== null}
+            className="rounded-md bg-primary px-6 py-3 text-button uppercase text-surface transition-colors duration-fast ease-base hover:bg-primaryHover disabled:opacity-60"
+          >
+            {saving === "publish" ? "Đang lưu..." : "Lưu & đăng"}
+          </button>
+        </div>
       </div>
 
       {error && (
@@ -218,23 +241,39 @@ export function DuAnForm({ initial }: DuAnFormProps) {
                 placeholder="Tên dự án (VD: Sun Galaxy Complex)"
                 defaultValue={initial?.name}
                 aria-label="Tên dự án"
+                aria-invalid={fieldErrors.name ? true : undefined}
+                aria-describedby={fieldErrors.name ? "du-an-name-error" : undefined}
                 className={`${wysiwygInput} w-auto flex-1 text-[20px] font-extrabold leading-tight text-[#0C0D0D] placeholder:text-[#C9C6C5]`}
               />
               <select
                 name="status"
-                defaultValue={initial?.status ?? PROJECT_STATUS_OPTIONS[0]}
+                // No pre-selected status for a brand-new project: defaulting
+                // the dropdown to "Đang triển khai" would have the operator
+                // publish a build status nobody actually chose.
+                defaultValue={initial?.status ?? ""}
                 aria-label="Trạng thái dự án"
+                aria-invalid={fieldErrors.status ? true : undefined}
+                aria-describedby={fieldErrors.status ? "du-an-status-error" : undefined}
                 className="shrink-0 rounded-full border-0 bg-[#FBEFE3] px-3 py-1 text-[12px] font-bold text-[#C08E47] outline-none"
               >
-                {PROJECT_STATUS_OPTIONS.map((s) => (
+                <option value="">— Chọn trạng thái —</option>
+                {KNOWN_PROJECT_STATUSES.map((s) => (
                   <option key={s} value={s}>
                     {s}
                   </option>
                 ))}
               </select>
             </div>
-            {fieldErrors.name && <p className="mt-1 text-body text-error">{fieldErrors.name}</p>}
-            {fieldErrors.status && <p className="mt-1 text-body text-error">{fieldErrors.status}</p>}
+            {fieldErrors.name && (
+              <p id="du-an-name-error" className="mt-1 text-body text-error">
+                {fieldErrors.name}
+              </p>
+            )}
+            {fieldErrors.status && (
+              <p id="du-an-status-error" className="mt-1 text-body text-error">
+                {fieldErrors.status}
+              </p>
+            )}
 
             <div className="mt-2 flex items-center gap-[6px]">
               <Icon name="pin" size={15} className="shrink-0 text-[#5F5D5D]" />
@@ -243,10 +282,16 @@ export function DuAnForm({ initial }: DuAnFormProps) {
                 placeholder="Vị trí (VD: Quận 7, TP. HCM)"
                 defaultValue={initial?.location}
                 aria-label="Vị trí"
+                aria-invalid={fieldErrors.location ? true : undefined}
+                aria-describedby={fieldErrors.location ? "du-an-location-error" : undefined}
                 className={`${wysiwygInput} text-[13px] text-[#5F5D5D] placeholder:text-[#C9C6C5]`}
               />
             </div>
-            {fieldErrors.location && <p className="mt-1 text-body text-error">{fieldErrors.location}</p>}
+            {fieldErrors.location && (
+              <p id="du-an-location-error" className="mt-1 text-body text-error">
+                {fieldErrors.location}
+              </p>
+            )}
 
             {/* Facts grid — only Chủ đầu tư has a real field; the other 3
                 (Loại hình/Quy mô/Số lượng) render "Đang cập nhật" on the

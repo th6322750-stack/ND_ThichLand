@@ -2,32 +2,71 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Icon2 as Icon } from "@/components/public-v2/Icon2";
 import { Breadcrumb2 } from "@/components/public-v2/Breadcrumb2";
 import { Filter2 } from "@/components/public-v2/Filter2";
 import { FilterDrawer2 } from "@/components/public-v2/FilterDrawer2";
+import { SortSheet2 } from "@/components/public-v2/SortSheet2";
 import { PropertyListRow2 } from "@/components/public-v2/PropertyListRow2";
 import { Pagination2 } from "@/components/public-v2/Pagination2";
 import { MobileBottomNav2 } from "@/components/public-v2/MobileBottomNav2";
 import { EmptySearchResults } from "@/components/public/EmptySearchResults";
 import { useRentalFilters } from "@/lib/useRentalFilters";
-import { filterProperties, getLocationOptions, getPropertyTypeOptions } from "@/lib/rentalFilters";
+import { useSavedListings } from "@/lib/useSavedListings";
+import {
+  filterProperties,
+  getLocationOptions,
+  getPropertyTypeOptions,
+  hasActiveRentalFilters,
+  sortProperties,
+  RENTAL_SORT_OPTIONS,
+  type RentalSort,
+} from "@/lib/rentalFilters";
 import type { PropertyListing } from "@/lib/types";
 
 const PAGE_SIZE = 6;
 
 export function ChoThuePageInner({ properties }: { properties: PropertyListing[] }) {
   const { filters, page, setFilters, setPage, reset } = useRentalFilters();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [sortSheetOpen, setSortSheetOpen] = useState(false);
+  const { saved } = useSavedListings();
+
+  // "Yêu thích" view — the same list, narrowed to what this browser saved.
+  // Kept as its own URL param (not a filter field) because it is a device
+  // preference, not a property of the data.
+  const savedOnly = searchParams.get("luu") === "1";
 
   const locationOptions = useMemo(() => getLocationOptions(properties), [properties]);
   const propertyTypeOptions = useMemo(() => getPropertyTypeOptions(properties), [properties]);
-  const filtered = useMemo(() => filterProperties(properties, filters), [properties, filters]);
+  const filtered = useMemo(() => {
+    const base = savedOnly ? properties.filter((p) => saved.includes(p.slug)) : properties;
+    return sortProperties(filterProperties(base, filters), filters.sort);
+  }, [properties, filters, savedOnly, saved]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages);
   const visible = useMemo(() => filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE), [filtered, safePage]);
   const isEmpty = filtered.length === 0;
+
+  // Three genuinely different "nothing to show" causes, which the single old
+  // "thử mở rộng khoảng giá hoặc khu vực" message conflated — telling a
+  // visitor to widen their filters when the data source itself came back
+  // empty (production without Google config fails closed) is misleading.
+  const noSourceData = properties.length === 0;
+  const filtersActive = hasActiveRentalFilters(filters);
+
+  function setSort(sort: RentalSort) {
+    setFilters({ sort });
+    setSortSheetOpen(false);
+  }
+
+  function clearSavedView() {
+    router.replace("/cho-thue", { scroll: false });
+  }
 
   return (
     <>
@@ -110,23 +149,42 @@ export function ChoThuePageInner({ properties }: { properties: PropertyListing[]
         {/* Mobile title/controls block — the hero above now owns the page's
             h1, so this is a secondary heading (h2), not a duplicate h1. */}
         <div className="min-[900px]:hidden" data-qa-region="heading">
-          <h2 className="text-[16px] font-extrabold text-[#0C0D0D]">Cho thuê bất động sản</h2>
+          <h2 className="text-[16px] font-extrabold text-[#0C0D0D]">
+            {savedOnly ? "BĐS đã lưu" : "Cho thuê bất động sản"}
+          </h2>
           <div className="mt-2 grid grid-cols-2 gap-2" data-qa-region="filter-sort">
             <button
               type="button"
               onClick={() => setDrawerOpen(true)}
-              className="flex items-center justify-center gap-2 rounded-md border border-[#E4E1E0] px-4 py-2 text-[12px] font-semibold text-[#0C0D0D]"
+              aria-expanded={drawerOpen}
+              className="flex min-h-[40px] items-center justify-center gap-2 rounded-md border border-[#E4E1E0] px-4 py-2 text-[12px] font-semibold text-[#0C0D0D] transition-colors duration-fast ease-base hover:border-[#880206]"
             >
               <Icon name="filter" size={14} /> Lọc
             </button>
             <button
               type="button"
-              className="flex items-center justify-center gap-2 rounded-md border border-[#E4E1E0] px-4 py-2 text-[12px] font-semibold text-[#0C0D0D]"
+              onClick={() => setSortSheetOpen(true)}
+              aria-expanded={sortSheetOpen}
+              className="flex min-h-[40px] items-center justify-center gap-2 rounded-md border border-[#E4E1E0] px-4 py-2 text-[12px] font-semibold text-[#0C0D0D] transition-colors duration-fast ease-base hover:border-[#880206]"
             >
-              <Icon name="sort" size={14} /> Sắp xếp
+              <Icon name="sort" size={14} /> {RENTAL_SORT_OPTIONS.find((o) => o.value === filters.sort)?.label}
             </button>
           </div>
         </div>
+        {savedOnly && (
+          <div className="mt-2 flex flex-wrap items-center gap-2 min-[900px]:mt-4">
+            <span className="rounded-full bg-[#FBEFE3] px-3 py-1 text-[12px] font-semibold text-[#880206]">
+              Đang xem: đã lưu ({saved.length})
+            </span>
+            <button
+              type="button"
+              onClick={clearSavedView}
+              className="text-[12px] font-semibold text-[#880206] underline underline-offset-2"
+            >
+              Xem tất cả BĐS
+            </button>
+          </div>
+        )}
         <p className="mt-2 text-[12px] font-bold text-[#0C0D0D] min-[900px]:hidden">{filtered.length} kết quả</p>
 
         {/* Sidebar targets ~25% of the content column (master), not a fixed
@@ -153,22 +211,49 @@ export function ChoThuePageInner({ properties }: { properties: PropertyListing[]
               <label className="flex items-center gap-2 text-[13px] text-[#5F5D5D] wide:text-[14px]">
                 Sắp xếp:
                 <select
-                  className="rounded-md border border-[#E4E1E0] px-3 py-2 text-[13px] text-[#0C0D0D] wide:h-[48px] wide:px-4 wide:text-[14px]"
-                  defaultValue="newest"
+                  className="rounded-md border border-[#E4E1E0] px-3 py-2 text-[13px] text-[#0C0D0D] transition-colors duration-fast ease-base focus:border-[#880206] focus:outline-none wide:h-[48px] wide:px-4 wide:text-[14px]"
+                  value={filters.sort}
+                  onChange={(e) => setSort(e.target.value as RentalSort)}
                 >
-                  <option value="newest">Mới nhất</option>
+                  {RENTAL_SORT_OPTIONS.map((o) => (
+                    <option key={o.value} value={o.value}>
+                      {o.label}
+                    </option>
+                  ))}
                 </select>
               </label>
             </div>
 
             {isEmpty ? (
               <div className="mt-6">
-                <EmptySearchResults
-                  title="Không tìm thấy căn phù hợp?"
-                  message="Thử mở rộng khoảng giá hoặc khu vực."
-                  resetLabel="Đặt lại bộ lọc"
-                  onReset={reset}
-                />
+                {savedOnly ? (
+                  <EmptySearchResults
+                    title="Chưa có BĐS nào được lưu"
+                    message="Bấm biểu tượng trái tim trên một tin bất kỳ để lưu lại xem sau. Danh sách này được lưu ngay trên trình duyệt của bạn."
+                    resetLabel="Xem tất cả BĐS"
+                    onReset={clearSavedView}
+                  />
+                ) : noSourceData ? (
+                  // Honest provider/empty-data state: nothing was excluded by
+                  // a filter, there is simply no published listing to show.
+                  <EmptySearchResults
+                    title="Hiện chưa có bất động sản nào được đăng"
+                    message="Danh sách đang được cập nhật. Anh/chị có thể gọi hotline để được tư vấn nguồn đang trống."
+                    resetLabel="Liên hệ tư vấn"
+                    onReset={() => router.push("/lien-he")}
+                  />
+                ) : (
+                  <EmptySearchResults
+                    title="Không tìm thấy căn phù hợp?"
+                    message={
+                      filtersActive
+                        ? "Thử mở rộng khoảng giá, khu vực hoặc bỏ bớt tiêu chí."
+                        : "Không có kết quả cho trang này. Quay lại trang đầu để xem toàn bộ danh sách."
+                    }
+                    resetLabel="Đặt lại bộ lọc"
+                    onReset={reset}
+                  />
+                )}
               </div>
             ) : (
               <div className="mt-2 flex flex-col gap-2 min-[900px]:mt-0 min-[900px]:gap-5">
@@ -200,6 +285,8 @@ export function ChoThuePageInner({ properties }: { properties: PropertyListing[]
         locationOptions={locationOptions}
         propertyTypeOptions={propertyTypeOptions}
       />
+
+      <SortSheet2 open={sortSheetOpen} value={filters.sort} onClose={() => setSortSheetOpen(false)} onSelect={setSort} />
     </>
   );
 }

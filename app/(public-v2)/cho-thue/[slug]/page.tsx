@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { Breadcrumb2 } from "@/components/public-v2/Breadcrumb2";
 import { Gallery2 } from "@/components/public-v2/Gallery2";
 import { PropertyCardGrid2 } from "@/components/public-v2/PropertyCardGrid2";
 import { PropertyDetailTabs2 } from "@/components/public-v2/PropertyDetailTabs2";
+import { ViewingRequestButton } from "@/components/public-v2/ViewingRequestButton";
 import { Icon2 as Icon, type IconName } from "@/components/public-v2/Icon2";
 import { formatArea, formatCurrencyVnd } from "@/lib/format";
 import { getRentalProviders } from "@/lib/server/rental/providers";
@@ -14,12 +16,43 @@ import type { PropertyListing } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
-// Round 8 asset map, section 3 "/cho-thue/[slug] Related properties": R8_05/07/08.
-const RELATED_IMAGES = [
+// Round 8 asset map, section 3 "/cho-thue/[slug] Related properties":
+// R8_05/07/08. Decorative filler ONLY for a listing that has no photo of its
+// own — a listing WITH photos always shows its own (see the call site).
+// Painting a stock skyline over a real rental's card misrepresents that
+// specific property to a customer.
+const RELATED_FALLBACK_IMAGES = [
   "/assets/round8/R8_05-quang-truong-hien-dai-duoi-thap-kinh.png",
   "/assets/round8/R8_07-bo-song-do-thi-luc-hoang-hon.png",
   "/assets/round8/R8_08-hoang-hon-ben-pho-ven-song.png",
 ];
+
+async function loadProperties(): Promise<PropertyListing[]> {
+  if (isVisualFixtureV2Enabled()) return getVisualFixtureProperties();
+  const { source, overlay } = await getRentalProviders();
+  const merged = await buildMergedRentalData(source, overlay);
+  return toPublicPropertyListings(merged.admin);
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const listing = (await loadProperties()).find((p) => p.slug === slug);
+  if (!listing) return { title: "Không tìm thấy bất động sản | NDTHICH LAND" };
+  const title = `${listing.roomNo} — ${formatCurrencyVnd(listing.price)}/tháng | NDTHICH LAND`;
+  return {
+    title,
+    // Built only from fields the record actually carries.
+    description:
+      listing.description ||
+      `${listing.propertyType} ${formatArea(listing.area)} tại ${listing.location}, giá thuê ${formatCurrencyVnd(listing.price)}/tháng.`,
+    alternates: { canonical: `/cho-thue/${listing.slug}` },
+    openGraph: {
+      title: listing.roomNo,
+      description: listing.description || undefined,
+      images: listing.media.length > 0 ? [listing.media[0]] : undefined,
+    },
+  };
+}
 
 function buildFacts(listing: PropertyListing): { icon: IconName; label: string; value: string }[] {
   return [
@@ -36,7 +69,7 @@ function buildFacts(listing: PropertyListing): { icon: IconName; label: string; 
 // this codebase already documents elsewhere). This renders once, with the
 // third button responsive (mobile-only) rather than being duplicated by a
 // separate mobile-only action block elsewhere on the page.
-function ActionButtons() {
+function ActionButtons({ listingName }: { listingName: string }) {
   return (
     <div className="flex gap-2 min-[900px]:gap-3">
       <a
@@ -51,12 +84,12 @@ function ActionButtons() {
       >
         <Icon name="chat" size={12} className="shrink-0 text-white min-[900px]:!h-4 min-[900px]:!w-4" /> Nhắn Zalo
       </a>
-      <button
-        type="button"
-        className="flex flex-1 items-center justify-center gap-1 rounded-md border border-[#880206] px-2 py-2 text-[10px] font-semibold leading-tight text-[#880206] hover:bg-[#F7F6F6] min-[900px]:hidden"
-      >
-        <Icon name="calendar" size={12} className="shrink-0" /> Đặt lịch xem
-      </button>
+      {/* Was an inert <button>; now opens a real request routed through the
+          approved WEB_CONTACTS channel (see ViewingRequestButton). */}
+      <ViewingRequestButton
+        listingName={listingName}
+        className="flex flex-1 items-center justify-center gap-1 rounded-md border border-[#880206] px-2 py-2 text-[10px] font-semibold leading-tight text-[#880206] transition-colors duration-fast ease-base hover:bg-[#F7F6F6] min-[900px]:hidden"
+      />
     </div>
   );
 }
@@ -64,15 +97,7 @@ function ActionButtons() {
 export default async function ChoThueDetailPageV2({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
-  let properties: PropertyListing[];
-  if (isVisualFixtureV2Enabled()) {
-    properties = getVisualFixtureProperties();
-  } else {
-    const { source, overlay } = await getRentalProviders();
-    const merged = await buildMergedRentalData(source, overlay);
-    properties = toPublicPropertyListings(merged.admin);
-  }
-
+  const properties = await loadProperties();
   const listing = properties.find((p) => p.slug === slug);
   if (!listing) notFound();
 
@@ -153,7 +178,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
           )}
 
           <div className="mt-2 min-[900px]:mt-3 wide:mt-6" data-qa-region="actions">
-            <ActionButtons />
+            <ActionButtons listingName={title} />
           </div>
         </div>
       </div>
@@ -182,7 +207,9 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
                 <PropertyCardGrid2
                   listing={p}
                   mobileAspect="4/3"
-                  imageOverride={RELATED_IMAGES[i % RELATED_IMAGES.length]}
+                  imageOverride={
+                    p.media.length > 0 ? undefined : RELATED_FALLBACK_IMAGES[i % RELATED_FALLBACK_IMAGES.length]
+                  }
                   wideAspect="16/10"
                 />
               </div>

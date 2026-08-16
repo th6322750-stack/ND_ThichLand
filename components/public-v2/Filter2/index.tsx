@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import type { PropertyType } from "@/lib/types";
 import type { RentalFilterState } from "@/lib/rentalFilters";
 import { RangeSlider2, type RangeStop } from "@/components/public-v2/RangeSlider2";
@@ -38,7 +37,17 @@ const PRICE_STOPS: RangeStop[] = [
   { value: 50_000_000, label: "Trên 50 triệu" },
 ];
 
-const BEDROOM_OPTIONS = ["Tất cả", "1 phòng", "2 phòng", "3 phòng", "4 phòng trở lên"];
+// Bound to the real PropertyListing.bedroomCount field (admin-editable, and
+// parsed from the sheet where an explicit phrase exists). `value: null` is
+// "Tất cả"; every other entry is a MINIMUM, so "4 phòng trở lên" is simply
+// the largest minimum — matching how a renter reads the label.
+const BEDROOM_OPTIONS: { value: number | null; label: string }[] = [
+  { value: null, label: "Tất cả" },
+  { value: 1, label: "1 phòng" },
+  { value: 2, label: "2 phòng" },
+  { value: 3, label: "3 phòng" },
+  { value: 4, label: "4 phòng trở lên" },
+];
 
 // 02_ChoThue_WEB.png's "Loại bất động sản" checkboxes show full descriptive
 // labels in a fixed order — PropertyType's short internal values ("Căn hộ",
@@ -69,27 +78,20 @@ function priceIndexForMax(max: number | null): number {
 // V2 filter sidebar/drawer content — matches 02_ChoThue_WEB.png's "Bộ lọc
 // tìm kiếm" panel.
 //
-// FUNCTIONAL_DATA_LIMITATION ("Số phòng ngủ"): RentalFilterState has no
-// bedroom field (tests/unit/rentalFilters.test.ts locks this down — "never
-// invents a bedroom-count filter field"), so this row cannot filter real
-// results without fabricating a data contract this codebase has explicitly
-// decided against. To match the master's visual (normal enabled checkboxes,
-// not disabled/native-grey) without inventing that contract, the row is
-// wired to LOCAL component state only — clickable/togglable for fidelity,
-// never propagated to onChange/onApply.
+// "Số phòng ngủ" used to be wired to LOCAL component state only — every
+// checkbox in that group looked interactive and never changed a single
+// result, because RentalFilterState had no bedroom field at the time. That
+// field now exists on PropertyListing (admin-editable, never inferred), so
+// the group filters for real like every other control here.
 export function Filter2({ value, onChange, onApply, onReset, locationOptions, propertyTypeOptions }: Filter2Props) {
-  const [bedroomPick, setBedroomPick] = useState(0);
   return (
     <div>
       <div className="flex items-center justify-between">
         <h2 className="text-[16px] font-bold text-[#0C0D0D] wide:text-[18px]">Bộ lọc tìm kiếm</h2>
         <button
           type="button"
-          onClick={() => {
-            setBedroomPick(0);
-            onReset();
-          }}
-          className="text-[12px] font-semibold text-[#880206] wide:text-[13px]"
+          onClick={onReset}
+          className="text-[12px] font-semibold text-[#880206] transition-colors duration-fast ease-base hover:text-[#750F0D] wide:text-[13px]"
         >
           Xóa bộ lọc
         </button>
@@ -191,18 +193,21 @@ export function Filter2({ value, onChange, onApply, onReset, locationOptions, pr
       <fieldset className="mt-5">
         <legend className="text-[13px] font-semibold text-[#0C0D0D]">Số phòng ngủ</legend>
         <div className="mt-2 flex flex-col gap-2">
-          {BEDROOM_OPTIONS.map((label, i) => (
-            <label key={label} className="flex items-center gap-2 text-[13px] text-[#3A3838] wide:text-[14px]">
+          {BEDROOM_OPTIONS.map((option) => (
+            <label key={option.label} className="flex items-center gap-2 text-[13px] text-[#3A3838] wide:text-[14px]">
               <input
                 type="checkbox"
-                checked={bedroomPick === i}
-                onChange={() => setBedroomPick(i)}
+                checked={value.bedrooms === option.value}
+                onChange={() => onChange({ bedrooms: value.bedrooms === option.value ? null : option.value })}
                 className={CHECKBOX_CLASS}
               />
-              {label}
+              {option.label}
             </label>
           ))}
         </div>
+        <p className="mt-2 text-[11px] leading-snug text-[#8A8785] wide:text-[12px]">
+          Chỉ hiện tin đã có số phòng ngủ — tin chưa cập nhật sẽ không nằm trong kết quả.
+        </p>
       </fieldset>
 
       {onApply && (

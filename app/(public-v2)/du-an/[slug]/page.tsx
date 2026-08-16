@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import Image from "next/image";
 import { Breadcrumb2 } from "@/components/public-v2/Breadcrumb2";
 import { Gallery2 } from "@/components/public-v2/Gallery2";
@@ -9,11 +10,36 @@ import { getProjectRepository } from "@/lib/server/projects/providers";
 import { toPublicProjectListings } from "@/lib/server/projects/dto";
 import { isVisualFixtureV2Enabled, getVisualFixtureProjects } from "@/lib/visualFixtureV2";
 import { iconForAmenity } from "@/lib/projectAmenities";
+import { projectStatusLabel } from "@/lib/projectStatus";
+import { firstMedia, PROJECT_PLACEHOLDER } from "@/lib/media";
 import type { ProjectListing } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
 const HOTLINE_TEL = "0986602203";
+
+async function loadProjects(): Promise<ProjectListing[]> {
+  if (isVisualFixtureV2Enabled()) return getVisualFixtureProjects();
+  const repo = await getProjectRepository();
+  return toPublicProjectListings(await repo.list());
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const project = (await loadProjects()).find((p) => p.slug === slug);
+  if (!project) return { title: "Không tìm thấy dự án | NDTHICH LAND" };
+  return {
+    title: `${project.name} | Dự án NDTHICH LAND`,
+    // Only real, CMS-backed copy — no invented scale/legal/unit-count facts.
+    description: project.summary || `Thông tin dự án ${project.name} tại ${project.location}.`,
+    alternates: { canonical: `/du-an/${project.slug}` },
+    openGraph: {
+      title: project.name,
+      description: project.summary || undefined,
+      images: project.media.length > 0 ? [project.media[0]] : undefined,
+    },
+  };
+}
 
 // 05_ChiTietDuAn_WEB.png uses 5 frozen milestone photographs instead of an
 // abstract step indicator; the MOBILE master keeps the compact 3-step
@@ -56,14 +82,7 @@ function projectFacts(project: ProjectListing, isFixture: boolean): { icon: Icon
 export default async function DuAnDetailPageV2({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
-  let projects: ProjectListing[];
-  if (isVisualFixtureV2Enabled()) {
-    projects = getVisualFixtureProjects();
-  } else {
-    const repo = await getProjectRepository();
-    projects = toPublicProjectListings(await repo.list());
-  }
-
+  const projects = await loadProjects();
   const project = projects.find((p) => p.slug === slug);
   if (!project) notFound();
 
@@ -98,9 +117,16 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
           entirely within the canonical 724x2172 viewport. */}
       <div className="min-[900px]:hidden">
         <div className="relative -mx-3 aspect-[16/7] overflow-hidden">
-          <Image src={project.media[0]} alt={project.name} fill className="object-cover" unoptimized priority />
+          <Image
+            src={firstMedia(project.media, PROJECT_PLACEHOLDER)}
+            alt={project.name}
+            fill
+            className="object-cover"
+            unoptimized
+            priority
+          />
           <span className="absolute right-2 top-2 rounded-full bg-white px-2 py-1 text-[9px] font-bold text-[#880206]">
-            {project.status}
+            {projectStatusLabel(project.status)}
           </span>
         </div>
         <h1 className="mt-2 text-[15px] font-extrabold text-[#0C0D0D]">{project.name}</h1>
@@ -108,7 +134,7 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
           <Icon name="pin" size={11} /> {project.location}
         </p>
 
-        <div className="mt-2 rounded-lg border-2 border-[#880206] bg-[#880206] p-2">
+        <div id="tu-van-du-an" className="mt-2 scroll-mt-20 rounded-lg border-2 border-[#880206] bg-[#880206] p-2">
           <h2 className="text-[11px] font-bold text-white">Liên hệ tư vấn dự án</h2>
           <p className="mt-[2px] line-clamp-1 text-[9px] text-white/80">
             Để lại thông tin, chuyên viên NDTHICH sẽ liên hệ với bạn sớm nhất.
@@ -148,7 +174,7 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
               {project.name}
             </h1>
             <span className="shrink-0 rounded-full bg-[#FBEFE3] px-3 py-1 text-[12px] font-bold text-[#C08E47] wide:px-4 wide:py-[6px] wide:text-[13px]">
-              {project.status}
+              {projectStatusLabel(project.status)}
             </span>
           </div>
           <p className="mt-2 flex items-center gap-[6px] text-[13px] text-[#5F5D5D] wide:text-[15px]">
@@ -333,12 +359,15 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
         >
           <Icon name="phone" size={13} /> Gọi tư vấn ngay
         </a>
-        <button
-          type="button"
-          className="flex flex-1 items-center justify-center gap-1 rounded-md bg-[#880206] px-2 py-2 text-[11px] font-semibold text-white hover:bg-[#750F0D]"
+        {/* Was an inert <button>. The page already carries a real inquiry
+            form wired to the approved WEB_CONTACTS backend, so this now
+            takes the visitor straight to it instead of doing nothing. */}
+        <a
+          href="#tu-van-du-an"
+          className="flex flex-1 items-center justify-center gap-1 rounded-md bg-[#880206] px-2 py-2 text-[11px] font-semibold text-white transition-colors duration-fast ease-base hover:bg-[#750F0D]"
         >
           <Icon name="calendar" size={13} className="text-white" /> Đặt lịch xem dự án
-        </button>
+        </a>
       </div>
 
       <section

@@ -5,6 +5,7 @@ import { getSession } from "@/lib/server/auth/dal";
 import { getProjectRepository } from "@/lib/server/projects/providers";
 import type { ProjectRecord } from "@/lib/server/projects/repository";
 import type { ProjectStatus } from "@/lib/types";
+import { parseProjectStatus } from "@/lib/projectStatus";
 import { isGoogleRuntimeConfigured } from "@/lib/server/env";
 import { resolveProviderMode, PERSISTENCE_NOT_CONFIGURED_ERROR } from "@/lib/server/providerMode";
 
@@ -23,12 +24,6 @@ export interface ProjectFormInput {
   progressPercent: number;
   media: string[];
   progressPhotos: { label: string; image: string }[];
-}
-
-const KNOWN_PROJECT_STATUSES: ProjectStatus[] = ["Đang triển khai", "Tiêu biểu", "Đã hoàn thành"];
-
-function parseProjectStatus(value: string): ProjectStatus | null {
-  return (KNOWN_PROJECT_STATUSES as string[]).includes(value) ? (value as ProjectStatus) : null;
 }
 
 export interface ProjectActionResult {
@@ -75,8 +70,23 @@ export async function saveProjectAction(input: ProjectFormInput, publish: boolea
 
   const repo = await getProjectRepository();
   const slug = input.slug || slugify(input.name);
+  if (!slug) {
+    return { ok: false, error: "Vui lòng kiểm tra lại thông tin.", fieldErrors: { name: "Tên dự án cần có ít nhất một chữ cái hoặc số" } };
+  }
   const now = new Date().toISOString();
   const existing = (await repo.list()).find((r) => r.id === `custom:${slug}`);
+
+  // Creating (no slug carried in from an edit form) onto an id that already
+  // exists used to silently overwrite the other project — a real data-loss
+  // path any time two projects share a name. Refuse instead and tell the
+  // operator what to do.
+  if (!input.slug && existing) {
+    return {
+      ok: false,
+      error: "Vui lòng kiểm tra lại thông tin.",
+      fieldErrors: { name: `Đã có dự án dùng đường dẫn "${slug}". Đổi tên khác, hoặc mở dự án đó ra sửa.` },
+    };
+  }
 
   const record: ProjectRecord = {
     id: `custom:${slug}`,
@@ -90,7 +100,7 @@ export async function saveProjectAction(input: ProjectFormInput, publish: boolea
     summary: input.summary,
     amenities: input.amenities,
     progressText: input.progressText,
-    progressPercent: input.progressPercent,
+    progressPercent: Math.min(100, Math.max(0, Math.round(Number(input.progressPercent) || 0))),
     media: input.media,
     progressPhotos: input.progressPhotos,
     published: publish,

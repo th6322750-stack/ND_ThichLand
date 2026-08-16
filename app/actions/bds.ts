@@ -142,6 +142,26 @@ export async function saveBdsAction(input: BdsFormInput, publish: boolean): Prom
     });
   } else {
     const slug = input.slug || slugify(input.roomNo);
+    if (!slug) {
+      return {
+        ok: false,
+        error: "Vui lòng kiểm tra lại thông tin.",
+        fieldErrors: { roomNo: "Mã/số phòng cần có ít nhất một chữ cái hoặc số" },
+      };
+    }
+    // Creating a second record whose name slugifies to an existing id used to
+    // overwrite the first one without warning. Refuse instead — the operator
+    // can rename, or open the existing record and edit it.
+    if (!input.slug) {
+      const existing = await overlay.listCustomRecords();
+      if (existing.some((r) => r.id === `custom:${slug}`)) {
+        return {
+          ok: false,
+          error: "Vui lòng kiểm tra lại thông tin.",
+          fieldErrors: { roomNo: `Đã có BĐS dùng đường dẫn "${slug}". Đổi mã/tên khác, hoặc mở bản ghi đó ra sửa.` },
+        };
+      }
+    }
     const record: CustomBdsRecord = {
       id: `custom:${slug}`,
       slug,

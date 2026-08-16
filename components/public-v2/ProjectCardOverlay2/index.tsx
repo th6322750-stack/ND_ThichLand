@@ -48,7 +48,13 @@ export function ProjectCardOverlay2({
         } as CSSProperties
       }
     >
-      <Image src={image} alt={name} fill className="object-cover transition-transform group-hover:scale-105" unoptimized />
+      <Image
+        src={image}
+        alt={name}
+        fill
+        className="object-cover transition-transform duration-base ease-base group-hover:scale-[1.03] motion-reduce:transform-none"
+        unoptimized
+      />
       {/* Client feedback: white title/location text sank into brighter
           photos (sky, light facades) — strengthened the mid-stop so there's
           real darkening behind the text without flattening the whole
@@ -79,17 +85,23 @@ export function ProjectCardOverlay2({
 
   if (!showButton) {
     return (
-      <Link href={`/du-an/${slug}`} className="rounded-lg overflow-hidden block">
+      <Link
+        href={`/du-an/${slug}`}
+        className="block overflow-hidden rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#880206]"
+      >
         {media}
       </Link>
     );
   }
 
   return (
-    <Link href={`/du-an/${slug}`} className="block overflow-hidden rounded-lg border border-[#EDEBEA] bg-white">
+    <Link
+      href={`/du-an/${slug}`}
+      className="group/card block overflow-hidden rounded-lg border border-[#EDEBEA] bg-white transition-shadow duration-base ease-base hover:shadow-v2-premium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#880206]"
+    >
       {media}
       <div className="p-1 min-[900px]:p-3">
-        <span className="inline-flex items-center gap-[6px] rounded-md bg-white px-[10px] py-1 text-[11px] font-semibold text-[#0C0D0D] ring-1 ring-inset ring-[#E4E1E0] min-[900px]:px-[14px] min-[900px]:py-2 min-[900px]:text-[12px]">
+        <span className="inline-flex items-center gap-[6px] rounded-md bg-white px-[10px] py-1 text-[11px] font-semibold text-[#0C0D0D] ring-1 ring-inset ring-[#E4E1E0] transition-colors duration-fast ease-base group-hover/card:ring-[#880206] group-hover/card:text-[#880206] min-[900px]:px-[14px] min-[900px]:py-2 min-[900px]:text-[12px]">
           Xem chi tiết <Icon name="arrow-right" size={12} className="min-[900px]:!h-[13px] min-[900px]:!w-[13px]" />
         </span>
       </div>

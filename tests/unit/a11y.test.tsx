@@ -57,7 +57,8 @@ describe("accessibility sweep", () => {
   });
 
   it("projects list page has no serious axe violations", async () => {
-    const { container } = render(await DuAnPage());
+    // /du-an owns URL state now, so it needs the router contexts too.
+    const { container } = render(withRouter(await DuAnPage(), "/du-an"));
     await expectNoSeriousViolations(container);
   });
 
