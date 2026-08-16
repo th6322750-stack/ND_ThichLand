@@ -31,6 +31,9 @@ export function toPublicPropertyListing(record: AdminPropertyRecord): PropertyLi
     bedroomCount: record.bedroomCount,
     furnishingStatus: record.furnishingStatus,
     bathroomCount: record.bathroomCount,
+    amenities: record.amenities,
+    locationNote: record.locationNote,
+    videoUrl: record.videoUrl,
   };
 }
 

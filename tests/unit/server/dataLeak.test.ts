@@ -95,7 +95,8 @@ describe("public DTOs never leak internal-only fields", () => {
       id: "custom-1", slug: "test-slug", roomNo: "P.1", location: "Hà Nội", address: "A",
       price: 1_000_000, serviceFee: "", area: 20, verticalAccess: "", propertyType: "Nhà",
       description: "", highlights: [], availability: "Còn trống", bedroomCount: null,
-      furnishingStatus: null, bathroomCount: null, media: [], commission: "SECRET-COMMISSION",
+      furnishingStatus: null, bathroomCount: null, amenities: [], locationNote: null, videoUrl: null,
+      media: [], commission: "SECRET-COMMISSION",
       guidePerson: "SECRET-GUIDE", internalNotes: "SECRET-NOTES",
       published: true, createdAt: "2026-08-14T00:00:00.000Z", updatedAt: "2026-08-14T00:00:00.000Z",
     };

@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import { Breadcrumb2 } from "@/components/public-v2/Breadcrumb2";
 import { Gallery2 } from "@/components/public-v2/Gallery2";
 import { PropertyCardGrid2 } from "@/components/public-v2/PropertyCardGrid2";
+import { PropertyDetailTabs2 } from "@/components/public-v2/PropertyDetailTabs2";
 import { Icon2 as Icon, type IconName } from "@/components/public-v2/Icon2";
 import { formatArea, formatCurrencyVnd } from "@/lib/format";
 import { getRentalProviders } from "@/lib/server/rental/providers";
@@ -60,20 +60,6 @@ function ActionButtons() {
     </div>
   );
 }
-
-interface DetailTab {
-  id: string;
-  label: string;
-  desc: string;
-  icon: IconName;
-}
-
-const DETAIL_TABS: DetailTab[] = [
-  { id: "info", label: "Thông tin chi tiết", desc: "Thông tin mô tả, pháp lý, chi phí liên quan", icon: "edit" },
-  { id: "amenities", label: "Tiện ích", desc: "Tiện ích nội khu và ngoại khu nổi bật", icon: "building" },
-  { id: "location", label: "Vị trí", desc: "Vị trí trên bản đồ, kết nối và xung quanh", icon: "pin" },
-  { id: "media", label: "Video & Hình ảnh", desc: "Video thực tế và bộ sưu tập hình ảnh", icon: "youtube" },
-];
 
 export default async function ChoThueDetailPageV2({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -172,11 +158,14 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
         </div>
       </div>
 
-      {/* Tab strip — only "Thông tin chi tiết" has real backing content
-          (the details table + map below); "Tiện ích"/"Vị trí"/"Video & Hình
-          ảnh" are real, focusable, honest UI (no fabricated amenities/video
-          data exists on a rental listing — only projects carry that). */}
-      <TabbedDetails detailRows={detailRows} address={listing.address} />
+      <PropertyDetailTabs2
+        detailRows={detailRows}
+        address={listing.address}
+        amenities={listing.amenities}
+        locationNote={listing.locationNote}
+        videoUrl={listing.videoUrl}
+        media={listing.media}
+      />
 
       {related.length > 0 && (
         <section className="mt-4 min-[900px]:mt-12" data-qa-region="related">
@@ -232,106 +221,4 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
       </section>
     </div>
   );
-
-  function TabbedDetails({ detailRows, address }: { detailRows: [string, string][]; address: string }) {
-    return (
-      <section className="mt-4 min-[900px]:mt-8" data-qa-region="detail-tabs">
-        <div className="hidden border-b border-[#EDEBEA] min-[900px]:flex min-[900px]:gap-6 wide:gap-8">
-          {DETAIL_TABS.map((tab, i) => (
-            <span
-              key={tab.id}
-              className={`border-b-2 pb-3 text-[14px] font-semibold wide:text-[16px] ${
-                i === 0 ? "border-[#880206] text-[#880206]" : "border-transparent text-[#5F5D5D]"
-              }`}
-            >
-              {tab.label}
-            </span>
-          ))}
-        </div>
-
-        <div className="mt-6 hidden min-[900px]:grid min-[900px]:grid-cols-2 min-[900px]:items-start min-[900px]:gap-8 wide:gap-10">
-          <div className="rounded-lg border border-[#EDEBEA] wide:rounded-[14px]">
-            <div className="divide-y divide-[#EDEBEA]">
-              {detailRows.map(([label, value]) => (
-                <div key={label} className="flex items-center justify-between px-5 py-5 text-[13px] wide:px-6 wide:text-[16px]">
-                  <span className="text-[#5F5D5D]">{label}</span>
-                  <span className="font-bold text-[#0C0D0D]">{value}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div>
-            <h2 className="text-[16px] font-bold text-[#0C0D0D] wide:text-[18px]">Vị trí trên bản đồ</h2>
-            <div className="relative mt-3 aspect-[16/9] overflow-hidden rounded-lg wide:rounded-[14px]">
-              <Image src="/assets/v2/property-detail/map.png" alt={`Bản đồ ${address}`} fill className="object-cover" unoptimized />
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile: compact accordion rows, matching the master — all rows
-            start COLLAPSED (no `open` default; master shows the collapsed
-            row treatment, not an expanded details table). */}
-        <div className="flex flex-col gap-1 min-[900px]:hidden">
-          <details className="group rounded-lg border border-[#EDEBEA] open:pb-1">
-            <summary className="flex cursor-pointer list-none items-center gap-2 p-[6px] leading-tight">
-              <Icon name="edit" size={16} className="shrink-0 text-[#0068FF]" />
-              <span className="min-w-0 flex-1">
-                <span className="block text-[11px] font-bold text-[#0C0D0D]">Thông tin chi tiết</span>
-                <span className="block text-[9px] text-[#5F5D5D]">Thông tin mô tả, pháp lý, chi phí liên quan</span>
-              </span>
-              <Icon name="chevron-right" size={13} className="shrink-0 rotate-90 text-[#5F5D5D] group-open:-rotate-90" />
-            </summary>
-            <div className="border-t border-[#EDEBEA] px-2 pt-1">
-              <div className="divide-y divide-[#EDEBEA]">
-                {detailRows.map(([label, value]) => (
-                  <div key={label} className="flex items-center justify-between py-1 text-[10px]">
-                    <span className="text-[#5F5D5D]">{label}</span>
-                    <span className="font-bold text-[#0C0D0D]">{value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </details>
-
-          <details className="group rounded-lg border border-[#EDEBEA] open:pb-1">
-            <summary className="flex cursor-pointer list-none items-center gap-2 p-[6px] leading-tight">
-              <Icon name="building" size={16} className="shrink-0 text-[#C08E47]" />
-              <span className="min-w-0 flex-1">
-                <span className="block text-[11px] font-bold text-[#0C0D0D]">Tiện ích</span>
-                <span className="block text-[9px] text-[#5F5D5D]">Tiện ích nội khu và ngoại khu nổi bật</span>
-              </span>
-              <Icon name="chevron-right" size={13} className="shrink-0 rotate-90 text-[#5F5D5D] group-open:-rotate-90" />
-            </summary>
-            <p className="border-t border-[#EDEBEA] px-2 pt-1 text-[10px] text-[#5F5D5D]">Thông tin đang được cập nhật.</p>
-          </details>
-
-          <details className="group rounded-lg border border-[#EDEBEA] open:pb-1">
-            <summary className="flex cursor-pointer list-none items-center gap-2 p-[6px] leading-tight">
-              <Icon name="pin" size={16} className="shrink-0 text-[#23825C]" />
-              <span className="min-w-0 flex-1">
-                <span className="block text-[11px] font-bold text-[#0C0D0D]">Vị trí</span>
-                <span className="block text-[9px] text-[#5F5D5D]">Vị trí trên bản đồ, kết nối và xung quanh</span>
-              </span>
-              <Icon name="chevron-right" size={13} className="shrink-0 rotate-90 text-[#5F5D5D] group-open:-rotate-90" />
-            </summary>
-            <div className="relative mt-1 aspect-[16/9] overflow-hidden rounded-lg border-t border-[#EDEBEA]">
-              <Image src="/assets/v2/property-detail/map.png" alt={`Bản đồ ${address}`} fill className="object-cover" unoptimized />
-            </div>
-          </details>
-
-          <details className="group rounded-lg border border-[#EDEBEA] open:pb-1">
-            <summary className="flex cursor-pointer list-none items-center gap-2 p-[6px] leading-tight">
-              <Icon name="youtube" size={16} className="shrink-0 text-[#880206]" />
-              <span className="min-w-0 flex-1">
-                <span className="block text-[11px] font-bold text-[#0C0D0D]">Video &amp; Hình ảnh</span>
-                <span className="block text-[9px] text-[#5F5D5D]">Video thực tế và bộ sưu tập hình ảnh</span>
-              </span>
-              <Icon name="chevron-right" size={13} className="shrink-0 rotate-90 text-[#5F5D5D] group-open:-rotate-90" />
-            </summary>
-            <p className="border-t border-[#EDEBEA] px-2 pt-1 text-[10px] text-[#5F5D5D]">Thông tin đang được cập nhật.</p>
-          </details>
-        </div>
-      </section>
-    );
-  }
 }

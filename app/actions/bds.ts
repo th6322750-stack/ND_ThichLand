@@ -32,6 +32,9 @@ export interface BdsFormInput {
   bedroomCount: number | null;
   furnishingStatus: string | null;
   bathroomCount: number | null;
+  amenities: string[];
+  locationNote: string | null;
+  videoUrl: string | null;
   media: string[];
   commission: string;
   guidePerson: string;
@@ -127,6 +130,9 @@ export async function saveBdsAction(input: BdsFormInput, publish: boolean): Prom
         bedroomCount: input.bedroomCount,
         furnishingStatus: input.furnishingStatus,
         bathroomCount: input.bathroomCount,
+        amenities: input.amenities,
+        locationNote: input.locationNote,
+        videoUrl: input.videoUrl,
         media: input.media,
         published: publish,
       },
@@ -156,6 +162,9 @@ export async function saveBdsAction(input: BdsFormInput, publish: boolean): Prom
       bedroomCount: input.bedroomCount,
       furnishingStatus: input.furnishingStatus,
       bathroomCount: input.bathroomCount,
+      amenities: input.amenities,
+      locationNote: input.locationNote,
+      videoUrl: input.videoUrl,
       media: input.media,
       commission: input.commission,
       guidePerson: input.guidePerson,

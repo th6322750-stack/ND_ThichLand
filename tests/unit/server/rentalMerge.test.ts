@@ -119,6 +119,9 @@ describe("buildMergedRentalData", () => {
       bedroomCount: 2,
       furnishingStatus: "Đầy đủ",
       bathroomCount: 2,
+      amenities: ["Hồ bơi"],
+      locationNote: "Gần trung tâm",
+      videoUrl: null,
       media: [],
       commission: "",
       guidePerson: "",
@@ -142,7 +145,8 @@ describe("buildMergedRentalData", () => {
       id: "custom-2", slug: "se-bi-xoa", roomNo: "P.1", location: "Hà Nội", address: "A",
       price: 1_000_000, serviceFee: "", area: 20, verticalAccess: "", propertyType: "Nhà",
       description: "", highlights: [], availability: "Còn trống", bedroomCount: null,
-      furnishingStatus: null, bathroomCount: null, media: [], commission: "", guidePerson: "", internalNotes: "",
+      furnishingStatus: null, bathroomCount: null, amenities: [], locationNote: null, videoUrl: null,
+      media: [], commission: "", guidePerson: "", internalNotes: "",
       published: true, createdAt: "2026-08-14T00:00:00.000Z", updatedAt: "2026-08-14T00:00:00.000Z",
     };
     await overlay.upsertCustomRecord(custom);
@@ -229,7 +233,8 @@ describe("buildMergedRentalData — publish eligibility never fabricates status/
       id: "custom-3", slug: "loai-la", roomNo: "P.5", location: "Hà Nội", address: "A",
       price: 5_000_000, serviceFee: "", area: 25, verticalAccess: "", propertyType: "loại lạ",
       description: "", highlights: [], availability: "Còn trống", bedroomCount: null,
-      furnishingStatus: null, bathroomCount: null, media: [], commission: "", guidePerson: "", internalNotes: "",
+      furnishingStatus: null, bathroomCount: null, amenities: [], locationNote: null, videoUrl: null,
+      media: [], commission: "", guidePerson: "", internalNotes: "",
       published: true, createdAt: "2026-08-14T00:00:00.000Z", updatedAt: "2026-08-14T00:00:00.000Z",
     };
     await overlay.upsertCustomRecord(custom);

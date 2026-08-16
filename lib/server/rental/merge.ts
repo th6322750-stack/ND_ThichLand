@@ -82,6 +82,9 @@ function customToAdminRecord(c: CustomBdsRecord): AdminPropertyRecord {
     bedroomCount: c.bedroomCount,
     furnishingStatus: c.furnishingStatus,
     bathroomCount: c.bathroomCount,
+    amenities: c.amenities,
+    locationNote: c.locationNote,
+    videoUrl: c.videoUrl,
     commission: c.commission,
     guidePerson: c.guidePerson,
     internalNotes: c.internalNotes,
@@ -156,6 +159,10 @@ export async function buildMergedRentalData(
       // always starts null; an admin override patch is the only way to set
       // it (same as any other admin correction to a sheet row).
       bathroomCount: null,
+      // Same reasoning — Tiện ích/Vị trí/Video tabs are admin-override-only.
+      amenities: [],
+      locationNote: null,
+      videoUrl: null,
       commission: record.commission,
       guidePerson: record.guidePerson,
       internalNotes: record.internalNotes,

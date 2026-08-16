@@ -57,6 +57,14 @@ function readInput(form: HTMLFormElement, initial: AdminPropertyRecord | undefin
     bedroomCount: get("bedroomCount") ? Number(get("bedroomCount")) : null,
     bathroomCount: get("bathroomCount") ? Number(get("bathroomCount")) : null,
     furnishingStatus: get("furnishingStatus") || null,
+    // Backs the Tiện ích/Vị trí/Video tabs — same empty-input -> null/[]
+    // convention as every other field above.
+    amenities: get("amenities")
+      .split("•")
+      .map((a) => a.trim())
+      .filter(Boolean),
+    locationNote: get("locationNote") || null,
+    videoUrl: get("videoUrl") || null,
     media,
     commission: get("commission"),
     guidePerson: get("guidePerson"),
@@ -387,6 +395,57 @@ export function BdsForm({ initial }: BdsFormProps) {
                   className={`${wysiwygInput} w-[160px] text-right font-bold text-[#0C0D0D] placeholder:text-[#C9C6C5]`}
                 />
                 {fieldErrors.availability && <p className="mt-1 w-full text-right text-body text-error">{fieldErrors.availability}</p>}
+              </div>
+            </div>
+          </div>
+
+          {/* Nội dung 3 tab còn lại trên trang chi tiết (Tiện ích/Vị trí/
+              Video & Hình ảnh) — trước đây các tab này chỉ hiện "Thông tin
+              đang được cập nhật." vì không có field nào đứng sau; giờ nhập
+              ở đây sẽ hiện thật trên web. Hình ảnh dùng chung gallery phía
+              trên, không cần nhập lại. */}
+          <div className="border-t border-line px-6 py-6">
+            <p className="text-[16px] font-bold text-[#0C0D0D]">Nội dung tab Tiện ích / Vị trí / Video</p>
+            <div className="mt-3 flex flex-col gap-4">
+              <div>
+                <label htmlFor="bds-amenities" className="text-[13px] font-bold text-[#0C0D0D]">
+                  Tiện ích (tab &quot;Tiện ích&quot;)
+                </label>
+                <textarea
+                  id="bds-amenities"
+                  name="amenities"
+                  placeholder="Hồ bơi • Gym • Công viên nội khu • An ninh 24/7"
+                  defaultValue={initial?.amenities.join(" • ")}
+                  rows={3}
+                  className={`${wysiwygInput} mt-1 resize-none rounded-md border border-[#EDEBEA] p-2 text-[13px] leading-relaxed text-[#3A3838] placeholder:text-[#C9C6C5] hover:border-[#EDEBEA] focus:border-[#880206]`}
+                />
+                <p className="text-body text-muted">Mỗi tiện ích cách nhau bằng dấu • — để trống nếu chưa có.</p>
+              </div>
+              <div>
+                <label htmlFor="bds-locationNote" className="text-[13px] font-bold text-[#0C0D0D]">
+                  Mô tả vị trí (tab &quot;Vị trí&quot;, hiện dưới bản đồ)
+                </label>
+                <textarea
+                  id="bds-locationNote"
+                  name="locationNote"
+                  placeholder="Gần chợ, trường học, kết nối thuận tiện về trung tâm..."
+                  defaultValue={initial?.locationNote ?? undefined}
+                  rows={2}
+                  className={`${wysiwygInput} mt-1 resize-none rounded-md border border-[#EDEBEA] p-2 text-[13px] leading-relaxed text-[#3A3838] placeholder:text-[#C9C6C5] hover:border-[#EDEBEA] focus:border-[#880206]`}
+                />
+              </div>
+              <div>
+                <label htmlFor="bds-videoUrl" className="text-[13px] font-bold text-[#0C0D0D]">
+                  Link video (tab &quot;Video &amp; Hình ảnh&quot;)
+                </label>
+                <input
+                  id="bds-videoUrl"
+                  name="videoUrl"
+                  placeholder="https://youtube.com/watch?v=..."
+                  defaultValue={initial?.videoUrl ?? undefined}
+                  className={`${wysiwygInput} mt-1 rounded-md border border-[#EDEBEA] p-2 text-[13px] text-[#3A3838] placeholder:text-[#C9C6C5] hover:border-[#EDEBEA] focus:border-[#880206]`}
+                />
+                <p className="text-body text-muted">Để trống nếu chưa có video — tab vẫn hiện gallery ảnh bình thường.</p>
               </div>
             </div>
           </div>

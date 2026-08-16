@@ -25,6 +25,13 @@ export interface PropertyListing {
   // admin explicitly sets it via an override patch, same mechanism as any
   // other admin correction to a sheet row). null renders as "—".
   bathroomCount: number | null;
+  // Backs the "Tiện ích"/"Vị trí"/"Video & Hình ảnh" detail tabs — none of
+  // these have a raw sheet column either (same admin-override-only path as
+  // bathroomCount above). amenities mirrors ProjectListing's existing
+  // field; empty array/null render as "chưa cập nhật", never fabricated.
+  amenities: string[];
+  locationNote: string | null;
+  videoUrl: string | null;
 }
 
 export interface AdminPropertyRecord extends Omit<PropertyListing, "propertyType" | "availability"> {

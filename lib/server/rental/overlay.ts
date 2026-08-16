@@ -38,6 +38,11 @@ export interface CustomBdsRecord {
   // WEB_BDS_CUSTOM rows in the live sheet keep their column alignment —
   // an old row simply has no cell here, which reads back as null.
   bathroomCount: number | null;
+  // Also appended at the end (same reasoning as bathroomCount above) —
+  // backs the Tiện ích/Vị trí/Video tabs on /cho-thue/[slug].
+  amenities: string[];
+  locationNote: string | null;
+  videoUrl: string | null;
 }
 
 export interface RentalOverlayRepository {
@@ -100,6 +105,9 @@ function customRowToRecord(row: string[]): CustomBdsRecord | null {
     createdAt,
     updatedAt,
     bathroomCount,
+    amenitiesJson,
+    locationNote,
+    videoUrl,
   ] = row;
   if (!id) return null;
   return {
@@ -126,6 +134,9 @@ function customRowToRecord(row: string[]): CustomBdsRecord | null {
     createdAt: createdAt ?? "",
     updatedAt: updatedAt ?? "",
     bathroomCount: bathroomCount ? Number(bathroomCount) : null,
+    amenities: safeJsonArray(amenitiesJson),
+    locationNote: locationNote || null,
+    videoUrl: videoUrl || null,
   };
 }
 
@@ -154,6 +165,9 @@ function customRecordToRow(r: CustomBdsRecord): (string | number)[] {
     r.createdAt,
     r.updatedAt,
     r.bathroomCount ?? "",
+    JSON.stringify(r.amenities),
+    r.locationNote ?? "",
+    r.videoUrl ?? "",
   ];
 }
 
@@ -178,17 +192,17 @@ export class GoogleRentalOverlayRepository implements RentalOverlayRepository {
 
   async listCustomRecords(): Promise<CustomBdsRecord[]> {
     const { cmsSpreadsheetId } = requireGoogleSpreadsheetEnv();
-    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.bdsCustom}!A2:W`);
+    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.bdsCustom}!A2:Z`);
     return values.map(customRowToRecord).filter((r): r is CustomBdsRecord => r !== null);
   }
 
   async upsertCustomRecord(record: CustomBdsRecord): Promise<void> {
     const { cmsSpreadsheetId } = requireGoogleSpreadsheetEnv();
-    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.bdsCustom}!A2:W`);
+    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.bdsCustom}!A2:Z`);
     const rowIndex = values.findIndex((row) => row[0] === record.id);
     const row = customRecordToRow(record);
     if (rowIndex >= 0) {
-      await updateSheetRange(cmsSpreadsheetId, `${CMS_TABS.bdsCustom}!A${rowIndex + 2}:W${rowIndex + 2}`, row);
+      await updateSheetRange(cmsSpreadsheetId, `${CMS_TABS.bdsCustom}!A${rowIndex + 2}:Z${rowIndex + 2}`, row);
     } else {
       await appendSheetRow(cmsSpreadsheetId, CMS_TABS.bdsCustom, row);
     }
