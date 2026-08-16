@@ -13,12 +13,21 @@ export interface ProjectFormInput {
   name: string;
   location: string;
   investor: string;
-  status: ProjectStatus;
+  // Raw typed text, not ProjectStatus — validate() below is the only place
+  // that turns this into the validated union value (same never-fabricate
+  // pattern as BdsFormInput.propertyType/availability in app/actions/bds.ts).
+  status: string;
   summary: string;
   amenities: string[];
   progressText: string;
   progressPercent: number;
   media: string[];
+}
+
+const KNOWN_PROJECT_STATUSES: ProjectStatus[] = ["Đang triển khai", "Tiêu biểu", "Đã hoàn thành"];
+
+function parseProjectStatus(value: string): ProjectStatus | null {
+  return (KNOWN_PROJECT_STATUSES as string[]).includes(value) ? (value as ProjectStatus) : null;
 }
 
 export interface ProjectActionResult {
@@ -44,10 +53,11 @@ function slugify(input: string): string {
     .replace(/(^-|-$)/g, "");
 }
 
-function validate(input: ProjectFormInput): Record<string, string> {
+function validate(input: ProjectFormInput, status: ProjectStatus | null): Record<string, string> {
   const errors: Record<string, string> = {};
   if (!input.name.trim()) errors.name = "Vui lòng nhập tên dự án";
   if (!input.location.trim()) errors.location = "Vui lòng nhập vị trí";
+  if (!status) errors.status = "Trạng thái không hợp lệ";
   return errors;
 }
 
@@ -56,7 +66,8 @@ export async function saveProjectAction(input: ProjectFormInput, publish: boolea
   if (!session) return UNAUTHORIZED;
   if (persistenceUnavailable()) return NOT_CONFIGURED;
 
-  const fieldErrors = validate(input);
+  const status = parseProjectStatus(input.status);
+  const fieldErrors = validate(input, status);
   if (Object.keys(fieldErrors).length > 0) {
     return { ok: false, error: "Vui lòng kiểm tra lại thông tin.", fieldErrors };
   }
@@ -72,7 +83,9 @@ export async function saveProjectAction(input: ProjectFormInput, publish: boolea
     name: input.name,
     location: input.location,
     investor: input.investor,
-    status: input.status,
+    // Non-null: validate() above already rejected a null status before
+    // this point is reached.
+    status: status!,
     summary: input.summary,
     amenities: input.amenities,
     progressText: input.progressText,

@@ -5,6 +5,7 @@ import { formatArea } from "@/lib/format";
 import { getRentalProviders } from "@/lib/server/rental/providers";
 import { buildMergedRentalData } from "@/lib/server/rental/merge";
 import { BdsExportCsvButton } from "@/components/admin/BdsExportCsvButton";
+import { BdsRowActions } from "@/components/admin/BdsRowActions";
 import type { AdminPropertyRecord } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -83,9 +84,12 @@ export default async function AdminBdsListPage({
               key: "actions",
               label: "Thao tác",
               render: (r) => (
-                <Link href={`/admin/bds/${r.slug}`} className="text-label text-primary hover:underline">
-                  Sửa
-                </Link>
+                <div className="flex items-center gap-3">
+                  <Link href={`/admin/bds/${r.slug}`} className="text-label text-primary hover:underline">
+                    Sửa
+                  </Link>
+                  <BdsRowActions record={r} />
+                </div>
               ),
             },
           ]}

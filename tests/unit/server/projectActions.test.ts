@@ -68,6 +68,14 @@ describe("Project admin actions", () => {
     expect(result.fieldErrors).toMatchObject({ name: expect.any(String), location: expect.any(String) });
   });
 
+  it("rejects an invalid status instead of silently coercing it (mirrors BDS defect-01 rule)", async () => {
+    signInAsAdmin();
+    const { saveProjectAction } = await import("@/app/actions/projects");
+    const result = await saveProjectAction({ ...baseInput, slug: "du-an-trang-thai-la", status: "trạng thái lạ" }, true);
+    expect(result.ok).toBe(false);
+    expect(result.fieldErrors?.status).toBeDefined();
+  });
+
   it("creates a new project that shows up in the admin list", async () => {
     signInAsAdmin();
     const { saveProjectAction, listAdminProjectsAction } = await import("@/app/actions/projects");

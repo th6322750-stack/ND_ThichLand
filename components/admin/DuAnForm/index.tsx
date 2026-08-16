@@ -10,6 +10,8 @@ import { uploadMediaAction } from "@/app/actions/media";
 import type { ProjectRecord } from "@/lib/server/projects/repository";
 import type { ProjectStatus } from "@/lib/types";
 
+const PROJECT_STATUS_OPTIONS: ProjectStatus[] = ["Đang triển khai", "Tiêu biểu", "Đã hoàn thành"];
+
 interface DuAnFormProps {
   initial?: ProjectRecord;
 }
@@ -25,20 +27,26 @@ export function DuAnForm({ initial }: DuAnFormProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   async function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
+    const files = Array.from(e.target.files ?? []);
     e.target.value = "";
-    if (!file) return;
+    if (files.length === 0) return;
     setUploading(true);
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const result = await uploadMediaAction(formData);
-      if (result.ok && result.record) {
-        setMedia((prev) => [...prev, result.record!.webViewLink]);
+      for (const file of files) {
+        const formData = new FormData();
+        formData.append("file", file);
+        const result = await uploadMediaAction(formData);
+        if (result.ok && result.record) {
+          setMedia((prev) => [...prev, result.record!.webViewLink]);
+        }
       }
     } finally {
       setUploading(false);
     }
+  }
+
+  function removeMediaAt(index: number) {
+    setMedia((prev) => prev.filter((_, i) => i !== index));
   }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -56,7 +64,7 @@ export function DuAnForm({ initial }: DuAnFormProps) {
         name: get("name"),
         location: get("location"),
         investor: get("investor"),
-        status: (get("status") || initial?.status || "Đang triển khai") as ProjectStatus,
+        status: get("status") || (initial?.status ?? ""),
         summary: get("summary"),
         amenities: get("amenities")
           .split(",")
@@ -120,7 +128,32 @@ export function DuAnForm({ initial }: DuAnFormProps) {
             error={fieldErrors.location}
           />
           <FormField label="Chủ đầu tư" name="investor" required defaultValue={initial?.investor} />
-          <FormField label="Trạng thái" name="status" required defaultValue={initial?.status} />
+          <div className="flex flex-col gap-1">
+            <label htmlFor="project-status" className="text-label text-ink">
+              Trạng thái *
+            </label>
+            <select
+              id="project-status"
+              name="status"
+              required
+              defaultValue={initial?.status ?? PROJECT_STATUS_OPTIONS[0]}
+              aria-invalid={!!fieldErrors.status}
+              className={`rounded-md border px-4 py-3 text-body outline-none transition-colors duration-fast focus:ring-2 focus:ring-primary ${
+                fieldErrors.status ? "border-error" : "border-line focus:border-primary"
+              }`}
+            >
+              {PROJECT_STATUS_OPTIONS.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </select>
+            {fieldErrors.status && (
+              <span role="alert" className="text-body text-error">
+                {fieldErrors.status}
+              </span>
+            )}
+          </div>
         </div>
 
         <div className="mt-6">
@@ -164,6 +197,7 @@ export function DuAnForm({ initial }: DuAnFormProps) {
           <input
             ref={fileInputRef}
             type="file"
+            multiple
             accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm"
             className="hidden"
             aria-hidden="true"
@@ -173,8 +207,16 @@ export function DuAnForm({ initial }: DuAnFormProps) {
           {media.length > 0 && (
             <div className="mt-4 grid grid-cols-2 gap-4 tablet:grid-cols-4">
               {media.map((src, i) => (
-                <div key={src + i} className="relative aspect-[4/3] overflow-hidden rounded-md">
+                <div key={src + i} className="group relative aspect-[4/3] overflow-hidden rounded-md">
                   <Image src={src} alt={`Ảnh ${i + 1}`} fill className="object-cover" unoptimized />
+                  <button
+                    type="button"
+                    onClick={() => removeMediaAt(i)}
+                    aria-label={`Xóa ảnh ${i + 1}`}
+                    className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white opacity-0 transition-opacity hover:bg-error group-hover:opacity-100"
+                  >
+                    <Icon name="close" size={12} />
+                  </button>
                 </div>
               ))}
             </div>

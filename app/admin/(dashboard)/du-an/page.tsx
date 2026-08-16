@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { DataTable } from "@/components/admin/DataTable";
 import { getProjectRepository } from "@/lib/server/projects/providers";
+import { ProjectRowActions } from "@/components/admin/ProjectRowActions";
 import type { ProjectRecord } from "@/lib/server/projects/repository";
 
 export const dynamic = "force-dynamic";
@@ -44,9 +45,12 @@ export default async function AdminDuAnListPage() {
               key: "actions",
               label: "Thao tác",
               render: (r) => (
-                <Link href={`/admin/du-an/${r.slug}`} className="text-label text-primary hover:underline">
-                  Sửa
-                </Link>
+                <div className="flex items-center gap-3">
+                  <Link href={`/admin/du-an/${r.slug}`} className="text-label text-primary hover:underline">
+                    Sửa
+                  </Link>
+                  <ProjectRowActions record={r} />
+                </div>
               ),
             },
           ]}
