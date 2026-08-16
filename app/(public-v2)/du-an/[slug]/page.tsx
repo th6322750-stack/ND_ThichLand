@@ -90,7 +90,7 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
   ];
 
   return (
-    <div className="mx-auto max-w-[1240px] px-3 py-3 min-[900px]:px-10 min-[900px]:py-8">
+    <div className="v2-container py-3 min-[900px]:py-8 wide:py-12">
       <Breadcrumb2 withHomeIcon items={[{ label: "Dự án", href: "/du-an" }, { label: project.name }]} />
 
       {/* MOBILE top: single hero photo (no thumbnail row here — that's a
@@ -141,38 +141,44 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
       {/* WEB top: gallery LEFT / title+facts+summary CENTER / consultation
           form RIGHT, as one three-column band — a full-width hero first is
           a FAIL. */}
-      <div className="mt-5 hidden min-[900px]:grid min-[900px]:grid-cols-[1.3fr_1fr_260px] min-[900px]:items-start min-[900px]:gap-6">
+      <div className="mt-5 hidden min-[900px]:grid min-[900px]:grid-cols-[1.3fr_1fr_260px] min-[900px]:items-start min-[900px]:gap-6 wide:grid-cols-[1.3fr_1fr_320px] wide:gap-10">
         <Gallery2 images={project.media} desktopAspect="15/16" />
 
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
-            <h1 className="text-[20px] font-extrabold leading-tight text-[#0C0D0D]">{project.name}</h1>
-            <span className="shrink-0 rounded-full bg-[#FBEFE3] px-3 py-1 text-[12px] font-bold text-[#C08E47]">{project.status}</span>
+            <h1 className="text-[20px] font-extrabold leading-tight text-[#0C0D0D] wide:text-[40px] wide:leading-[48px]">
+              {project.name}
+            </h1>
+            <span className="shrink-0 rounded-full bg-[#FBEFE3] px-3 py-1 text-[12px] font-bold text-[#C08E47] wide:px-4 wide:py-[6px] wide:text-[13px]">
+              {project.status}
+            </span>
           </div>
-          <p className="mt-2 flex items-center gap-[6px] text-[13px] text-[#5F5D5D]">
+          <p className="mt-2 flex items-center gap-[6px] text-[13px] text-[#5F5D5D] wide:text-[15px]">
             <Icon name="pin" size={15} /> {project.location}
           </p>
 
-          <div className="mt-5 grid grid-cols-4 gap-2">
+          <div className="mt-5 grid grid-cols-4 gap-2 wide:mt-8 wide:gap-3">
             {facts.map((fact) => (
-              <div key={fact.label} className="rounded-lg border border-[#EDEBEA] p-2 text-center">
+              <div key={fact.label} className="rounded-lg border border-[#EDEBEA] p-2 text-center wide:rounded-[12px] wide:p-3">
                 <Icon name={fact.icon} size={20} className="mx-auto text-[#880206]" />
-                <p className="mt-1 leading-tight text-[11px] font-bold text-[#0C0D0D]">{fact.value}</p>
-                <p className="leading-tight text-[9px] text-[#5F5D5D]">{fact.label}</p>
+                <p className="mt-1 leading-tight text-[11px] font-bold text-[#0C0D0D] wide:text-[17px]">{fact.value}</p>
+                <p className="leading-tight text-[9px] text-[#5F5D5D] wide:text-[13px]">{fact.label}</p>
               </div>
             ))}
           </div>
 
-          <section className="mt-6">
-            <h2 className="text-[16px] font-bold text-[#0C0D0D]">Thông tin dự án</h2>
-            <p className="mt-3 text-[13px] leading-relaxed text-[#3A3838]">{project.summary}</p>
+          <section className="mt-6 wide:mt-10">
+            <h2 className="text-[16px] font-bold text-[#0C0D0D] wide:text-[18px]">Thông tin dự án</h2>
+            <p className="mt-3 text-[13px] leading-relaxed text-[#3A3838] wide:text-v2-body">{project.summary}</p>
           </section>
         </div>
 
         <aside>
-          <div className="rounded-lg border-2 border-[#880206] bg-[#880206] p-6">
-            <h2 className="text-[17px] font-bold text-white">Liên hệ tư vấn dự án</h2>
-            <p className="mt-1 text-[12px] text-white/80">Để lại thông tin, chúng tôi sẽ liên hệ tư vấn chi tiết cho bạn!</p>
+          <div className="rounded-lg border-2 border-[#880206] bg-[#880206] p-6 wide:rounded-[16px] wide:p-8">
+            <h2 className="text-[17px] font-bold text-white wide:text-[19px]">Liên hệ tư vấn dự án</h2>
+            <p className="mt-1 text-[12px] text-white/80 wide:text-[14px]">
+              Để lại thông tin, chúng tôi sẽ liên hệ tư vấn chi tiết cho bạn!
+            </p>
             <div className="mt-4">
               <ProjectInquiryForm2 projectName={project.name} variant="inline" />
             </div>
@@ -181,17 +187,21 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
       </div>
 
       {project.amenities.length > 0 && (
-        <section className="mt-3 min-[900px]:mt-8" data-qa-region="amenities">
-          <h2 className="text-[12px] font-bold text-[#0C0D0D] min-[900px]:text-[16px]">Tiện ích nổi bật</h2>
+        <section className="mt-3 min-[900px]:mt-8 wide:mt-16" data-qa-region="amenities">
+          <h2 className="text-[12px] font-bold text-[#0C0D0D] min-[900px]:text-[16px] wide:text-v2-h2">Tiện ích nổi bật</h2>
           {/* Master keeps every amenity in ONE row (7 WEB / 5 visible on
               MOBILE before wrapping) — real data isn't truncated, entries
               past the master-visible count are just hidden on narrow
               widths, same pattern as the /du-an card cap above. */}
-          <div className="mt-[6px] grid grid-cols-5 gap-1 min-[900px]:mt-4 min-[900px]:grid-cols-7 min-[900px]:gap-4">
+          <div className="mt-[6px] grid grid-cols-5 gap-1 min-[900px]:mt-4 min-[900px]:grid-cols-7 min-[900px]:gap-4 wide:mt-6 wide:gap-6">
             {project.amenities.map((amenity, i) => (
               <div key={amenity} className={`flex flex-col items-center gap-1 text-center min-[900px]:gap-2 ${i >= 5 ? "hidden min-[900px]:flex" : ""}`}>
-                <Icon name={AMENITY_ICONS[i % AMENITY_ICONS.length]} size={16} className="text-[#C08E47] min-[900px]:!h-[26px] min-[900px]:!w-[26px]" />
-                <p className="truncate text-[7px] font-medium text-[#0C0D0D] min-[900px]:text-[12px]">{amenity}</p>
+                <Icon
+                  name={AMENITY_ICONS[i % AMENITY_ICONS.length]}
+                  size={16}
+                  className="text-[#C08E47] min-[900px]:!h-[26px] min-[900px]:!w-[26px] wide:!h-8 wide:!w-8"
+                />
+                <p className="truncate text-[7px] font-medium text-[#0C0D0D] min-[900px]:text-[12px] wide:text-[14px]">{amenity}</p>
               </div>
             ))}
           </div>
@@ -203,19 +213,19 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
           -> form -> facts -> info -> amenities -> progress -> gallery -> map
           -> CTA (no second "info" block; "Thông tin dự án" above already
           covers it), so this whole section is desktop-only. */}
-      <section className="mt-8 hidden min-[900px]:grid min-[900px]:grid-cols-2 min-[900px]:items-start min-[900px]:gap-8">
+      <section className="mt-8 hidden min-[900px]:grid min-[900px]:grid-cols-2 min-[900px]:items-start min-[900px]:gap-8 wide:mt-16 wide:gap-10">
         <div>
-          <h2 className="text-[16px] font-bold text-[#0C0D0D]">Thông tin chi tiết dự án</h2>
-          <p className="mt-3 text-[12px] leading-snug text-[#3A3838]">{project.summary}</p>
-          <ul className="mt-2 flex flex-col gap-1">
+          <h2 className="text-[16px] font-bold text-[#0C0D0D] wide:text-v2-h2">Thông tin chi tiết dự án</h2>
+          <p className="mt-3 text-[12px] leading-snug text-[#3A3838] wide:mt-4 wide:text-v2-body">{project.summary}</p>
+          <ul className="mt-2 flex flex-col gap-1 wide:mt-4 wide:gap-3">
             {checklist.map((item) => (
-              <li key={item} className="flex items-start gap-2 text-[12px] leading-snug text-[#3A3838]">
+              <li key={item} className="flex items-start gap-2 text-[12px] leading-snug text-[#3A3838] wide:text-[16px] wide:leading-[26px]">
                 <Icon name="check" size={14} className="mt-[2px] shrink-0 text-[#23825C]" /> {item}
               </li>
             ))}
           </ul>
         </div>
-        <div className="relative aspect-[16/10] overflow-hidden rounded-lg">
+        <div className="relative aspect-[16/10] overflow-hidden rounded-lg wide:rounded-[16px]">
           {/* Round 8 asset map, section 3 "/du-an/[slug] Amenity/detail
               imagery": R8_13 is the one semantically-matching "hồ bơi" (pool)
               photo of that 5-image set; R8_14/15/16/19 are finished-landscape
@@ -228,18 +238,20 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
       </section>
 
       {/* WEB: 5 frozen milestone photos. MOBILE: compact 3-step abstract timeline. */}
-      <section className="mt-3 min-[900px]:mt-8" data-qa-region="progress">
-        <h2 className="text-[12px] font-bold text-[#0C0D0D] min-[900px]:text-[16px]">Tiến độ dự án</h2>
+      <section className="mt-3 min-[900px]:mt-8 wide:mt-16" data-qa-region="progress">
+        <h2 className="text-[12px] font-bold text-[#0C0D0D] min-[900px]:text-[16px] wide:text-v2-h2">Tiến độ dự án</h2>
 
-        <div className="mt-5 hidden min-[900px]:grid min-[900px]:grid-cols-5 min-[900px]:gap-4">
+        <div className="mt-5 hidden min-[900px]:grid min-[900px]:grid-cols-5 min-[900px]:gap-4 wide:mt-8 wide:gap-6">
           {PROGRESS_PHOTOS.map((step, i) => (
             <div key={step.label} className="flex flex-col items-center text-center">
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg wide:rounded-[14px]">
                 <Image src={step.image} alt={step.label} fill className="object-cover" unoptimized />
               </div>
               <div className={`mt-3 h-3 w-3 rounded-full border-2 border-white ${i <= stepIndex ? "bg-[#880206]" : "bg-[#E4E1E0]"}`} />
-              <p className={`mt-1 text-[13px] font-semibold ${i === stepIndex ? "text-[#880206]" : "text-[#0C0D0D]"}`}>{step.label}</p>
-              <p className="text-[11px] text-[#5F5D5D]">{i === stepIndex ? project.progressText : " "}</p>
+              <p className={`mt-1 text-[13px] font-semibold wide:text-[15px] ${i === stepIndex ? "text-[#880206]" : "text-[#0C0D0D]"}`}>
+                {step.label}
+              </p>
+              <p className="text-[11px] text-[#5F5D5D] wide:text-[13px]">{i === stepIndex ? project.progressText : " "}</p>
             </div>
           ))}
         </div>
@@ -322,19 +334,19 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
       </div>
 
       <section
-        className="mt-6 hidden flex-col items-start justify-between gap-2 rounded-lg bg-[#880206] p-3 text-white min-[900px]:flex min-[900px]:flex-row min-[900px]:items-center min-[900px]:gap-4 min-[900px]:p-4"
+        className="mt-6 hidden flex-col items-start justify-between gap-2 rounded-lg bg-[#880206] p-3 text-white min-[900px]:flex min-[900px]:flex-row min-[900px]:items-center min-[900px]:gap-4 min-[900px]:p-4 wide:mt-16 wide:rounded-[16px] wide:p-8"
         data-qa-region="bottom-cta"
       >
         <div className="flex items-center gap-3">
-          <Icon name="phone" size={18} className="text-white" />
+          <Icon name="phone" size={18} className="text-white wide:!h-6 wide:!w-6" />
           <div>
-            <p className="text-[13px] font-bold">Bạn cần tư vấn thêm thông tin dự án?</p>
-            <p className="text-[11px] text-white/80">Đội ngũ chuyên viên của NDTHICH luôn sẵn sàng hỗ trợ bạn.</p>
+            <p className="text-[13px] font-bold wide:text-[19px]">Bạn cần tư vấn thêm thông tin dự án?</p>
+            <p className="text-[11px] text-white/80 wide:text-[14px]">Đội ngũ chuyên viên của NDTHICH luôn sẵn sàng hỗ trợ bạn.</p>
           </div>
         </div>
         <a
           href={getZaloHref()}
-          className="flex items-center justify-center gap-2 rounded-md bg-white px-4 py-2 text-[12px] font-semibold text-[#880206]"
+          className="flex items-center justify-center gap-2 rounded-md bg-white px-4 py-2 text-[12px] font-semibold text-[#880206] wide:h-[52px] wide:rounded-[10px] wide:px-6 wide:text-[15px]"
         >
           Liên hệ ngay <Icon name="arrow-right" size={13} />
         </a>

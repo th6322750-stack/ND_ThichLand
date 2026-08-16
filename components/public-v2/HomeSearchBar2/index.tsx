@@ -67,12 +67,12 @@ function MobileField({ label, placeholder, value, onChange, options }: FilterFie
 // option text, no separate "Chọn ..." line.
 function WebField({ label, value, onChange, options }: Omit<FilterFieldProps, "placeholder">) {
   return (
-    <label className="flex min-w-0 flex-1 cursor-pointer items-center gap-2 px-4 py-3 hover:bg-[#F7F6F6]">
+    <label className="flex min-w-0 flex-1 cursor-pointer items-center gap-2 px-4 py-3 hover:bg-[#F7F6F6] wide:h-[54px] wide:px-5">
       <select
         aria-label={label}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="min-w-0 flex-1 appearance-none truncate border-0 bg-transparent p-0 text-[13px] font-bold leading-tight text-[#0C0D0D] focus:outline-none"
+        className="min-w-0 flex-1 appearance-none truncate border-0 bg-transparent p-0 text-[13px] font-bold leading-tight text-[#0C0D0D] focus:outline-none wide:text-[14px]"
       >
         <option value="">{label}</option>
         {options.map((o) => (
@@ -81,7 +81,7 @@ function WebField({ label, value, onChange, options }: Omit<FilterFieldProps, "p
           </option>
         ))}
       </select>
-      <Icon name="chevron-right" size={14} className="shrink-0 rotate-90 text-[#A6A6A6]" />
+      <Icon name="chevron-right" size={14} className="shrink-0 rotate-90 text-[#A6A6A6] wide:!h-[19px] wide:!w-[19px]" />
     </label>
   );
 }
@@ -141,7 +141,7 @@ export function HomeSearchBar2({ locationOptions, propertyTypeOptions }: HomeSea
   ];
 
   return (
-    <div className="rounded-lg border border-[#EDEBEA] bg-white p-4 min-[900px]:rounded-xl min-[900px]:p-3 min-[900px]:shadow-[0_20px_45px_-24px_rgba(12,13,13,0.18)]">
+    <div className="rounded-lg border border-[#EDEBEA] bg-white p-4 min-[900px]:rounded-xl min-[900px]:p-3 min-[900px]:shadow-[0_20px_45px_-24px_rgba(12,13,13,0.18)] wide:rounded-[16px] wide:p-4">
       <p className="mb-3 text-[13px] font-bold leading-tight text-[#0C0D0D] min-[900px]:hidden">Tìm kiếm bất động sản</p>
 
       <div className="flex flex-col gap-3 min-[900px]:gap-2">
@@ -157,13 +157,13 @@ export function HomeSearchBar2({ locationOptions, propertyTypeOptions }: HomeSea
                 value={state.q}
                 onChange={(e) => setState((s) => ({ ...s, q: e.target.value }))}
                 placeholder="Nhập từ khóa, vị trí, dự án..."
-                className="block w-full min-w-0 rounded-md border border-[#E4E1E0] bg-white px-3 py-3 text-[12px] leading-tight text-[#0C0D0D] placeholder:text-[#5F5D5D] focus:outline-none min-[900px]:h-[46px] min-[900px]:px-4 min-[900px]:text-[14px]"
+                className="block w-full min-w-0 rounded-md border border-[#E4E1E0] bg-white px-3 py-3 text-[12px] leading-tight text-[#0C0D0D] placeholder:text-[#5F5D5D] focus:outline-none min-[900px]:h-[46px] min-[900px]:px-4 min-[900px]:text-[14px] wide:h-[54px] wide:text-[15px]"
               />
             </div>
             <button
               type="button"
               onClick={handleSearch}
-              className="flex shrink-0 items-center justify-center gap-2 rounded-md bg-[#880206] px-4 py-3 text-[13px] font-semibold text-white hover:bg-[#750F0D] min-[900px]:h-[46px] min-[900px]:rounded-lg min-[900px]:px-6 min-[900px]:text-[14px]"
+              className="flex shrink-0 items-center justify-center gap-2 rounded-md bg-[#880206] px-4 py-3 text-[13px] font-semibold text-white hover:bg-[#750F0D] min-[900px]:h-[46px] min-[900px]:rounded-lg min-[900px]:px-6 min-[900px]:text-[14px] wide:h-[54px]"
             >
               Tìm kiếm
               <Icon name="search" size={15} className="text-white" />

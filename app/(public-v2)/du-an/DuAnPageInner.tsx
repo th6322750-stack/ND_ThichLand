@@ -70,19 +70,23 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
   }
 
   return (
-    <div className="mx-auto max-w-[1240px] px-3 py-1 min-[900px]:px-10 min-[900px]:py-8">
+    <div className="v2-container py-1 min-[900px]:py-8 wide:py-12">
       <Breadcrumb2 items={[{ label: "Trang chủ", href: "/" }, { label: "Dự án" }]} />
 
       <div data-qa-region="heading">
-        <h1 className="mt-1 text-[17px] font-extrabold text-[#0C0D0D] min-[900px]:mt-4 min-[900px]:text-[36px]">
+        <h1 className="mt-1 text-[17px] font-extrabold text-[#0C0D0D] min-[900px]:mt-4 min-[900px]:text-[36px] wide:text-v2-h1">
           Các dự án <span className="text-[#880206]">tiêu biểu</span>
         </h1>
-        <p className="mt-1 line-clamp-2 max-w-2xl text-[10px] text-[#5F5D5D] min-[900px]:mt-2 min-[900px]:line-clamp-none min-[900px]:text-[14px]">
+        <p className="mt-1 line-clamp-2 max-w-2xl text-[10px] text-[#5F5D5D] min-[900px]:mt-2 min-[900px]:line-clamp-none min-[900px]:text-[14px] wide:text-[17px] wide:leading-[28px]">
           Những dự án chúng tôi đã và đang tham gia phát triển, mang đến không gian sống &amp; kinh doanh
           chất lượng, bền vững cho cộng đồng.
         </p>
 
-        <div className="mt-1 flex flex-nowrap gap-[6px] min-[900px]:mt-5 min-[900px]:flex-wrap min-[900px]:gap-2" role="tablist" aria-label="Lọc dự án theo trạng thái">
+        <div
+          className="mt-1 flex flex-nowrap gap-[6px] min-[900px]:mt-5 min-[900px]:flex-wrap min-[900px]:gap-2 wide:gap-3"
+          role="tablist"
+          aria-label="Lọc dự án theo trạng thái"
+        >
           {TABS.map((t, index) => {
             const selected = tab === t.value;
             return (
@@ -99,7 +103,7 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
                 tabIndex={selected ? 0 : -1}
                 onClick={() => setTab(t.value)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
-                className={`shrink-0 whitespace-nowrap rounded-md border px-2 py-[6px] text-[10px] font-semibold min-[900px]:px-4 min-[900px]:py-[10px] min-[900px]:text-[13px] ${
+                className={`shrink-0 whitespace-nowrap rounded-md border px-2 py-[6px] text-[10px] font-semibold min-[900px]:px-4 min-[900px]:py-[10px] min-[900px]:text-[13px] wide:h-[44px] wide:rounded-[10px] wide:px-5 wide:text-[15px] ${
                   selected ? "border-[#880206] bg-[#880206] text-white" : "border-[#E4E1E0] text-[#0C0D0D] hover:border-[#880206]"
                 }`}
               >
@@ -114,7 +118,7 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
         id="du-an-tabpanel"
         role="tabpanel"
         aria-labelledby={`du-an-tab-${TABS.find((t) => t.value === tab)?.id}`}
-        className="mt-1 grid grid-cols-1 gap-1 min-[900px]:mt-6 min-[900px]:grid-cols-3 min-[900px]:gap-5"
+        className="mt-1 grid grid-cols-1 gap-1 min-[900px]:mt-6 min-[900px]:grid-cols-3 min-[900px]:gap-5 wide:gap-6"
         data-qa-region="project-grid"
       >
         {visible.map((project, i) => (
@@ -167,37 +171,37 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
 
       {/* WEB: reception image LEFT / text+features RIGHT, matching master. */}
       <section
-        className="mt-6 hidden min-[900px]:flex min-[900px]:items-center min-[900px]:gap-6"
+        className="mt-6 hidden min-[900px]:flex min-[900px]:items-center min-[900px]:gap-6 wide:mt-16 wide:gap-10"
         data-qa-region="about"
       >
-        <div className="relative h-[190px] w-[340px] shrink-0 overflow-hidden rounded-lg">
+        <div className="relative h-[190px] w-[340px] shrink-0 overflow-hidden rounded-lg wide:h-[280px] wide:w-[460px] wide:rounded-[16px]">
           <Image src="/assets/v2/home/about-reception.png" alt="Sảnh đón NDTHICH" fill className="object-cover" unoptimized />
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-[12px] font-bold uppercase tracking-wide text-[#880206]">Về Nguyễn Đắc Thích</p>
-          <h2 className="mt-2 text-[24px] font-extrabold leading-snug text-[#0C0D0D]">
+          <p className="text-[12px] font-bold uppercase tracking-wide text-[#880206] wide:text-[13px]">Về Nguyễn Đắc Thích</p>
+          <h2 className="mt-2 text-[24px] font-extrabold leading-snug text-[#0C0D0D] wide:text-v2-h2">
             Kiến tạo không gian sống
             <br />
             <span className="text-[#880206]">&amp; kinh doanh bền vững</span>
           </h2>
-          <p className="mt-2 text-[13px] text-[#5F5D5D]">
+          <p className="mt-2 text-[13px] text-[#5F5D5D] wide:mt-4 wide:text-v2-body">
             Với hơn 10 năm kinh nghiệm, chúng tôi cam kết mang đến những giá trị thực, pháp lý minh bạch
             và dịch vụ tận tâm cho khách hàng.
           </p>
-          <div className="mt-4 grid grid-cols-4 gap-1">
+          <div className="mt-4 grid grid-cols-4 gap-1 wide:mt-6 wide:gap-4">
             {ABOUT_FEATURES_WEB.map((f) => (
-              <div key={f.title} className="flex items-start gap-1">
-                <Icon name={f.icon} size={16} className="mt-[2px] shrink-0 text-[#C08E47]" />
+              <div key={f.title} className="flex items-start gap-1 wide:gap-2">
+                <Icon name={f.icon} size={16} className="mt-[2px] shrink-0 text-[#C08E47] wide:!h-5 wide:!w-5" />
                 <div className="min-w-0">
-                  <p className="truncate text-[10px] font-bold text-[#0C0D0D]">{f.title}</p>
-                  <p className="truncate text-[7.5px] leading-tight text-[#5F5D5D]">{f.desc}</p>
+                  <p className="truncate text-[10px] font-bold text-[#0C0D0D] wide:text-[14px]">{f.title}</p>
+                  <p className="truncate text-[7.5px] leading-tight text-[#5F5D5D] wide:text-[12px]">{f.desc}</p>
                 </div>
               </div>
             ))}
           </div>
           <Link
             href="/gioi-thieu"
-            className="mt-5 inline-flex items-center gap-2 rounded-md bg-[#880206] px-5 py-[10px] text-[13px] font-semibold text-white hover:bg-[#750F0D]"
+            className="mt-5 inline-flex items-center gap-2 rounded-md bg-[#880206] px-5 py-[10px] text-[13px] font-semibold text-white hover:bg-[#750F0D] wide:mt-8 wide:h-[48px] wide:rounded-[10px] wide:px-6 wide:text-[15px]"
           >
             Tìm hiểu thêm về chúng tôi <Icon name="arrow-right" size={14} className="text-white" />
           </Link>

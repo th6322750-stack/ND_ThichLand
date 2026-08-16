@@ -41,13 +41,13 @@ function ActionButtons() {
     <div className="flex gap-2 min-[900px]:gap-3">
       <a
         href="tel:0986602203"
-        className="flex flex-1 items-center justify-center gap-1 rounded-md bg-[#880206] px-2 py-2 text-[10px] font-semibold leading-tight text-white hover:bg-[#750F0D] min-[900px]:gap-2 min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px]"
+        className="flex flex-1 items-center justify-center gap-1 rounded-md bg-[#880206] px-2 py-2 text-[10px] font-semibold leading-tight text-white hover:bg-[#750F0D] min-[900px]:gap-2 min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px] wide:h-[48px] wide:rounded-[10px] wide:text-[15px]"
       >
         <Icon name="phone" size={12} className="shrink-0 text-white min-[900px]:!h-4 min-[900px]:!w-4" /> Gọi ngay
       </a>
       <a
         href={getZaloHref()}
-        className="flex flex-1 items-center justify-center gap-1 rounded-md bg-[#0068FF] px-2 py-2 text-[10px] font-semibold leading-tight text-white hover:bg-[#0056D6] min-[900px]:gap-2 min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px]"
+        className="flex flex-1 items-center justify-center gap-1 rounded-md bg-[#0068FF] px-2 py-2 text-[10px] font-semibold leading-tight text-white hover:bg-[#0056D6] min-[900px]:gap-2 min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px] wide:h-[48px] wide:rounded-[10px] wide:text-[15px]"
       >
         <Icon name="chat" size={12} className="shrink-0 text-white min-[900px]:!h-4 min-[900px]:!w-4" /> Nhắn Zalo
       </a>
@@ -104,7 +104,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
   ];
 
   return (
-    <div className="mx-auto max-w-[1240px] px-3 py-2 min-[900px]:px-10 min-[900px]:py-8">
+    <div className="v2-container py-2 min-[900px]:py-8 wide:py-12">
       <Breadcrumb2
         withHomeIcon
         items={[{ label: "Trang chủ", href: "/" }, { label: "Cho thuê", href: "/cho-thue" }, { label: title }]}
@@ -113,39 +113,52 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
       {/* TOP: master keeps the gallery LEFT and title/price/facts/actions
           summary RIGHT as one compact band — a full-width gallery followed
           by info below (the old structure) is a FAIL. */}
-      <div className="mt-2 min-[900px]:mt-5 min-[900px]:grid min-[900px]:grid-cols-[1fr_360px] min-[900px]:items-start min-[900px]:gap-8">
+      <div className="mt-2 min-[900px]:mt-5 min-[900px]:grid min-[900px]:grid-cols-[1fr_360px] min-[900px]:items-start min-[900px]:gap-8 wide:grid-cols-[1fr_420px] wide:gap-10">
         <div data-qa-region="gallery">
           <Gallery2 images={listing.media} sideBySideOnMobile desktopAspect="3/2" />
         </div>
 
         <div className="mt-2 min-[900px]:mt-0">
           <div data-qa-region="summary">
-            <h1 className="text-[17px] font-extrabold text-[#0C0D0D] min-[900px]:text-[28px]">{title}</h1>
-            <p className="mt-1 flex items-center gap-1 text-[11px] text-[#5F5D5D] min-[900px]:mt-2 min-[900px]:gap-[6px] min-[900px]:text-[13px]">
+            <h1 className="text-[17px] font-extrabold text-[#0C0D0D] min-[900px]:text-[28px] wide:text-[40px] wide:leading-[48px]">
+              {title}
+            </h1>
+            <p className="mt-1 flex items-center gap-1 text-[11px] text-[#5F5D5D] min-[900px]:mt-2 min-[900px]:gap-[6px] min-[900px]:text-[13px] wide:text-[15px]">
               <Icon name="pin" size={12} className="min-[900px]:!h-[15px] min-[900px]:!w-[15px]" /> {listing.address}
             </p>
-            <p className="mt-1 text-[18px] font-extrabold text-[#880206] min-[900px]:mt-3 min-[900px]:text-[26px]">
+            <p className="mt-1 text-[18px] font-extrabold text-[#880206] min-[900px]:mt-3 min-[900px]:text-[26px] wide:mt-4">
               {formatCurrencyVnd(listing.price)}
               <span className="text-[11px] font-medium text-[#5F5D5D] min-[900px]:text-[14px]">/tháng</span>
             </p>
           </div>
 
-          <div className="mt-2 grid grid-cols-4 gap-[6px] min-[900px]:mt-3 min-[900px]:gap-2" data-qa-region="facts">
+          <div className="mt-2 grid grid-cols-4 gap-[6px] min-[900px]:mt-3 min-[900px]:gap-2 wide:mt-6 wide:gap-3" data-qa-region="facts">
             {facts.map((fact) => (
-              <div key={fact.label} className="min-w-0 rounded-lg border border-[#EDEBEA] p-[6px] text-center min-[900px]:p-2">
+              <div
+                key={fact.label}
+                className="min-w-0 rounded-lg border border-[#EDEBEA] p-[6px] text-center min-[900px]:p-2 wide:rounded-[12px] wide:p-3"
+              >
                 <Icon name={fact.icon} size={16} className="mx-auto text-[#880206] min-[900px]:!h-[22px] min-[900px]:!w-[22px]" />
-                <p className="mt-1 truncate text-[11px] font-bold text-[#0C0D0D] min-[900px]:mt-2 min-[900px]:text-[15px]">{fact.value}</p>
-                <p className="truncate text-[8px] text-[#5F5D5D] min-[900px]:text-[11px]">{fact.label}</p>
+                <p className="mt-1 truncate text-[11px] font-bold text-[#0C0D0D] min-[900px]:mt-2 min-[900px]:text-[15px] wide:text-[17px]">
+                  {fact.value}
+                </p>
+                <p className="truncate text-[8px] text-[#5F5D5D] min-[900px]:text-[11px] wide:text-[13px]">{fact.label}</p>
               </div>
             ))}
           </div>
 
           {listing.highlights.length > 0 && (
-            <div className="mt-2 rounded-lg border border-[#EDEBEA] p-2 min-[900px]:mt-3 min-[900px]:border-0 min-[900px]:p-0" data-qa-region="highlights">
-              <h2 className="text-[12px] font-bold text-[#0C0D0D] min-[900px]:text-[16px]">Thông tin nổi bật</h2>
-              <ul className="mt-1 flex flex-col gap-[6px] leading-tight min-[900px]:mt-3 min-[900px]:gap-2">
+            <div
+              className="mt-2 rounded-lg border border-[#EDEBEA] p-2 min-[900px]:mt-3 min-[900px]:border-0 min-[900px]:p-0 wide:mt-6"
+              data-qa-region="highlights"
+            >
+              <h2 className="text-[12px] font-bold text-[#0C0D0D] min-[900px]:text-[16px] wide:text-[18px]">Thông tin nổi bật</h2>
+              <ul className="mt-1 flex flex-col gap-[6px] leading-tight min-[900px]:mt-3 min-[900px]:gap-2 wide:gap-3">
                 {listing.highlights.map((h) => (
-                  <li key={h} className="flex items-start gap-1 text-[10px] text-[#3A3838] min-[900px]:gap-2 min-[900px]:text-[13px]">
+                  <li
+                    key={h}
+                    className="flex items-start gap-1 text-[10px] text-[#3A3838] min-[900px]:gap-2 min-[900px]:text-[13px] wide:text-[16px] wide:leading-[26px]"
+                  >
                     <Icon name="check" size={11} className="mt-[2px] shrink-0 text-[#23825C] min-[900px]:!h-4 min-[900px]:!w-4" /> {h}
                   </li>
                 ))}
@@ -153,7 +166,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
             </div>
           )}
 
-          <div className="mt-2 min-[900px]:mt-3" data-qa-region="actions">
+          <div className="mt-2 min-[900px]:mt-3 wide:mt-6" data-qa-region="actions">
             <ActionButtons />
           </div>
         </div>
@@ -168,14 +181,21 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
       {related.length > 0 && (
         <section className="mt-4 min-[900px]:mt-12" data-qa-region="related">
           <div className="flex items-end justify-between">
-            <h2 className="text-[13px] font-extrabold text-[#0C0D0D] min-[900px]:text-[20px]">Bất động sản cùng khu vực</h2>
+            <h2 className="text-[13px] font-extrabold text-[#0C0D0D] min-[900px]:text-[20px] wide:text-v2-h2">
+              Bất động sản cùng khu vực
+            </h2>
           </div>
           {/* Mobile: horizontal scroll strip with the next card peeking at
               the edge (master), not a wrapped 2-col grid. */}
-          <div className="mt-2 flex snap-x gap-2 overflow-x-auto min-[900px]:mt-5 min-[900px]:grid min-[900px]:grid-cols-4 min-[900px]:gap-5 min-[900px]:overflow-visible">
+          <div className="mt-2 flex snap-x gap-2 overflow-x-auto min-[900px]:mt-5 min-[900px]:grid min-[900px]:grid-cols-4 min-[900px]:gap-5 min-[900px]:overflow-visible wide:mt-6 wide:gap-6">
             {related.map((p, i) => (
               <div key={p.slug} className="w-[46%] shrink-0 snap-start min-[900px]:w-auto">
-                <PropertyCardGrid2 listing={p} mobileAspect="4/3" imageOverride={RELATED_IMAGES[i % RELATED_IMAGES.length]} />
+                <PropertyCardGrid2
+                  listing={p}
+                  mobileAspect="4/3"
+                  imageOverride={RELATED_IMAGES[i % RELATED_IMAGES.length]}
+                  wideAspect="16/10"
+                />
               </div>
             ))}
           </div>
@@ -184,25 +204,27 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
 
       {/* Bottom consultation CTA before the footer, matching the master. */}
       <section
-        className="mt-4 flex flex-col items-start justify-between gap-2 rounded-lg bg-[#880206] p-3 text-white min-[900px]:mt-12 min-[900px]:flex-row min-[900px]:items-center min-[900px]:gap-4 min-[900px]:p-8"
+        className="mt-4 flex flex-col items-start justify-between gap-2 rounded-lg bg-[#880206] p-3 text-white min-[900px]:mt-12 min-[900px]:flex-row min-[900px]:items-center min-[900px]:gap-4 min-[900px]:p-8 wide:rounded-[16px] wide:p-10"
         data-qa-region="bottom-cta"
       >
         <div>
-          <h2 className="text-[12px] font-bold min-[900px]:text-[19px]">Bạn cần tư vấn hoặc muốn xem nhà trực tiếp?</h2>
-          <p className="mt-1 text-[10px] text-white/85 min-[900px]:text-[13px]">
+          <h2 className="text-[12px] font-bold min-[900px]:text-[19px] wide:text-[22px]">
+            Bạn cần tư vấn hoặc muốn xem nhà trực tiếp?
+          </h2>
+          <p className="mt-1 text-[10px] text-white/85 min-[900px]:text-[13px] wide:text-[16px]">
             Liên hệ ngay để được hỗ trợ nhanh chóng và tận tâm!
           </p>
         </div>
         <div className="flex w-full gap-2 min-[900px]:w-auto min-[900px]:gap-3">
           <a
             href="tel:0986602203"
-            className="flex flex-1 items-center justify-center gap-2 rounded-md bg-white px-3 py-2 text-[11px] font-semibold text-[#880206] min-[900px]:flex-none min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px]"
+            className="flex flex-1 items-center justify-center gap-2 rounded-md bg-white px-3 py-2 text-[11px] font-semibold text-[#880206] min-[900px]:flex-none min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px] wide:h-[52px] wide:rounded-[10px] wide:px-6 wide:text-[15px]"
           >
             <Icon name="phone" size={13} className="min-[900px]:!h-4 min-[900px]:!w-4" /> 0986 602 203
           </a>
           <a
             href={getZaloHref()}
-            className="flex flex-1 items-center justify-center gap-2 rounded-md bg-[#0068FF] px-3 py-2 text-[11px] font-semibold text-white hover:bg-[#0056D6] min-[900px]:flex-none min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px]"
+            className="flex flex-1 items-center justify-center gap-2 rounded-md bg-[#0068FF] px-3 py-2 text-[11px] font-semibold text-white hover:bg-[#0056D6] min-[900px]:flex-none min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px] wide:h-[52px] wide:rounded-[10px] wide:px-6 wide:text-[15px]"
           >
             <Icon name="chat" size={13} className="text-white min-[900px]:!h-4 min-[900px]:!w-4" /> Nhắn Zalo ngay
           </a>
@@ -214,11 +236,11 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
   function TabbedDetails({ detailRows, address }: { detailRows: [string, string][]; address: string }) {
     return (
       <section className="mt-4 min-[900px]:mt-8" data-qa-region="detail-tabs">
-        <div className="hidden border-b border-[#EDEBEA] min-[900px]:flex min-[900px]:gap-6">
+        <div className="hidden border-b border-[#EDEBEA] min-[900px]:flex min-[900px]:gap-6 wide:gap-8">
           {DETAIL_TABS.map((tab, i) => (
             <span
               key={tab.id}
-              className={`border-b-2 pb-3 text-[14px] font-semibold ${
+              className={`border-b-2 pb-3 text-[14px] font-semibold wide:text-[16px] ${
                 i === 0 ? "border-[#880206] text-[#880206]" : "border-transparent text-[#5F5D5D]"
               }`}
             >
@@ -227,11 +249,11 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
           ))}
         </div>
 
-        <div className="mt-6 hidden min-[900px]:grid min-[900px]:grid-cols-2 min-[900px]:items-start min-[900px]:gap-8">
-          <div className="rounded-lg border border-[#EDEBEA]">
+        <div className="mt-6 hidden min-[900px]:grid min-[900px]:grid-cols-2 min-[900px]:items-start min-[900px]:gap-8 wide:gap-10">
+          <div className="rounded-lg border border-[#EDEBEA] wide:rounded-[14px]">
             <div className="divide-y divide-[#EDEBEA]">
               {detailRows.map(([label, value]) => (
-                <div key={label} className="flex items-center justify-between px-5 py-5 text-[13px]">
+                <div key={label} className="flex items-center justify-between px-5 py-5 text-[13px] wide:px-6 wide:text-[16px]">
                   <span className="text-[#5F5D5D]">{label}</span>
                   <span className="font-bold text-[#0C0D0D]">{value}</span>
                 </div>
@@ -239,8 +261,8 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
             </div>
           </div>
           <div>
-            <h2 className="text-[16px] font-bold text-[#0C0D0D]">Vị trí trên bản đồ</h2>
-            <div className="relative mt-3 aspect-[16/9] overflow-hidden rounded-lg">
+            <h2 className="text-[16px] font-bold text-[#0C0D0D] wide:text-[18px]">Vị trí trên bản đồ</h2>
+            <div className="relative mt-3 aspect-[16/9] overflow-hidden rounded-lg wide:rounded-[14px]">
               <Image src="/assets/v2/property-detail/map.png" alt={`Bản đồ ${address}`} fill className="object-cover" unoptimized />
             </div>
           </div>

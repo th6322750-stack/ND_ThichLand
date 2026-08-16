@@ -63,8 +63,8 @@ export function ProjectInquiryForm2({ projectName, variant = "panel" }: ProjectI
   }
 
   const inputClass = isPanel
-    ? "w-full min-w-0 rounded-md border border-[#E4E1E0] px-2 py-2 text-[11px] text-[#0C0D0D] placeholder:text-[#A6A6A6] min-[900px]:px-[14px] min-[900px]:py-3 min-[900px]:text-[13px]"
-    : "w-full min-w-0 rounded-md border border-white/30 bg-white/10 px-2 py-2 text-[11px] text-white placeholder:text-white/70 min-[900px]:px-[14px] min-[900px]:py-3 min-[900px]:text-[13px]";
+    ? "w-full min-w-0 rounded-md border border-[#E4E1E0] px-2 py-2 text-[11px] text-[#0C0D0D] placeholder:text-[#A6A6A6] min-[900px]:px-[14px] min-[900px]:py-3 min-[900px]:text-[13px] wide:h-[52px] wide:px-4 wide:text-[15px]"
+    : "w-full min-w-0 rounded-md border border-white/30 bg-white/10 px-2 py-2 text-[11px] text-white placeholder:text-white/70 min-[900px]:px-[14px] min-[900px]:py-3 min-[900px]:text-[13px] wide:h-[52px] wide:px-4 wide:text-[15px]";
 
   return (
     // Master's MOBILE form pairs Họ và tên / Số điện thoại on ONE row (not
@@ -84,7 +84,7 @@ export function ProjectInquiryForm2({ projectName, variant = "panel" }: ProjectI
       <button
         type="submit"
         disabled={submitting}
-        className={`mt-1 flex items-center justify-center gap-2 rounded-md px-3 py-2 text-[11px] font-semibold uppercase disabled:opacity-60 min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px] ${
+        className={`mt-1 flex items-center justify-center gap-2 rounded-md px-3 py-2 text-[11px] font-semibold uppercase disabled:opacity-60 min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px] wide:h-[52px] wide:rounded-[10px] wide:text-[15px] ${
           isPanel ? "bg-[#880206] text-white hover:bg-[#750F0D]" : "bg-white text-[#880206]"
         }`}
       >

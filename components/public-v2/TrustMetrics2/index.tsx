@@ -12,14 +12,14 @@ const METRICS: { icon: IconName; value: string; label: string }[] = [
 // icon/text sized down at the base (mobile) breakpoint to still fit.
 export function TrustMetrics2() {
   return (
-    <div className="grid grid-cols-4 gap-[6px] rounded-lg border border-[#EDEBEA] bg-white p-[10px] min-[900px]:gap-4 min-[900px]:divide-x min-[900px]:divide-[#EDEBEA] min-[900px]:p-5">
+    <div className="grid grid-cols-4 gap-[6px] rounded-lg border border-[#EDEBEA] bg-white p-[10px] min-[900px]:gap-4 min-[900px]:divide-x min-[900px]:divide-[#EDEBEA] min-[900px]:p-5 wide:min-h-[96px] wide:items-center wide:rounded-[17px] wide:shadow-v2-premium">
       {METRICS.map((m) => (
         <div key={m.label} className="flex items-center gap-1 min-[900px]:gap-2 min-[900px]:pl-4 min-[900px]:first:pl-0">
           <Icon name={m.icon} size={14} className="shrink-0 text-[#C08E47] min-[900px]:hidden" />
-          <Icon name={m.icon} size={22} className="hidden shrink-0 text-[#C08E47] min-[900px]:block" />
+          <Icon name={m.icon} size={22} className="hidden shrink-0 text-[#C08E47] min-[900px]:block wide:!h-[24px] wide:!w-[24px]" />
           <div className="min-w-0">
-            <p className="truncate text-[9px] font-bold text-[#0C0D0D] min-[900px]:text-[17px]">{m.value}</p>
-            <p className="text-[6px] leading-tight text-[#5F5D5D] min-[900px]:text-[11px]">{m.label}</p>
+            <p className="truncate text-[9px] font-bold text-[#0C0D0D] min-[900px]:text-[17px] wide:text-[22px]">{m.value}</p>
+            <p className="text-[6px] leading-tight text-[#5F5D5D] min-[900px]:text-[11px] wide:text-[13px]">{m.label}</p>
           </div>
         </div>
       ))}

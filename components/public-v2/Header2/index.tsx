@@ -71,19 +71,22 @@ export function Header2() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#EDEBEA] bg-white" data-qa-region="header">
-      <div className={`mx-auto flex max-w-[1240px] items-center justify-between gap-4 px-4 ${variant.mobilePadding} min-[900px]:px-10 min-[900px]:py-3`}>
+      <div
+        className={`v2-container flex items-center justify-between gap-4 ${variant.mobilePadding} min-[900px]:py-3 wide:min-h-[80px] wide:py-4`}
+      >
         <Link href="/" className="flex shrink-0 items-center gap-2">
           {/* Client feedback: logo + company name read too small against
               the header's width, with a lot of empty vertical margin
-              around them — logo up ~12% (32px -> 36px) and header's own
-              vertical padding trimmed so the block reads as intentional,
-              not just centered whitespace. */}
+              around them — logo up ~12% (32px -> 36px), and at >=1440px
+              (USER_APPROVED_PREMIUM_WIDE_SCALE) up again to 44px, using
+              v2-container so the header content actually widens with the
+              viewport instead of clumping in a fixed 1240px column. */}
           <Image
             src="/assets/v2/branding/ndthich-logo-reference.png"
             alt="NDTHICH"
             width={168}
             height={128}
-            className="h-[30px] w-auto min-[900px]:h-[36px]"
+            className="h-[30px] w-auto min-[900px]:h-[36px] wide:h-[44px]"
             unoptimized
           />
           {variant.tagline && (
@@ -93,14 +96,14 @@ export function Header2() {
               Kinh doanh lý tưởng
             </span>
           )}
-          <span className="hidden whitespace-nowrap text-[10px] leading-tight text-[#5F5D5D] min-[900px]:block">
+          <span className="hidden whitespace-nowrap text-[10px] leading-tight text-[#5F5D5D] min-[900px]:block wide:text-[11px]">
             CÔNG TY TNHH MTV
             <br />
             <span className="font-bold text-[#880206]">NGUYỄN ĐẮC THÍCH</span>
           </span>
         </Link>
 
-        <nav className="hidden shrink-0 items-center gap-5 min-[900px]:flex whitespace-nowrap">
+        <nav className="hidden shrink-0 items-center gap-5 min-[900px]:flex wide:gap-[28px] whitespace-nowrap">
           {NAV.map((item) => {
             const active = isActive(pathname, item.href);
             return (
@@ -108,7 +111,7 @@ export function Header2() {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`border-b-2 pb-1 text-[15px] font-medium transition-colors ${
+                className={`border-b-2 pb-1 text-[15px] font-medium transition-colors wide:text-v2-nav ${
                   active
                     ? "border-[#880206] text-[#880206]"
                     : "border-transparent text-[#1C1F1E] hover:text-[#880206]"
@@ -123,7 +126,7 @@ export function Header2() {
         <div className="flex shrink-0 items-center gap-2">
           <a
             href={`tel:${HOTLINE_TEL}`}
-            className="hidden shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-[#880206] px-4 py-2 text-[11px] font-semibold text-white hover:bg-[#750F0D] min-[900px]:flex"
+            className="hidden shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-[#880206] px-4 py-2 text-[11px] font-semibold text-white hover:bg-[#750F0D] min-[900px]:flex wide:h-[46px] wide:px-5 wide:text-[13px]"
           >
             <Icon name="phone" size={14} className="text-white" /> {HOTLINE_LABEL}
           </a>

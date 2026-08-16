@@ -13,8 +13,10 @@ interface ProjectCardOverlay2Props {
   compact?: boolean;
   /** Mobile aspect ratio — Home's 4-col row is portrait (4/5); /du-an's single-column mobile list is wide landscape, per 04_DuAn_MOBILE.png. */
   mobileAspect?: string;
-  /** Desktop aspect ratio — /du-an's 3-col grid is ~272/292 (near-square); Home's 4-col compact row is shorter, ~199/135, per 01_TrangChu_WEB.png. */
+  /** Desktop aspect ratio (900-1439px) — /du-an's 3-col grid is ~272/292 (near-square); Home's 4-col compact row is shorter, ~199/135, per 01_TrangChu_WEB.png. */
   desktopAspect?: string;
+  /** USER_APPROVED_PREMIUM_WIDE_SCALE section 10/12: >=1440px aspect ratio, separate from desktopAspect so the 900-1439px tier (already tuned against live client feedback) doesn't shift. Falls back to desktopAspect when unset. */
+  wideAspect?: string;
 }
 
 // Dark-gradient-overlay project card — home featured projects and the
@@ -33,11 +35,18 @@ export function ProjectCardOverlay2({
   compact = false,
   mobileAspect = "4/5",
   desktopAspect = "272/292",
+  wideAspect,
 }: ProjectCardOverlay2Props) {
   const media = (
     <div
-      className="group relative block aspect-[var(--mobile-aspect)] overflow-hidden min-[900px]:aspect-[var(--desktop-aspect)]"
-      style={{ "--mobile-aspect": mobileAspect, "--desktop-aspect": desktopAspect } as CSSProperties}
+      className="group relative block aspect-[var(--mobile-aspect)] overflow-hidden min-[900px]:aspect-[var(--desktop-aspect)] wide:aspect-[var(--wide-aspect)]"
+      style={
+        {
+          "--mobile-aspect": mobileAspect,
+          "--desktop-aspect": desktopAspect,
+          "--wide-aspect": wideAspect ?? desktopAspect,
+        } as CSSProperties
+      }
     >
       <Image src={image} alt={name} fill className="object-cover transition-transform group-hover:scale-105" unoptimized />
       {/* Client feedback: white title/location text sank into brighter
@@ -45,12 +54,12 @@ export function ProjectCardOverlay2({
           real darkening behind the text without flattening the whole
           image. */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-      <div className={compact ? "absolute inset-x-0 bottom-0 p-[6px] min-[900px]:p-3" : "absolute inset-x-0 bottom-0 p-4"}>
+      <div className={compact ? "absolute inset-x-0 bottom-0 p-[6px] min-[900px]:p-3 wide:p-[18px]" : "absolute inset-x-0 bottom-0 p-4"}>
         <h3
           className={
             compact
-              ? "line-clamp-1 text-[8px] font-bold text-white min-[900px]:text-[14px]"
-              : "text-[16px] font-bold text-white min-[900px]:text-[17px]"
+              ? "line-clamp-1 text-[8px] font-bold text-white min-[900px]:text-[14px] wide:text-[18px] wide:leading-[25px]"
+              : "text-[16px] font-bold text-white min-[900px]:text-[17px] wide:text-[19px]"
           }
         >
           {name}
@@ -58,7 +67,7 @@ export function ProjectCardOverlay2({
         <p
           className={
             compact
-              ? "mt-[2px] line-clamp-1 text-[6px] text-white/90 min-[900px]:mt-1 min-[900px]:flex min-[900px]:items-center min-[900px]:gap-1 min-[900px]:text-[11px]"
+              ? "mt-[2px] line-clamp-1 text-[6px] text-white/90 min-[900px]:mt-1 min-[900px]:flex min-[900px]:items-center min-[900px]:gap-1 min-[900px]:text-[11px] wide:text-[13px] wide:leading-[19px]"
               : "mt-1 flex items-center gap-1 text-[12px] text-white/90"
           }
         >

@@ -58,21 +58,21 @@ export function ChoThuePageInner({ properties }: { properties: PropertyListing[]
             priority
           />
         </div>
-        <div className="relative mx-auto max-w-[1240px] px-8 py-[28px]">
+        <div className="v2-container relative py-[28px] wide:py-16">
           <div className="w-[55%]">
-            <h1 className="text-[32px] font-extrabold leading-tight text-[#0C0D0D]">
+            <h1 className="text-[32px] font-extrabold leading-tight text-[#0C0D0D] wide:text-v2-h1">
               Cho thuê
               <br />
               <span className="text-[#880206]">Bất động sản</span>
             </h1>
-            <p className="mt-2 max-w-md text-[14px] text-[#5F5D5D]">
+            <p className="mt-2 max-w-md text-[14px] text-[#5F5D5D] wide:text-[17px] wide:leading-[28px]">
               Tìm kiếm không gian sống và mặt bằng kinh doanh phù hợp với bạn
             </p>
           </div>
         </div>
       </section>
 
-      <div className="mx-auto max-w-[1240px] px-3 py-3 min-[900px]:px-10 min-[900px]:py-6">
+      <div className="v2-container py-3 min-[900px]:py-6 wide:py-10">
         <Breadcrumb2 items={[{ label: "Trang chủ", href: "/" }, { label: "Cho thuê" }]} className="hidden min-[900px]:flex" />
 
         {/* Mobile title/controls block — replaces the WEB hero+breadcrumb entirely on mobile. */}
@@ -98,10 +98,10 @@ export function ChoThuePageInner({ properties }: { properties: PropertyListing[]
 
         {/* Sidebar targets ~25% of the content column (master), not a fixed
             280px rail — 1fr/3fr keeps that ratio at any content width. */}
-        <div className="mt-2 grid grid-cols-1 gap-8 min-[900px]:mt-6 min-[900px]:grid-cols-[260px_1fr]">
+        <div className="mt-2 grid grid-cols-1 gap-8 min-[900px]:mt-6 min-[900px]:grid-cols-[260px_1fr] wide:grid-cols-[280px_1fr]">
           {/* Desktop sidebar */}
           <aside className="hidden min-[900px]:block" data-qa-region="sidebar">
-            <div className="rounded-lg border border-[#EDEBEA] bg-white p-5">
+            <div className="rounded-lg border border-[#EDEBEA] bg-white p-5 wide:rounded-[16px] wide:p-6">
               <Filter2
                 value={filters}
                 onChange={setFilters}
@@ -114,12 +114,15 @@ export function ChoThuePageInner({ properties }: { properties: PropertyListing[]
 
           <div data-qa-region="list">
             <div className="hidden items-center justify-between min-[900px]:flex">
-              <p className="text-[15px] text-[#0C0D0D]">
+              <p className="text-[15px] text-[#0C0D0D] wide:text-[17px]">
                 Tìm thấy <span className="font-bold">{filtered.length}</span> bất động sản
               </p>
-              <label className="flex items-center gap-2 text-[13px] text-[#5F5D5D]">
+              <label className="flex items-center gap-2 text-[13px] text-[#5F5D5D] wide:text-[14px]">
                 Sắp xếp:
-                <select className="rounded-md border border-[#E4E1E0] px-3 py-2 text-[13px] text-[#0C0D0D]" defaultValue="newest">
+                <select
+                  className="rounded-md border border-[#E4E1E0] px-3 py-2 text-[13px] text-[#0C0D0D] wide:h-[48px] wide:px-4 wide:text-[14px]"
+                  defaultValue="newest"
+                >
                   <option value="newest">Mới nhất</option>
                 </select>
               </label>

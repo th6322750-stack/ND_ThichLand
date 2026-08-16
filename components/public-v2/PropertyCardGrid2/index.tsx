@@ -13,12 +13,15 @@ export function PropertyCardGrid2({
   listing,
   mobileAspect = "2/1",
   desktopAspect = "199/115",
+  wideAspect,
   imageOverride,
 }: {
   listing: PropertyListing;
   /** Home's 3-col mobile grid is short/wide; the detail page's "related" strip is taller, per master. */
   mobileAspect?: string;
   desktopAspect?: string;
+  /** USER_APPROVED_PREMIUM_WIDE_SCALE section 11: >=1440px aspect ratio, separate from desktopAspect so the 900-1439px tier doesn't shift. Falls back to desktopAspect when unset. */
+  wideAspect?: string;
   /** Route-specific demo-asset slot (Round 8 asset map) — falls back to listing.media[0] when unset. */
   imageOverride?: string;
 }) {
@@ -31,26 +34,34 @@ export function PropertyCardGrid2({
   return (
     <Link
       href={`/cho-thue/${listing.slug}`}
-      className="block overflow-hidden rounded-lg border border-[#EDEBEA] bg-white transition-shadow hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
+      className="block overflow-hidden rounded-lg border border-[#EDEBEA] bg-white transition-shadow hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] wide:shadow-v2-premium wide:hover:shadow-v2-premium-hover"
     >
       <div
-        className="relative aspect-[var(--mobile-aspect)] min-[900px]:aspect-[var(--desktop-aspect)]"
-        style={{ "--mobile-aspect": mobileAspect, "--desktop-aspect": desktopAspect } as CSSProperties}
+        className="relative aspect-[var(--mobile-aspect)] min-[900px]:aspect-[var(--desktop-aspect)] wide:aspect-[var(--wide-aspect)]"
+        style={
+          {
+            "--mobile-aspect": mobileAspect,
+            "--desktop-aspect": desktopAspect,
+            "--wide-aspect": wideAspect ?? desktopAspect,
+          } as CSSProperties
+        }
       >
         <Image src={imageOverride ?? listing.media[0]} alt={listing.roomNo} fill className="object-cover" unoptimized />
-        <span className="absolute left-[10px] top-[10px] rounded-full bg-black/55 px-[10px] py-1 text-[11px] font-medium text-white">
+        <span className="absolute left-[10px] top-[10px] rounded-full bg-black/55 px-[10px] py-1 text-[11px] font-medium text-white wide:py-[6px] wide:text-[12px]">
           {listing.propertyType}
         </span>
       </div>
-      <div className="p-1 leading-tight min-[900px]:p-2">
-        <h3 className="line-clamp-1 text-[9px] font-bold text-[#0C0D0D] min-[900px]:text-[13px]">
+      <div className="p-1 leading-tight min-[900px]:p-2 wide:p-4">
+        <h3 className="line-clamp-1 text-[9px] font-bold text-[#0C0D0D] min-[900px]:text-[13px] wide:text-[16px] wide:leading-[23px]">
           {listing.roomNo}
         </h3>
-        <p className="mt-[1px] line-clamp-1 flex items-center gap-1 text-[7px] text-[#5F5D5D] min-[900px]:mt-1 min-[900px]:text-[11px]">
-          <Icon name="pin" size={7} className="shrink-0 min-[900px]:!h-[11px] min-[900px]:!w-[11px]" /> {listing.location}
+        <p className="mt-[1px] line-clamp-1 flex items-center gap-1 text-[7px] text-[#5F5D5D] min-[900px]:mt-1 min-[900px]:text-[11px] wide:text-[13px] wide:leading-[19px]">
+          <Icon name="pin" size={7} className="shrink-0 min-[900px]:!h-[11px] min-[900px]:!w-[11px] wide:!h-[13px] wide:!w-[13px]" /> {listing.location}
         </p>
-        <p className="mt-[1px] line-clamp-1 text-[7px] text-[#5F5D5D] min-[900px]:mt-1 min-[900px]:text-[11px]">{specs.join(" • ")}</p>
-        <p className="mt-[1px] line-clamp-1 text-[9px] font-bold text-[#880206] min-[900px]:mt-1 min-[900px]:text-[14px]">
+        <p className="mt-[1px] line-clamp-1 text-[7px] text-[#5F5D5D] min-[900px]:mt-1 min-[900px]:text-[11px] wide:text-[13px] wide:leading-[19px]">
+          {specs.join(" • ")}
+        </p>
+        <p className="mt-[1px] line-clamp-1 text-[9px] font-bold text-[#880206] min-[900px]:mt-1 min-[900px]:text-[14px] wide:text-[18px] wide:leading-[24px]">
           {formatCurrencyVnd(listing.price)}/tháng
         </p>
       </div>

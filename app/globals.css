@@ -28,6 +28,26 @@
     max-width: calc(1240px + 2 * 40px);
   }
 
+  /* V2 PREMIUM WIDE SCALE — public-v2 content container. Baseline (<1440px)
+     matches the existing max-w-[1240px] px-3/px-10 pattern unchanged; at
+     >=1440px the gutter comes from capping the container's own width
+     instead of internal padding, so content actually widens with the
+     viewport (up to 1520px) instead of sitting in a fixed 1240px column
+     with growing dead margins on large monitors. */
+  .v2-container {
+    @apply mx-auto w-full px-3 min-[900px]:px-10;
+    max-width: 1240px;
+  }
+
+  @media (min-width: 1440px) {
+    .v2-container {
+      width: calc(100% - 64px);
+      max-width: 1520px;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
   /* Two overlapping <input type="range"> for a dual-handle slider: the
      input element itself has pointer-events:none (so its invisible
      full-width hit area never blocks the OTHER handle), and only the

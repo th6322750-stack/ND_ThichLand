@@ -82,6 +82,22 @@ const config: Config = {
         price: ["18px", { lineHeight: "1.25", fontWeight: "800" }],
         "admin-title": ["28px", { lineHeight: "1.25", fontWeight: "700" }],
         "admin-title-mobile": ["24px", { lineHeight: "1.25", fontWeight: "700" }],
+
+        // V2 PREMIUM WIDE SCALE (>=1440px, applied via the `wide:` variant)
+        // — additive, `v2-` prefixed so nothing here can collide with or
+        // change the tokens above (legacy/admin keep their exact values).
+        "v2-hero": ["56px", { lineHeight: "62px", fontWeight: "800" }],
+        "v2-h1": ["44px", { lineHeight: "52px", fontWeight: "800" }],
+        "v2-h2": ["30px", { lineHeight: "38px", fontWeight: "800" }],
+        "v2-h3": ["18px", { lineHeight: "25px", fontWeight: "700" }],
+        "v2-body-lg": ["18px", { lineHeight: "30px", fontWeight: "400" }],
+        "v2-body": ["16px", { lineHeight: "26px", fontWeight: "400" }],
+        "v2-label": ["13px", { lineHeight: "19px", fontWeight: "600" }],
+        "v2-caption": ["12px", { lineHeight: "18px", fontWeight: "500" }],
+        "v2-button": ["15px", { lineHeight: "20px", fontWeight: "700" }],
+        "v2-price": ["20px", { lineHeight: "26px", fontWeight: "800" }],
+        "v2-nav": ["16px", { lineHeight: "22px", fontWeight: "600" }],
+        "v2-viewall": ["14px", { lineHeight: "20px", fontWeight: "600" }],
       },
       zIndex: {
         base: "0",
@@ -104,6 +120,10 @@ const config: Config = {
       },
       maxWidth: {
         page: "1240px",
+      },
+      boxShadow: {
+        "v2-premium": "0 8px 28px rgba(12,13,13,.07)",
+        "v2-premium-hover": "0 14px 40px rgba(12,13,13,.11)",
       },
     },
   },

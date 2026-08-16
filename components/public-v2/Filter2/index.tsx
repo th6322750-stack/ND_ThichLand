@@ -14,12 +14,13 @@ interface Filter2Props {
   propertyTypeOptions: PropertyType[];
 }
 
-const SELECT_CLASS = "mt-1 w-full rounded-md border border-[#E4E1E0] px-3 py-[10px] text-[13px] text-[#0C0D0D]";
+const SELECT_CLASS =
+  "mt-1 w-full rounded-md border border-[#E4E1E0] px-3 py-[10px] text-[13px] text-[#0C0D0D] wide:h-[50px] wide:px-4 wide:text-[14px]";
 // accent-* (native checkbox/radio fill color) is what actually renders the
 // master's red checkmark — text-[#880206] alone has no effect on an
 // unstyled native checkbox, there's no @tailwindcss/forms plugin in this
 // project to repurpose text-color into a checkbox background-image.
-const CHECKBOX_CLASS = "h-4 w-4 rounded border-[#C9C6C5] accent-[#880206] focus:ring-[#880206]";
+const CHECKBOX_CLASS = "h-4 w-4 rounded border-[#C9C6C5] accent-[#880206] focus:ring-[#880206] wide:h-[18px] wide:w-[18px]";
 
 // 02_ChoThue_WEB.png's "Khoảng giá" control: labeled Từ/Đến selects over a
 // two-handle slider, both bound to the SAME priceMin/priceMax fields — the
@@ -81,14 +82,14 @@ export function Filter2({ value, onChange, onApply, onReset, locationOptions, pr
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h2 className="text-[16px] font-bold text-[#0C0D0D]">Bộ lọc tìm kiếm</h2>
+        <h2 className="text-[16px] font-bold text-[#0C0D0D] wide:text-[18px]">Bộ lọc tìm kiếm</h2>
         <button
           type="button"
           onClick={() => {
             setBedroomPick(0);
             onReset();
           }}
-          className="text-[12px] font-semibold text-[#880206]"
+          className="text-[12px] font-semibold text-[#880206] wide:text-[13px]"
         >
           Xóa bộ lọc
         </button>
@@ -109,7 +110,7 @@ export function Filter2({ value, onChange, onApply, onReset, locationOptions, pr
       <fieldset className="mt-5">
         <legend className="text-[13px] font-semibold text-[#0C0D0D]">Loại bất động sản</legend>
         <div className="mt-2 flex flex-col gap-2">
-          <label className="flex items-center gap-2 text-[13px] text-[#3A3838]">
+          <label className="flex items-center gap-2 text-[13px] text-[#3A3838] wide:text-[14px]">
             <input
               type="checkbox"
               checked={value.propertyType === ""}
@@ -119,7 +120,7 @@ export function Filter2({ value, onChange, onApply, onReset, locationOptions, pr
             Tất cả
           </label>
           {PROPERTY_TYPE_ORDER.filter((type) => propertyTypeOptions.includes(type)).map((type) => (
-            <label key={type} className="flex items-center gap-2 text-[13px] text-[#3A3838]">
+            <label key={type} className="flex items-center gap-2 text-[13px] text-[#3A3838] wide:text-[14px]">
               <input
                 type="checkbox"
                 checked={value.propertyType === type}
@@ -165,7 +166,7 @@ export function Filter2({ value, onChange, onApply, onReset, locationOptions, pr
                 inputMode="numeric"
                 value={value.areaMin ?? ""}
                 onChange={(e) => onChange({ areaMin: e.target.value === "" ? null : Number(e.target.value) })}
-                className="w-full rounded-md border border-[#E4E1E0] px-3 py-[10px] pr-[36px] text-[13px] text-[#0C0D0D]"
+                className="w-full rounded-md border border-[#E4E1E0] px-3 py-[10px] pr-[36px] text-[13px] text-[#0C0D0D] wide:h-[50px] wide:text-[14px]"
               />
               <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[12px] text-[#5F5D5D]">m²</span>
             </div>
@@ -179,7 +180,7 @@ export function Filter2({ value, onChange, onApply, onReset, locationOptions, pr
                 inputMode="numeric"
                 value={value.areaMax ?? ""}
                 onChange={(e) => onChange({ areaMax: e.target.value === "" ? null : Number(e.target.value) })}
-                className="w-full rounded-md border border-[#E4E1E0] px-3 py-[10px] pr-[36px] text-[13px] text-[#0C0D0D]"
+                className="w-full rounded-md border border-[#E4E1E0] px-3 py-[10px] pr-[36px] text-[13px] text-[#0C0D0D] wide:h-[50px] wide:text-[14px]"
               />
               <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[12px] text-[#5F5D5D]">m²</span>
             </div>
@@ -191,7 +192,7 @@ export function Filter2({ value, onChange, onApply, onReset, locationOptions, pr
         <legend className="text-[13px] font-semibold text-[#0C0D0D]">Số phòng ngủ</legend>
         <div className="mt-2 flex flex-col gap-2">
           {BEDROOM_OPTIONS.map((label, i) => (
-            <label key={label} className="flex items-center gap-2 text-[13px] text-[#3A3838]">
+            <label key={label} className="flex items-center gap-2 text-[13px] text-[#3A3838] wide:text-[14px]">
               <input
                 type="checkbox"
                 checked={bedroomPick === i}
@@ -208,7 +209,7 @@ export function Filter2({ value, onChange, onApply, onReset, locationOptions, pr
         <button
           type="button"
           onClick={onApply}
-          className="mt-6 w-full rounded-md bg-[#880206] px-6 py-3 text-[13px] font-semibold uppercase text-white hover:bg-[#750F0D]"
+          className="mt-6 w-full rounded-md bg-[#880206] px-6 py-3 text-[13px] font-semibold uppercase text-white hover:bg-[#750F0D] wide:h-[52px] wide:rounded-[10px] wide:text-[15px]"
         >
           Áp dụng bộ lọc
         </button>
