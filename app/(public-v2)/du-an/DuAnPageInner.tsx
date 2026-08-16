@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Icon2 as Icon } from "@/components/public-v2/Icon2";
 import { Breadcrumb2 } from "@/components/public-v2/Breadcrumb2";
 import { ProjectCardOverlay2 } from "@/components/public-v2/ProjectCardOverlay2";
+import { EmptySearchResults } from "@/components/public/EmptySearchResults";
 import type { ProjectListing, ProjectStatus } from "@/lib/types";
 
 type TabValue = "all" | ProjectStatus;
@@ -44,9 +45,26 @@ interface ProjectFixtureLike extends ProjectListing {
 
 export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) {
   const [tab, setTab] = useState<TabValue>("all");
+  const [keyword, setKeyword] = useState("");
+  const [location, setLocation] = useState("");
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const visible = useMemo(() => (tab === "all" ? projects : projects.filter((p) => p.status === tab)), [projects, tab]);
+  // MOBILE_PROJECT_FIRST_POLISH follow-up: client noticed /du-an had no
+  // way to search/narrow the list beyond the 3 status tabs (04_DuAn_
+  // MOBILE.png's approved master doesn't have one either — this is a new
+  // addition, not a master-parity fix). Location options are the real
+  // `location` values already on each project (no separate lookup table).
+  const locationOptions = useMemo(() => Array.from(new Set(projects.map((p) => p.location))).sort(), [projects]);
+
+  const visible = useMemo(() => {
+    const q = keyword.trim().toLowerCase();
+    return projects.filter((p) => {
+      if (tab !== "all" && p.status !== tab) return false;
+      if (location && p.location !== location) return false;
+      if (q && !p.name.toLowerCase().includes(q)) return false;
+      return true;
+    });
+  }, [projects, tab, location, keyword]);
 
   function activate(index: number) {
     setTab(TABS[index].value);
@@ -82,8 +100,39 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
           chất lượng, bền vững cho cộng đồng.
         </p>
 
+        <div className="mt-2 flex flex-col gap-2 min-[900px]:mt-5 min-[900px]:flex-row min-[900px]:gap-3 wide:gap-4">
+          <div className="relative min-w-0 flex-1">
+            <Icon
+              name="search"
+              size={14}
+              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#A6A6A6] min-[900px]:!h-4 min-[900px]:!w-4"
+            />
+            <input
+              type="search"
+              aria-label="Tìm theo tên dự án"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              placeholder="Tìm theo tên dự án..."
+              className="h-[40px] w-full rounded-md border border-[#E4E1E0] bg-white pl-[36px] pr-3 text-[13px] text-[#0C0D0D] placeholder:text-[#A6A6A6] focus:outline-none min-[900px]:h-[46px] min-[900px]:text-[14px] wide:h-[48px]"
+            />
+          </div>
+          <select
+            aria-label="Khu vực"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            className="h-[40px] w-full rounded-md border border-[#E4E1E0] bg-white px-3 text-[13px] text-[#0C0D0D] focus:outline-none min-[900px]:h-[46px] min-[900px]:w-[220px] min-[900px]:text-[14px] wide:h-[48px]"
+          >
+            <option value="">Tất cả khu vực</option>
+            {locationOptions.map((loc) => (
+              <option key={loc} value={loc}>
+                {loc}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div
-          className="mt-1 flex flex-nowrap gap-[6px] min-[900px]:mt-5 min-[900px]:flex-wrap min-[900px]:gap-2 wide:gap-3"
+          className="mt-2 flex flex-nowrap gap-[6px] min-[900px]:mt-4 min-[900px]:flex-wrap min-[900px]:gap-2 wide:gap-3"
           role="tablist"
           aria-label="Lọc dự án theo trạng thái"
         >
@@ -114,32 +163,47 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
         </div>
       </div>
 
-      <div
-        id="du-an-tabpanel"
-        role="tabpanel"
-        aria-labelledby={`du-an-tab-${TABS.find((t) => t.value === tab)?.id}`}
-        className="mt-1 grid grid-cols-1 gap-1 min-[900px]:mt-6 min-[900px]:grid-cols-3 min-[900px]:gap-5 wide:gap-6"
-        data-qa-region="project-grid"
-      >
-        {visible.map((project, i) => (
-          // 04_DuAn_MOBILE.png's canonical viewport only has room for 4
-          // cards before "Về ..." — real data isn't truncated (every
-          // project still renders, in the DOM, for real production use),
-          // just visually capped past the 4th on narrow widths so the
-          // canonical mobile capture matches the master's visible set.
-          <div key={project.slug} className={i >= 4 ? "hidden min-[900px]:block" : undefined}>
-            <ProjectCardOverlay2
-              slug={project.slug}
-              name={project.name}
-              location={project.location}
-              image={project.cardMedia}
-              mobileAspect="2.8/1"
-              desktopAspect="4/3"
-              showButton
-            />
-          </div>
-        ))}
-      </div>
+      {visible.length === 0 ? (
+        <div className="mt-4 min-[900px]:mt-6">
+          <EmptySearchResults
+            title="Không tìm thấy dự án phù hợp?"
+            message="Thử từ khóa khác, đổi khu vực hoặc bỏ bớt bộ lọc trạng thái."
+            resetLabel="Đặt lại bộ lọc"
+            onReset={() => {
+              setKeyword("");
+              setLocation("");
+              setTab("all");
+            }}
+          />
+        </div>
+      ) : (
+        <div
+          id="du-an-tabpanel"
+          role="tabpanel"
+          aria-labelledby={`du-an-tab-${TABS.find((t) => t.value === tab)?.id}`}
+          className="mt-1 grid grid-cols-1 gap-1 min-[900px]:mt-6 min-[900px]:grid-cols-3 min-[900px]:gap-5 wide:gap-6"
+          data-qa-region="project-grid"
+        >
+          {visible.map((project, i) => (
+            // 04_DuAn_MOBILE.png's canonical viewport only has room for 4
+            // cards before "Về ..." — real data isn't truncated (every
+            // project still renders, in the DOM, for real production use),
+            // just visually capped past the 4th on narrow widths so the
+            // canonical mobile capture matches the master's visible set.
+            <div key={project.slug} className={i >= 4 ? "hidden min-[900px]:block" : undefined}>
+              <ProjectCardOverlay2
+                slug={project.slug}
+                name={project.name}
+                location={project.location}
+                image={project.cardMedia}
+                mobileAspect="2.8/1"
+                desktopAspect="4/3"
+                showButton
+              />
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* MOBILE: centered, no photo, features in a 2x2 icon-on-top grid —
           a genuinely different composition from WEB's image-left/text-right
