@@ -71,14 +71,19 @@ export function Header2() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#EDEBEA] bg-white" data-qa-region="header">
-      <div className={`mx-auto flex max-w-[1240px] items-center justify-between gap-4 px-4 ${variant.mobilePadding} min-[900px]:px-10 min-[900px]:py-4`}>
+      <div className={`mx-auto flex max-w-[1240px] items-center justify-between gap-4 px-4 ${variant.mobilePadding} min-[900px]:px-10 min-[900px]:py-3`}>
         <Link href="/" className="flex shrink-0 items-center gap-2">
+          {/* Client feedback: logo + company name read too small against
+              the header's width, with a lot of empty vertical margin
+              around them — logo up ~12% (32px -> 36px) and header's own
+              vertical padding trimmed so the block reads as intentional,
+              not just centered whitespace. */}
           <Image
             src="/assets/v2/branding/ndthich-logo-reference.png"
             alt="NDTHICH"
             width={168}
             height={128}
-            className="h-[30px] w-auto min-[900px]:h-8"
+            className="h-[30px] w-auto min-[900px]:h-[36px]"
             unoptimized
           />
           {variant.tagline && (
@@ -88,14 +93,14 @@ export function Header2() {
               Kinh doanh lý tưởng
             </span>
           )}
-          <span className="hidden whitespace-nowrap text-[9px] leading-tight text-[#5F5D5D] min-[900px]:block">
+          <span className="hidden whitespace-nowrap text-[10px] leading-tight text-[#5F5D5D] min-[900px]:block">
             CÔNG TY TNHH MTV
             <br />
             <span className="font-bold text-[#880206]">NGUYỄN ĐẮC THÍCH</span>
           </span>
         </Link>
 
-        <nav className="hidden shrink-0 items-center gap-3 min-[900px]:flex whitespace-nowrap">
+        <nav className="hidden shrink-0 items-center gap-5 min-[900px]:flex whitespace-nowrap">
           {NAV.map((item) => {
             const active = isActive(pathname, item.href);
             return (
@@ -103,7 +108,7 @@ export function Header2() {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`border-b-2 pb-1 text-[14px] font-medium transition-colors ${
+                className={`border-b-2 pb-1 text-[15px] font-medium transition-colors ${
                   active
                     ? "border-[#880206] text-[#880206]"
                     : "border-transparent text-[#1C1F1E] hover:text-[#880206]"

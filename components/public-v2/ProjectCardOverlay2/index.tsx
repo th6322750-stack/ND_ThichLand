@@ -40,7 +40,11 @@ export function ProjectCardOverlay2({
       style={{ "--mobile-aspect": mobileAspect, "--desktop-aspect": desktopAspect } as CSSProperties}
     >
       <Image src={image} alt={name} fill className="object-cover transition-transform group-hover:scale-105" unoptimized />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+      {/* Client feedback: white title/location text sank into brighter
+          photos (sky, light facades) — strengthened the mid-stop so there's
+          real darkening behind the text without flattening the whole
+          image. */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
       <div className={compact ? "absolute inset-x-0 bottom-0 p-[6px] min-[900px]:p-3" : "absolute inset-x-0 bottom-0 p-4"}>
         <h3
           className={

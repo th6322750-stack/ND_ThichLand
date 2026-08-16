@@ -82,7 +82,7 @@ export default async function HomePageV2() {
           sitting at a hard 50% line. Text column width/position is
           unchanged. */}
       <section className="relative overflow-hidden bg-gradient-to-br from-white via-[#FBF7F5] to-[#F2E5E6]">
-        <div className="absolute inset-y-0 right-0 w-[66%] min-[900px]:w-[58%]">
+        <div className="absolute inset-y-0 right-0 w-[70%] min-[900px]:w-[63%]">
           <Image
             src="/assets/v2/home/hero-building.png"
             alt="NDTHICH — không gian sống & kinh doanh"
@@ -91,8 +91,15 @@ export default async function HomePageV2() {
             unoptimized
             priority
           />
-          <div className="absolute inset-y-0 left-0 w-[38%] bg-gradient-to-r from-white via-white/70 to-transparent" />
         </div>
+        {/* Client feedback: the fade read as a hard seam, not a blend. The
+            previous overlay lived INSIDE the image's own box, so its
+            opaque-white start sat right against the section's separate
+            diagonal background — two different whites meeting at a line.
+            This one spans the section from its true left edge, over both
+            backgrounds, so there's a single continuous fade instead of a
+            boundary between them. */}
+        <div className="absolute inset-y-0 left-0 w-[62%] min-[900px]:w-[55%] bg-gradient-to-r from-white to-transparent" />
         <div
           className="relative mx-auto max-w-[1240px] px-3 py-3 min-[900px]:px-10 min-[900px]:py-5"
           data-qa-region="hero"
@@ -146,7 +153,7 @@ export default async function HomePageV2() {
       {/* ============ FEATURED PROJECTS ============ */}
       {/* Business priority: this site exists to sell projects, so "Dự án
           nổi bật" now leads, ahead of the rentals grid. */}
-      <section className="mx-auto max-w-[1240px] px-3 py-2 min-[900px]:px-10 min-[900px]:py-3" data-qa-region="featured-projects">
+      <section className="mx-auto max-w-[1240px] px-3 py-2 min-[900px]:px-10 min-[900px]:py-6" data-qa-region="featured-projects">
         <div className="flex items-end justify-between">
           <h2 className="text-[12px] font-extrabold text-[#0C0D0D] min-[900px]:text-[17px]">Dự án nổi bật</h2>
           <Link href="/du-an" className="flex items-center gap-1 text-[9px] font-semibold text-[#880206] min-[900px]:text-[12px]">
@@ -163,7 +170,7 @@ export default async function HomePageV2() {
               image={p.cardMedia}
               compact
               mobileAspect="7/3"
-              desktopAspect="199/135"
+              desktopAspect="199/144"
             />
           ))}
         </div>
