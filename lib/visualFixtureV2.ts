@@ -68,6 +68,7 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       media: [R8_11, R8_13, R8_14, R8_17],
       bedroomCount: 2,
       furnishingStatus: "Đầy đủ",
+      bathroomCount: 2,
     },
     {
       slug: "nha-nguyen-can-hem-8m",
@@ -86,6 +87,7 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       media: [R8_12],
       bedroomCount: 4,
       furnishingStatus: "Cơ bản",
+      bathroomCount: 3,
     },
     {
       slug: "mat-bang-kinh-doanh-mt",
@@ -103,6 +105,7 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       media: [R8_13],
       bedroomCount: null,
       furnishingStatus: null,
+      bathroomCount: null,
     },
     {
       slug: "van-phong-toa-nha-abc",
@@ -120,6 +123,7 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       media: [R8_14],
       bedroomCount: null,
       furnishingStatus: "Cơ bản",
+      bathroomCount: 1,
     },
     {
       slug: "kho-xuong-nguyen-van-linh",
@@ -137,6 +141,7 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       media: [R8_15],
       bedroomCount: null,
       furnishingStatus: null,
+      bathroomCount: null,
     },
     {
       slug: "phong-tro-cao-cap-full-noi-that",
@@ -154,6 +159,7 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       media: [R8_16],
       bedroomCount: null,
       furnishingStatus: "Đầy đủ",
+      bathroomCount: 1,
     },
     // 2 more demo listings so /cho-thue's fixture list exceeds PAGE_SIZE
     // (6) — master (02_ChoThue_WEB.png) shows numbered pagination, which
@@ -176,6 +182,7 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       media: [R8_17],
       bedroomCount: 2,
       furnishingStatus: "Đầy đủ",
+      bathroomCount: 2,
     },
     {
       slug: "nha-pho-thuong-mai-binh-thanh",
@@ -193,6 +200,7 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       media: [R8_09],
       bedroomCount: 3,
       furnishingStatus: "Cơ bản",
+      bathroomCount: 2,
     },
   ];
 }

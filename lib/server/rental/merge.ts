@@ -81,6 +81,7 @@ function customToAdminRecord(c: CustomBdsRecord): AdminPropertyRecord {
     media: c.media,
     bedroomCount: c.bedroomCount,
     furnishingStatus: c.furnishingStatus,
+    bathroomCount: c.bathroomCount,
     commission: c.commission,
     guidePerson: c.guidePerson,
     internalNotes: c.internalNotes,
@@ -151,6 +152,10 @@ export async function buildMergedRentalData(
       media,
       bedroomCount: record.bedroomCount,
       furnishingStatus: record.furnishingStatus,
+      // No sheet column/parser exists for this — a source-derived record
+      // always starts null; an admin override patch is the only way to set
+      // it (same as any other admin correction to a sheet row).
+      bathroomCount: null,
       commission: record.commission,
       guidePerson: record.guidePerson,
       internalNotes: record.internalNotes,

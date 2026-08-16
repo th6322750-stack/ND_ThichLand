@@ -19,6 +19,7 @@ export const properties: PropertyListing[] = [
     media: [PLACEHOLDER, PLACEHOLDER, PLACEHOLDER],
     bedroomCount: null,
     furnishingStatus: null,
+    bathroomCount: null,
   },
   {
     slug: "studio-ban-cong-thoang-p301",
@@ -36,6 +37,7 @@ export const properties: PropertyListing[] = [
     media: [PLACEHOLDER, PLACEHOLDER],
     bedroomCount: null,
     furnishingStatus: null,
+    bathroomCount: null,
   },
   {
     slug: "mat-bang-kinh-doanh-mat-pho-mb05",
@@ -53,6 +55,7 @@ export const properties: PropertyListing[] = [
     media: [PLACEHOLDER, PLACEHOLDER],
     bedroomCount: null,
     furnishingStatus: null,
+    bathroomCount: null,
   },
   {
     slug: "nha-nguyen-can-4-tang",
@@ -70,6 +73,7 @@ export const properties: PropertyListing[] = [
     media: [PLACEHOLDER, PLACEHOLDER, PLACEHOLDER],
     bedroomCount: null,
     furnishingStatus: null,
+    bathroomCount: null,
   },
   {
     slug: "van-phong-sang-vao-ngay-vp03",
@@ -87,6 +91,7 @@ export const properties: PropertyListing[] = [
     media: [PLACEHOLDER, PLACEHOLDER],
     bedroomCount: null,
     furnishingStatus: null,
+    bathroomCount: null,
   },
   {
     slug: "xuong-rong-xe-tai-vao",
@@ -104,6 +109,7 @@ export const properties: PropertyListing[] = [
     media: [PLACEHOLDER, PLACEHOLDER],
     bedroomCount: null,
     furnishingStatus: null,
+    bathroomCount: null,
   },
   {
     slug: "can-ho-1pn-can-1208",
@@ -121,6 +127,7 @@ export const properties: PropertyListing[] = [
     media: [PLACEHOLDER, PLACEHOLDER],
     bedroomCount: null,
     furnishingStatus: null,
+    bathroomCount: null,
   },
   {
     slug: "studio-gac-lung-p205",
@@ -138,6 +145,7 @@ export const properties: PropertyListing[] = [
     media: [PLACEHOLDER],
     bedroomCount: null,
     furnishingStatus: null,
+    bathroomCount: null,
   },
   {
     slug: "mat-bang-van-phong-toa-nha-mb12",
@@ -155,6 +163,7 @@ export const properties: PropertyListing[] = [
     media: [PLACEHOLDER, PLACEHOLDER],
     bedroomCount: null,
     furnishingStatus: null,
+    bathroomCount: null,
   },
   {
     slug: "nha-mat-pho-kinh-doanh",
@@ -172,6 +181,7 @@ export const properties: PropertyListing[] = [
     media: [PLACEHOLDER, PLACEHOLDER],
     bedroomCount: null,
     furnishingStatus: null,
+    bathroomCount: null,
   },
   {
     slug: "van-phong-chia-se-vp08",
@@ -189,6 +199,7 @@ export const properties: PropertyListing[] = [
     media: [PLACEHOLDER],
     bedroomCount: null,
     furnishingStatus: null,
+    bathroomCount: null,
   },
   {
     slug: "xuong-kho-bai-xn05",
@@ -206,6 +217,7 @@ export const properties: PropertyListing[] = [
     media: [PLACEHOLDER, PLACEHOLDER],
     bedroomCount: null,
     furnishingStatus: null,
+    bathroomCount: null,
   },
 ];
 

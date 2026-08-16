@@ -84,7 +84,7 @@ describe("production runtime without Google/Drive config fails closed", () => {
         slug: "", roomNo: "P.900", location: "Hà Nội", address: "A", priceRaw: "1000000",
         serviceFee: "", areaRaw: "10m2", verticalAccess: "", propertyType: "Nhà", description: "",
         highlights: [], availability: "Còn trống", bedroomCount: null, furnishingStatus: null,
-        media: [], commission: "", guidePerson: "", internalNotes: "",
+        bathroomCount: null, media: [], commission: "", guidePerson: "", internalNotes: "",
       },
       true,
     );

@@ -20,6 +20,11 @@ export interface PropertyListing {
   // null renders as "—", exactly like an unset field always has here.
   bedroomCount: number | null;
   furnishingStatus: string | null;
+  // Client-requested admin-editable field (no sheet column / parse pattern
+  // exists for this — always null for a sheet-derived record until an
+  // admin explicitly sets it via an override patch, same mechanism as any
+  // other admin correction to a sheet row). null renders as "—".
+  bathroomCount: number | null;
 }
 
 export interface AdminPropertyRecord extends Omit<PropertyListing, "propertyType" | "availability"> {

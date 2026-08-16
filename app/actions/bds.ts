@@ -31,6 +31,7 @@ export interface BdsFormInput {
   availability: string;
   bedroomCount: number | null;
   furnishingStatus: string | null;
+  bathroomCount: number | null;
   media: string[];
   commission: string;
   guidePerson: string;
@@ -125,6 +126,7 @@ export async function saveBdsAction(input: BdsFormInput, publish: boolean): Prom
         availability,
         bedroomCount: input.bedroomCount,
         furnishingStatus: input.furnishingStatus,
+        bathroomCount: input.bathroomCount,
         media: input.media,
         published: publish,
       },
@@ -153,6 +155,7 @@ export async function saveBdsAction(input: BdsFormInput, publish: boolean): Prom
       availability: availability!,
       bedroomCount: input.bedroomCount,
       furnishingStatus: input.furnishingStatus,
+      bathroomCount: input.bathroomCount,
       media: input.media,
       commission: input.commission,
       guidePerson: input.guidePerson,

@@ -25,7 +25,7 @@ function buildFacts(listing: PropertyListing): { icon: IconName; label: string; 
   return [
     { icon: "area", label: "Diện tích", value: formatArea(listing.area) },
     { icon: "bed", label: "Phòng ngủ", value: listing.bedroomCount !== null ? String(listing.bedroomCount) : "—" },
-    { icon: "bath", label: "Phòng tắm", value: "—" },
+    { icon: "bath", label: "Phòng tắm", value: listing.bathroomCount !== null ? String(listing.bathroomCount) : "—" },
     { icon: "check", label: "Nội thất", value: listing.furnishingStatus ?? "—" },
   ];
 }

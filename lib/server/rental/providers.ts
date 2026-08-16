@@ -42,6 +42,7 @@ async function seedFixtureData(overlay: InMemoryRentalOverlayRepository): Promis
       availability: p.availability ?? "",
       bedroomCount: p.bedroomCount,
       furnishingStatus: p.furnishingStatus,
+      bathroomCount: p.bathroomCount,
       media: p.media,
       commission: p.commission,
       guidePerson: p.guidePerson,

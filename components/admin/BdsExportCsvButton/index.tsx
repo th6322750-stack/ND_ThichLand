@@ -16,6 +16,7 @@ const COLUMNS: { key: keyof AdminPropertyRecord; label: string }[] = [
   { key: "verticalAccess", label: "Thang" },
   { key: "propertyType", label: "Loại BĐS" },
   { key: "bedroomCount", label: "Số phòng ngủ" },
+  { key: "bathroomCount", label: "Số phòng tắm" },
   { key: "furnishingStatus", label: "Nội thất" },
   { key: "availability", label: "Trạng thái" },
   { key: "published", label: "Đã đăng" },

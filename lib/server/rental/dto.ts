@@ -30,6 +30,7 @@ export function toPublicPropertyListing(record: AdminPropertyRecord): PropertyLi
     media: record.media,
     bedroomCount: record.bedroomCount,
     furnishingStatus: record.furnishingStatus,
+    bathroomCount: record.bathroomCount,
   };
 }
 
