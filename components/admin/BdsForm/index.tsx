@@ -409,7 +409,7 @@ export function BdsForm({ initial }: BdsFormProps) {
             <div className="mt-3 flex flex-col gap-4">
               <div>
                 <label htmlFor="bds-amenities" className="text-[13px] font-bold text-[#0C0D0D]">
-                  Tiện ích (tab &quot;Tiện ích&quot;)
+                  Tiện ích
                 </label>
                 <textarea
                   id="bds-amenities"
@@ -423,7 +423,7 @@ export function BdsForm({ initial }: BdsFormProps) {
               </div>
               <div>
                 <label htmlFor="bds-locationNote" className="text-[13px] font-bold text-[#0C0D0D]">
-                  Mô tả vị trí (tab &quot;Vị trí&quot;, hiện dưới bản đồ)
+                  Mô tả vị trí
                 </label>
                 <textarea
                   id="bds-locationNote"
@@ -436,7 +436,7 @@ export function BdsForm({ initial }: BdsFormProps) {
               </div>
               <div>
                 <label htmlFor="bds-videoUrl" className="text-[13px] font-bold text-[#0C0D0D]">
-                  Link video (tab &quot;Video &amp; Hình ảnh&quot;)
+                  Link video
                 </label>
                 <input
                   id="bds-videoUrl"
