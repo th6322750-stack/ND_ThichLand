@@ -1,28 +1,50 @@
 "use client";
 
-import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
+import { useRef, useState, type ChangeEvent, type FormEvent, type MouseEvent } from "react";
 import { useRouter } from "next/navigation";
-import { FormField } from "@/components/public/FormField";
+import Image from "next/image";
 import { Uploader, type UploaderState } from "@/components/admin/Uploader";
+import { Icon } from "@/components/icons";
 import { saveNewsAction, type NewsFormInput } from "@/app/actions/news";
 import { uploadMediaAction } from "@/app/actions/media";
 import type { NewsRecord } from "@/lib/server/news/repository";
 
 interface TinTucFormProps {
   initial?: NewsRecord;
+  /** Categories already in use, offered as suggestions so the public
+      /tin-tuc chips (which are derived from real data) stay coherent. */
+  knownCategories?: string[];
 }
 
-const TOOLBAR = ["H1", "H2", "Bold", "Link", "Image", "Quote"];
+/**
+ * Same WYSIWYG treatment as BdsForm/DuAnForm: the fields are styled with the
+ * public article page's own look and sit where their value renders, so the
+ * editor can see the shape of the published page while typing.
+ *
+ * What this replaces: the previous version rendered six inert <span>s
+ * ("H1 H2 Bold Link Image Quote") as a fake toolbar, showed section[0].body
+ * as static text, and passed `sections: initial?.sections ?? []` straight
+ * through — the body of an article was literally not editable anywhere in
+ * the CMS. "Trạng thái" was a free-text box compared against the exact
+ * string "Đã xuất bản", so a typo silently saved the article as a draft.
+ */
+const wysiwygInput =
+  "w-full border-0 border-b border-dashed border-transparent bg-transparent p-0 outline-none transition-colors duration-fast ease-base hover:border-[#E8E2DF] focus:border-[#8A1822]";
 
-export function TinTucForm({ initial }: TinTucFormProps) {
+type Section = { heading: string; body: string };
+
+export function TinTucForm({ initial, knownCategories = [] }: TinTucFormProps) {
   const router = useRouter();
-  const [saving, setSaving] = useState(false);
+  const [saving, setSaving] = useState<"draft" | "publish" | null>(null);
   const [error, setError] = useState<string>();
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [saved, setSaved] = useState<string>();
   const [cover, setCover] = useState(initial?.cover ?? "");
-  const [uploaderState, setUploaderState] = useState<UploaderState>(cover ? "success" : "empty");
+  const [uploaderState, setUploaderState] = useState<UploaderState>("empty");
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [sections, setSections] = useState<Section[]>(
+    initial?.sections?.length ? initial.sections : [{ heading: "", body: "" }],
+  );
 
   async function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -38,21 +60,41 @@ export function TinTucForm({ initial }: TinTucFormProps) {
         return;
       }
       setCover(result.record.webViewLink);
-      setUploaderState("success");
+      setUploaderState("empty");
     } catch {
       setUploaderState("error");
     }
   }
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setSaving(true);
+  function updateSection(index: number, patch: Partial<Section>) {
+    setSections((prev) => prev.map((s, i) => (i === index ? { ...s, ...patch } : s)));
+  }
+
+  function addSection() {
+    setSections((prev) => [...prev, { heading: "", body: "" }]);
+  }
+
+  function removeSection(index: number) {
+    setSections((prev) => (prev.length === 1 ? [{ heading: "", body: "" }] : prev.filter((_, i) => i !== index)));
+  }
+
+  function moveSection(index: number, delta: number) {
+    setSections((prev) => {
+      const target = index + delta;
+      if (target < 0 || target >= prev.length) return prev;
+      const next = [...prev];
+      [next[index], next[target]] = [next[target], next[index]];
+      return next;
+    });
+  }
+
+  async function save(form: HTMLFormElement, publish: boolean) {
+    setSaving(publish ? "publish" : "draft");
     setError(undefined);
     setSaved(undefined);
     try {
-      const data = new FormData(e.currentTarget);
+      const data = new FormData(form);
       const get = (name: string) => String(data.get(name) ?? "").trim();
-      const publish = get("status") ? get("status") === "Đã xuất bản" : (initial?.published ?? false);
 
       const input: NewsFormInput = {
         slug: initial?.slug ?? "",
@@ -60,8 +102,11 @@ export function TinTucForm({ initial }: TinTucFormProps) {
         category: get("category"),
         excerpt: get("excerpt"),
         cover,
-        sections: initial?.sections ?? [],
-        readMinutes: initial?.readMinutes ?? 0,
+        // Drops trailing blank blocks the editor added but never filled, so
+        // an empty section can't reach the public page.
+        sections: sections
+          .map((s) => ({ heading: s.heading.trim(), body: s.body.trim() }))
+          .filter((s) => s.heading || s.body),
       };
 
       const result = await saveNewsAction(input, publish);
@@ -71,27 +116,51 @@ export function TinTucForm({ initial }: TinTucFormProps) {
         return;
       }
       setFieldErrors({});
-      setSaved("Đã lưu bài viết.");
+      setSaved(publish ? "Đã lưu và xuất bản." : "Đã lưu nháp (chưa hiện trên website).");
       router.refresh();
     } finally {
-      setSaving(false);
+      setSaving(null);
     }
   }
 
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    void save(e.currentTarget, true);
+  }
+
+  function handleSaveDraft(e: MouseEvent<HTMLButtonElement>) {
+    const form = e.currentTarget.closest("form");
+    if (form) void save(form, false);
+  }
+
+  const publishedLabel = initial?.published ? "Đang hiện trên website" : "Đang là bản nháp";
+
   return (
     <form onSubmit={handleSubmit} noValidate>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-admin-title-mobile text-ink desktop:text-admin-title">Thêm / sửa tin tức</h1>
-          <p className="mt-1 text-body text-muted">Editor nội dung có ảnh đại diện và nội dung dài.</p>
+          <p className="mt-1 text-body text-muted">
+            Form bám đúng giao diện bài viết thật trên website. {initial ? publishedLabel : "Bài viết mới."}
+          </p>
         </div>
-        <button
-          type="submit"
-          disabled={saving}
-          className="rounded-md bg-primary px-6 py-3 text-button uppercase text-surface hover:bg-primaryHover disabled:opacity-60"
-        >
-          {saving ? "Đang lưu..." : "Lưu"}
-        </button>
+        <div className="flex gap-3">
+          <button
+            type="button"
+            onClick={handleSaveDraft}
+            disabled={saving !== null}
+            className="rounded-md border border-primary px-6 py-3 text-button uppercase text-primary transition-colors duration-fast ease-base hover:bg-soft disabled:opacity-60"
+          >
+            {saving === "draft" ? "Đang lưu..." : "Lưu nháp"}
+          </button>
+          <button
+            type="submit"
+            disabled={saving !== null}
+            className="rounded-md bg-primary px-6 py-3 text-button uppercase text-surface transition-colors duration-fast ease-base hover:bg-primaryHover disabled:opacity-60"
+          >
+            {saving === "publish" ? "Đang lưu..." : "Lưu & xuất bản"}
+          </button>
+        </div>
       </div>
 
       {error && (
@@ -105,36 +174,83 @@ export function TinTucForm({ initial }: TinTucFormProps) {
         </p>
       )}
 
-      <section className="mt-6 rounded-md border border-line bg-surface p-6">
-        <h2 className="text-h3 text-ink">Nội dung bài viết</h2>
-        <div className="mt-4">
-          <FormField label="Tiêu đề" name="title" required defaultValue={initial?.title} error={fieldErrors.title} />
-        </div>
-        <div className="mt-6 grid grid-cols-1 gap-6 min-[1200px]:grid-cols-2">
-          <FormField
-            label="Danh mục"
-            name="category"
-            required
-            defaultValue={initial?.category}
-            error={fieldErrors.category}
-          />
-          <FormField
-            label="Trạng thái"
-            name="status"
-            required
-            defaultValue={initial?.published ? "Đã xuất bản" : "Nháp"}
-          />
+      <section className="mt-6 overflow-hidden rounded-md border border-line bg-surface">
+        <div className="flex items-center justify-between border-b border-line bg-soft px-6 py-3">
+          <span className="text-label text-ink">Giao diện thật trên website</span>
+          <span className="rounded-full bg-success/10 px-3 py-1 text-label text-success">HIỂN THỊ WEBSITE</span>
         </div>
 
-        <div className="mt-6 grid grid-cols-1 gap-6 min-[1200px]:grid-cols-2">
-          <div>
-            <span className="text-label text-ink">Ảnh đại diện</span>
-            <div className="mt-2 aspect-video">
-              <Uploader
-                state={uploaderState}
-                onClick={() => fileInputRef.current?.click()}
-                onRetry={() => setUploaderState("empty")}
-              />
+        <div className="p-6">
+          {/* Category eyebrow + title, same order/size as the article page. */}
+          <div className="flex flex-wrap items-center gap-2">
+            <input
+              name="category"
+              list="tin-tuc-categories"
+              placeholder="DANH MỤC"
+              defaultValue={initial?.category}
+              aria-label="Danh mục"
+              aria-invalid={fieldErrors.category ? true : undefined}
+              aria-describedby={fieldErrors.category ? "tin-tuc-category-error" : undefined}
+              className={`${wysiwygInput} w-auto max-w-[220px] text-label uppercase text-primary placeholder:text-[#C9C6C5]`}
+            />
+            <datalist id="tin-tuc-categories">
+              {knownCategories.map((c) => (
+                <option key={c} value={c} />
+              ))}
+            </datalist>
+          </div>
+          {fieldErrors.category && (
+            <p id="tin-tuc-category-error" className="mt-1 text-body text-error">
+              {fieldErrors.category}
+            </p>
+          )}
+
+          <input
+            name="title"
+            placeholder="Tiêu đề bài viết"
+            defaultValue={initial?.title}
+            aria-label="Tiêu đề"
+            aria-invalid={fieldErrors.title ? true : undefined}
+            aria-describedby={fieldErrors.title ? "tin-tuc-title-error" : undefined}
+            className={`${wysiwygInput} mt-3 text-h2-mobile text-ink desktop:text-h1`}
+          />
+          {fieldErrors.title && (
+            <p id="tin-tuc-title-error" className="mt-1 text-body text-error">
+              {fieldErrors.title}
+            </p>
+          )}
+
+          <p className="mt-3 text-body text-muted">
+            Ngày đăng và thời gian đọc được tính tự động khi xuất bản — không cần nhập.
+          </p>
+
+          {/* Cover — real preview, and removable. Previously the uploader
+              only flipped to a green "thành công" tile: the editor never saw
+              which image was attached and had no way to detach it. */}
+          <div className="mt-6">
+            <span className="text-label text-ink">Ảnh bìa (16:9)</span>
+            <div className="mt-2 max-w-xl">
+              {cover ? (
+                <div className="group relative aspect-video overflow-hidden rounded-md">
+                  <Image src={cover} alt="Ảnh bìa bài viết" fill className="object-cover" unoptimized />
+                  <button
+                    type="button"
+                    onClick={() => setCover("")}
+                    aria-label="Xóa ảnh bìa"
+                    className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white transition-colors duration-fast ease-base hover:bg-error"
+                  >
+                    <Icon name="close" size={14} />
+                  </button>
+                </div>
+              ) : (
+                <div className="aspect-video">
+                  <Uploader
+                    state={uploaderState}
+                    onClick={() => fileInputRef.current?.click()}
+                    onRetry={() => setUploaderState("empty")}
+                  />
+                </div>
+              )}
             </div>
             <input
               ref={fileInputRef}
@@ -145,28 +261,102 @@ export function TinTucForm({ initial }: TinTucFormProps) {
               tabIndex={-1}
               onChange={handleFileChange}
             />
+            <p className="mt-2 text-body text-muted">
+              Chưa có ảnh thì bài viết vẫn đăng được — website hiển thị ảnh placeholder thay vì ảnh của bài khác.
+            </p>
           </div>
-          <FormField
-            label="Mô tả ngắn"
-            name="excerpt"
-            type="textarea"
-            placeholder="Tóm tắt dùng ở NewsCard..."
-            defaultValue={initial?.excerpt}
-          />
+
+          <div className="mt-6">
+            <label htmlFor="tin-tuc-excerpt" className="text-label text-ink">
+              Mô tả ngắn (hiện ở thẻ bài viết ngoài danh sách)
+            </label>
+            <textarea
+              id="tin-tuc-excerpt"
+              name="excerpt"
+              rows={3}
+              placeholder="Tóm tắt 1-2 câu..."
+              defaultValue={initial?.excerpt}
+              className={`${wysiwygInput} mt-2 resize-none rounded-md border border-line p-3 text-body-lg-mobile text-body hover:border-line focus:border-primary`}
+            />
+          </div>
         </div>
 
-        <div className="mt-6">
-          <span className="text-label text-ink">Nội dung bài</span>
-          <div className="mt-2 rounded-md border border-line bg-soft p-6">
-            <div className="flex flex-wrap gap-4 border-b border-line pb-3 text-body text-muted">
-              {TOOLBAR.map((tool) => (
-                <span key={tool}>{tool}</span>
-              ))}
+        {/* Body — real, editable sections. This is the block that simply did
+            not exist before. */}
+        <div className="border-t border-line px-6 py-6">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p className="text-h3 text-ink">Nội dung bài viết</p>
+              <p className="text-body text-muted">
+                Mỗi đoạn gồm 1 tiêu đề phụ (H2 trên web) và phần nội dung. Xuống dòng trong ô nội dung sẽ giữ
+                nguyên khi hiển thị.
+              </p>
             </div>
-            <p className="mt-4 text-body text-ink">
-              {initial?.sections[0]?.body ?? "Nội dung bài viết dạng rich text..."}
+            <button
+              type="button"
+              onClick={addSection}
+              className="rounded-md border border-primary px-4 py-2 text-label uppercase text-primary transition-colors duration-fast ease-base hover:bg-soft"
+            >
+              + Thêm đoạn
+            </button>
+          </div>
+
+          {fieldErrors.sections && (
+            <p role="alert" className="mt-3 text-body text-error">
+              {fieldErrors.sections}
             </p>
-            <p className="mt-2 text-body text-muted">Giữ typography role đã khóa trong frontend.</p>
+          )}
+
+          <div className="mt-4 flex flex-col gap-4">
+            {sections.map((section, i) => (
+              <div key={i} className="rounded-md border border-line p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <input
+                    value={section.heading}
+                    onChange={(e) => updateSection(i, { heading: e.target.value })}
+                    placeholder={`Tiêu đề đoạn ${i + 1}`}
+                    aria-label={`Tiêu đề đoạn ${i + 1}`}
+                    className={`${wysiwygInput} text-h3 text-ink`}
+                  />
+                  <div className="flex shrink-0 gap-1">
+                    <button
+                      type="button"
+                      onClick={() => moveSection(i, -1)}
+                      disabled={i === 0}
+                      aria-label={`Chuyển đoạn ${i + 1} lên trên`}
+                      className="flex h-8 w-8 items-center justify-center rounded-md border border-line text-muted transition-colors duration-fast ease-base hover:border-primary hover:text-primary disabled:opacity-40"
+                    >
+                      ↑
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => moveSection(i, 1)}
+                      disabled={i === sections.length - 1}
+                      aria-label={`Chuyển đoạn ${i + 1} xuống dưới`}
+                      className="flex h-8 w-8 items-center justify-center rounded-md border border-line text-muted transition-colors duration-fast ease-base hover:border-primary hover:text-primary disabled:opacity-40"
+                    >
+                      ↓
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => removeSection(i)}
+                      aria-label={`Xóa đoạn ${i + 1}`}
+                      className="flex h-8 w-8 items-center justify-center rounded-md border border-line text-muted transition-colors duration-fast ease-base hover:border-error hover:text-error"
+                    >
+                      <Icon name="trash" size={14} />
+                    </button>
+                  </div>
+                </div>
+                <textarea
+                  value={section.body}
+                  onChange={(e) => updateSection(i, { body: e.target.value })}
+                  rows={5}
+                  placeholder="Nội dung đoạn..."
+                  aria-label={`Nội dung đoạn ${i + 1}`}
+                  className={`${wysiwygInput} mt-3 resize-y text-body-lg-mobile text-body desktop:text-body-lg`}
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>

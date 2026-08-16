@@ -131,7 +131,7 @@ describe("production runtime without Google/Drive config fails closed", () => {
     signInAsAdmin();
     const { saveNewsAction } = await import("@/app/actions/news");
     const result = await saveNewsAction(
-      { slug: "", title: "Test", category: "Kinh nghiệm", excerpt: "", cover: "", sections: [], readMinutes: 0 },
+      { slug: "", title: "Test", category: "Kinh nghiệm", excerpt: "", cover: "", sections: [] },
       true,
     );
     expect(result.ok).toBe(false);

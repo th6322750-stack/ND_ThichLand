@@ -1,13 +1,34 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import Image from "next/image";
 import { Breadcrumb } from "@/components/public/Breadcrumb";
 import { NewsCard } from "@/components/public/NewsCard";
 import { Icon } from "@/components/icons";
 import { getNewsRepository } from "@/lib/server/news/providers";
 import { toPublicNewsArticle, toPublicNewsArticles } from "@/lib/server/news/dto";
+import { mediaSrc, NEWS_PLACEHOLDER } from "@/lib/media";
 import { getZaloHref } from "@/lib/zalo";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const repo = await getNewsRepository();
+  const record = (await repo.list()).find((r) => r.slug === slug && r.published);
+  if (!record) return { title: "Không tìm thấy bài viết | NDTHICH LAND" };
+  return {
+    title: `${record.title} | Tin tức NDTHICH LAND`,
+    description: record.excerpt || undefined,
+    alternates: { canonical: `/tin-tuc/${record.slug}` },
+    openGraph: {
+      type: "article",
+      title: record.title,
+      description: record.excerpt || undefined,
+      publishedTime: record.publishedAt || undefined,
+      images: record.cover ? [record.cover] : undefined,
+    },
+  };
+}
 
 function formatDate(iso: string): string {
   if (!iso) return "—";
@@ -50,23 +71,29 @@ export default async function TinTucDetailPage({
             {formatDate(article.publishedAt)} • {article.readMinutes} phút đọc
           </p>
 
+          {/* The "Ảnh bài viết 16:9" / "Ảnh minh họa" chips were layout-mock
+              scaffolding that shipped into production, and every section
+              repeated the SAME cover photo below it labelled as an
+              illustration — one article's single photo shown three or four
+              times as if it illustrated each section. Cover renders once,
+              unlabelled; sections are text, which is all the CMS stores. */}
           <div className="relative mt-6 aspect-video overflow-hidden rounded-md">
-            <Image src={article.cover} alt="" fill className="object-cover" unoptimized />
-            <span className="absolute left-3 top-3 rounded-full bg-black/40 px-3 py-1 text-label text-surface">
-              Ảnh bài viết 16:9
-            </span>
+            <Image
+              src={mediaSrc(article.cover, NEWS_PLACEHOLDER)}
+              alt={article.title}
+              fill
+              className="object-cover"
+              unoptimized
+              priority
+            />
           </div>
 
-          {article.sections.map((section) => (
-            <section key={section.heading} className="mt-10">
-              <h2 className="text-h2-mobile text-ink desktop:text-h2">{section.heading}</h2>
-              <p className="mt-3 text-body-lg-mobile text-body desktop:text-body-lg">{section.body}</p>
-              <div className="relative mt-6 aspect-[16/9] overflow-hidden rounded-md">
-                <Image src={article.cover} alt="" fill className="object-cover" unoptimized />
-                <span className="absolute left-3 top-3 rounded-full bg-black/40 px-3 py-1 text-label text-surface">
-                  Ảnh minh họa
-                </span>
-              </div>
+          {article.sections.map((section, i) => (
+            <section key={`${section.heading}-${i}`} className="mt-10">
+              {section.heading && <h2 className="text-h2-mobile text-ink desktop:text-h2">{section.heading}</h2>}
+              <p className="mt-3 whitespace-pre-line text-body-lg-mobile text-body desktop:text-body-lg">
+                {section.body}
+              </p>
             </section>
           ))}
         </article>

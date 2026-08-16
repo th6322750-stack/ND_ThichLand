@@ -92,7 +92,6 @@ describe("News admin actions", () => {
         excerpt: target.excerpt,
         cover: target.cover,
         sections: target.sections,
-        readMinutes: target.readMinutes,
       },
       true,
     );
