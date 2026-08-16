@@ -70,46 +70,61 @@ export default async function HomePageV2() {
   return (
     <>
       {/* ============ HERO ============ */}
-      {/* Master (both WEB and MOBILE) shows a full-bleed photo occupying the
-          right side of the hero at every width — text and photo sit side by
-          side even in the 362px-wide mobile capture, not stacked. The photo
-          bleeds to the section's own edges (no rounded corners, no padding)
-          rather than sitting in a padded/rounded 4:3 card.
-          Round7: master shows a SOFT integration, not two rectangular
-          columns pasted together — the image layer is now wider than the
-          visible text column and overlaps under it, with a white->transparent
-          gradient over that overlap so the seam disappears instead of
-          sitting at a hard 50% line. Text column width/position is
-          unchanged. */}
-      {/* USER_APPROVED_PREMIUM_WIDE_SCALE section 7: >=1440px gets a full-
-          viewport-width hero using the new wide 4K photo instead of the
-          63%-wide right-side box — <1440px/mobile keeps hero-building.png
-          and the existing box layout unchanged (Drive asset is a
-          background photo only, no baked-in text/buttons/metrics). */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-white via-[#FBF7F5] to-[#F2E5E6] wide:bg-none" data-qa-region="hero">
-        {/* MOBILE_PROJECT_FIRST_POLISH section 1: mobile now uses the SAME
-            hero asset as WEB/wide (no separate/generated image), full-bleed
-            with text overlaid over a left fade — same visual identity as
-            the wide desktop treatment below, just compact (~280px) and
-            without forcing pixel parity with the old narrow master. */}
-        <div className="relative h-[280px] min-[900px]:hidden">
-          <Image
-            src="/assets/v2/home/hero-premium-wide.png"
-            alt="NDTHICH — không gian sống & kinh doanh"
-            fill
-            className="object-cover"
-            style={{ objectPosition: "70% 50%" }}
-            unoptimized
-            priority
-          />
+      {/* HERO_PACK_PREMIUM_V1 (NDTHICH_HOME_HERO_PREMIUM_4K.png): full-bleed
+          photo at every width, text overlaid over a white->transparent
+          gradient from the left so the seam disappears instead of sitting
+          at a hard line. Mobile and desktop/wide all share this ONE asset —
+          only height and objectPosition differ per breakpoint (see the two
+          Image elements below); there is no separate "box on the right"
+          tier or asset anymore. */}
+      <section className="relative overflow-hidden bg-[#F7F6F6]" data-qa-region="hero">
+        {/* HERO_PACK_PREMIUM_V1: single 4K master shared by mobile AND
+            desktop — same asset both tiers, only object-position/height
+            differ per NDTHICH_HERO_PACK_PREMIUM_V1/HERO_ASSET_MANIFEST.json
+            (mobile 72% 50%, desktop 50% 50%). Full-bleed at every width —
+            no more separate 900-1439px "box on right" asset/treatment. */}
+        <div className="relative h-[280px] min-[900px]:h-[520px] wide:h-[560px]">
+          {/* Mobile crop — manifest objectPosition "72% 50%". */}
+          <div className="absolute inset-0 min-[900px]:hidden">
+            <Image
+              src="/assets/v2/hero/NDTHICH_HOME_HERO_PREMIUM_4K.png"
+              alt="NDTHICH — không gian sống & kinh doanh"
+              fill
+              className="object-cover"
+              style={{ objectPosition: "72% 50%" }}
+              sizes="100vw"
+              unoptimized
+              priority
+            />
+          </div>
+          {/* Desktop/wide crop — same asset, manifest objectPosition "50% 50%". */}
+          <div className="absolute inset-0 hidden min-[900px]:block">
+            <Image
+              src="/assets/v2/hero/NDTHICH_HOME_HERO_PREMIUM_4K.png"
+              alt="NDTHICH — không gian sống & kinh doanh"
+              fill
+              className="object-cover"
+              style={{ objectPosition: "50% 50%" }}
+              sizes="100vw"
+              unoptimized
+              priority
+            />
+          </div>
           <div
-            className="absolute inset-0"
+            className="absolute inset-0 min-[900px]:hidden"
             style={{
               background:
                 "linear-gradient(90deg, rgba(255,255,255,.97) 0%, rgba(255,255,255,.93) 45%, rgba(255,255,255,.55) 68%, rgba(255,255,255,0) 88%)",
             }}
           />
-          <div className="absolute inset-0 flex flex-col justify-center px-4">
+          <div
+            className="absolute inset-0 hidden min-[900px]:block"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(255,255,255,.97) 0%, rgba(255,255,255,.9) 32%, rgba(255,255,255,.6) 48%, rgba(255,255,255,.2) 62%, rgba(255,255,255,0) 74%)",
+            }}
+          />
+          <div className="absolute inset-0 flex flex-col justify-center px-4 min-[900px]:hidden">
             <h1 className="text-[22px] font-extrabold leading-[1.15] text-[#0C0D0D]">
               Không gian sống &amp;
               <br />
@@ -136,52 +151,14 @@ export default async function HomePageV2() {
           </div>
         </div>
 
-        {/* 900-1439px tier — unchanged box-on-right treatment, unchanged asset. */}
-        <div className="absolute inset-y-0 right-0 hidden w-[63%] min-[900px]:block wide:hidden">
-          <Image
-            src="/assets/v2/home/hero-building.png"
-            alt="NDTHICH — không gian sống & kinh doanh"
-            fill
-            className="object-cover"
-            unoptimized
-            priority
-          />
-        </div>
-        {/* Client feedback: the fade read as a hard seam, not a blend. The
-            previous overlay lived INSIDE the image's own box, so its
-            opaque-white start sat right against the section's separate
-            diagonal background — two different whites meeting at a line.
-            This one spans the section from its true left edge, over both
-            backgrounds, so there's a single continuous fade instead of a
-            boundary between them. */}
-        <div className="absolute inset-y-0 left-0 hidden w-[55%] bg-gradient-to-r from-white to-transparent min-[900px]:block wide:hidden" />
-
-        <div className="absolute inset-0 hidden wide:block">
-          <Image
-            src="/assets/v2/home/hero-premium-wide.png"
-            alt="NDTHICH — không gian sống & kinh doanh"
-            fill
-            className="object-cover object-[center_right]"
-            unoptimized
-            priority
-          />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(90deg, rgba(255,255,255,.99) 0%, rgba(255,255,255,.96) 20%, rgba(255,255,255,.78) 36%, rgba(255,255,255,.35) 50%, rgba(255,255,255,0) 66%)",
-            }}
-          />
-        </div>
-
-        <div className="v2-container relative hidden min-[900px]:block min-[900px]:py-5 wide:flex wide:min-h-[560px] wide:items-center wide:py-0">
-          <div className="w-1/2 min-[900px]:pr-0 wide:w-full wide:max-w-[620px] wide:pr-0">
-            <h1 className="text-[38px] font-extrabold leading-[1.15] text-[#0C0D0D] wide:text-v2-hero">
+        <div className="v2-container absolute inset-0 hidden min-[900px]:flex min-[900px]:items-center">
+          <div className="w-1/2 wide:w-full wide:max-w-[620px]">
+            <h1 className="text-[32px] font-extrabold leading-[1.15] text-[#0C0D0D] wide:text-v2-hero">
               Không gian sống &amp;
               <br />
               <span className="text-[#880206]">Kinh doanh lý tưởng</span>
             </h1>
-            <p className="mt-3 text-[17px] font-bold text-[#0C0D0D] wide:text-[18px] wide:leading-[26px]">
+            <p className="mt-3 text-[16px] font-bold text-[#0C0D0D] wide:text-[18px] wide:leading-[26px]">
               Từ Nguyễn Đắc Thích
             </p>
             <p className="mt-3 max-w-md text-[14px] leading-snug text-[#5F5D5D] wide:max-w-[560px] wide:text-[17px] wide:leading-[28px]">

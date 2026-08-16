@@ -88,19 +88,82 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
   }
 
   return (
-    <div className="v2-container py-1 min-[900px]:py-8 wide:py-12">
-      <Breadcrumb2 items={[{ label: "Trang chủ", href: "/" }, { label: "Dự án" }]} />
+    <>
+      {/* HERO_PACK_PREMIUM_V1: /du-an had no hero at all before — new
+          section using the projects 4K master, same asset/pattern as Home
+          and /cho-thue (mobile+desktop share one asset, crop only via
+          objectPosition per HERO_ASSET_MANIFEST.json: mobile 79% 50%,
+          desktop 50% 48%). Owns the page's h1 (moved from the block below,
+          not duplicated) — title/description copy unchanged. */}
+      <section className="relative overflow-hidden bg-[#F7F6F6]" data-qa-region="hero">
+        <div className="relative h-[240px] min-[900px]:h-[430px] wide:h-[460px]">
+          <div className="absolute inset-0 min-[900px]:hidden">
+            <Image
+              src="/assets/v2/hero/NDTHICH_PROJECTS_HERO_PREMIUM_4K.png"
+              alt="NDTHICH — các dự án tiêu biểu"
+              fill
+              className="object-cover"
+              style={{ objectPosition: "79% 50%" }}
+              sizes="100vw"
+              unoptimized
+              priority
+            />
+          </div>
+          <div className="absolute inset-0 hidden min-[900px]:block">
+            <Image
+              src="/assets/v2/hero/NDTHICH_PROJECTS_HERO_PREMIUM_4K.png"
+              alt="NDTHICH — các dự án tiêu biểu"
+              fill
+              className="object-cover"
+              style={{ objectPosition: "50% 48%" }}
+              sizes="100vw"
+              unoptimized
+              priority
+            />
+          </div>
+          <div
+            className="absolute inset-0 min-[900px]:hidden"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(255,255,255,.97) 0%, rgba(255,255,255,.93) 45%, rgba(255,255,255,.55) 68%, rgba(255,255,255,0) 88%)",
+            }}
+          />
+          <div
+            className="absolute inset-0 hidden min-[900px]:block"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(255,255,255,.97) 0%, rgba(255,255,255,.9) 32%, rgba(255,255,255,.6) 48%, rgba(255,255,255,.2) 62%, rgba(255,255,255,0) 74%)",
+            }}
+          />
+          <div className="absolute inset-0 flex flex-col justify-center px-4 min-[900px]:hidden">
+            <h1 className="text-[20px] font-extrabold leading-[1.15] text-[#0C0D0D]">
+              Các dự án <span className="text-[#880206]">tiêu biểu</span>
+            </h1>
+            <p className="mt-1 max-w-[240px] text-[12px] leading-snug text-[#5F5D5D]">
+              Những dự án chúng tôi đã và đang tham gia phát triển, mang đến không gian sống &amp; kinh
+              doanh chất lượng, bền vững cho cộng đồng.
+            </p>
+          </div>
+        </div>
 
-      <div data-qa-region="heading">
-        <h1 className="mt-1 text-[17px] font-extrabold text-[#0C0D0D] min-[900px]:mt-4 min-[900px]:text-[36px] wide:text-v2-h1">
-          Các dự án <span className="text-[#880206]">tiêu biểu</span>
-        </h1>
-        <p className="mt-1 line-clamp-2 max-w-2xl text-[10px] text-[#5F5D5D] min-[900px]:mt-2 min-[900px]:line-clamp-none min-[900px]:text-[14px] wide:text-[17px] wide:leading-[28px]">
-          Những dự án chúng tôi đã và đang tham gia phát triển, mang đến không gian sống &amp; kinh doanh
-          chất lượng, bền vững cho cộng đồng.
-        </p>
+        <div className="v2-container absolute inset-0 hidden min-[900px]:flex min-[900px]:items-center">
+          <div className="w-[55%] wide:max-w-[620px]">
+            <h1 className="text-[32px] font-extrabold leading-tight text-[#0C0D0D] wide:text-v2-h1">
+              Các dự án <span className="text-[#880206]">tiêu biểu</span>
+            </h1>
+            <p className="mt-2 max-w-md text-[14px] text-[#5F5D5D] wide:text-[17px] wide:leading-[28px]">
+              Những dự án chúng tôi đã và đang tham gia phát triển, mang đến không gian sống &amp; kinh
+              doanh chất lượng, bền vững cho cộng đồng.
+            </p>
+          </div>
+        </div>
+      </section>
 
-        <div className="mt-2 flex flex-col gap-2 min-[900px]:mt-5 min-[900px]:flex-row min-[900px]:gap-3 wide:gap-4">
+      <div className="v2-container py-1 min-[900px]:py-8 wide:py-12">
+        <Breadcrumb2 items={[{ label: "Trang chủ", href: "/" }, { label: "Dự án" }]} />
+
+        <div data-qa-region="heading">
+          <div className="mt-2 flex flex-col gap-2 min-[900px]:mt-5 min-[900px]:flex-row min-[900px]:gap-3 wide:gap-4">
           <div className="relative min-w-0 flex-1">
             <Icon
               name="search"
@@ -271,6 +334,7 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
           </Link>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 }

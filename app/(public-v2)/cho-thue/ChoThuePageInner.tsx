@@ -31,35 +31,67 @@ export function ChoThuePageInner({ properties }: { properties: PropertyListing[]
 
   return (
     <>
-      {/* WEB hero — master keeps this as a single compact horizontal band
-          (heading/text left, photo full-bleed right), not a separate text
-          block plus a second boxed image band below it. Hidden entirely on
-          mobile: 02_ChoThue_MOBILE.png has no hero photo or breadcrumb at
-          all — just the title/Lọc/Sắp xếp/count block rendered below. */}
-      <section
-        className="relative hidden overflow-hidden bg-gradient-to-br from-white via-[#FBF7F5] to-[#F2E5E6] min-[900px]:block"
-        data-qa-region="hero"
-      >
-        {/*
-          Round 8 resolves the prior ASSET_BLOCKED_NEEDS_CHATGPT on this slot:
-          .webby/client-approved-v2/ROUND8_ASSET_SOURCE.md section 3
-          explicitly maps R8_08 (or R8_06) here — "chọn ảnh crop/composition
-          gần master hơn". R8_08's left-side trees + street-level human scale
-          reads closer to the master's low-rise/pedestrian composition than
-          R8_06's aerial high-rise framing, so R8_08 was picked.
-        */}
-        <div className="absolute inset-y-0 right-0 w-[42%]">
-          <Image
-            src="/assets/round8/R8_08-hoang-hon-ben-pho-ven-song.png"
-            alt=""
-            fill
-            className="object-cover"
-            unoptimized
-            priority
+      {/* HERO_PACK_PREMIUM_V1: same 4K master shared by mobile AND desktop
+          (was WEB-only before, with a different 42%-wide asset) — crop per
+          NDTHICH_HERO_PACK_PREMIUM_V1/HERO_ASSET_MANIFEST.json (mobile 76%
+          50%, desktop 50% 50%). Full-bleed at every width, same pattern as
+          Home's hero. */}
+      <section className="relative overflow-hidden bg-[#F7F6F6]" data-qa-region="hero">
+        <div className="relative h-[240px] min-[900px]:h-[430px] wide:h-[460px]">
+          {/* Mobile crop — manifest objectPosition "76% 50%". */}
+          <div className="absolute inset-0 min-[900px]:hidden">
+            <Image
+              src="/assets/v2/hero/NDTHICH_RENTAL_HERO_PREMIUM_4K.png"
+              alt="NDTHICH — cho thuê bất động sản"
+              fill
+              className="object-cover"
+              style={{ objectPosition: "76% 50%" }}
+              sizes="100vw"
+              unoptimized
+              priority
+            />
+          </div>
+          {/* Desktop/wide crop — same asset, manifest objectPosition "50% 50%". */}
+          <div className="absolute inset-0 hidden min-[900px]:block">
+            <Image
+              src="/assets/v2/hero/NDTHICH_RENTAL_HERO_PREMIUM_4K.png"
+              alt="NDTHICH — cho thuê bất động sản"
+              fill
+              className="object-cover"
+              style={{ objectPosition: "50% 50%" }}
+              sizes="100vw"
+              unoptimized
+              priority
+            />
+          </div>
+          <div
+            className="absolute inset-0 min-[900px]:hidden"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(255,255,255,.97) 0%, rgba(255,255,255,.93) 45%, rgba(255,255,255,.55) 68%, rgba(255,255,255,0) 88%)",
+            }}
           />
+          <div
+            className="absolute inset-0 hidden min-[900px]:block"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(255,255,255,.97) 0%, rgba(255,255,255,.9) 32%, rgba(255,255,255,.6) 48%, rgba(255,255,255,.2) 62%, rgba(255,255,255,0) 74%)",
+            }}
+          />
+          <div className="absolute inset-0 flex flex-col justify-center px-4 min-[900px]:hidden">
+            <h1 className="text-[22px] font-extrabold leading-[1.15] text-[#0C0D0D]">
+              Cho thuê
+              <br />
+              <span className="text-[#880206]">Bất động sản</span>
+            </h1>
+            <p className="mt-1 max-w-[220px] text-[13px] leading-snug text-[#5F5D5D]">
+              Tìm kiếm không gian sống và mặt bằng kinh doanh phù hợp với bạn
+            </p>
+          </div>
         </div>
-        <div className="v2-container relative py-[28px] wide:py-16">
-          <div className="w-[55%]">
+
+        <div className="v2-container absolute inset-0 hidden min-[900px]:flex min-[900px]:items-center">
+          <div className="w-[55%] wide:max-w-[620px]">
             <h1 className="text-[32px] font-extrabold leading-tight text-[#0C0D0D] wide:text-v2-h1">
               Cho thuê
               <br />
@@ -75,9 +107,10 @@ export function ChoThuePageInner({ properties }: { properties: PropertyListing[]
       <div className="v2-container py-3 min-[900px]:py-6 wide:py-10">
         <Breadcrumb2 items={[{ label: "Trang chủ", href: "/" }, { label: "Cho thuê" }]} className="hidden min-[900px]:flex" />
 
-        {/* Mobile title/controls block — replaces the WEB hero+breadcrumb entirely on mobile. */}
+        {/* Mobile title/controls block — the hero above now owns the page's
+            h1, so this is a secondary heading (h2), not a duplicate h1. */}
         <div className="min-[900px]:hidden" data-qa-region="heading">
-          <h1 className="text-[16px] font-extrabold text-[#0C0D0D]">Cho thuê bất động sản</h1>
+          <h2 className="text-[16px] font-extrabold text-[#0C0D0D]">Cho thuê bất động sản</h2>
           <div className="mt-2 grid grid-cols-2 gap-2" data-qa-region="filter-sort">
             <button
               type="button"
