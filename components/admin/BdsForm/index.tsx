@@ -93,12 +93,14 @@ export function BdsForm({ initial }: BdsFormProps) {
   const [savedMessage, setSavedMessage] = useState<string>();
   const [media, setMedia] = useState<string[]>(initial?.media ?? []);
   const [uploaderState, setUploaderState] = useState<UploaderState>("empty");
+  const [uploadError, setUploadError] = useState<string>();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   async function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files ?? []);
     e.target.value = "";
     if (files.length === 0) return;
+    setUploadError(undefined);
     setUploaderState("uploading");
     try {
       // Uploaded one at a time (not Promise.all) so a failure partway
@@ -109,6 +111,7 @@ export function BdsForm({ initial }: BdsFormProps) {
         formData.append("file", file);
         const result = await uploadMediaAction(formData);
         if (!result.ok || !result.record) {
+          setUploadError(result.error);
           setUploaderState("error");
           return;
         }
@@ -207,7 +210,15 @@ export function BdsForm({ initial }: BdsFormProps) {
             {/* Gallery zone — same spot as Gallery2 on the real page. */}
             <div>
               <div className="grid grid-cols-2 gap-3 tablet:grid-cols-4">
-                <Uploader state={uploaderState} onClick={() => fileInputRef.current?.click()} onRetry={() => setUploaderState("empty")} />
+                <Uploader
+                  state={uploaderState}
+                  errorMessage={uploadError}
+                  onClick={() => fileInputRef.current?.click()}
+                  onRetry={() => {
+                    setUploadError(undefined);
+                    setUploaderState("empty");
+                  }}
+                />
                 <input
                   ref={fileInputRef}
                   type="file"

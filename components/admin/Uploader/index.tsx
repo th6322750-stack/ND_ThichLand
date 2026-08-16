@@ -6,9 +6,15 @@ interface UploaderProps {
   state?: UploaderState;
   onRetry?: () => void;
   onClick?: () => void;
+  /**
+   * The actual reason from uploadMediaAction (file too large, unsupported
+   * type, storage not configured...). Every form used to swallow it and show
+   * only "Tải lên thất bại", leaving the operator with nothing to act on.
+   */
+  errorMessage?: string;
 }
 
-export function Uploader({ state = "empty", onRetry, onClick }: UploaderProps) {
+export function Uploader({ state = "empty", onRetry, onClick, errorMessage }: UploaderProps) {
   if (state === "uploading") {
     return (
       <div className="flex aspect-[4/3] flex-col items-center justify-center gap-3 rounded-md border-2 border-dashed border-line bg-soft text-muted">
@@ -26,12 +32,16 @@ export function Uploader({ state = "empty", onRetry, onClick }: UploaderProps) {
 
   if (state === "error") {
     return (
-      <div className="flex aspect-[4/3] flex-col items-center justify-center gap-3 rounded-md border-2 border-dashed border-error bg-[#FDF1F1] text-error">
-        <span className="text-body">Tải lên thất bại</span>
+      <div
+        role="alert"
+        className="flex aspect-[4/3] flex-col items-center justify-center gap-2 rounded-md border-2 border-dashed border-error bg-[#FDF1F1] p-3 text-center text-error"
+      >
+        <span className="text-body font-bold">Tải lên thất bại</span>
+        {errorMessage && <span className="text-body leading-snug">{errorMessage}</span>}
         <button
           type="button"
           onClick={onRetry}
-          className="rounded-md border border-error px-4 py-2 text-label text-error hover:bg-surface"
+          className="mt-1 rounded-md border border-error px-4 py-2 text-label text-error transition-colors duration-fast ease-base hover:bg-surface"
         >
           Thử lại
         </button>

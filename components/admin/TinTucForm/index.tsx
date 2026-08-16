@@ -41,6 +41,7 @@ export function TinTucForm({ initial, knownCategories = [] }: TinTucFormProps) {
   const [saved, setSaved] = useState<string>();
   const [cover, setCover] = useState(initial?.cover ?? "");
   const [uploaderState, setUploaderState] = useState<UploaderState>("empty");
+  const [uploadError, setUploadError] = useState<string>();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [sections, setSections] = useState<Section[]>(
     initial?.sections?.length ? initial.sections : [{ heading: "", body: "" }],
@@ -50,12 +51,14 @@ export function TinTucForm({ initial, knownCategories = [] }: TinTucFormProps) {
     const file = e.target.files?.[0];
     e.target.value = "";
     if (!file) return;
+    setUploadError(undefined);
     setUploaderState("uploading");
     try {
       const formData = new FormData();
       formData.append("file", file);
       const result = await uploadMediaAction(formData);
       if (!result.ok || !result.record) {
+        setUploadError(result.error);
         setUploaderState("error");
         return;
       }
@@ -247,7 +250,11 @@ export function TinTucForm({ initial, knownCategories = [] }: TinTucFormProps) {
                   <Uploader
                     state={uploaderState}
                     onClick={() => fileInputRef.current?.click()}
-                    onRetry={() => setUploaderState("empty")}
+                    errorMessage={uploadError}
+                onRetry={() => {
+                  setUploadError(undefined);
+                  setUploaderState("empty");
+                }}
                   />
                 </div>
               )}

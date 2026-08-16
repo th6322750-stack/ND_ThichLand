@@ -32,9 +32,11 @@ export function DuAnForm({ initial }: DuAnFormProps) {
   const [saved, setSaved] = useState<string>();
   const [media, setMedia] = useState<string[]>(initial?.media ?? []);
   const [uploaderState, setUploaderState] = useState<UploaderState>("empty");
+  const [uploadError, setUploadError] = useState<string>();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [progressPhotos, setProgressPhotos] = useState<{ label: string; image: string }[]>(initial?.progressPhotos ?? []);
   const [progressUploaderState, setProgressUploaderState] = useState<UploaderState>("empty");
+  const [progressUploadError, setProgressUploadError] = useState<string>();
   const progressFileInputRef = useRef<HTMLInputElement>(null);
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>(initial?.amenities ?? []);
 
@@ -42,6 +44,7 @@ export function DuAnForm({ initial }: DuAnFormProps) {
     const files = Array.from(e.target.files ?? []);
     e.target.value = "";
     if (files.length === 0) return;
+    setUploadError(undefined);
     setUploaderState("uploading");
     try {
       for (const file of files) {
@@ -49,6 +52,7 @@ export function DuAnForm({ initial }: DuAnFormProps) {
         formData.append("file", file);
         const result = await uploadMediaAction(formData);
         if (!result.ok || !result.record) {
+          setUploadError(result.error);
           setUploaderState("error");
           return;
         }
@@ -68,6 +72,7 @@ export function DuAnForm({ initial }: DuAnFormProps) {
     const files = Array.from(e.target.files ?? []);
     e.target.value = "";
     if (files.length === 0) return;
+    setProgressUploadError(undefined);
     setProgressUploaderState("uploading");
     try {
       for (const file of files) {
@@ -75,6 +80,7 @@ export function DuAnForm({ initial }: DuAnFormProps) {
         formData.append("file", file);
         const result = await uploadMediaAction(formData);
         if (!result.ok || !result.record) {
+          setProgressUploadError(result.error);
           setProgressUploaderState("error");
           return;
         }
@@ -202,7 +208,15 @@ export function DuAnForm({ initial }: DuAnFormProps) {
             {/* Gallery zone — same spot as Gallery2 on the real page. */}
             <div>
               <div className="grid grid-cols-2 gap-3 tablet:grid-cols-4">
-                <Uploader state={uploaderState} onClick={() => fileInputRef.current?.click()} onRetry={() => setUploaderState("empty")} />
+                <Uploader
+                  state={uploaderState}
+                  errorMessage={uploadError}
+                  onClick={() => fileInputRef.current?.click()}
+                  onRetry={() => {
+                    setUploadError(undefined);
+                    setUploaderState("empty");
+                  }}
+                />
                 <input
                   ref={fileInputRef}
                   type="file"
@@ -400,8 +414,12 @@ export function DuAnForm({ initial }: DuAnFormProps) {
               ))}
               <Uploader
                 state={progressUploaderState}
+                errorMessage={progressUploadError}
                 onClick={() => progressFileInputRef.current?.click()}
-                onRetry={() => setProgressUploaderState("empty")}
+                onRetry={() => {
+                  setProgressUploadError(undefined);
+                  setProgressUploaderState("empty");
+                }}
               />
               <input
                 ref={progressFileInputRef}

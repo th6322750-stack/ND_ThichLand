@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import { Icon } from "@/components/icons";
 import { ContactCTA } from "@/components/public/ContactCTA";
+
+export const metadata: Metadata = {
+  title: "Về chúng tôi | NDTHICH LAND",
+  description:
+    "Công ty TNHH Đầu tư & Kinh doanh Nguyễn Đắc Thích — giới thiệu năng lực, giá trị và cách chúng tôi làm việc với khách thuê và chủ nhà.",
+  alternates: { canonical: "/gioi-thieu" },
+};
 
 const STATS = [
   { value: "500+", label: "Lượt tư vấn" },

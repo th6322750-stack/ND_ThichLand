@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import { Icon } from "@/components/icons";
 import { ContactForm } from "@/components/public/ContactForm";
 import { getZaloHref } from "@/lib/zalo";
+
+export const metadata: Metadata = {
+  title: "Liên hệ | NDTHICH LAND",
+  description: "Hotline 0986 602 203 - 0985 551 396, Zalo và form gửi yêu cầu tư vấn bất động sản cho thuê.",
+  alternates: { canonical: "/lien-he" },
+};
 
 const CONTACT_CARDS = [
   { icon: "phone" as const, label: "Hotline chính", value: "0986 602 203", href: "tel:0986602203" },
