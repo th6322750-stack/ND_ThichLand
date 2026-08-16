@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -18,11 +19,13 @@ export const dynamic = "force-dynamic";
 
 const HOTLINE_TEL = "0986602203";
 
-async function loadProjects(): Promise<ProjectListing[]> {
+// React cache(): generateMetadata and the page body both need the project,
+// and without this the CMS/Sheets read runs twice per request.
+const loadProjects = cache(async (): Promise<ProjectListing[]> => {
   if (isVisualFixtureV2Enabled()) return getVisualFixtureProjects();
   const repo = await getProjectRepository();
   return toPublicProjectListings(await repo.list());
-}
+});
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;

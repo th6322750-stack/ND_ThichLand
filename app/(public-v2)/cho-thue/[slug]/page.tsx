@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Breadcrumb2 } from "@/components/public-v2/Breadcrumb2";
@@ -27,12 +28,14 @@ const RELATED_FALLBACK_IMAGES = [
   "/assets/round8/R8_08-hoang-hon-ben-pho-ven-song.png",
 ];
 
-async function loadProperties(): Promise<PropertyListing[]> {
+// React cache(): generateMetadata and the page body both need the listing.
+// Without this the whole sheet read + overlay merge runs twice per request.
+const loadProperties = cache(async (): Promise<PropertyListing[]> => {
   if (isVisualFixtureV2Enabled()) return getVisualFixtureProperties();
   const { source, overlay } = await getRentalProviders();
   const merged = await buildMergedRentalData(source, overlay);
   return toPublicPropertyListings(merged.admin);
-}
+});
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;

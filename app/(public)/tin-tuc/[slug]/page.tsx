@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -11,10 +12,15 @@ import { getZaloHref } from "@/lib/zalo";
 
 export const dynamic = "force-dynamic";
 
+// Shared by generateMetadata and the page body — one CMS read per request.
+const loadArticles = cache(async () => {
+  const repo = await getNewsRepository();
+  return repo.list();
+});
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const repo = await getNewsRepository();
-  const record = (await repo.list()).find((r) => r.slug === slug && r.published);
+  const record = (await loadArticles()).find((r) => r.slug === slug && r.published);
   if (!record) return { title: "Không tìm thấy bài viết | NDTHICH LAND" };
   return {
     title: `${record.title} | Tin tức NDTHICH LAND`,
@@ -43,8 +49,7 @@ export default async function TinTucDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const repo = await getNewsRepository();
-  const records = await repo.list();
+  const records = await loadArticles();
   const record = records.find((r) => r.slug === slug && r.published);
   if (!record) notFound();
 

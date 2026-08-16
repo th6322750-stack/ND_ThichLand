@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "./layout";
+import { SITE_URL } from "@/lib/siteUrl";
 import { getRentalProviders } from "@/lib/server/rental/providers";
 import { buildMergedRentalData } from "@/lib/server/rental/merge";
 import { toPublicPropertyListings } from "@/lib/server/rental/dto";

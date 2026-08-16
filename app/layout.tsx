@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { SITE_URL } from "@/lib/siteUrl";
 import "./globals.css";
 
 const beVietnamPro = localFont({
@@ -14,14 +15,6 @@ const beVietnamPro = localFont({
   fallback: ["Noto Sans", "Arial", "sans-serif"],
   display: "swap",
 });
-
-/**
- * Set NEXT_PUBLIC_SITE_URL on the deployment to the real origin. Without it,
- * relative `alternates.canonical`/OG URLs resolve against localhost — which
- * is correct for local QA and harmless in preview, and the sitemap/robots
- * routes fall back to the same value.
- */
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
