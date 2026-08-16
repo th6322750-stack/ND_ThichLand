@@ -36,6 +36,7 @@ const baseInput = {
   progressText: "Đang thi công",
   progressPercent: 30,
   media: [],
+  progressPhotos: [],
 };
 
 describe("Project admin actions", () => {
@@ -88,6 +89,28 @@ describe("Project admin actions", () => {
     expect(created!.investor).toBe("Chủ đầu tư Test");
   });
 
+  it("persists progressPhotos (per-project milestone photos, not a shared hardcoded set)", async () => {
+    signInAsAdmin();
+    const { saveProjectAction, listAdminProjectsAction } = await import("@/app/actions/projects");
+    await saveProjectAction(
+      {
+        ...baseInput,
+        slug: "du-an-tien-do-test",
+        progressPhotos: [
+          { label: "Khởi công", image: "https://example.com/a.png" },
+          { label: "Bàn giao", image: "https://example.com/b.png" },
+        ],
+      },
+      true,
+    );
+    const list = await listAdminProjectsAction();
+    const created = list!.find((r) => r.slug === "du-an-tien-do-test");
+    expect(created!.progressPhotos).toEqual([
+      { label: "Khởi công", image: "https://example.com/a.png" },
+      { label: "Bàn giao", image: "https://example.com/b.png" },
+    ]);
+  });
+
   it("editing an existing (fixture-seeded) project updates it in place — no orphaned duplicate", async () => {
     signInAsAdmin();
     const { saveProjectAction, listAdminProjectsAction } = await import("@/app/actions/projects");
@@ -107,6 +130,7 @@ describe("Project admin actions", () => {
         progressText: target.progressText,
         progressPercent: target.progressPercent,
         media: target.media,
+        progressPhotos: target.progressPhotos,
       },
       true,
     );

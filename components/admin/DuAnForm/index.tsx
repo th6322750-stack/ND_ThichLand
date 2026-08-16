@@ -7,6 +7,7 @@ import { FormField } from "@/components/public/FormField";
 import { Icon } from "@/components/icons";
 import { saveProjectAction, type ProjectFormInput } from "@/app/actions/projects";
 import { uploadMediaAction } from "@/app/actions/media";
+import { PROJECT_AMENITY_CATALOG } from "@/lib/projectAmenities";
 import type { ProjectRecord } from "@/lib/server/projects/repository";
 import type { ProjectStatus } from "@/lib/types";
 
@@ -25,6 +26,9 @@ export function DuAnForm({ initial }: DuAnFormProps) {
   const [media, setMedia] = useState<string[]>(initial?.media ?? []);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [progressPhotos, setProgressPhotos] = useState<{ label: string; image: string }[]>(initial?.progressPhotos ?? []);
+  const [uploadingProgress, setUploadingProgress] = useState(false);
+  const progressFileInputRef = useRef<HTMLInputElement>(null);
 
   async function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files ?? []);
@@ -49,6 +53,33 @@ export function DuAnForm({ initial }: DuAnFormProps) {
     setMedia((prev) => prev.filter((_, i) => i !== index));
   }
 
+  async function handleProgressFileChange(e: ChangeEvent<HTMLInputElement>) {
+    const files = Array.from(e.target.files ?? []);
+    e.target.value = "";
+    if (files.length === 0) return;
+    setUploadingProgress(true);
+    try {
+      for (const file of files) {
+        const formData = new FormData();
+        formData.append("file", file);
+        const result = await uploadMediaAction(formData);
+        if (result.ok && result.record) {
+          setProgressPhotos((prev) => [...prev, { label: "", image: result.record!.webViewLink }]);
+        }
+      }
+    } finally {
+      setUploadingProgress(false);
+    }
+  }
+
+  function updateProgressPhotoLabel(index: number, label: string) {
+    setProgressPhotos((prev) => prev.map((p, i) => (i === index ? { ...p, label } : p)));
+  }
+
+  function removeProgressPhotoAt(index: number) {
+    setProgressPhotos((prev) => prev.filter((_, i) => i !== index));
+  }
+
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setSaving(true);
@@ -66,13 +97,11 @@ export function DuAnForm({ initial }: DuAnFormProps) {
         investor: get("investor"),
         status: get("status") || (initial?.status ?? ""),
         summary: get("summary"),
-        amenities: get("amenities")
-          .split(",")
-          .map((a) => a.trim())
-          .filter(Boolean),
+        amenities: data.getAll("amenities").map(String),
         progressText: get("progress"),
         progressPercent: progressMatch ? Number(progressMatch[1]) : (initial?.progressPercent ?? 0),
         media,
+        progressPhotos,
       };
 
       const result = await saveProjectAction(input, true);
@@ -166,13 +195,26 @@ export function DuAnForm({ initial }: DuAnFormProps) {
           />
         </div>
         <div className="mt-6">
-          <FormField
-            label="Tiện ích"
-            name="amenities"
-            type="textarea"
-            placeholder="Danh sách tiện ích..."
-            defaultValue={initial?.amenities.join(", ")}
-          />
+          <span className="text-label text-ink">Tiện ích nổi bật</span>
+          <p className="mt-1 text-body text-muted">Chọn tiện ích sẽ hiển thị trên trang dự án — mỗi tiện ích luôn đi kèm đúng icon tương ứng.</p>
+          <div className="mt-2 grid grid-cols-2 gap-2 tablet:grid-cols-3">
+            {PROJECT_AMENITY_CATALOG.map((a) => (
+              <label
+                key={a.label}
+                className="flex items-center gap-2 rounded-md border border-line px-3 py-2 text-body text-ink hover:border-primary"
+              >
+                <input
+                  type="checkbox"
+                  name="amenities"
+                  value={a.label}
+                  defaultChecked={initial?.amenities.includes(a.label)}
+                  className="h-4 w-4 accent-primary"
+                />
+                <Icon name={a.icon} size={16} className="shrink-0 text-primary" />
+                {a.label}
+              </label>
+            ))}
+          </div>
         </div>
         <div className="mt-6">
           <FormField
@@ -181,6 +223,56 @@ export function DuAnForm({ initial }: DuAnFormProps) {
             type="textarea"
             placeholder="Nội dung tiến độ..."
             defaultValue={initial?.progressText || (initial ? `${initial.progressPercent}% hoàn thành` : undefined)}
+          />
+        </div>
+
+        <div className="mt-6">
+          <span className="text-label text-ink">Ảnh tiến độ dự án</span>
+          <p className="mt-1 text-body text-muted">
+            Mỗi ảnh là 1 mốc tiến độ (VD: Khởi công, Cất nóc, Bàn giao) — hiện theo đúng thứ tự bên dưới trên trang dự án.
+          </p>
+          <div className="mt-2 flex flex-col gap-3">
+            {progressPhotos.map((p, i) => (
+              <div key={p.image + i} className="flex items-center gap-3 rounded-md border border-line p-2">
+                <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-md">
+                  <Image src={p.image} alt={p.label || `Mốc tiến độ ${i + 1}`} fill className="object-cover" unoptimized />
+                </div>
+                <input
+                  type="text"
+                  value={p.label}
+                  onChange={(e) => updateProgressPhotoLabel(i, e.target.value)}
+                  placeholder="VD: Khởi công dự án"
+                  aria-label={`Nhãn mốc tiến độ ${i + 1}`}
+                  className="flex-1 rounded-md border border-line px-3 py-2 text-body text-ink outline-none focus:border-primary"
+                />
+                <button
+                  type="button"
+                  onClick={() => removeProgressPhotoAt(i)}
+                  aria-label={`Xóa mốc tiến độ ${i + 1}`}
+                  className="shrink-0 rounded-md border border-error px-3 py-2 text-label text-error hover:bg-[#FDF1F1]"
+                >
+                  Xóa
+                </button>
+              </div>
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={() => progressFileInputRef.current?.click()}
+            disabled={uploadingProgress}
+            className="mt-3 flex w-full items-center gap-2 rounded-md border-2 border-dashed border-line p-6 text-label text-primary hover:border-primary disabled:opacity-60"
+          >
+            <Icon name="upload" size={18} /> {uploadingProgress ? "Đang tải..." : "Thêm ảnh mốc tiến độ"}
+          </button>
+          <input
+            ref={progressFileInputRef}
+            type="file"
+            multiple
+            accept="image/jpeg,image/png,image/webp,image/gif"
+            className="hidden"
+            aria-hidden="true"
+            tabIndex={-1}
+            onChange={handleProgressFileChange}
           />
         </div>
 

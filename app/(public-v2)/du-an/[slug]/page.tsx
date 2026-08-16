@@ -8,25 +8,22 @@ import { getZaloHref } from "@/lib/zalo";
 import { getProjectRepository } from "@/lib/server/projects/providers";
 import { toPublicProjectListings } from "@/lib/server/projects/dto";
 import { isVisualFixtureV2Enabled, getVisualFixtureProjects } from "@/lib/visualFixtureV2";
+import { iconForAmenity } from "@/lib/projectAmenities";
 import type { ProjectListing } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
 const HOTLINE_TEL = "0986602203";
 
-const AMENITY_ICONS: IconName[] = ["pool", "dumbbell", "tree", "grill", "shop", "clock", "building"];
-
-// 05_ChiTietDuAn_WEB.png uses 5 frozen milestone photographs
-// (progress-1..5.png, .webby/client-approved-v2) instead of an abstract
-// step indicator; the MOBILE master keeps the compact 3-step abstract
-// timeline instead — the two viewports intentionally differ here.
-const PROGRESS_PHOTOS = [
-  { label: "Khởi công dự án", icon: "key" as IconName, image: "/assets/v2/project-detail/progress-1.png" },
-  { label: "Thi công phần móng", icon: "key" as IconName, image: "/assets/v2/project-detail/progress-2.png" },
-  { label: "Thi công phần thân", icon: "key" as IconName, image: "/assets/v2/project-detail/progress-3.png" },
-  { label: "Cất nóc dự án", icon: "key" as IconName, image: "/assets/v2/project-detail/progress-4.png" },
-  { label: "Bàn giao dự kiến", icon: "key" as IconName, image: "/assets/v2/project-detail/progress-5.png" },
-];
+// 05_ChiTietDuAn_WEB.png uses 5 frozen milestone photographs instead of an
+// abstract step indicator; the MOBILE master keeps the compact 3-step
+// abstract timeline instead — the two viewports intentionally differ here.
+// The WEB photo grid is now real per-project data (project.progressPhotos)
+// instead of a single hardcoded set every project used to share.
+function progressPhotoStepIndex(progressPercent: number, count: number): number {
+  if (count === 0) return -1;
+  return Math.min(Math.floor((progressPercent / 100) * count), count - 1);
+}
 
 const PROGRESS_STEPS = [
   { label: "Khởi công", icon: "key" as IconName },
@@ -72,6 +69,7 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
 
   const isFixture = isVisualFixtureV2Enabled();
   const stepIndex = progressStepIndex(project.progressPercent);
+  const photoStepIndex = progressPhotoStepIndex(project.progressPercent, project.progressPhotos.length);
   const facts = projectFacts(project, isFixture);
 
   // Reuses the SAME fixture-vs-production rule as projectFacts above: only
@@ -197,7 +195,7 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
             {project.amenities.map((amenity, i) => (
               <div key={amenity} className={`flex flex-col items-center gap-1 text-center min-[900px]:gap-2 ${i >= 5 ? "hidden min-[900px]:flex" : ""}`}>
                 <Icon
-                  name={AMENITY_ICONS[i % AMENITY_ICONS.length]}
+                  name={iconForAmenity(amenity)}
                   size={16}
                   className="text-[#C08E47] min-[900px]:!h-[26px] min-[900px]:!w-[26px] wide:!h-8 wide:!w-8"
                 />
@@ -242,18 +240,28 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
         <h2 className="text-[12px] font-bold text-[#0C0D0D] min-[900px]:text-[16px] wide:text-v2-h2">Tiến độ dự án</h2>
 
         <div className="mt-5 hidden min-[900px]:grid min-[900px]:grid-cols-5 min-[900px]:gap-4 wide:mt-8 wide:gap-6">
-          {PROGRESS_PHOTOS.map((step, i) => (
-            <div key={step.label} className="flex flex-col items-center text-center">
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg wide:rounded-[14px]">
-                <Image src={step.image} alt={step.label} fill className="object-cover" unoptimized />
+          {project.progressPhotos.length > 0 ? (
+            project.progressPhotos.map((step, i) => (
+              <div key={step.image + i} className="flex flex-col items-center text-center">
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg wide:rounded-[14px]">
+                  <Image src={step.image} alt={step.label || project.name} fill className="object-cover" unoptimized />
+                </div>
+                <div
+                  className={`mt-3 h-3 w-3 rounded-full border-2 border-white ${i <= photoStepIndex ? "bg-[#880206]" : "bg-[#E4E1E0]"}`}
+                />
+                {step.label && (
+                  <p
+                    className={`mt-1 text-[13px] font-semibold wide:text-[15px] ${i === photoStepIndex ? "text-[#880206]" : "text-[#0C0D0D]"}`}
+                  >
+                    {step.label}
+                  </p>
+                )}
+                <p className="text-[11px] text-[#5F5D5D] wide:text-[13px]">{i === photoStepIndex ? project.progressText : " "}</p>
               </div>
-              <div className={`mt-3 h-3 w-3 rounded-full border-2 border-white ${i <= stepIndex ? "bg-[#880206]" : "bg-[#E4E1E0]"}`} />
-              <p className={`mt-1 text-[13px] font-semibold wide:text-[15px] ${i === stepIndex ? "text-[#880206]" : "text-[#0C0D0D]"}`}>
-                {step.label}
-              </p>
-              <p className="text-[11px] text-[#5F5D5D] wide:text-[13px]">{i === stepIndex ? project.progressText : " "}</p>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p className="col-span-5 text-[13px] text-[#5F5D5D] wide:text-[15px]">Hình ảnh tiến độ đang được cập nhật.</p>
+          )}
         </div>
 
         <div className="mt-[6px] flex items-center justify-between min-[900px]:hidden">

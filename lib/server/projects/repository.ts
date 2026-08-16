@@ -27,8 +27,38 @@ function safeJsonArray(json: string | undefined): string[] {
   }
 }
 
+function safeProgressPhotos(json: string | undefined): { label: string; image: string }[] {
+  if (!json) return [];
+  try {
+    const value = JSON.parse(json);
+    if (!Array.isArray(value)) return [];
+    return value.filter(
+      (v): v is { label: string; image: string } =>
+        typeof v === "object" && v !== null && typeof v.label === "string" && typeof v.image === "string",
+    );
+  } catch {
+    return [];
+  }
+}
+
 function rowToRecord(row: string[]): ProjectRecord | null {
-  const [id, slug, name, location, investor, status, summary, amenitiesJson, progressText, progressPercent, mediaJson, published, createdAt, updatedAt] = row;
+  const [
+    id,
+    slug,
+    name,
+    location,
+    investor,
+    status,
+    summary,
+    amenitiesJson,
+    progressText,
+    progressPercent,
+    mediaJson,
+    published,
+    createdAt,
+    updatedAt,
+    progressPhotosJson,
+  ] = row;
   if (!id) return null;
   return {
     id,
@@ -45,6 +75,9 @@ function rowToRecord(row: string[]): ProjectRecord | null {
     published: published === "true",
     createdAt: createdAt ?? "",
     updatedAt: updatedAt ?? "",
+    // Appended at the end of the row (not inserted mid-sequence) so
+    // existing WEB_PROJECTS rows keep their column alignment.
+    progressPhotos: safeProgressPhotos(progressPhotosJson),
   };
 }
 
@@ -64,23 +97,24 @@ function recordToRow(r: ProjectRecord): (string | number)[] {
     String(r.published),
     r.createdAt,
     r.updatedAt,
+    JSON.stringify(r.progressPhotos),
   ];
 }
 
 export class GoogleProjectRepository implements ProjectRepository {
   async list(): Promise<ProjectRecord[]> {
     const { cmsSpreadsheetId } = requireGoogleSpreadsheetEnv();
-    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A2:N`);
+    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A2:O`);
     return values.map(rowToRecord).filter((r): r is ProjectRecord => r !== null);
   }
 
   async upsert(record: ProjectRecord): Promise<void> {
     const { cmsSpreadsheetId } = requireGoogleSpreadsheetEnv();
-    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A2:N`);
+    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A2:O`);
     const rowIndex = values.findIndex((row) => row[0] === record.id);
     const row = recordToRow(record);
     if (rowIndex >= 0) {
-      await updateSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A${rowIndex + 2}:N${rowIndex + 2}`, row);
+      await updateSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A${rowIndex + 2}:O${rowIndex + 2}`, row);
     } else {
       await appendSheetRow(cmsSpreadsheetId, CMS_TABS.projects, row);
     }

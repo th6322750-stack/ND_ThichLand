@@ -13,6 +13,7 @@ export function toPublicProjectListing(record: ProjectRecord): ProjectListing {
     amenities: record.amenities,
     progressText: record.progressText,
     progressPercent: record.progressPercent,
+    progressPhotos: record.progressPhotos,
   };
 }
 

@@ -250,6 +250,15 @@ export function getVisualFixtureProjects(): ProjectFixture[] {
       amenities: ["Hồ bơi vô cực", "Gym & Yoga", "Công viên nội khu", "Khu BBQ", "Shophouse", "An ninh 24/7", "Sảnh đón sang trọng"],
       progressText: "Đang thi công phần thân đến tầng 20",
       progressPercent: 55,
+      // Round 7-approved milestone photo set — now genuinely per-project
+      // data instead of a hardcoded constant every project shared.
+      progressPhotos: [
+        { label: "Khởi công dự án", image: "/assets/v2/project-detail/progress-1.png" },
+        { label: "Thi công phần móng", image: "/assets/v2/project-detail/progress-2.png" },
+        { label: "Thi công phần thân", image: "/assets/v2/project-detail/progress-3.png" },
+        { label: "Cất nóc dự án", image: "/assets/v2/project-detail/progress-4.png" },
+        { label: "Bàn giao dự kiến", image: "/assets/v2/project-detail/progress-5.png" },
+      ],
     },
     {
       slug: "riverside-garden",
@@ -263,6 +272,7 @@ export function getVisualFixtureProjects(): ProjectFixture[] {
       amenities: ["Công viên nội khu", "An ninh 24/7"],
       progressText: "Hoàn thành thi công phần móng",
       progressPercent: 30,
+      progressPhotos: [],
     },
     {
       slug: "ndthich-office-tower",
@@ -276,6 +286,7 @@ export function getVisualFixtureProjects(): ProjectFixture[] {
       amenities: ["Thang máy tốc độ cao", "An ninh 24/7"],
       progressText: "Đang thi công phần thân",
       progressPercent: 45,
+      progressPhotos: [],
     },
     {
       slug: "the-central-residence",
@@ -286,9 +297,10 @@ export function getVisualFixtureProjects(): ProjectFixture[] {
       media: [R8_04],
       cardMedia: R8_04,
       summary: "Khu căn hộ trung tâm Bình Tân, đầy đủ tiện ích nội khu, giá hợp lý.",
-      amenities: ["Hồ bơi", "Công viên nội khu"],
+      amenities: ["Hồ bơi vô cực", "Công viên nội khu"],
       progressText: "Đã bàn giao",
       progressPercent: 100,
+      progressPhotos: [],
     },
     {
       slug: "garden-city",
@@ -299,9 +311,10 @@ export function getVisualFixtureProjects(): ProjectFixture[] {
       media: [R8_09],
       cardMedia: R8_09,
       summary: "Khu đô thị xanh tại Thủ Đức, quy hoạch đồng bộ, nhiều mảng xanh nội khu.",
-      amenities: ["Công viên trung tâm", "Trường học nội khu"],
+      amenities: ["Công viên nội khu", "Kết nối giao thông thuận tiện"],
       progressText: "Đang thi công hạ tầng",
       progressPercent: 40,
+      progressPhotos: [],
     },
     {
       slug: "riverside-tower",
@@ -312,9 +325,10 @@ export function getVisualFixtureProjects(): ProjectFixture[] {
       media: [R8_10],
       cardMedia: R8_10,
       summary: "Căn hộ cao tầng view sông tại Phú Nhuận, đã bàn giao và đi vào vận hành ổn định.",
-      amenities: ["Hồ bơi", "Gym"],
+      amenities: ["Hồ bơi vô cực", "Gym & Yoga"],
       progressText: "Đã bàn giao",
       progressPercent: 100,
+      progressPhotos: [],
     },
     {
       slug: "sunrise-riverside",
@@ -325,9 +339,10 @@ export function getVisualFixtureProjects(): ProjectFixture[] {
       media: [ASSET("projects/sunrise-riverside-photo.png")],
       cardMedia: ASSET("projects/sunrise-riverside-photo.png"),
       summary: "Khu căn hộ cao cấp ven sông Quận 7, tiện ích 5 sao, an ninh khép kín.",
-      amenities: ["Hồ bơi vô cực", "Công viên ven sông"],
+      amenities: ["Hồ bơi vô cực", "Công viên nội khu"],
       progressText: "Đã bàn giao",
       progressPercent: 100,
+      progressPhotos: [],
     },
     {
       slug: "van-phong-lam-viec-abc",
@@ -338,9 +353,10 @@ export function getVisualFixtureProjects(): ProjectFixture[] {
       media: [ASSET("projects/office-abc-photo.png")],
       cardMedia: ASSET("projects/office-abc-photo.png"),
       summary: "Toà văn phòng trung tâm Quận 1, kết nối giao thông thuận tiện.",
-      amenities: ["Thang máy tốc độ cao", "Bãi giữ xe rộng"],
+      amenities: ["Thang máy tốc độ cao", "Bãi đỗ xe"],
       progressText: "Đang hoàn thiện nội thất",
       progressPercent: 80,
+      progressPhotos: [],
     },
     {
       slug: "khu-nha-o-phu-gia",
@@ -354,6 +370,7 @@ export function getVisualFixtureProjects(): ProjectFixture[] {
       amenities: ["Công viên nội khu", "An ninh 24/7"],
       progressText: "Đang thi công phần thô",
       progressPercent: 35,
+      progressPhotos: [],
     },
   ];
 }

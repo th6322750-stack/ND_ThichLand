@@ -22,6 +22,7 @@ export interface ProjectFormInput {
   progressText: string;
   progressPercent: number;
   media: string[];
+  progressPhotos: { label: string; image: string }[];
 }
 
 const KNOWN_PROJECT_STATUSES: ProjectStatus[] = ["Đang triển khai", "Tiêu biểu", "Đã hoàn thành"];
@@ -91,6 +92,7 @@ export async function saveProjectAction(input: ProjectFormInput, publish: boolea
     progressText: input.progressText,
     progressPercent: input.progressPercent,
     media: input.media,
+    progressPhotos: input.progressPhotos,
     published: publish,
     createdAt: existing?.createdAt ?? now,
     updatedAt: now,

@@ -109,7 +109,7 @@ describe("production runtime without Google/Drive config fails closed", () => {
     const result = await saveProjectAction(
       {
         slug: "", name: "Dự án Test", location: "Hà Nội", investor: "CDT", status: "Đang triển khai",
-        summary: "", amenities: [], progressText: "", progressPercent: 0, media: [],
+        summary: "", amenities: [], progressText: "", progressPercent: 0, media: [], progressPhotos: [],
       },
       true,
     );

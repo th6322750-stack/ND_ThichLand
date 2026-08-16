@@ -69,6 +69,11 @@ export interface ProjectListing {
   amenities: string[];
   progressText: string;
   progressPercent: number;
+  // Per-project construction-milestone photos for the "Tiến độ dự án"
+  // section — was previously a single hardcoded 5-photo set shared by every
+  // project (never real per-project data). Empty renders a "chưa cập nhật"
+  // fallback instead of reusing another project's photos.
+  progressPhotos: { label: string; image: string }[];
 }
 
 export interface NewsArticle {
