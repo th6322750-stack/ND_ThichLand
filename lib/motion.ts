@@ -1,3 +1,5 @@
+import { useSyncExternalStore } from "react";
+
 /**
  * Feature detection for the two browser APIs the scroll/entrance effects
  * depend on.
@@ -11,6 +13,25 @@
 export function prefersReducedMotion(): boolean {
   if (typeof window === "undefined" || typeof window.matchMedia !== "function") return false;
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+/**
+ * Reactive version of prefersReducedMotion for components.
+ *
+ * useSyncExternalStore rather than useState+useEffect: the server snapshot is
+ * always false so hydration matches, it re-renders if the visitor changes the
+ * OS setting while the page is open, and it avoids the cascading render that
+ * setting state inside an effect causes.
+ */
+export function useReducedMotion(): boolean {
+  return useSyncExternalStore(subscribeToReducedMotion, prefersReducedMotion, () => false);
+}
+
+function subscribeToReducedMotion(onChange: () => void): () => void {
+  if (typeof window === "undefined" || typeof window.matchMedia !== "function") return () => {};
+  const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
 }
 
 /** True when an entrance animation should run at all. */

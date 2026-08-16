@@ -83,6 +83,17 @@
   .range-slider-thumb::-moz-range-track {
     background: transparent;
   }
+
+  /* Carousel track: a real horizontal scroll container (native momentum on
+     touch, real focusable links inside, keyboard arrows work) with the
+     scrollbar hidden because the dots/arrows are the visible affordance. */
+  .v2-track {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .v2-track::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* Keyboard users get a visible focus ring everywhere, in the brand colour.

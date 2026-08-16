@@ -5,6 +5,7 @@ import { TrustMetrics2 } from "@/components/public-v2/TrustMetrics2";
 import { HomeSearchBar2 } from "@/components/public-v2/HomeSearchBar2";
 import { PropertyCardGrid2 } from "@/components/public-v2/PropertyCardGrid2";
 import { ProjectCardOverlay2 } from "@/components/public-v2/ProjectCardOverlay2";
+import { Carousel2 } from "@/components/public-v2/Carousel2";
 import { getRentalProviders } from "@/lib/server/rental/providers";
 import { buildMergedRentalData } from "@/lib/server/rental/merge";
 import { toPublicPropertyListings } from "@/lib/server/rental/dto";
@@ -57,7 +58,10 @@ export default async function HomePageV2() {
     }));
   }
 
-  const featuredProperties = properties.slice(0, 4);
+  // 8, not 4: at the 4-up desktop breakpoint exactly four slides fill the
+  // track, so the carousel had nothing to advance to and correctly hid its
+  // own controls. Two pages' worth is what makes it move.
+  const featuredProperties = properties.slice(0, 8);
   // Round 8 asset map, section 3 "HOME Featured Rentals": R8_05-08.
   // Decorative filler ONLY for a listing with no photo of its own — a real
   // listing always shows its own photo (see the call site below), because a
@@ -68,7 +72,7 @@ export default async function HomePageV2() {
     "/assets/round8/R8_07-bo-song-do-thi-luc-hoang-hon.png",
     "/assets/round8/R8_08-hoang-hon-ben-pho-ven-song.png",
   ];
-  const featuredProjects = projects.slice(0, 4);
+  const featuredProjects = projects.slice(0, 8);
   const locationOptions = getLocationOptions(properties);
   const propertyTypeOptions = getPropertyTypeOptions(properties);
 
@@ -251,7 +255,15 @@ export default async function HomePageV2() {
             />
           </Link>
         </div>
-        <div className="v2-stagger mt-3 grid grid-cols-2 gap-3 min-[900px]:mt-3 min-[900px]:grid-cols-4 min-[900px]:gap-4 wide:mt-6 wide:gap-6">
+        {/* Auto-advancing instead of a static grid: the page previously had
+            no moving content at all, which is what made it read as frozen.
+            The fractional mobile width leaves the next card peeking, so it
+            is obvious there is more to swipe to. */}
+        <Carousel2
+          ariaLabel="Dự án nổi bật"
+          className="mt-3 min-[900px]:mt-3 wide:mt-6"
+          slideClassName="w-[62%] min-[600px]:w-[42%] min-[900px]:w-[calc((100%-3*1rem)/4)] wide:w-[calc((100%-3*1.5rem)/4)]"
+        >
           {featuredProjects.map((p) => (
             <ProjectCardOverlay2
               key={p.slug}
@@ -265,7 +277,7 @@ export default async function HomePageV2() {
               wideAspect="16/10"
             />
           ))}
-        </div>
+        </Carousel2>
       </section>
 
       {/* ============ FEATURED RENTALS ============ */}
@@ -285,17 +297,24 @@ export default async function HomePageV2() {
             />
           </Link>
         </div>
-        <div className="v2-stagger mt-3 grid grid-cols-2 gap-3 min-[900px]:mt-1 min-[900px]:grid-cols-4 min-[900px]:gap-4 wide:mt-6 wide:gap-6">
+        <Carousel2
+          ariaLabel="Bất động sản cho thuê nổi bật"
+          autoPlayMs={5200}
+          className="mt-3 min-[900px]:mt-1 wide:mt-6"
+          slideClassName="w-[62%] min-[600px]:w-[42%] min-[900px]:w-[calc((100%-3*1rem)/4)] wide:w-[calc((100%-3*1.5rem)/4)]"
+        >
           {featuredProperties.map((p, i) => (
             <PropertyCardGrid2
               key={p.slug}
               listing={p}
               mobileAspect="3/2"
-              imageOverride={p.media.length > 0 ? undefined : HOME_RENTAL_FALLBACK_IMAGES[i]}
+              imageOverride={
+                p.media.length > 0 ? undefined : HOME_RENTAL_FALLBACK_IMAGES[i % HOME_RENTAL_FALLBACK_IMAGES.length]
+              }
               wideAspect="16/10"
             />
           ))}
-        </div>
+        </Carousel2>
       </section>
 
       {/* ============ ABOUT ============ */}
@@ -369,7 +388,13 @@ export default async function HomePageV2() {
             sustain the 13px readability floor for quote/name text — stacked
             single-column on mobile instead; 900px+ keeps the original 3-up
             row unchanged. */}
-        <div className="v2-stagger mt-3 grid grid-cols-1 gap-3 min-[900px]:mt-1 min-[900px]:grid-cols-3 min-[900px]:gap-2 wide:mt-6 wide:gap-6">
+        <Carousel2
+          ariaLabel="Khách hàng nói về chúng tôi"
+          autoPlayMs={6000}
+          gapClassName="gap-3 min-[900px]:gap-2 wide:gap-6"
+          className="mt-3 min-[900px]:mt-1 wide:mt-6"
+          slideClassName="w-[86%] min-[600px]:w-[60%] min-[900px]:w-[calc((100%-2*0.5rem)/3)] wide:w-[calc((100%-2*1.5rem)/3)]"
+        >
           {TESTIMONIALS.map((t) => (
             <div
               key={t.name}
@@ -396,7 +421,7 @@ export default async function HomePageV2() {
               <p className="truncate text-[12px] text-[#5F5D5D] min-[900px]:text-[9px] wide:text-[13px]">{t.role}</p>
             </div>
           ))}
-        </div>
+        </Carousel2>
       </section>
 
       {/* ============ CONTACT + MAP ============ */}
