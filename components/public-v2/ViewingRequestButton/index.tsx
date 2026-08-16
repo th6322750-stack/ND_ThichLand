@@ -38,7 +38,7 @@ export function ViewingRequestButton({
       {open && (
         <>
           <div
-            className="fixed inset-0 z-sheet-backdrop bg-black/45 motion-safe:animate-[v2-fade-in_220ms_cubic-bezier(.2,.7,.2,1)]"
+            className="fixed inset-0 z-sheet-backdrop bg-black/45 animate-v2-fade-in"
             aria-hidden="true"
             onClick={() => setOpen(false)}
           />
@@ -47,7 +47,7 @@ export function ViewingRequestButton({
             role="dialog"
             aria-modal="true"
             aria-labelledby="dat-lich-xem-title"
-            className="fixed inset-x-0 bottom-0 z-sheet-panel max-h-[85vh] overflow-y-auto rounded-t-2xl bg-white p-5 motion-safe:animate-[v2-sheet-up_240ms_cubic-bezier(.2,.7,.2,1)] min-[900px]:inset-0 min-[900px]:m-auto min-[900px]:h-fit min-[900px]:max-w-[420px] min-[900px]:rounded-2xl"
+            className="fixed inset-x-0 bottom-0 z-sheet-panel max-h-[85vh] overflow-y-auto rounded-t-2xl bg-white p-5 animate-v2-sheet-up min-[900px]:inset-0 min-[900px]:m-auto min-[900px]:h-fit min-[900px]:max-w-[420px] min-[900px]:rounded-2xl"
           >
             <div className="flex items-start justify-between gap-3">
               <div>

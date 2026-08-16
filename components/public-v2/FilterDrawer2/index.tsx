@@ -39,16 +39,21 @@ export function FilterDrawer2({ open, onClose, committedFilters, onApply, locati
 
   return (
     <>
-      <div className="fixed inset-0 z-sheet-backdrop bg-black/45" aria-hidden="true" onClick={onClose} />
+      <div className="fixed inset-0 z-sheet-backdrop bg-black/45 animate-v2-fade-in" aria-hidden="true" onClick={onClose} />
       <div
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-label="Bộ lọc"
-        className="fixed inset-x-0 bottom-0 z-sheet-panel max-h-[85vh] overflow-y-auto rounded-t-2xl bg-white p-5"
+        className="fixed inset-x-0 bottom-0 z-sheet-panel max-h-[85vh] animate-v2-sheet-up overflow-y-auto rounded-t-2xl bg-white p-5"
       >
         <div className="flex justify-end">
-          <button type="button" aria-label="Đóng bộ lọc" onClick={onClose} className="flex h-[36px] w-[36px] items-center justify-center">
+          <button
+            type="button"
+            aria-label="Đóng bộ lọc"
+            onClick={onClose}
+            className="flex h-[36px] w-[36px] items-center justify-center rounded-md transition-colors duration-fast ease-base hover:text-[#880206]"
+          >
             <Icon name="close" size={18} />
           </button>
         </div>

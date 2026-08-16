@@ -12,15 +12,17 @@ import { test, expect } from "playwright/test";
 test.describe("production without configuration — public reads stay empty", () => {
   test("rental listing page shows no GĐ4/GĐ5 fixture properties", async ({ page }) => {
     await page.goto("/cho-thue");
-    // The empty-state title renders 3 times on this page (mobile
-    // composition, desktop composition, Filter aside) — only one or two are
-    // actually visible at once depending on viewport (the others are
-    // `desktop:hidden`/`hidden desktop:block`), so filter to whichever
-    // instance is currently on-screen rather than relying on DOM order.
-    await expect(page.locator("p:visible", { hasText: "Không tìm thấy căn phù hợp?" })).not.toHaveCount(0);
+    // The empty state distinguishes "the provider returned nothing" from
+    // "your filters excluded everything" — with no configuration this is the
+    // former, so telling the visitor to widen their filters (the previous
+    // copy asserted here) was actively misleading.
+    await expect(page.locator("p:visible", { hasText: "Hiện chưa có bất động sản nào được đăng" })).not.toHaveCount(0);
+    // No listing card of any kind, fixture or otherwise, may render.
+    await expect(page.locator('a[href^="/cho-thue/"]')).toHaveCount(0);
     // A known fixture listing must not be reachable as a "real" record.
     await page.goto("/cho-thue/can-ho-2pn-noi-that-day-du-p301");
-    await expect(page.getByRole("heading", { name: "404" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Không tìm thấy nội dung này" })).toBeVisible();
+    await expect(page.getByText("P.301", { exact: false })).toHaveCount(0);
   });
 
   test("project page shows no demo project content", async ({ page }) => {

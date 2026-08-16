@@ -142,6 +142,56 @@ describe("Project admin actions", () => {
     expect(matches[0].investor).toBe("Chủ đầu tư đã cập nhật");
   });
 
+  // Data-loss guard: two projects can easily share a name, and the id is
+  // derived from it. Before this, the second save silently replaced the
+  // first record's entire content.
+  it("refuses to create a second project onto an existing slug instead of overwriting it", async () => {
+    signInAsAdmin();
+    const { saveProjectAction, listAdminProjectsAction } = await import("@/app/actions/projects");
+    await saveProjectAction({ ...baseInput, name: "Khu Nhà Ở Trùng Tên", summary: "Bản gốc" }, true);
+    const countAfterFirst = (await listAdminProjectsAction())!.length;
+
+    const result = await saveProjectAction({ ...baseInput, name: "Khu Nhà Ở Trùng Tên", summary: "Bản ghi đè" }, true);
+
+    expect(result.ok).toBe(false);
+    expect(result.fieldErrors?.name).toMatch(/đã có dự án/i);
+    const list = await listAdminProjectsAction();
+    expect(list!.length).toBe(countAfterFirst);
+    expect(list!.find((r) => r.slug === "khu-nha-o-trung-ten")!.summary).toBe("Bản gốc");
+  });
+
+  it("still updates in place when the edit form carries the existing slug", async () => {
+    signInAsAdmin();
+    const { saveProjectAction, listAdminProjectsAction } = await import("@/app/actions/projects");
+    await saveProjectAction({ ...baseInput, name: "Dự án sửa được", summary: "v1" }, true);
+    const result = await saveProjectAction(
+      { ...baseInput, slug: "du-an-sua-duoc", name: "Dự án sửa được", summary: "v2" },
+      true,
+    );
+    expect(result.ok).toBe(true);
+    const list = await listAdminProjectsAction();
+    expect(list!.filter((r) => r.slug === "du-an-sua-duoc")).toHaveLength(1);
+    expect(list!.find((r) => r.slug === "du-an-sua-duoc")!.summary).toBe("v2");
+  });
+
+  it("saves as a draft when publish is false so an unpublished project is not silently republished", async () => {
+    signInAsAdmin();
+    const { saveProjectAction, listAdminProjectsAction } = await import("@/app/actions/projects");
+    await saveProjectAction({ ...baseInput, name: "Dự án nháp" }, false);
+    const list = await listAdminProjectsAction();
+    expect(list!.find((r) => r.slug === "du-an-nhap")!.published).toBe(false);
+  });
+
+  it("clamps progressPercent into 0-100", async () => {
+    signInAsAdmin();
+    const { saveProjectAction, listAdminProjectsAction } = await import("@/app/actions/projects");
+    await saveProjectAction({ ...baseInput, name: "Tiến độ vượt ngưỡng", progressPercent: 550 }, true);
+    await saveProjectAction({ ...baseInput, name: "Tiến độ âm", progressPercent: -20 }, true);
+    const list = await listAdminProjectsAction();
+    expect(list!.find((r) => r.slug === "tien-do-vuot-nguong")!.progressPercent).toBe(100);
+    expect(list!.find((r) => r.slug === "tien-do-am")!.progressPercent).toBe(0);
+  });
+
   it("deleteProjectAction soft-deletes — record no longer published", async () => {
     signInAsAdmin();
     const { saveProjectAction, deleteProjectAction, listAdminProjectsAction } = await import("@/app/actions/projects");

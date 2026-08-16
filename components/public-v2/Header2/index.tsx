@@ -150,7 +150,10 @@ export function Header2() {
             type="button"
             onClick={() => setMobileOpen(true)}
             aria-label="Mở menu"
-            className={`flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-md min-[900px]:hidden ${
+            aria-expanded={mobileOpen}
+            aria-haspopup="dialog"
+            aria-controls="header2-mobile-menu"
+            className={`flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-md transition-colors duration-fast ease-base min-[900px]:hidden ${
               variant.hamburgerBorderMobile ? "border border-[#E4E1E0]" : ""
             }`}
           >
@@ -162,22 +165,23 @@ export function Header2() {
       {mobileOpen && (
         <div className="min-[900px]:hidden">
           <div
-            className="fixed inset-0 z-drawer-backdrop bg-[rgba(0,0,0,.42)]"
+            className="fixed inset-0 z-drawer-backdrop bg-[rgba(0,0,0,.42)] animate-v2-fade-in"
             aria-hidden="true"
             onClick={() => setMobileOpen(false)}
           />
           <div
             ref={drawerRef}
+            id="header2-mobile-menu"
             role="dialog"
             aria-modal="true"
             aria-label="Menu điều hướng"
-            className="fixed inset-y-0 right-0 z-drawer-panel w-[288px] bg-white p-6 shadow-xl"
+            className="fixed inset-y-0 right-0 z-drawer-panel w-[288px] animate-v2-drawer-in bg-white p-6 shadow-xl"
           >
             <button
               type="button"
               onClick={() => setMobileOpen(false)}
               aria-label="Đóng menu"
-              className="ml-auto flex h-[36px] w-[36px] items-center justify-center rounded-md border border-[#E4E1E0]"
+              className="ml-auto flex h-[36px] w-[36px] items-center justify-center rounded-md border border-[#E4E1E0] transition-colors duration-fast ease-base hover:border-[#880206]"
             >
               <Icon name="close" size={18} />
             </button>
@@ -188,7 +192,7 @@ export function Header2() {
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
                   aria-current={isActive(pathname, item.href) ? "page" : undefined}
-                  className="rounded-md px-3 py-3 text-[15px] font-medium text-[#1C1F1E] hover:bg-[#F7F6F6]"
+                  className="rounded-md px-3 py-3 text-[15px] font-medium text-[#1C1F1E] transition-colors duration-fast ease-base hover:bg-[#F7F6F6] aria-[current=page]:font-bold aria-[current=page]:text-[#880206]"
                 >
                   {item.label}
                 </Link>

@@ -85,10 +85,36 @@
   }
 }
 
+/* Keyboard users get a visible focus ring everywhere, in the brand colour.
+   Mouse clicks do not (:focus-visible), so this costs nothing visually for
+   pointer users. Individual components may override the offset/colour. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid #880206;
+    outline-offset: 2px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 120ms !important;
+    animation-delay: 0ms !important;
+    /* Was 120ms, which still animated. Colour/opacity changes are kept
+       effectively instant, and the transform below is what actually matters
+       for motion sensitivity. */
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* Non-essential movement is removed outright rather than merely sped up:
+     card image zooms, sheet/drawer travel, reveal offsets. Opacity still
+     carries the state change. */
+  .motion-travel,
+  [class*="animate-[v2-"],
+  [class*="animate-v2-"] {
+    transform: none !important;
   }
 }

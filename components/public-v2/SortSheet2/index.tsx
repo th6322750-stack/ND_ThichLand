@@ -35,13 +35,13 @@ export function SortSheet2({
 
   return (
     <>
-      <div className="fixed inset-0 z-sheet-backdrop bg-black/45 motion-safe:animate-[v2-fade-in_220ms_cubic-bezier(.2,.7,.2,1)]" aria-hidden="true" onClick={onClose} />
+      <div className="fixed inset-0 z-sheet-backdrop bg-black/45 animate-v2-fade-in" aria-hidden="true" onClick={onClose} />
       <div
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-label="Sắp xếp kết quả"
-        className="fixed inset-x-0 bottom-0 z-sheet-panel rounded-t-2xl bg-white p-5 motion-safe:animate-[v2-sheet-up_240ms_cubic-bezier(.2,.7,.2,1)]"
+        className="fixed inset-x-0 bottom-0 z-sheet-panel rounded-t-2xl bg-white p-5 animate-v2-sheet-up"
       >
         <div className="flex items-center justify-between">
           <h2 className="text-[15px] font-bold text-[#0C0D0D]">Sắp xếp</h2>

@@ -117,6 +117,30 @@ const config: Config = {
       transitionDuration: {
         fast: "140ms",
         base: "220ms",
+        // Third step of the motion scale, for panel/sheet enters that need
+        // more travel than a hover state. Same easing as the other two.
+        slow: "300ms",
+      },
+      keyframes: {
+        "v2-fade-in": {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+        // Overlay panels: travel + fade together so the panel reads as
+        // arriving rather than blinking into place.
+        "v2-sheet-up": {
+          from: { opacity: "0", transform: "translateY(16px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "v2-drawer-in": {
+          from: { opacity: "0", transform: "translateX(16px)" },
+          to: { opacity: "1", transform: "translateX(0)" },
+        },
+      },
+      animation: {
+        "v2-fade-in": "v2-fade-in 220ms cubic-bezier(.2,.7,.2,1)",
+        "v2-sheet-up": "v2-sheet-up 240ms cubic-bezier(.2,.7,.2,1)",
+        "v2-drawer-in": "v2-drawer-in 240ms cubic-bezier(.2,.7,.2,1)",
       },
       maxWidth: {
         page: "1240px",

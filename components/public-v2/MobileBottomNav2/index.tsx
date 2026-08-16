@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Icon2 as Icon, type IconName } from "@/components/public-v2/Icon2";
+import { useFocusTrap } from "@/lib/useFocusTrap";
 import { useSavedListings } from "@/lib/useSavedListings";
 
 const TABS: { label: string; href: string; icon: IconName }[] = [
@@ -34,6 +35,10 @@ export function MobileBottomNav2() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { saved } = useSavedListings();
   const savedActive = pathname.startsWith("/cho-thue") && searchParams.get("luu") === "1";
+  // This sheet had no focus trap and no Escape handler, unlike every other
+  // dialog in the app.
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
+  const menuRef = useFocusTrap(menuOpen, closeMenu);
 
   return (
     <>
@@ -76,6 +81,7 @@ export function MobileBottomNav2() {
           type="button"
           onClick={() => setMenuOpen(true)}
           aria-expanded={menuOpen}
+          aria-haspopup="dialog"
           className="flex flex-col items-center gap-[2px] px-2 py-1 text-[10px] font-medium text-[#3A3838] transition-colors duration-fast ease-base"
         >
           <Icon name="menu" size={20} />
@@ -85,12 +91,17 @@ export function MobileBottomNav2() {
 
       {menuOpen && (
         <div className="min-[900px]:hidden">
-          <div className="fixed inset-0 z-drawer-backdrop bg-[rgba(0,0,0,.42)]" aria-hidden="true" onClick={() => setMenuOpen(false)} />
           <div
+            className="fixed inset-0 z-drawer-backdrop bg-[rgba(0,0,0,.42)] animate-v2-fade-in"
+            aria-hidden="true"
+            onClick={() => setMenuOpen(false)}
+          />
+          <div
+            ref={menuRef}
             role="dialog"
             aria-modal="true"
             aria-label="Menu điều hướng"
-            className="fixed inset-x-0 bottom-0 z-drawer-panel rounded-t-2xl bg-white p-5"
+            className="fixed inset-x-0 bottom-0 z-drawer-panel animate-v2-sheet-up rounded-t-2xl bg-white p-5"
           >
             <div className="flex justify-end">
               <button
