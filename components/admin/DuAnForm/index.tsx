@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { FormField } from "@/components/public/FormField";
 import { Icon } from "@/components/icons";
+import { Uploader, type UploaderState } from "@/components/admin/Uploader";
 import { saveProjectAction, type ProjectFormInput } from "@/app/actions/projects";
 import { uploadMediaAction } from "@/app/actions/media";
 import { PROJECT_AMENITY_CATALOG } from "@/lib/projectAmenities";
@@ -12,6 +13,14 @@ import type { ProjectRecord } from "@/lib/server/projects/repository";
 import type { ProjectStatus } from "@/lib/types";
 
 const PROJECT_STATUS_OPTIONS: ProjectStatus[] = ["Đang triển khai", "Tiêu biểu", "Đã hoàn thành"];
+
+// Same WYSIWYG approach as BdsForm — "để admin biết nội dung sẽ hiển thị ở
+// đâu, đồng nhất 1:1 với giao diện web" — the inputs below are styled with
+// the public /du-an/[slug] page's own literal look (same hex colors/sizes)
+// instead of the admin design-token system, each sitting where its value
+// renders live.
+const wysiwygInput =
+  "w-full border-0 border-b border-dashed border-transparent bg-transparent p-0 outline-none transition-colors hover:border-[#E4E1E0] focus:border-[#880206]";
 
 interface DuAnFormProps {
   initial?: ProjectRecord;
@@ -24,28 +33,32 @@ export function DuAnForm({ initial }: DuAnFormProps) {
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [saved, setSaved] = useState<string>();
   const [media, setMedia] = useState<string[]>(initial?.media ?? []);
-  const [uploading, setUploading] = useState(false);
+  const [uploaderState, setUploaderState] = useState<UploaderState>("empty");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [progressPhotos, setProgressPhotos] = useState<{ label: string; image: string }[]>(initial?.progressPhotos ?? []);
-  const [uploadingProgress, setUploadingProgress] = useState(false);
+  const [progressUploaderState, setProgressUploaderState] = useState<UploaderState>("empty");
   const progressFileInputRef = useRef<HTMLInputElement>(null);
+  const [selectedAmenities, setSelectedAmenities] = useState<string[]>(initial?.amenities ?? []);
 
   async function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files ?? []);
     e.target.value = "";
     if (files.length === 0) return;
-    setUploading(true);
+    setUploaderState("uploading");
     try {
       for (const file of files) {
         const formData = new FormData();
         formData.append("file", file);
         const result = await uploadMediaAction(formData);
-        if (result.ok && result.record) {
-          setMedia((prev) => [...prev, result.record!.webViewLink]);
+        if (!result.ok || !result.record) {
+          setUploaderState("error");
+          return;
         }
+        setMedia((prev) => [...prev, result.record!.webViewLink]);
       }
-    } finally {
-      setUploading(false);
+      setUploaderState("empty");
+    } catch {
+      setUploaderState("error");
     }
   }
 
@@ -57,18 +70,21 @@ export function DuAnForm({ initial }: DuAnFormProps) {
     const files = Array.from(e.target.files ?? []);
     e.target.value = "";
     if (files.length === 0) return;
-    setUploadingProgress(true);
+    setProgressUploaderState("uploading");
     try {
       for (const file of files) {
         const formData = new FormData();
         formData.append("file", file);
         const result = await uploadMediaAction(formData);
-        if (result.ok && result.record) {
-          setProgressPhotos((prev) => [...prev, { label: "", image: result.record!.webViewLink }]);
+        if (!result.ok || !result.record) {
+          setProgressUploaderState("error");
+          return;
         }
+        setProgressPhotos((prev) => [...prev, { label: "", image: result.record!.webViewLink }]);
       }
-    } finally {
-      setUploadingProgress(false);
+      setProgressUploaderState("empty");
+    } catch {
+      setProgressUploaderState("error");
     }
   }
 
@@ -78,6 +94,10 @@ export function DuAnForm({ initial }: DuAnFormProps) {
 
   function removeProgressPhotoAt(index: number) {
     setProgressPhotos((prev) => prev.filter((_, i) => i !== index));
+  }
+
+  function toggleAmenity(label: string) {
+    setSelectedAmenities((prev) => (prev.includes(label) ? prev.filter((a) => a !== label) : [...prev, label]));
   }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -97,7 +117,7 @@ export function DuAnForm({ initial }: DuAnFormProps) {
         investor: get("investor"),
         status: get("status") || (initial?.status ?? ""),
         summary: get("summary"),
-        amenities: data.getAll("amenities").map(String),
+        amenities: selectedAmenities,
         progressText: get("progress"),
         progressPercent: progressMatch ? Number(progressMatch[1]) : (initial?.progressPercent ?? 0),
         media,
@@ -123,7 +143,7 @@ export function DuAnForm({ initial }: DuAnFormProps) {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-admin-title-mobile text-ink desktop:text-admin-title">Thêm / sửa dự án</h1>
-          <p className="mt-1 text-body text-muted">Các field đúng scope dự án đã khảo sát.</p>
+          <p className="mt-1 text-body text-muted">Form bám đúng giao diện thật trên website.</p>
         </div>
         <button
           type="submit"
@@ -145,176 +165,216 @@ export function DuAnForm({ initial }: DuAnFormProps) {
         </p>
       )}
 
-      <section className="mt-6 rounded-md border border-line bg-surface p-6">
-        <h2 className="text-h3 text-ink">Thông tin dự án</h2>
-        <div className="mt-4 grid grid-cols-1 gap-6 min-[1200px]:grid-cols-2">
-          <FormField label="Tên dự án" name="name" required defaultValue={initial?.name} error={fieldErrors.name} />
-          <FormField
-            label="Vị trí"
-            name="location"
-            required
-            defaultValue={initial?.location}
-            error={fieldErrors.location}
-          />
-          <FormField label="Chủ đầu tư" name="investor" required defaultValue={initial?.investor} />
-          <div className="flex flex-col gap-1">
-            <label htmlFor="project-status" className="text-label text-ink">
-              Trạng thái *
-            </label>
-            <select
-              id="project-status"
-              name="status"
-              required
-              defaultValue={initial?.status ?? PROJECT_STATUS_OPTIONS[0]}
-              aria-invalid={!!fieldErrors.status}
-              className={`rounded-md border px-4 py-3 text-body outline-none transition-colors duration-fast focus:ring-2 focus:ring-primary ${
-                fieldErrors.status ? "border-error" : "border-line focus:border-primary"
-              }`}
-            >
-              {PROJECT_STATUS_OPTIONS.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
-            {fieldErrors.status && (
-              <span role="alert" className="text-body text-error">
-                {fieldErrors.status}
-              </span>
-            )}
+      <div className="mt-6 flex flex-col gap-6">
+        {/* This section IS the real /du-an/[slug] WEB layout — same hex
+            colors/sizes as the public page, not the admin design tokens —
+            so each field sits exactly where its value renders live. */}
+        <section className="overflow-hidden rounded-md border border-line bg-surface">
+          <div className="flex items-center justify-between border-b border-line bg-soft px-6 py-3">
+            <span className="text-label text-ink">Giao diện thật trên website</span>
+            <span className="rounded-full bg-success/10 px-3 py-1 text-label text-success">HIỂN THỊ WEBSITE</span>
           </div>
-        </div>
 
-        <div className="mt-6">
-          <FormField
-            label="Nội dung giới thiệu"
-            name="summary"
-            type="textarea"
-            placeholder="Nội dung tổng quan..."
-            defaultValue={initial?.summary}
-          />
-        </div>
-        <div className="mt-6">
-          <span className="text-label text-ink">Tiện ích nổi bật</span>
-          <p className="mt-1 text-body text-muted">Chọn tiện ích sẽ hiển thị trên trang dự án — mỗi tiện ích luôn đi kèm đúng icon tương ứng.</p>
-          <div className="mt-2 grid grid-cols-2 gap-2 tablet:grid-cols-3">
-            {PROJECT_AMENITY_CATALOG.map((a) => (
-              <label
-                key={a.label}
-                className="flex items-center gap-2 rounded-md border border-line px-3 py-2 text-body text-ink hover:border-primary"
-              >
+          <div className="p-6">
+            {/* Gallery zone — same spot as Gallery2 on the real page. */}
+            <div>
+              <div className="grid grid-cols-2 gap-3 tablet:grid-cols-4">
+                <Uploader state={uploaderState} onClick={() => fileInputRef.current?.click()} onRetry={() => setUploaderState("empty")} />
                 <input
-                  type="checkbox"
-                  name="amenities"
-                  value={a.label}
-                  defaultChecked={initial?.amenities.includes(a.label)}
-                  className="h-4 w-4 accent-primary"
+                  ref={fileInputRef}
+                  type="file"
+                  multiple
+                  accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm"
+                  className="hidden"
+                  aria-hidden="true"
+                  tabIndex={-1}
+                  onChange={handleFileChange}
                 />
-                <Icon name={a.icon} size={16} className="shrink-0 text-primary" />
-                {a.label}
-              </label>
-            ))}
-          </div>
-        </div>
-        <div className="mt-6">
-          <FormField
-            label="Tiến độ"
-            name="progress"
-            type="textarea"
-            placeholder="Nội dung tiến độ..."
-            defaultValue={initial?.progressText || (initial ? `${initial.progressPercent}% hoàn thành` : undefined)}
-          />
-        </div>
-
-        <div className="mt-6">
-          <span className="text-label text-ink">Ảnh tiến độ dự án</span>
-          <p className="mt-1 text-body text-muted">
-            Mỗi ảnh là 1 mốc tiến độ (VD: Khởi công, Cất nóc, Bàn giao) — hiện theo đúng thứ tự bên dưới trên trang dự án.
-          </p>
-          <div className="mt-2 flex flex-col gap-3">
-            {progressPhotos.map((p, i) => (
-              <div key={p.image + i} className="flex items-center gap-3 rounded-md border border-line p-2">
-                <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-md">
-                  <Image src={p.image} alt={p.label || `Mốc tiến độ ${i + 1}`} fill className="object-cover" unoptimized />
-                </div>
-                <input
-                  type="text"
-                  value={p.label}
-                  onChange={(e) => updateProgressPhotoLabel(i, e.target.value)}
-                  placeholder="VD: Khởi công dự án"
-                  aria-label={`Nhãn mốc tiến độ ${i + 1}`}
-                  className="flex-1 rounded-md border border-line px-3 py-2 text-body text-ink outline-none focus:border-primary"
-                />
-                <button
-                  type="button"
-                  onClick={() => removeProgressPhotoAt(i)}
-                  aria-label={`Xóa mốc tiến độ ${i + 1}`}
-                  className="shrink-0 rounded-md border border-error px-3 py-2 text-label text-error hover:bg-[#FDF1F1]"
-                >
-                  Xóa
-                </button>
+                {media.map((src, i) => (
+                  <div key={src + i} className="group relative aspect-[4/3] overflow-hidden rounded-md">
+                    <Image src={src} alt={`Ảnh ${i + 1}`} fill className="object-cover" unoptimized />
+                    <button
+                      type="button"
+                      onClick={() => removeMediaAt(i)}
+                      aria-label={`Xóa ảnh ${i + 1}`}
+                      className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white opacity-0 transition-opacity hover:bg-error group-hover:opacity-100"
+                    >
+                      <Icon name="close" size={12} />
+                    </button>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <button
-            type="button"
-            onClick={() => progressFileInputRef.current?.click()}
-            disabled={uploadingProgress}
-            className="mt-3 flex w-full items-center gap-2 rounded-md border-2 border-dashed border-line p-6 text-label text-primary hover:border-primary disabled:opacity-60"
-          >
-            <Icon name="upload" size={18} /> {uploadingProgress ? "Đang tải..." : "Thêm ảnh mốc tiến độ"}
-          </button>
-          <input
-            ref={progressFileInputRef}
-            type="file"
-            multiple
-            accept="image/jpeg,image/png,image/webp,image/gif"
-            className="hidden"
-            aria-hidden="true"
-            tabIndex={-1}
-            onChange={handleProgressFileChange}
-          />
-        </div>
+              <p className="mt-2 text-body text-muted">
+                {media.length === 0
+                  ? "Chưa có ảnh — đây là khu vực gallery chính trên trang chi tiết. Có thể chọn nhiều ảnh cùng lúc."
+                  : "Có thể bấm ô tải ảnh nhiều lần hoặc chọn nhiều ảnh cùng lúc để thêm."}
+              </p>
+            </div>
 
-        <div className="mt-6">
-          <span className="text-label text-ink">Album ảnh</span>
-          <button
-            type="button"
-            onClick={() => fileInputRef.current?.click()}
-            disabled={uploading}
-            className="mt-2 flex w-full items-center gap-2 rounded-md border-2 border-dashed border-line p-6 text-label text-primary hover:border-primary disabled:opacity-60"
-          >
-            <Icon name="upload" size={18} /> {uploading ? "Đang tải..." : "Tải / chọn media"}
-          </button>
-          <input
-            ref={fileInputRef}
-            type="file"
-            multiple
-            accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm"
-            className="hidden"
-            aria-hidden="true"
-            tabIndex={-1}
-            onChange={handleFileChange}
-          />
-          {media.length > 0 && (
-            <div className="mt-4 grid grid-cols-2 gap-4 tablet:grid-cols-4">
-              {media.map((src, i) => (
-                <div key={src + i} className="group relative aspect-[4/3] overflow-hidden rounded-md">
-                  <Image src={src} alt={`Ảnh ${i + 1}`} fill className="object-cover" unoptimized />
-                  <button
-                    type="button"
-                    onClick={() => removeMediaAt(i)}
-                    aria-label={`Xóa ảnh ${i + 1}`}
-                    className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white opacity-0 transition-opacity hover:bg-error group-hover:opacity-100"
-                  >
-                    <Icon name="close" size={12} />
-                  </button>
+            {/* Title + status + location — same row/order as WEB. */}
+            <div className="mt-6 flex flex-wrap items-center gap-2">
+              <input
+                name="name"
+                placeholder="Tên dự án (VD: Sun Galaxy Complex)"
+                defaultValue={initial?.name}
+                aria-label="Tên dự án"
+                className={`${wysiwygInput} w-auto flex-1 text-[20px] font-extrabold leading-tight text-[#0C0D0D] placeholder:text-[#C9C6C5]`}
+              />
+              <select
+                name="status"
+                defaultValue={initial?.status ?? PROJECT_STATUS_OPTIONS[0]}
+                aria-label="Trạng thái dự án"
+                className="shrink-0 rounded-full border-0 bg-[#FBEFE3] px-3 py-1 text-[12px] font-bold text-[#C08E47] outline-none"
+              >
+                {PROJECT_STATUS_OPTIONS.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {fieldErrors.name && <p className="mt-1 text-body text-error">{fieldErrors.name}</p>}
+            {fieldErrors.status && <p className="mt-1 text-body text-error">{fieldErrors.status}</p>}
+
+            <div className="mt-2 flex items-center gap-[6px]">
+              <Icon name="pin" size={15} className="shrink-0 text-[#5F5D5D]" />
+              <input
+                name="location"
+                placeholder="Vị trí (VD: Quận 7, TP. HCM)"
+                defaultValue={initial?.location}
+                aria-label="Vị trí"
+                className={`${wysiwygInput} text-[13px] text-[#5F5D5D] placeholder:text-[#C9C6C5]`}
+              />
+            </div>
+            {fieldErrors.location && <p className="mt-1 text-body text-error">{fieldErrors.location}</p>}
+
+            {/* Facts grid — only Chủ đầu tư has a real field; the other 3
+                (Loại hình/Quy mô/Số lượng) render "Đang cập nhật" on the
+                real page too — no CMS field exists for them yet, so this
+                stays a static preview of that same fallback, not an input
+                that would silently do nothing. */}
+            <div className="mt-5 grid grid-cols-4 gap-2">
+              <div className="rounded-lg border border-[#EDEBEA] p-2 text-center">
+                <Icon name="building" size={20} className="mx-auto text-[#880206]" />
+                <input
+                  name="investor"
+                  placeholder="Chủ đầu tư"
+                  defaultValue={initial?.investor}
+                  aria-label="Chủ đầu tư"
+                  className={`${wysiwygInput} mt-1 text-center text-[11px] font-bold text-[#0C0D0D] placeholder:text-[#C9C6C5]`}
+                />
+                <p className="leading-tight text-[9px] text-[#5F5D5D]">Chủ đầu tư</p>
+              </div>
+              {["Loại hình", "Quy mô", "Số lượng"].map((label) => (
+                <div key={label} className="rounded-lg border border-[#EDEBEA] p-2 text-center opacity-60">
+                  <Icon name="building" size={20} className="mx-auto text-[#5F5D5D]" />
+                  <p className="mt-1 leading-tight text-[11px] font-bold text-[#0C0D0D]">Đang cập nhật</p>
+                  <p className="leading-tight text-[9px] text-[#5F5D5D]">{label}</p>
                 </div>
               ))}
             </div>
-          )}
-        </div>
-      </section>
+
+            {/* Summary — same heading/style as "Thông tin dự án" on WEB. */}
+            <div className="mt-6">
+              <p className="text-[16px] font-bold text-[#0C0D0D]">Thông tin dự án</p>
+              <textarea
+                name="summary"
+                placeholder="Nội dung tổng quan về dự án..."
+                defaultValue={initial?.summary}
+                rows={4}
+                aria-label="Nội dung giới thiệu"
+                className={`${wysiwygInput} mt-2 resize-none text-[13px] leading-relaxed text-[#3A3838] placeholder:text-[#C9C6C5]`}
+              />
+            </div>
+
+            {/* Amenities — toggle chips ARE the same icon+label tile that
+                renders on the real page, so selecting them already shows
+                exactly what will display (no separate preview needed). */}
+            <div className="mt-6">
+              <p className="text-[16px] font-bold text-[#0C0D0D]">Tiện ích nổi bật</p>
+              <p className="text-body text-muted">Bấm để bật/tắt — icon hiện đúng như trên trang dự án.</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {PROJECT_AMENITY_CATALOG.map((a) => {
+                  const active = selectedAmenities.includes(a.label);
+                  return (
+                    <button
+                      key={a.label}
+                      type="button"
+                      onClick={() => toggleAmenity(a.label)}
+                      aria-pressed={active}
+                      className={`flex w-[84px] flex-col items-center gap-1 rounded-lg border p-2 text-center transition-colors ${
+                        active ? "border-[#880206] bg-[#FBEFE3]" : "border-[#EDEBEA] hover:border-[#880206]"
+                      }`}
+                    >
+                      <Icon name={a.icon} size={20} className={active ? "text-[#880206]" : "text-[#C08E47]"} />
+                      <span className={`text-[9px] font-medium leading-tight ${active ? "text-[#880206]" : "text-[#0C0D0D]"}`}>
+                        {a.label}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Tiến độ dự án zone — same 5-photo-tile grid as WEB, each tile
+              editable in place (label input directly under its photo). */}
+          <div className="border-t border-line px-6 py-6">
+            <p className="text-[16px] font-bold text-[#0C0D0D]">Tiến độ dự án</p>
+            <FormField
+              label="Mô tả tiến độ hiện tại"
+              name="progress"
+              type="textarea"
+              placeholder="VD: Đang thi công phần thân đến tầng 20, 55% hoàn thành"
+              defaultValue={initial?.progressText || (initial ? `${initial.progressPercent}% hoàn thành` : undefined)}
+              hint="Ghi kèm số % (VD: 55%) để cập nhật mốc tiến độ hiện tại — hiện dưới ảnh tương ứng trên WEB."
+            />
+            <div className="mt-4 grid grid-cols-2 gap-3 tablet:grid-cols-5">
+              {progressPhotos.map((p, i) => (
+                <div key={p.image + i} className="flex flex-col items-center text-center">
+                  <div className="group relative aspect-[4/3] w-full overflow-hidden rounded-lg">
+                    <Image src={p.image} alt={p.label || `Mốc tiến độ ${i + 1}`} fill className="object-cover" unoptimized />
+                    <button
+                      type="button"
+                      onClick={() => removeProgressPhotoAt(i)}
+                      aria-label={`Xóa mốc tiến độ ${i + 1}`}
+                      className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white opacity-0 transition-opacity hover:bg-error group-hover:opacity-100"
+                    >
+                      <Icon name="close" size={12} />
+                    </button>
+                  </div>
+                  <input
+                    type="text"
+                    value={p.label}
+                    onChange={(e) => updateProgressPhotoLabel(i, e.target.value)}
+                    placeholder="VD: Khởi công dự án"
+                    aria-label={`Nhãn mốc tiến độ ${i + 1}`}
+                    className="mt-2 w-full border-0 border-b border-dashed border-[#E4E1E0] bg-transparent p-0 text-center text-[13px] font-semibold text-[#0C0D0D] outline-none placeholder:text-[#C9C6C5] focus:border-[#880206]"
+                  />
+                </div>
+              ))}
+              <Uploader
+                state={progressUploaderState}
+                onClick={() => progressFileInputRef.current?.click()}
+                onRetry={() => setProgressUploaderState("empty")}
+              />
+              <input
+                ref={progressFileInputRef}
+                type="file"
+                multiple
+                accept="image/jpeg,image/png,image/webp,image/gif"
+                className="hidden"
+                aria-hidden="true"
+                tabIndex={-1}
+                onChange={handleProgressFileChange}
+              />
+            </div>
+            <p className="mt-2 text-body text-muted">
+              Mỗi ảnh là 1 mốc tiến độ, hiện theo đúng thứ tự trên — dự án chưa có ảnh sẽ hiện &quot;Đang được cập nhật&quot; thay vì dùng ảnh của dự án khác.
+            </p>
+          </div>
+        </section>
+      </div>
     </form>
   );
 }
