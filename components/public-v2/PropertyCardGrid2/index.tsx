@@ -35,7 +35,7 @@ export function PropertyCardGrid2({
   return (
     <Link
       href={`/cho-thue/${listing.slug}`}
-      className="group block overflow-hidden rounded-lg border border-[#EDEBEA] bg-white transition-shadow duration-base ease-base hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#880206] wide:shadow-v2-premium wide:hover:shadow-v2-premium-hover"
+      className="group block overflow-hidden rounded-lg border border-[#EDEBEA] bg-white transition-[box-shadow,transform,border-color] duration-base ease-base hover:-translate-y-1 hover:border-[#E0D6D6] hover:shadow-[0_14px_30px_-12px_rgba(12,13,13,0.22)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#880206] motion-reduce:transform-none wide:shadow-v2-premium wide:hover:shadow-v2-premium-hover"
     >
       <div
         className="relative overflow-hidden aspect-[var(--mobile-aspect)] min-[900px]:aspect-[var(--desktop-aspect)] wide:aspect-[var(--wide-aspect)]"
@@ -54,12 +54,12 @@ export function PropertyCardGrid2({
           className="object-cover transition-transform duration-base ease-base group-hover:scale-[1.03] motion-reduce:transform-none"
           unoptimized
         />
-        <span className="absolute left-[10px] top-[10px] rounded-full bg-black/55 px-[10px] py-1 text-[11px] font-medium text-white wide:py-[6px] wide:text-[12px]">
+        <span className="absolute left-[10px] top-[10px] rounded-full bg-black/55 px-[10px] py-1 text-[11px] font-medium text-white backdrop-blur-[2px] transition-colors duration-base ease-base group-hover:bg-[#880206] wide:py-[6px] wide:text-[12px]">
           {listing.propertyType}
         </span>
       </div>
       <div className="p-2 leading-tight min-[900px]:p-2 wide:p-4">
-        <h3 className="line-clamp-1 text-[14px] leading-[20px] font-bold text-[#0C0D0D] min-[900px]:text-[13px] min-[900px]:leading-normal wide:text-[16px] wide:leading-[23px]">
+        <h3 className="line-clamp-1 text-[14px] leading-[20px] font-bold text-[#0C0D0D] transition-colors duration-fast ease-base group-hover:text-[#880206] min-[900px]:text-[13px] min-[900px]:leading-normal wide:text-[16px] wide:leading-[23px]">
           {listing.roomNo}
         </h3>
         <p className="mt-1 line-clamp-1 flex items-center gap-1 text-[11px] leading-[17px] text-[#5F5D5D] min-[900px]:mt-1 min-[900px]:text-[11px] min-[900px]:leading-normal wide:text-[13px] wide:leading-[19px]">

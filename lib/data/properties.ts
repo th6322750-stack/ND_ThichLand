@@ -1,6 +1,19 @@
 import type { PropertyListing } from "../types";
 
-const PLACEHOLDER = "/assets/placeholders/property-placeholder.svg";
+// Real approved demo photography (not raw sheet content — see the fixture
+// policy note on getRentalProviders' seedFixtureData), matched by property
+// type so a client demo shows a believable photo instead of a blank
+// placeholder tile. Same asset set already used by lib/visualFixtureV2.ts.
+const APARTMENT = "/assets/v2/properties/sunrise-city-view.png";
+const STUDIO = "/assets/v2/properties/room-furnished.png";
+const STOREFRONT = "/assets/v2/properties/storefront-mt.png";
+const HOUSE = "/assets/v2/properties/house-alley-8m.png";
+const OFFICE = "/assets/v2/properties/office-abc.png";
+const WAREHOUSE = "/assets/v2/properties/warehouse.png";
+const THUMB_LIVING = "/assets/v2/property-detail/thumb-living.png";
+const THUMB_KITCHEN = "/assets/v2/property-detail/thumb-kitchen.png";
+const THUMB_DINING = "/assets/v2/property-detail/thumb-dining.png";
+const MAIN_INTERIOR = "/assets/v2/property-detail/main-interior.png";
 
 export const properties: PropertyListing[] = [
   {
@@ -16,7 +29,7 @@ export const properties: PropertyListing[] = [
     description: "Căn hộ 2 phòng ngủ nội thất đầy đủ, sẵn sàng vào ở ngay.",
     highlights: ["Nội thất đầy đủ", "Ban công", "Vào ngay"],
     availability: "Còn trống",
-    media: [PLACEHOLDER, PLACEHOLDER, PLACEHOLDER],
+    media: [APARTMENT, THUMB_LIVING, THUMB_KITCHEN],
     bedroomCount: null,
     furnishingStatus: null,
     bathroomCount: null,
@@ -37,7 +50,7 @@ export const properties: PropertyListing[] = [
     description: "Studio ban công thoáng, phù hợp sinh viên và người đi làm.",
     highlights: ["Ban công", "Nội thất", "Vào ngay"],
     availability: "Còn trống",
-    media: [PLACEHOLDER, PLACEHOLDER],
+    media: [STUDIO, THUMB_LIVING],
     bedroomCount: null,
     furnishingStatus: null,
     bathroomCount: null,
@@ -58,7 +71,7 @@ export const properties: PropertyListing[] = [
     description: "Mặt bằng kinh doanh mặt phố, vị trí đông người qua lại.",
     highlights: ["Mặt tiền rộng", "Kinh doanh đa ngành", "Vào ngay"],
     availability: "Còn trống",
-    media: [PLACEHOLDER, PLACEHOLDER],
+    media: [STOREFRONT, MAIN_INTERIOR],
     bedroomCount: null,
     furnishingStatus: null,
     bathroomCount: null,
@@ -79,7 +92,7 @@ export const properties: PropertyListing[] = [
     description: "Nhà nguyên căn 4 tầng, phù hợp hộ gia đình hoặc văn phòng nhỏ.",
     highlights: ["Nguyên căn", "4 tầng", "Chỗ để xe"],
     availability: "Còn trống",
-    media: [PLACEHOLDER, PLACEHOLDER, PLACEHOLDER],
+    media: [HOUSE, THUMB_LIVING, THUMB_DINING],
     bedroomCount: null,
     furnishingStatus: null,
     bathroomCount: null,
@@ -100,7 +113,7 @@ export const properties: PropertyListing[] = [
     description: "Văn phòng sáng, vào ngay, nội thất cơ bản.",
     highlights: ["Sáng thoáng", "Vào ngay", "Có thang máy"],
     availability: "Còn trống",
-    media: [PLACEHOLDER, PLACEHOLDER],
+    media: [OFFICE, MAIN_INTERIOR],
     bedroomCount: null,
     furnishingStatus: null,
     bathroomCount: null,
@@ -121,7 +134,7 @@ export const properties: PropertyListing[] = [
     description: "Xưởng rộng, xe tải vào tận nơi, phù hợp sản xuất/kho bãi.",
     highlights: ["Xe tải vào", "Trần cao", "Điện 3 pha"],
     availability: "Còn trống",
-    media: [PLACEHOLDER, PLACEHOLDER],
+    media: [WAREHOUSE, WAREHOUSE],
     bedroomCount: null,
     furnishingStatus: null,
     bathroomCount: null,
@@ -142,7 +155,7 @@ export const properties: PropertyListing[] = [
     description: "Căn hộ 1 phòng ngủ, view thoáng, đầy đủ tiện nghi cơ bản.",
     highlights: ["View thoáng", "An ninh 24/7"],
     availability: "Còn trống",
-    media: [PLACEHOLDER, PLACEHOLDER],
+    media: [APARTMENT, THUMB_DINING],
     bedroomCount: null,
     furnishingStatus: null,
     bathroomCount: null,
@@ -163,7 +176,7 @@ export const properties: PropertyListing[] = [
     description: "Studio gác lửng, giá tốt cho sinh viên.",
     highlights: ["Giá tốt", "Gần trường học"],
     availability: "Sắp trống",
-    media: [PLACEHOLDER],
+    media: [STUDIO],
     bedroomCount: null,
     furnishingStatus: null,
     bathroomCount: null,
@@ -184,7 +197,7 @@ export const properties: PropertyListing[] = [
     description: "Mặt bằng tầng trệt tòa nhà văn phòng, phù hợp ngân hàng/showroom.",
     highlights: ["Sảnh riêng", "Bãi đỗ xe"],
     availability: "Đã cho thuê",
-    media: [PLACEHOLDER, PLACEHOLDER],
+    media: [OFFICE, STOREFRONT],
     bedroomCount: null,
     furnishingStatus: null,
     bathroomCount: null,
@@ -205,7 +218,7 @@ export const properties: PropertyListing[] = [
     description: "Nhà mặt phố kết hợp ở và kinh doanh.",
     highlights: ["Mặt phố", "Vừa ở vừa kinh doanh"],
     availability: "Còn trống",
-    media: [PLACEHOLDER, PLACEHOLDER],
+    media: [HOUSE, STOREFRONT],
     bedroomCount: null,
     furnishingStatus: null,
     bathroomCount: null,
@@ -226,7 +239,7 @@ export const properties: PropertyListing[] = [
     description: "Văn phòng nhỏ gọn, phù hợp startup.",
     highlights: ["Đầy đủ nội thất", "Internet tốc độ cao"],
     availability: "Còn trống",
-    media: [PLACEHOLDER],
+    media: [OFFICE],
     bedroomCount: null,
     furnishingStatus: null,
     bathroomCount: null,
@@ -247,7 +260,7 @@ export const properties: PropertyListing[] = [
     description: "Kho bãi rộng, gần trục đường lớn.",
     highlights: ["Gần trục đường lớn", "An ninh bảo vệ"],
     availability: "Còn trống",
-    media: [PLACEHOLDER, PLACEHOLDER],
+    media: [WAREHOUSE, MAIN_INTERIOR],
     bedroomCount: null,
     furnishingStatus: null,
     bathroomCount: null,

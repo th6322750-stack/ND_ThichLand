@@ -151,7 +151,13 @@ export function HomeSearchBar2({ locationOptions, propertyTypeOptions }: HomeSea
             rows, matching how WEB already did it — no divider border. */}
         <div>
           <div className="flex items-center gap-2">
-            <div className="relative min-w-0 w-[63%]">
+            {/* w-[63%] only ever matched the mobile 34%-wide button below it
+                — at >=900px the button switches to an auto/fixed width and
+                this stayed pinned at 63%, leaving a large dead gap between
+                the input and the button instead of the row filling edge to
+                edge. min-[900px]:flex-1 lets it take up whatever the button
+                doesn't need, same behavior WebField's row already assumes. */}
+            <div className="relative min-w-0 w-[63%] min-[900px]:w-auto min-[900px]:flex-1">
               <input
                 type="search"
                 aria-label="Từ khóa"

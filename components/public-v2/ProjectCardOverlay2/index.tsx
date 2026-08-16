@@ -59,7 +59,9 @@ export function ProjectCardOverlay2({
           photos (sky, light facades) — strengthened the mid-stop so there's
           real darkening behind the text without flattening the whole
           image. */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+      {/* Slightly deeper on hover so the card reads as "coming forward"
+          rather than only shifting position. */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent transition-opacity duration-base ease-base group-hover:from-black/90 group-hover:via-black/40" />
       <div className={compact ? "absolute inset-x-0 bottom-0 p-3 min-[900px]:p-3 wide:p-[18px]" : "absolute inset-x-0 bottom-0 p-4"}>
         <h3
           className={
@@ -87,7 +89,7 @@ export function ProjectCardOverlay2({
     return (
       <Link
         href={`/du-an/${slug}`}
-        className="block overflow-hidden rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#880206]"
+        className="block overflow-hidden rounded-lg transition-[transform,box-shadow] duration-base ease-base hover:-translate-y-1 hover:shadow-[0_16px_32px_-14px_rgba(12,13,13,0.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#880206] motion-reduce:transform-none"
       >
         {media}
       </Link>
@@ -97,7 +99,7 @@ export function ProjectCardOverlay2({
   return (
     <Link
       href={`/du-an/${slug}`}
-      className="group/card block overflow-hidden rounded-lg border border-[#EDEBEA] bg-white transition-shadow duration-base ease-base hover:shadow-v2-premium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#880206]"
+      className="group/card block overflow-hidden rounded-lg border border-[#EDEBEA] bg-white transition-[transform,box-shadow] duration-base ease-base hover:-translate-y-1 hover:shadow-[0_16px_32px_-14px_rgba(12,13,13,0.28)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#880206] motion-reduce:transform-none"
     >
       {media}
       <div className="p-1 min-[900px]:p-3">

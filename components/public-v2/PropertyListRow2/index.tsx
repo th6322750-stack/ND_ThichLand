@@ -28,13 +28,13 @@ export function PropertyListRow2({ listing }: { listing: PropertyListing }) {
   ].filter(Boolean);
 
   return (
-    <div className="overflow-hidden rounded-xl border border-[#EDEBEA] bg-white transition-shadow hover:shadow-[0_16px_32px_-20px_rgba(12,13,13,0.25)] min-[900px]:flex min-[900px]:gap-4 min-[900px]:overflow-visible min-[900px]:rounded-none min-[900px]:border-0 min-[900px]:border-b min-[900px]:border-[#EDEBEA] min-[900px]:pb-3 min-[900px]:shadow-none min-[900px]:hover:shadow-none wide:gap-6 wide:pb-5">
-      <div className="relative aspect-[16/10] min-[900px]:aspect-[3/2] min-[900px]:w-[220px] min-[900px]:shrink-0 min-[900px]:overflow-hidden min-[900px]:rounded-lg wide:w-[260px] wide:rounded-[14px]">
+    <div className="group overflow-hidden rounded-xl border border-[#EDEBEA] bg-white transition-shadow duration-base ease-base hover:shadow-[0_16px_32px_-20px_rgba(12,13,13,0.25)] min-[900px]:flex min-[900px]:gap-4 min-[900px]:overflow-visible min-[900px]:rounded-none min-[900px]:border-0 min-[900px]:border-b min-[900px]:border-[#EDEBEA] min-[900px]:pb-3 min-[900px]:shadow-none min-[900px]:hover:shadow-none wide:gap-6 wide:pb-5">
+      <div className="relative aspect-[16/10] overflow-hidden min-[900px]:aspect-[3/2] min-[900px]:w-[220px] min-[900px]:shrink-0 min-[900px]:rounded-lg wide:w-[260px] wide:rounded-[14px]">
         <Image
           src={firstMedia(listing.media, PROPERTY_PLACEHOLDER)}
           alt={listing.roomNo}
           fill
-          className="object-cover"
+          className="object-cover transition-transform duration-base ease-base group-hover:scale-[1.03] motion-reduce:transform-none"
           unoptimized
         />
         <span className="absolute bottom-2 left-2 rounded-full bg-black/55 px-2 py-1 text-[10px] font-medium text-white min-[900px]:hidden">

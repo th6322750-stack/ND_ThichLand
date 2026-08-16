@@ -60,6 +60,7 @@ export function Header2() {
   const pathname = usePathname() ?? "";
   const variant = HEADER_VARIANTS[headerVariantFor(pathname)];
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const drawerRef = useFocusTrap(mobileOpen, () => setMobileOpen(false));
 
   useEffect(() => {
@@ -69,12 +70,31 @@ export function Header2() {
     };
   }, [mobileOpen]);
 
+  // Lifts the sticky header off the page once it starts overlapping content,
+  // so it reads as a floating bar instead of a flat strip welded to the top.
+  // Passive listener + a boolean (not a scroll position in state) means at
+  // most two re-renders for a whole page of scrolling.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-[#EDEBEA] bg-white" data-qa-region="header">
+    <header
+      className={`sticky top-0 z-50 border-b bg-white transition-[box-shadow,border-color] duration-base ease-base ${
+        scrolled ? "border-transparent shadow-[0_6px_24px_-12px_rgba(12,13,13,0.28)]" : "border-[#EDEBEA] shadow-none"
+      }`}
+      data-qa-region="header"
+    >
       <div
         className={`v2-container flex items-center justify-between gap-4 ${variant.mobilePadding} min-[900px]:py-3 wide:min-h-[80px] wide:py-4`}
       >
-        <Link href="/" className="flex shrink-0 items-center gap-2">
+        <Link
+          href="/"
+          className="flex shrink-0 items-center gap-2 transition-opacity duration-fast ease-base hover:opacity-80"
+        >
           {/* Client feedback: logo + company name read too small against
               the header's width, with a lot of empty vertical margin
               around them — logo up ~12% (32px -> 36px), and at >=1440px
@@ -111,13 +131,22 @@ export function Header2() {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`border-b-2 pb-1 text-[15px] font-medium transition-colors wide:text-v2-nav ${
-                  active
-                    ? "border-[#880206] text-[#880206]"
-                    : "border-transparent text-[#1C1F1E] hover:text-[#880206]"
+                // The underline grows out from the centre on hover rather
+                // than snapping on, via a scaled pseudo-element-free trick:
+                // the border lives on an inner span so only it animates.
+                className={`group relative pb-1 text-[15px] font-medium transition-colors duration-fast ease-base wide:text-v2-nav ${
+                  active ? "text-[#880206]" : "text-[#1C1F1E] hover:text-[#880206]"
                 }`}
               >
                 {item.label}
+                {/* Underline scales out from the centre on hover; the active
+                    item keeps it permanently drawn. */}
+                <span
+                  aria-hidden="true"
+                  className={`absolute inset-x-0 bottom-0 h-[2px] origin-center bg-[#880206] transition-transform duration-base ease-base ${
+                    active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                  }`}
+                />
               </Link>
             );
           })}

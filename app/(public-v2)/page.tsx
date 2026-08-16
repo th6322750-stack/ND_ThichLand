@@ -5,6 +5,7 @@ import { TrustMetrics2 } from "@/components/public-v2/TrustMetrics2";
 import { HomeSearchBar2 } from "@/components/public-v2/HomeSearchBar2";
 import { PropertyCardGrid2 } from "@/components/public-v2/PropertyCardGrid2";
 import { ProjectCardOverlay2 } from "@/components/public-v2/ProjectCardOverlay2";
+import { Reveal } from "@/components/public-v2/Reveal";
 import { getRentalProviders } from "@/lib/server/rental/providers";
 import { buildMergedRentalData } from "@/lib/server/rental/merge";
 import { toPublicPropertyListings } from "@/lib/server/rental/dto";
@@ -95,7 +96,7 @@ export default async function HomePageV2() {
               src="/assets/v2/hero/NDTHICH_HOME_HERO_PREMIUM_4K.png"
               alt="NDTHICH — không gian sống & kinh doanh"
               fill
-              className="object-cover"
+              className="animate-v2-hero-settle object-cover"
               style={{ objectPosition: "72% 50%" }}
               sizes="100vw"
               unoptimized
@@ -108,7 +109,7 @@ export default async function HomePageV2() {
               src="/assets/v2/hero/NDTHICH_HOME_HERO_PREMIUM_4K.png"
               alt="NDTHICH — không gian sống & kinh doanh"
               fill
-              className="object-cover"
+              className="animate-v2-hero-settle object-cover"
               style={{ objectPosition: "50% 50%" }}
               sizes="100vw"
               unoptimized
@@ -130,25 +131,43 @@ export default async function HomePageV2() {
             }}
           />
           <div className="absolute inset-0 flex flex-col justify-center px-4 min-[900px]:hidden">
-            <h1 className="text-[22px] font-extrabold leading-[1.15] text-[#0C0D0D]">
+            {/* Above the fold, so this runs on load rather than on scroll —
+                staggered in reading order. */}
+            <h1
+              className="animate-v2-rise-in text-[22px] font-extrabold leading-[1.15] text-[#0C0D0D]"
+              style={{ animationDelay: "80ms" }}
+            >
               Không gian sống &amp;
               <br />
               <span className="text-[#880206]">Kinh doanh lý tưởng</span>
             </h1>
-            <p className="mt-1 text-[13px] font-bold text-[#0C0D0D]">Từ Nguyễn Đắc Thích</p>
-            <p className="mt-1 max-w-[220px] text-[13px] leading-snug text-[#5F5D5D]">
+            <p
+              className="animate-v2-rise-in mt-1 text-[13px] font-bold text-[#0C0D0D]"
+              style={{ animationDelay: "170ms" }}
+            >
+              Từ Nguyễn Đắc Thích
+            </p>
+            <p
+              className="animate-v2-rise-in mt-1 max-w-[220px] text-[13px] leading-snug text-[#5F5D5D]"
+              style={{ animationDelay: "250ms" }}
+            >
               Chuyên cho thuê nhà, căn hộ, mặt bằng kinh doanh tại các vị trí đắc địa.
             </p>
-            <div className="mt-3 flex flex-wrap gap-2">
+            <div className="animate-v2-rise-in mt-3 flex flex-wrap gap-2" style={{ animationDelay: "330ms" }}>
               <Link
                 href="/cho-thue"
-                className="flex items-center gap-1 rounded-[10px] bg-[#880206] px-4 py-[10px] text-[13px] font-semibold text-white hover:bg-[#750F0D]"
+                className="group flex items-center gap-1 rounded-[10px] bg-[#880206] px-4 py-[10px] text-[13px] font-semibold text-white transition-[background-color,transform,box-shadow] duration-fast ease-base hover:-translate-y-[1px] hover:bg-[#750F0D] hover:shadow-[0_8px_18px_-8px_rgba(136,2,6,0.7)] active:translate-y-0 motion-reduce:transform-none"
               >
-                Tìm thuê ngay <Icon name="arrow-right" size={14} className="text-white" />
+                Tìm thuê ngay{" "}
+                <Icon
+                  name="arrow-right"
+                  size={14}
+                  className="text-white transition-transform duration-fast ease-base group-hover:translate-x-[3px] motion-reduce:transform-none"
+                />
               </Link>
               <Link
                 href="/du-an"
-                className="flex items-center gap-1 rounded-[10px] border border-[#880206] bg-white px-4 py-[10px] text-[13px] font-semibold text-[#880206] hover:bg-[#F7F6F6]"
+                className="flex items-center gap-1 rounded-[10px] border border-[#880206] bg-white px-4 py-[10px] text-[13px] font-semibold text-[#880206] transition-[background-color,transform] duration-fast ease-base hover:-translate-y-[1px] hover:bg-[#F7F6F6] active:translate-y-0 motion-reduce:transform-none"
               >
                 Xem dự án
               </Link>
@@ -158,28 +177,42 @@ export default async function HomePageV2() {
 
         <div className="v2-container absolute inset-0 hidden min-[900px]:flex min-[900px]:items-center">
           <div className="w-1/2 wide:w-full wide:max-w-[620px]">
-            <h1 className="text-[32px] font-extrabold leading-[1.15] text-[#0C0D0D] wide:text-v2-hero">
+            <h1
+              className="animate-v2-rise-in text-[32px] font-extrabold leading-[1.15] text-[#0C0D0D] wide:text-v2-hero"
+              style={{ animationDelay: "80ms" }}
+            >
               Không gian sống &amp;
               <br />
               <span className="text-[#880206]">Kinh doanh lý tưởng</span>
             </h1>
-            <p className="mt-3 text-[16px] font-bold text-[#0C0D0D] wide:text-[18px] wide:leading-[26px]">
+            <p
+              className="animate-v2-rise-in mt-3 text-[16px] font-bold text-[#0C0D0D] wide:text-[18px] wide:leading-[26px]"
+              style={{ animationDelay: "170ms" }}
+            >
               Từ Nguyễn Đắc Thích
             </p>
-            <p className="mt-3 max-w-md text-[14px] leading-snug text-[#5F5D5D] wide:max-w-[560px] wide:text-[17px] wide:leading-[28px]">
+            <p
+              className="animate-v2-rise-in mt-3 max-w-md text-[14px] leading-snug text-[#5F5D5D] wide:max-w-[560px] wide:text-[17px] wide:leading-[28px]"
+              style={{ animationDelay: "250ms" }}
+            >
               Chuyên cho thuê nhà, căn hộ, mặt bằng kinh doanh tại các vị trí đắc địa. Pháp lý rõ ràng, hỗ
               trợ tận tâm.
             </p>
-            <div className="mt-5 flex flex-wrap gap-3">
+            <div className="animate-v2-rise-in mt-5 flex flex-wrap gap-3" style={{ animationDelay: "330ms" }}>
               <Link
                 href="/cho-thue"
-                className="flex items-center gap-2 rounded-md bg-[#880206] px-5 py-[10px] text-[13px] font-semibold text-white hover:bg-[#750F0D] wide:h-[52px] wide:rounded-[10px] wide:px-6 wide:text-[15px]"
+                className="group flex items-center gap-2 rounded-md bg-[#880206] px-5 py-[10px] text-[13px] font-semibold text-white transition-[background-color,transform,box-shadow] duration-fast ease-base hover:-translate-y-[1px] hover:bg-[#750F0D] hover:shadow-[0_10px_22px_-10px_rgba(136,2,6,0.75)] active:translate-y-0 motion-reduce:transform-none wide:h-[52px] wide:rounded-[10px] wide:px-6 wide:text-[15px]"
               >
-                Tìm thuê ngay <Icon name="arrow-right" size={16} className="text-white" />
+                Tìm thuê ngay{" "}
+                <Icon
+                  name="arrow-right"
+                  size={16}
+                  className="text-white transition-transform duration-fast ease-base group-hover:translate-x-[3px] motion-reduce:transform-none"
+                />
               </Link>
               <Link
                 href="/du-an"
-                className="flex items-center gap-2 rounded-md border border-[#880206] bg-white px-5 py-[10px] text-[13px] font-semibold text-[#880206] hover:bg-[#F7F6F6] wide:h-[52px] wide:rounded-[10px] wide:px-6 wide:text-[15px]"
+                className="flex items-center gap-2 rounded-md border border-[#880206] bg-white px-5 py-[10px] text-[13px] font-semibold text-[#880206] transition-[background-color,transform] duration-fast ease-base hover:-translate-y-[1px] hover:bg-[#F7F6F6] active:translate-y-0 motion-reduce:transform-none wide:h-[52px] wide:rounded-[10px] wide:px-6 wide:text-[15px]"
               >
                 Xem dự án
               </Link>
@@ -205,14 +238,18 @@ export default async function HomePageV2() {
       {/* ============ FEATURED PROJECTS ============ */}
       {/* Business priority: this site exists to sell projects, so "Dự án
           nổi bật" now leads, ahead of the rentals grid. */}
-      <section className="v2-container pb-2 pt-4 min-[900px]:py-6 wide:py-16" data-qa-region="featured-projects">
+      <Reveal as="section" className="v2-container pb-2 pt-4 min-[900px]:py-6 wide:py-16" data-qa-region="featured-projects">
         <div className="flex items-end justify-between">
           <h2 className="text-[16px] font-extrabold text-[#0C0D0D] min-[900px]:text-[17px] wide:text-v2-h2">Dự án nổi bật</h2>
           <Link
             href="/du-an"
-            className="flex items-center gap-1 text-[11px] font-semibold text-[#880206] min-[900px]:text-[12px] wide:text-v2-viewall"
+            className="group flex items-center gap-1 text-[11px] font-semibold text-[#880206] transition-colors duration-fast ease-base hover:text-[#750F0D] min-[900px]:text-[12px] wide:text-v2-viewall"
           >
-            Xem tất cả dự án <Icon name="arrow-right" size={10} className="min-[900px]:!h-[12px] min-[900px]:!w-[12px]" />
+            Xem tất cả dự án <Icon
+              name="arrow-right"
+              size={10}
+              className="transition-transform duration-fast ease-base group-hover:translate-x-[3px] motion-reduce:transform-none min-[900px]:!h-[12px] min-[900px]:!w-[12px]"
+            />
           </Link>
         </div>
         <div className="mt-3 grid grid-cols-2 gap-3 min-[900px]:mt-3 min-[900px]:grid-cols-4 min-[900px]:gap-4 wide:mt-6 wide:gap-6">
@@ -230,19 +267,23 @@ export default async function HomePageV2() {
             />
           ))}
         </div>
-      </section>
+      </Reveal>
 
       {/* ============ FEATURED RENTALS ============ */}
-      <section className="v2-container pb-3 min-[900px]:pb-6 wide:pb-16" data-qa-region="featured-rentals">
+      <Reveal as="section" className="v2-container pb-3 min-[900px]:pb-6 wide:pb-16" data-qa-region="featured-rentals">
         <div className="flex items-end justify-between">
           <h2 className="text-[15px] font-extrabold text-[#0C0D0D] min-[900px]:text-[17px] wide:text-v2-h2">
             Bất động sản cho thuê nổi bật
           </h2>
           <Link
             href="/cho-thue"
-            className="flex items-center gap-1 text-[11px] font-semibold text-[#880206] min-[900px]:text-[12px] wide:text-v2-viewall"
+            className="group flex items-center gap-1 text-[11px] font-semibold text-[#880206] transition-colors duration-fast ease-base hover:text-[#750F0D] min-[900px]:text-[12px] wide:text-v2-viewall"
           >
-            Xem tất cả <Icon name="arrow-right" size={10} className="min-[900px]:!h-[12px] min-[900px]:!w-[12px]" />
+            Xem tất cả <Icon
+              name="arrow-right"
+              size={10}
+              className="transition-transform duration-fast ease-base group-hover:translate-x-[3px] motion-reduce:transform-none min-[900px]:!h-[12px] min-[900px]:!w-[12px]"
+            />
           </Link>
         </div>
         <div className="mt-3 grid grid-cols-2 gap-3 min-[900px]:mt-1 min-[900px]:grid-cols-4 min-[900px]:gap-4 wide:mt-6 wide:gap-6">
@@ -256,7 +297,7 @@ export default async function HomePageV2() {
             />
           ))}
         </div>
-      </section>
+      </Reveal>
 
       {/* ============ ABOUT ============ */}
       {/* MOBILE_PROJECT_FIRST_POLISH section 5: the old side-by-side 50/50
@@ -265,7 +306,7 @@ export default async function HomePageV2() {
           matching the old master's side-by-side mobile composition, which
           this task explicitly authorizes. 900px+ keeps the original
           side-by-side layout unchanged. */}
-      <section className="v2-container pb-3 min-[900px]:pb-6 wide:pb-16" data-qa-region="about">
+      <Reveal as="section" className="v2-container pb-3 min-[900px]:pb-6 wide:pb-16" data-qa-region="about">
         <div className="grid grid-cols-1 gap-3 min-[900px]:grid-cols-2 min-[900px]:items-center min-[900px]:gap-6">
           <div className="relative aspect-[16/9] overflow-hidden rounded-lg min-[900px]:aspect-auto min-[900px]:h-[193px] wide:h-[360px] wide:rounded-[16px]">
             <Image src="/assets/round8/R8_11-sanh-sang-trong-hien-dai.png" alt="Sảnh đón NDTHICH" fill className="object-cover" unoptimized />
@@ -303,11 +344,11 @@ export default async function HomePageV2() {
             </Link>
           </div>
         </div>
-      </section>
+      </Reveal>
 
       {/* ============ TESTIMONIALS ============ */}
       {/* Master keeps 3 compact cards in one row at every width. */}
-      <section className="v2-container pb-3 min-[900px]:pb-6 wide:pb-16" data-qa-region="testimonials">
+      <Reveal as="section" className="v2-container pb-3 min-[900px]:pb-6 wide:pb-16" data-qa-region="testimonials">
         <div className="flex items-end justify-between">
           <h2 className="text-[16px] font-extrabold text-[#0C0D0D] min-[900px]:text-[16px] wide:text-v2-h2">
             Khách hàng nói về chúng tôi
@@ -327,10 +368,16 @@ export default async function HomePageV2() {
           {TESTIMONIALS.map((t) => (
             <div
               key={t.name}
-              className="rounded-lg border border-[#EDEBEA] bg-white p-4 min-[900px]:rounded-lg min-[900px]:p-1 wide:rounded-[14px] wide:p-5 wide:shadow-v2-premium"
+              // wide:p-5 + wide:text-v2-h3/v2-body previously scaled this up
+              // to a full paragraph/heading type scale meant for larger
+              // blocks elsewhere, so at >=1440px these came out visibly
+              // baggier than the intentionally-compact 900-1439px tier right
+              // below it — the opposite of "compact cards at every width".
+              // Padding/line-clamp/font sizes tightened to actually match.
+              className="rounded-lg border border-[#EDEBEA] bg-white p-4 min-[900px]:rounded-lg min-[900px]:p-1 wide:rounded-[14px] wide:p-4 wide:shadow-v2-premium"
             >
-              <Icon name="quote" size={16} className="text-[#C08E47] min-[900px]:!h-3 min-[900px]:!w-3" />
-              <p className="mt-2 text-[13px] leading-snug text-[#3A3838] min-[900px]:mt-[2px] min-[900px]:line-clamp-2 min-[900px]:text-[10px] wide:mt-2 wide:text-v2-body">
+              <Icon name="quote" size={16} className="text-[#C08E47] min-[900px]:!h-3 min-[900px]:!w-3 wide:!h-[18px] wide:!w-[18px]" />
+              <p className="mt-2 line-clamp-2 text-[13px] leading-snug text-[#3A3838] min-[900px]:mt-[2px] min-[900px]:text-[10px] wide:mt-2 wide:text-[14px] wide:leading-[21px]">
                 &ldquo;{t.quote}&rdquo;
               </p>
               <div className="mt-2 flex gap-1 text-[#C08E47] min-[900px]:mt-[2px]">
@@ -338,19 +385,19 @@ export default async function HomePageV2() {
                   <Icon key={i} name="star" size={13} className="min-[900px]:!h-[10px] min-[900px]:!w-[10px]" />
                 ))}
               </div>
-              <p className="mt-2 truncate text-[13px] font-bold text-[#0C0D0D] min-[900px]:mt-[2px] min-[900px]:text-[10px] wide:mt-3 wide:text-v2-h3">
+              <p className="mt-2 truncate text-[13px] font-bold text-[#0C0D0D] min-[900px]:mt-[2px] min-[900px]:text-[10px] wide:mt-2 wide:text-[15px]">
                 {t.name}
               </p>
-              <p className="truncate text-[12px] text-[#5F5D5D] min-[900px]:text-[9px] wide:text-v2-caption">{t.role}</p>
+              <p className="truncate text-[12px] text-[#5F5D5D] min-[900px]:text-[9px] wide:text-[13px]">{t.role}</p>
             </div>
           ))}
         </div>
-      </section>
+      </Reveal>
 
       {/* ============ CONTACT + MAP ============ */}
       {/* Master keeps the burgundy panel and map side by side at every
           width — stacked below 900px is a FAIL, so `flex` applies always. */}
-      <section className="v2-container pb-3 min-[900px]:pb-6 wide:pb-16" data-qa-region="contact-map">
+      <Reveal as="section" className="v2-container pb-3 min-[900px]:pb-6 wide:pb-16" data-qa-region="contact-map">
         <div className="flex overflow-hidden rounded-md border border-[#880206] min-[900px]:rounded-lg wide:rounded-[16px]">
           <div className="w-[58%] bg-[#880206] p-3 text-white min-[900px]:w-[280px] min-[900px]:shrink-0 min-[900px]:p-3 wide:w-[360px] wide:p-8">
             <h2 className="text-[13px] font-bold min-[900px]:text-[14px] wide:text-v2-h3">Liên hệ với chúng tôi</h2>
@@ -383,7 +430,7 @@ export default async function HomePageV2() {
             <Image src="/assets/v2/home/contact-map.png" alt="Bản đồ NDTHICH" fill className="object-cover" unoptimized />
           </div>
         </div>
-      </section>
+      </Reveal>
     </>
   );
 }

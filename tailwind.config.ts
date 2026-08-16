@@ -136,11 +136,28 @@ const config: Config = {
           from: { opacity: "0", transform: "translateX(16px)" },
           to: { opacity: "1", transform: "translateX(0)" },
         },
+        // Above-the-fold entrance. Runs on load (no observer needed — it is
+        // already on screen), staggered via inline animationDelay so the
+        // headline, subtitle and CTAs arrive in reading order.
+        "v2-rise-in": {
+          from: { opacity: "0", transform: "translateY(18px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        // The hero photograph settles out of a very slight over-scale, which
+        // reads as the image coming to rest rather than popping in.
+        "v2-hero-settle": {
+          from: { opacity: "0", transform: "scale(1.05)" },
+          to: { opacity: "1", transform: "scale(1)" },
+        },
       },
       animation: {
         "v2-fade-in": "v2-fade-in 220ms cubic-bezier(.2,.7,.2,1)",
         "v2-sheet-up": "v2-sheet-up 240ms cubic-bezier(.2,.7,.2,1)",
         "v2-drawer-in": "v2-drawer-in 240ms cubic-bezier(.2,.7,.2,1)",
+        // `both` so the element holds its from-state during any delay
+        // instead of flashing at full opacity first.
+        "v2-rise-in": "v2-rise-in 620ms cubic-bezier(.2,.7,.2,1) both",
+        "v2-hero-settle": "v2-hero-settle 1100ms cubic-bezier(.2,.7,.2,1) both",
       },
       maxWidth: {
         page: "1240px",
