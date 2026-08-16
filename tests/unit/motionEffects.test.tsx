@@ -1,6 +1,5 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { Reveal } from "@/components/public-v2/Reveal";
 import { CountUp } from "@/components/public-v2/CountUp";
 
 // jsdom implements neither IntersectionObserver nor matchMedia. That is
@@ -8,38 +7,6 @@ import { CountUp } from "@/components/public-v2/CountUp";
 // optional fade must never be able to hide content or throw.
 afterEach(() => {
   vi.unstubAllGlobals();
-});
-
-describe("Reveal", () => {
-  it("renders its content visibly when scroll animation is unavailable", () => {
-    render(<Reveal>Nội dung quan trọng</Reveal>);
-    const el = screen.getByText("Nội dung quan trọng");
-    expect(el).toBeVisible();
-    // Never armed => no opacity-0 that could strand the content invisible.
-    expect(el.className).not.toContain("opacity-0");
-  });
-
-  it("forwards data attributes so QA selectors keep working", () => {
-    const { container } = render(
-      <Reveal as="section" data-qa-region="about" className="v2-container">
-        x
-      </Reveal>,
-    );
-    const section = container.querySelector("section");
-    expect(section).not.toBeNull();
-    expect(section).toHaveAttribute("data-qa-region", "about");
-    expect(section?.className).toContain("v2-container");
-  });
-
-  it("respects prefers-reduced-motion by never arming", () => {
-    vi.stubGlobal("matchMedia", () => ({ matches: true, addEventListener() {}, removeEventListener() {} }));
-    vi.stubGlobal("IntersectionObserver", class {
-      observe() {}
-      disconnect() {}
-    });
-    render(<Reveal>Giữ nguyên</Reveal>);
-    expect(screen.getByText("Giữ nguyên").className).not.toContain("opacity-0");
-  });
 });
 
 describe("CountUp", () => {

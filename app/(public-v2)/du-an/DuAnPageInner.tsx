@@ -256,7 +256,7 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
           id="du-an-tabpanel"
           role="tabpanel"
           aria-labelledby={`du-an-tab-${TABS.find((t) => t.value === filters.status)?.id}`}
-          className="mt-1 grid grid-cols-1 gap-1 min-[900px]:mt-6 min-[900px]:grid-cols-3 min-[900px]:gap-5 wide:gap-6"
+          className="v2-stagger mt-1 grid grid-cols-1 gap-1 min-[900px]:mt-6 min-[900px]:grid-cols-3 min-[900px]:gap-5 wide:gap-6"
           data-qa-region="project-grid"
         >
           {/* Every project renders at every width. A previous revision hid
@@ -281,7 +281,7 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
       {/* MOBILE: centered, no photo, features in a 2x2 icon-on-top grid —
           a genuinely different composition from WEB's image-left/text-right
           band (04_DuAn_MOBILE.png, y~1500-1900). */}
-      <section className="mt-4 text-center min-[900px]:hidden" data-qa-region="about">
+      <section className="v2-reveal mt-4 text-center min-[900px]:hidden" data-qa-region="about">
         <h2 className="text-[13px] font-extrabold leading-snug text-[#0C0D0D]">
           Về Công ty TNHH Đầu tư &amp; Kinh doanh <span className="text-[#880206]">NDTHICH</span>
         </h2>
@@ -308,11 +308,11 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
 
       {/* WEB: reception image LEFT / text+features RIGHT, matching master. */}
       <section
-        className="mt-6 hidden min-[900px]:flex min-[900px]:items-center min-[900px]:gap-6 wide:mt-16 wide:gap-10"
+        className="v2-reveal mt-6 hidden min-[900px]:flex min-[900px]:items-center min-[900px]:gap-6 wide:mt-16 wide:gap-10"
         data-qa-region="about"
       >
         <div className="relative h-[190px] w-[340px] shrink-0 overflow-hidden rounded-lg wide:h-[280px] wide:w-[460px] wide:rounded-[16px]">
-          <Image src="/assets/v2/home/about-reception.png" alt="Sảnh đón NDTHICH" fill className="object-cover" unoptimized />
+          <Image src="/assets/v2/home/about-reception.png" alt="Sảnh đón NDTHICH" fill className="v2-parallax object-cover" unoptimized />
         </div>
         <div className="min-w-0 flex-1">
           <p className="text-[12px] font-bold uppercase tracking-wide text-[#880206] wide:text-[13px]">Về Nguyễn Đắc Thích</p>

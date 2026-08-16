@@ -5,7 +5,6 @@ import { TrustMetrics2 } from "@/components/public-v2/TrustMetrics2";
 import { HomeSearchBar2 } from "@/components/public-v2/HomeSearchBar2";
 import { PropertyCardGrid2 } from "@/components/public-v2/PropertyCardGrid2";
 import { ProjectCardOverlay2 } from "@/components/public-v2/ProjectCardOverlay2";
-import { Reveal } from "@/components/public-v2/Reveal";
 import { getRentalProviders } from "@/lib/server/rental/providers";
 import { buildMergedRentalData } from "@/lib/server/rental/merge";
 import { toPublicPropertyListings } from "@/lib/server/rental/dto";
@@ -143,17 +142,17 @@ export default async function HomePageV2() {
             </h1>
             <p
               className="animate-v2-rise-in mt-1 text-[13px] font-bold text-[#0C0D0D]"
-              style={{ animationDelay: "170ms" }}
+              style={{ animationDelay: "200ms" }}
             >
               Từ Nguyễn Đắc Thích
             </p>
             <p
               className="animate-v2-rise-in mt-1 max-w-[220px] text-[13px] leading-snug text-[#5F5D5D]"
-              style={{ animationDelay: "250ms" }}
+              style={{ animationDelay: "320ms" }}
             >
               Chuyên cho thuê nhà, căn hộ, mặt bằng kinh doanh tại các vị trí đắc địa.
             </p>
-            <div className="animate-v2-rise-in mt-3 flex flex-wrap gap-2" style={{ animationDelay: "330ms" }}>
+            <div className="animate-v2-rise-in mt-3 flex flex-wrap gap-2" style={{ animationDelay: "440ms" }}>
               <Link
                 href="/cho-thue"
                 className="group flex items-center gap-1 rounded-[10px] bg-[#880206] px-4 py-[10px] text-[13px] font-semibold text-white transition-[background-color,transform,box-shadow] duration-fast ease-base hover:-translate-y-[1px] hover:bg-[#750F0D] hover:shadow-[0_8px_18px_-8px_rgba(136,2,6,0.7)] active:translate-y-0 motion-reduce:transform-none"
@@ -187,18 +186,18 @@ export default async function HomePageV2() {
             </h1>
             <p
               className="animate-v2-rise-in mt-3 text-[16px] font-bold text-[#0C0D0D] wide:text-[18px] wide:leading-[26px]"
-              style={{ animationDelay: "170ms" }}
+              style={{ animationDelay: "200ms" }}
             >
               Từ Nguyễn Đắc Thích
             </p>
             <p
               className="animate-v2-rise-in mt-3 max-w-md text-[14px] leading-snug text-[#5F5D5D] wide:max-w-[560px] wide:text-[17px] wide:leading-[28px]"
-              style={{ animationDelay: "250ms" }}
+              style={{ animationDelay: "320ms" }}
             >
               Chuyên cho thuê nhà, căn hộ, mặt bằng kinh doanh tại các vị trí đắc địa. Pháp lý rõ ràng, hỗ
               trợ tận tâm.
             </p>
-            <div className="animate-v2-rise-in mt-5 flex flex-wrap gap-3" style={{ animationDelay: "330ms" }}>
+            <div className="animate-v2-rise-in mt-5 flex flex-wrap gap-3" style={{ animationDelay: "440ms" }}>
               <Link
                 href="/cho-thue"
                 className="group flex items-center gap-2 rounded-md bg-[#880206] px-5 py-[10px] text-[13px] font-semibold text-white transition-[background-color,transform,box-shadow] duration-fast ease-base hover:-translate-y-[1px] hover:bg-[#750F0D] hover:shadow-[0_10px_22px_-10px_rgba(136,2,6,0.75)] active:translate-y-0 motion-reduce:transform-none wide:h-[52px] wide:rounded-[10px] wide:px-6 wide:text-[15px]"
@@ -238,7 +237,7 @@ export default async function HomePageV2() {
       {/* ============ FEATURED PROJECTS ============ */}
       {/* Business priority: this site exists to sell projects, so "Dự án
           nổi bật" now leads, ahead of the rentals grid. */}
-      <Reveal as="section" className="v2-container pb-2 pt-4 min-[900px]:py-6 wide:py-16" data-qa-region="featured-projects">
+      <section className="v2-reveal v2-container pb-2 pt-4 min-[900px]:py-6 wide:py-16" data-qa-region="featured-projects">
         <div className="flex items-end justify-between">
           <h2 className="text-[16px] font-extrabold text-[#0C0D0D] min-[900px]:text-[17px] wide:text-v2-h2">Dự án nổi bật</h2>
           <Link
@@ -252,7 +251,7 @@ export default async function HomePageV2() {
             />
           </Link>
         </div>
-        <div className="mt-3 grid grid-cols-2 gap-3 min-[900px]:mt-3 min-[900px]:grid-cols-4 min-[900px]:gap-4 wide:mt-6 wide:gap-6">
+        <div className="v2-stagger mt-3 grid grid-cols-2 gap-3 min-[900px]:mt-3 min-[900px]:grid-cols-4 min-[900px]:gap-4 wide:mt-6 wide:gap-6">
           {featuredProjects.map((p) => (
             <ProjectCardOverlay2
               key={p.slug}
@@ -267,10 +266,10 @@ export default async function HomePageV2() {
             />
           ))}
         </div>
-      </Reveal>
+      </section>
 
       {/* ============ FEATURED RENTALS ============ */}
-      <Reveal as="section" className="v2-container pb-3 min-[900px]:pb-6 wide:pb-16" data-qa-region="featured-rentals">
+      <section className="v2-reveal v2-container pb-3 min-[900px]:pb-6 wide:pb-16" data-qa-region="featured-rentals">
         <div className="flex items-end justify-between">
           <h2 className="text-[15px] font-extrabold text-[#0C0D0D] min-[900px]:text-[17px] wide:text-v2-h2">
             Bất động sản cho thuê nổi bật
@@ -286,7 +285,7 @@ export default async function HomePageV2() {
             />
           </Link>
         </div>
-        <div className="mt-3 grid grid-cols-2 gap-3 min-[900px]:mt-1 min-[900px]:grid-cols-4 min-[900px]:gap-4 wide:mt-6 wide:gap-6">
+        <div className="v2-stagger mt-3 grid grid-cols-2 gap-3 min-[900px]:mt-1 min-[900px]:grid-cols-4 min-[900px]:gap-4 wide:mt-6 wide:gap-6">
           {featuredProperties.map((p, i) => (
             <PropertyCardGrid2
               key={p.slug}
@@ -297,7 +296,7 @@ export default async function HomePageV2() {
             />
           ))}
         </div>
-      </Reveal>
+      </section>
 
       {/* ============ ABOUT ============ */}
       {/* MOBILE_PROJECT_FIRST_POLISH section 5: the old side-by-side 50/50
@@ -306,10 +305,16 @@ export default async function HomePageV2() {
           matching the old master's side-by-side mobile composition, which
           this task explicitly authorizes. 900px+ keeps the original
           side-by-side layout unchanged. */}
-      <Reveal as="section" className="v2-container pb-3 min-[900px]:pb-6 wide:pb-16" data-qa-region="about">
+      <section className="v2-reveal v2-container pb-3 min-[900px]:pb-6 wide:pb-16" data-qa-region="about">
         <div className="grid grid-cols-1 gap-3 min-[900px]:grid-cols-2 min-[900px]:items-center min-[900px]:gap-6">
           <div className="relative aspect-[16/9] overflow-hidden rounded-lg min-[900px]:aspect-auto min-[900px]:h-[193px] wide:h-[360px] wide:rounded-[16px]">
-            <Image src="/assets/round8/R8_11-sanh-sang-trong-hien-dai.png" alt="Sảnh đón NDTHICH" fill className="object-cover" unoptimized />
+            <Image
+              src="/assets/round8/R8_11-sanh-sang-trong-hien-dai.png"
+              alt="Sảnh đón NDTHICH"
+              fill
+              className="v2-parallax object-cover"
+              unoptimized
+            />
           </div>
           <div>
             <h2 className="text-[18px] font-extrabold text-[#0C0D0D] min-[900px]:text-[16px] wide:text-v2-h2">
@@ -344,11 +349,11 @@ export default async function HomePageV2() {
             </Link>
           </div>
         </div>
-      </Reveal>
+      </section>
 
       {/* ============ TESTIMONIALS ============ */}
       {/* Master keeps 3 compact cards in one row at every width. */}
-      <Reveal as="section" className="v2-container pb-3 min-[900px]:pb-6 wide:pb-16" data-qa-region="testimonials">
+      <section className="v2-reveal v2-container pb-3 min-[900px]:pb-6 wide:pb-16" data-qa-region="testimonials">
         <div className="flex items-end justify-between">
           <h2 className="text-[16px] font-extrabold text-[#0C0D0D] min-[900px]:text-[16px] wide:text-v2-h2">
             Khách hàng nói về chúng tôi
@@ -364,7 +369,7 @@ export default async function HomePageV2() {
             sustain the 13px readability floor for quote/name text — stacked
             single-column on mobile instead; 900px+ keeps the original 3-up
             row unchanged. */}
-        <div className="mt-3 grid grid-cols-1 gap-3 min-[900px]:mt-1 min-[900px]:grid-cols-3 min-[900px]:gap-2 wide:mt-6 wide:gap-6">
+        <div className="v2-stagger mt-3 grid grid-cols-1 gap-3 min-[900px]:mt-1 min-[900px]:grid-cols-3 min-[900px]:gap-2 wide:mt-6 wide:gap-6">
           {TESTIMONIALS.map((t) => (
             <div
               key={t.name}
@@ -392,12 +397,12 @@ export default async function HomePageV2() {
             </div>
           ))}
         </div>
-      </Reveal>
+      </section>
 
       {/* ============ CONTACT + MAP ============ */}
       {/* Master keeps the burgundy panel and map side by side at every
           width — stacked below 900px is a FAIL, so `flex` applies always. */}
-      <Reveal as="section" className="v2-container pb-3 min-[900px]:pb-6 wide:pb-16" data-qa-region="contact-map">
+      <section className="v2-reveal v2-container pb-3 min-[900px]:pb-6 wide:pb-16" data-qa-region="contact-map">
         <div className="flex overflow-hidden rounded-md border border-[#880206] min-[900px]:rounded-lg wide:rounded-[16px]">
           <div className="w-[58%] bg-[#880206] p-3 text-white min-[900px]:w-[280px] min-[900px]:shrink-0 min-[900px]:p-3 wide:w-[360px] wide:p-8">
             <h2 className="text-[13px] font-bold min-[900px]:text-[14px] wide:text-v2-h3">Liên hệ với chúng tôi</h2>
@@ -427,10 +432,10 @@ export default async function HomePageV2() {
             </Link>
           </div>
           <div className="relative min-h-[95px] flex-1 min-[900px]:min-h-[110px] wide:min-h-[320px]">
-            <Image src="/assets/v2/home/contact-map.png" alt="Bản đồ NDTHICH" fill className="object-cover" unoptimized />
+            <Image src="/assets/v2/home/contact-map.png" alt="Bản đồ NDTHICH" fill className="v2-parallax object-cover" unoptimized />
           </div>
         </div>
-      </Reveal>
+      </section>
     </>
   );
 }

@@ -113,6 +113,10 @@ const config: Config = {
       },
       transitionTimingFunction: {
         base: "cubic-bezier(.2,.7,.2,1)",
+        // easeOutExpo-like: almost all of the distance is covered early, then
+        // a long soft tail. Used for anything with real travel (entrances,
+        // panels) so movement decelerates into place instead of stopping.
+        soft: "cubic-bezier(.16,1,.3,1)",
       },
       transitionDuration: {
         fast: "140ms",
@@ -120,6 +124,9 @@ const config: Config = {
         // Third step of the motion scale, for panel/sheet enters that need
         // more travel than a hover state. Same easing as the other two.
         slow: "300ms",
+        // Paired with ease-soft. Long enough for the tail to be felt; the
+        // curve front-loads the distance so it never feels sluggish.
+        soft: "760ms",
       },
       keyframes: {
         "v2-fade-in": {
@@ -139,14 +146,16 @@ const config: Config = {
         // Above-the-fold entrance. Runs on load (no observer needed — it is
         // already on screen), staggered via inline animationDelay so the
         // headline, subtitle and CTAs arrive in reading order.
+        // Amplitude kept small (12px): large travel reads as a slideshow,
+        // small travel reads as the page settling.
         "v2-rise-in": {
-          from: { opacity: "0", transform: "translateY(18px)" },
-          to: { opacity: "1", transform: "translateY(0)" },
+          from: { opacity: "0", transform: "translate3d(0, 12px, 0)" },
+          to: { opacity: "1", transform: "translate3d(0, 0, 0)" },
         },
         // The hero photograph settles out of a very slight over-scale, which
         // reads as the image coming to rest rather than popping in.
         "v2-hero-settle": {
-          from: { opacity: "0", transform: "scale(1.05)" },
+          from: { opacity: "0", transform: "scale(1.04)" },
           to: { opacity: "1", transform: "scale(1)" },
         },
       },
@@ -155,9 +164,11 @@ const config: Config = {
         "v2-sheet-up": "v2-sheet-up 240ms cubic-bezier(.2,.7,.2,1)",
         "v2-drawer-in": "v2-drawer-in 240ms cubic-bezier(.2,.7,.2,1)",
         // `both` so the element holds its from-state during any delay
-        // instead of flashing at full opacity first.
-        "v2-rise-in": "v2-rise-in 620ms cubic-bezier(.2,.7,.2,1) both",
-        "v2-hero-settle": "v2-hero-settle 1100ms cubic-bezier(.2,.7,.2,1) both",
+        // instead of flashing at full opacity first. The soft curve + longer
+        // duration is what turns the staggered hero copy into one continuous
+        // motion rather than four separate pops.
+        "v2-rise-in": "v2-rise-in 900ms cubic-bezier(.16,1,.3,1) both",
+        "v2-hero-settle": "v2-hero-settle 1400ms cubic-bezier(.16,1,.3,1) both",
       },
       maxWidth: {
         page: "1240px",

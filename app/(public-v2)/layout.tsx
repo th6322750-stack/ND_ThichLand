@@ -1,5 +1,6 @@
 import { Header2 } from "@/components/public-v2/Header2";
 import { Footer2 } from "@/components/public-v2/Footer2";
+import { SmoothScroll } from "@/components/public-v2/SmoothScroll";
 
 // PHA2 client-approved visual V2 — scoped to /, /cho-thue, /cho-thue/[slug],
 // /du-an, /du-an/[slug] only (see .webby/client-approved-v2/IMPLEMENTATION_CONTRACT.json).
@@ -15,6 +16,7 @@ export default function PublicV2Layout({ children }: { children: React.ReactNode
       >
         Bỏ qua đến nội dung
       </a>
+      <SmoothScroll />
       <Header2 />
       <main id="main">{children}</main>
       <Footer2 />

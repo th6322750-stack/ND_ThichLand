@@ -256,7 +256,7 @@ export function ChoThuePageInner({ properties }: { properties: PropertyListing[]
                 )}
               </div>
             ) : (
-              <div className="mt-2 flex flex-col gap-2 min-[900px]:mt-0 min-[900px]:gap-5">
+              <div className="v2-stagger mt-2 flex flex-col gap-2 min-[900px]:mt-0 min-[900px]:gap-5">
                 {visible.map((listing) => (
                   <PropertyListRow2 key={listing.slug} listing={listing} />
                 ))}
