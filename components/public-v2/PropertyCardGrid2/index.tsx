@@ -51,17 +51,17 @@ export function PropertyCardGrid2({
           {listing.propertyType}
         </span>
       </div>
-      <div className="p-1 leading-tight min-[900px]:p-2 wide:p-4">
-        <h3 className="line-clamp-1 text-[9px] font-bold text-[#0C0D0D] min-[900px]:text-[13px] wide:text-[16px] wide:leading-[23px]">
+      <div className="p-2 leading-tight min-[900px]:p-2 wide:p-4">
+        <h3 className="line-clamp-1 text-[14px] leading-[20px] font-bold text-[#0C0D0D] min-[900px]:text-[13px] min-[900px]:leading-normal wide:text-[16px] wide:leading-[23px]">
           {listing.roomNo}
         </h3>
-        <p className="mt-[1px] line-clamp-1 flex items-center gap-1 text-[7px] text-[#5F5D5D] min-[900px]:mt-1 min-[900px]:text-[11px] wide:text-[13px] wide:leading-[19px]">
-          <Icon name="pin" size={7} className="shrink-0 min-[900px]:!h-[11px] min-[900px]:!w-[11px] wide:!h-[13px] wide:!w-[13px]" /> {listing.location}
+        <p className="mt-1 line-clamp-1 flex items-center gap-1 text-[11px] leading-[17px] text-[#5F5D5D] min-[900px]:mt-1 min-[900px]:text-[11px] min-[900px]:leading-normal wide:text-[13px] wide:leading-[19px]">
+          <Icon name="pin" size={11} className="shrink-0 min-[900px]:!h-[11px] min-[900px]:!w-[11px] wide:!h-[13px] wide:!w-[13px]" /> {listing.location}
         </p>
-        <p className="mt-[1px] line-clamp-1 text-[7px] text-[#5F5D5D] min-[900px]:mt-1 min-[900px]:text-[11px] wide:text-[13px] wide:leading-[19px]">
+        <p className="mt-1 line-clamp-1 text-[11px] leading-[17px] text-[#5F5D5D] min-[900px]:mt-1 min-[900px]:text-[11px] min-[900px]:leading-normal wide:text-[13px] wide:leading-[19px]">
           {specs.join(" • ")}
         </p>
-        <p className="mt-[1px] line-clamp-1 text-[9px] font-bold text-[#880206] min-[900px]:mt-1 min-[900px]:text-[14px] wide:text-[18px] wide:leading-[24px]">
+        <p className="mt-1 text-[15px] leading-[20px] font-bold text-[#880206] min-[900px]:mt-1 min-[900px]:line-clamp-1 min-[900px]:text-[14px] min-[900px]:leading-normal wide:text-[18px] wide:leading-[24px]">
           {formatCurrencyVnd(listing.price)}/tháng
         </p>
       </div>

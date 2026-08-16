@@ -54,11 +54,11 @@ export function ProjectCardOverlay2({
           real darkening behind the text without flattening the whole
           image. */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-      <div className={compact ? "absolute inset-x-0 bottom-0 p-[6px] min-[900px]:p-3 wide:p-[18px]" : "absolute inset-x-0 bottom-0 p-4"}>
+      <div className={compact ? "absolute inset-x-0 bottom-0 p-3 min-[900px]:p-3 wide:p-[18px]" : "absolute inset-x-0 bottom-0 p-4"}>
         <h3
           className={
             compact
-              ? "line-clamp-1 text-[8px] font-bold text-white min-[900px]:text-[14px] wide:text-[18px] wide:leading-[25px]"
+              ? "line-clamp-2 text-[14px] leading-[20px] font-bold text-white min-[900px]:line-clamp-1 min-[900px]:text-[14px] min-[900px]:leading-normal wide:text-[18px] wide:leading-[25px]"
               : "text-[16px] font-bold text-white min-[900px]:text-[17px] wide:text-[19px]"
           }
         >
@@ -67,12 +67,11 @@ export function ProjectCardOverlay2({
         <p
           className={
             compact
-              ? "mt-[2px] line-clamp-1 text-[6px] text-white/90 min-[900px]:mt-1 min-[900px]:flex min-[900px]:items-center min-[900px]:gap-1 min-[900px]:text-[11px] wide:text-[13px] wide:leading-[19px]"
+              ? "mt-1 flex items-center gap-1 text-[11px] leading-[17px] text-white/90 min-[900px]:mt-1 min-[900px]:text-[11px] min-[900px]:leading-normal wide:text-[13px] wide:leading-[19px]"
               : "mt-1 flex items-center gap-1 text-[12px] text-white/90"
           }
         >
-          <Icon name="pin" size={compact ? 13 : 13} className={compact ? "hidden text-white min-[900px]:inline" : "text-white"} />{" "}
-          {location}
+          <Icon name="pin" size={13} className="text-white" /> {location}
         </p>
       </div>
     </div>

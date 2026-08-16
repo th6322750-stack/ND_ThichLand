@@ -29,18 +29,19 @@ interface FilterFieldProps {
   options: FieldOption[];
 }
 
-// MOBILE: 01_Home_MOBILE.png shows a 2-line box (bold label over a lighter
-// value/placeholder line) in a 2x2 grid — unchanged, this already matches
-// its master.
+// MOBILE_PROJECT_FIRST_POLISH section 2B: compact 2-line box (bold label
+// over a lighter value/placeholder line) in a 2x2 grid, sized down (~41px
+// control height) so the filter grid takes less vertical room and "Dự án
+// nổi bật" appears sooner on the page.
 function MobileField({ label, placeholder, value, onChange, options }: FilterFieldProps) {
   return (
-    <label className="flex min-w-0 cursor-pointer items-center gap-1 rounded-md border border-[#E4E1E0] px-3 py-3 hover:border-[#C9C5C3] hover:bg-[#FAFAFA]">
+    <label className="flex min-w-0 cursor-pointer items-center gap-1 rounded-md border border-[#E4E1E0] px-2 py-1 hover:border-[#C9C5C3] hover:bg-[#FAFAFA]">
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-[12px] font-bold leading-tight text-[#0C0D0D]">{label}</span>
+        <span className="block truncate text-[13px] font-bold leading-tight text-[#0C0D0D]">{label}</span>
         <select
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className={`mt-[2px] block w-full appearance-none border-0 bg-transparent p-0 text-[12px] leading-tight focus:outline-none ${
+          className={`mt-[2px] block w-full appearance-none border-0 bg-transparent p-0 text-[11px] leading-tight focus:outline-none ${
             value ? "text-[#0C0D0D]" : "text-[#5F5D5D]"
           }`}
         >
@@ -52,7 +53,7 @@ function MobileField({ label, placeholder, value, onChange, options }: FilterFie
           ))}
         </select>
       </span>
-      <Icon name="chevron-right" size={14} className="shrink-0 rotate-90 text-[#A6A6A6]" />
+      <Icon name="chevron-right" size={12} className="shrink-0 rotate-90 text-[#A6A6A6]" />
     </label>
   );
 }
@@ -141,15 +142,19 @@ export function HomeSearchBar2({ locationOptions, propertyTypeOptions }: HomeSea
   ];
 
   return (
-    <div className="rounded-lg border border-[#EDEBEA] bg-white p-4 min-[900px]:rounded-xl min-[900px]:p-3 min-[900px]:shadow-[0_20px_45px_-24px_rgba(12,13,13,0.18)] wide:rounded-[16px] wide:p-4">
-      <p className="mb-3 text-[13px] font-bold leading-tight text-[#0C0D0D] min-[900px]:hidden">Tìm kiếm bất động sản</p>
+    <div className="rounded-lg border border-[#EDEBEA] bg-white p-3 min-[900px]:rounded-xl min-[900px]:p-3 min-[900px]:shadow-[0_20px_45px_-24px_rgba(12,13,13,0.18)] wide:rounded-[16px] wide:p-4 wide:shadow-[0_10px_24px_-6px_rgba(12,13,13,0.22)]">
+      <p className="mb-2 text-[12px] font-bold leading-tight text-[#0C0D0D] min-[900px]:hidden">Tìm kiếm bất động sản</p>
 
-      <div className="flex flex-col gap-3 min-[900px]:gap-2">
-        {/* Từ khóa + Tìm kiếm — own full-width row (WEB: on top, so the
-            placeholder never gets squeezed like it did as a 5th column). */}
-        <div className="order-2 border-t border-[#EDEBEA] pt-3 min-[900px]:order-1 min-[900px]:border-t-0 min-[900px]:pt-0">
+      <div className="flex flex-col gap-2 min-[900px]:gap-2 wide:gap-4">
+        {/* MOBILE_PROJECT_FIRST_POLISH section 2: keyword+button row now
+            comes FIRST on mobile too (same order as WEB already used), so
+            the whole search block is shorter and "Dự án nổi bật" appears
+            sooner — no more order-1/order-2 flip needed between tiers. The
+            outer flex-col's own `gap` (10-12px target) separates the two
+            rows, matching how WEB already did it — no divider border. */}
+        <div>
           <div className="flex items-center gap-2">
-            <div className="relative min-w-0 flex-1">
+            <div className="relative min-w-0 w-[63%]">
               <span className="mb-[2px] block text-[12px] font-bold leading-tight text-[#0C0D0D] min-[900px]:hidden">Từ khóa</span>
               <input
                 type="search"
@@ -157,23 +162,23 @@ export function HomeSearchBar2({ locationOptions, propertyTypeOptions }: HomeSea
                 value={state.q}
                 onChange={(e) => setState((s) => ({ ...s, q: e.target.value }))}
                 placeholder="Nhập từ khóa, vị trí, dự án..."
-                className="block w-full min-w-0 rounded-md border border-[#E4E1E0] bg-white px-3 py-3 text-[12px] leading-tight text-[#0C0D0D] placeholder:text-[#5F5D5D] focus:outline-none min-[900px]:h-[46px] min-[900px]:px-4 min-[900px]:text-[14px] wide:h-[54px] wide:text-[15px]"
+                className="block h-[38px] w-full min-w-0 rounded-[10px] border border-[#E4E1E0] bg-white px-2 text-[13px] leading-tight text-[#0C0D0D] placeholder:text-[#5F5D5D] focus:outline-none min-[900px]:h-[46px] min-[900px]:rounded-md min-[900px]:px-4 min-[900px]:text-[14px] wide:h-[54px] wide:text-[15px]"
               />
             </div>
             <button
               type="button"
               onClick={handleSearch}
-              className="flex shrink-0 items-center justify-center gap-2 rounded-md bg-[#880206] px-4 py-3 text-[13px] font-semibold text-white hover:bg-[#750F0D] min-[900px]:h-[46px] min-[900px]:rounded-lg min-[900px]:px-6 min-[900px]:text-[14px] wide:h-[54px]"
+              className="flex h-[38px] w-[34%] shrink-0 items-center justify-center gap-1 whitespace-nowrap rounded-[10px] bg-[#880206] px-2 text-[13px] font-bold text-white hover:bg-[#750F0D] min-[900px]:h-[46px] min-[900px]:w-auto min-[900px]:gap-2 min-[900px]:rounded-lg min-[900px]:px-6 min-[900px]:text-[14px] wide:h-[54px] wide:w-[140px]"
             >
               Tìm kiếm
-              <Icon name="search" size={15} className="text-white" />
+              <Icon name="search" size={14} className="text-white" />
             </button>
           </div>
         </div>
 
         {/* 4 filters — MOBILE: 2x2 grid of 2-line boxes. WEB: one row of
             single-line selects. */}
-        <div className="order-1 border-b border-[#EDEBEA] pb-3 min-[900px]:order-2 min-[900px]:border-b-0 min-[900px]:pb-0">
+        <div>
           <div className="grid grid-cols-2 gap-2 min-[900px]:hidden">
             {FIELDS.map((f) => (
               <MobileField key={f.key} label={f.label} placeholder={f.placeholder} value={f.value} onChange={f.onChange} options={f.options} />
