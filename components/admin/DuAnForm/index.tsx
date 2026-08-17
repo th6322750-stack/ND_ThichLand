@@ -39,6 +39,14 @@ export function DuAnForm({ initial }: DuAnFormProps) {
   const [progressUploadError, setProgressUploadError] = useState<string>();
   const progressFileInputRef = useRef<HTMLInputElement>(null);
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>(initial?.amenities ?? []);
+  const [unitTypes, setUnitTypes] = useState<
+    { name: string; count: number; areaRange: string; frontage: string; image: string; caption: string }[]
+  >(initial?.unitTypes ?? []);
+  const [unitTypeUploadRow, setUnitTypeUploadRow] = useState<number | null>(null);
+  const [unitTypeUploadError, setUnitTypeUploadError] = useState<string>();
+  const unitTypeFileInputRef = useRef<HTMLInputElement>(null);
+  const unitTypeUploadTargetRef = useRef<number | null>(null);
+  const [highlights, setHighlights] = useState<string[]>(initial?.highlights ?? []);
 
   async function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files ?? []);
@@ -104,6 +112,67 @@ export function DuAnForm({ initial }: DuAnFormProps) {
     setSelectedAmenities((prev) => (prev.includes(label) ? prev.filter((a) => a !== label) : [...prev, label]));
   }
 
+  function addUnitTypeRow() {
+    setUnitTypes((prev) => [...prev, { name: "", count: 0, areaRange: "", frontage: "", image: "", caption: "" }]);
+  }
+
+  function removeUnitTypeRow(index: number) {
+    setUnitTypes((prev) => prev.filter((_, i) => i !== index));
+  }
+
+  function updateUnitTypeText(index: number, field: "name" | "areaRange" | "frontage" | "caption", value: string) {
+    setUnitTypes((prev) => prev.map((u, i) => (i === index ? { ...u, [field]: value } : u)));
+  }
+
+  function updateUnitTypeCount(index: number, value: string) {
+    const count = Math.max(0, Math.round(Number(value)));
+    setUnitTypes((prev) => prev.map((u, i) => (i === index ? { ...u, count: Number.isFinite(count) ? count : 0 } : u)));
+  }
+
+  function triggerUnitTypeImageUpload(index: number) {
+    unitTypeUploadTargetRef.current = index;
+    setUnitTypeUploadError(undefined);
+    unitTypeFileInputRef.current?.click();
+  }
+
+  async function handleUnitTypeFileChange(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    const index = unitTypeUploadTargetRef.current;
+    if (!file || index === null) return;
+    setUnitTypeUploadRow(index);
+    setUnitTypeUploadError(undefined);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const result = await uploadMediaAction(formData);
+      if (!result.ok || !result.record) {
+        setUnitTypeUploadError(result.error);
+        return;
+      }
+      const url = result.record.webViewLink;
+      setUnitTypes((prev) => prev.map((u, i) => (i === index ? { ...u, image: url } : u)));
+    } finally {
+      setUnitTypeUploadRow(null);
+    }
+  }
+
+  function removeUnitTypeImage(index: number) {
+    setUnitTypes((prev) => prev.map((u, i) => (i === index ? { ...u, image: "" } : u)));
+  }
+
+  function addHighlight() {
+    setHighlights((prev) => [...prev, ""]);
+  }
+
+  function updateHighlight(index: number, value: string) {
+    setHighlights((prev) => prev.map((h, i) => (i === index ? value : h)));
+  }
+
+  function removeHighlight(index: number) {
+    setHighlights((prev) => prev.filter((_, i) => i !== index));
+  }
+
   async function save(form: HTMLFormElement, publish: boolean) {
     setSaving(publish ? "publish" : "draft");
     setError(undefined);
@@ -125,6 +194,11 @@ export function DuAnForm({ initial }: DuAnFormProps) {
         progressPercent: progressMatch ? Number(progressMatch[1]) : (initial?.progressPercent ?? 0),
         media,
         progressPhotos,
+        unitTypes,
+        propertyType: get("propertyType"),
+        scale: get("scale"),
+        unitCount: get("unitCount"),
+        highlights,
       };
 
       const result = await saveProjectAction(input, publish);
@@ -307,11 +381,10 @@ export function DuAnForm({ initial }: DuAnFormProps) {
               </p>
             )}
 
-            {/* Facts grid — only Chủ đầu tư has a real field; the other 3
-                (Loại hình/Quy mô/Số lượng) render "Đang cập nhật" on the
-                real page too — no CMS field exists for them yet, so this
-                stays a static preview of that same fallback, not an input
-                that would silently do nothing. */}
+            {/* Facts grid — same 4 tiles as the real page (icon + value +
+                label). All 4 are now real editable fields; an empty one
+                still renders "Đang cập nhật" on the public page (never a
+                fabricated default). */}
             <div className="mt-5 grid grid-cols-4 gap-2">
               <div className="rounded-lg border border-[#EDEBEA] p-2 text-center">
                 <Icon name="building" size={20} className="mx-auto text-[#880206]" />
@@ -324,13 +397,39 @@ export function DuAnForm({ initial }: DuAnFormProps) {
                 />
                 <p className="leading-tight text-[9px] text-[#5F5D5D]">Chủ đầu tư</p>
               </div>
-              {["Loại hình", "Quy mô", "Số lượng"].map((label) => (
-                <div key={label} className="rounded-lg border border-[#EDEBEA] p-2 text-center opacity-60">
-                  <Icon name="building" size={20} className="mx-auto text-[#5F5D5D]" />
-                  <p className="mt-1 leading-tight text-[11px] font-bold text-[#0C0D0D]">Đang cập nhật</p>
-                  <p className="leading-tight text-[9px] text-[#5F5D5D]">{label}</p>
-                </div>
-              ))}
+              <div className="rounded-lg border border-[#EDEBEA] p-2 text-center">
+                <Icon name="building" size={20} className="mx-auto text-[#880206]" />
+                <input
+                  name="propertyType"
+                  placeholder="Đang cập nhật"
+                  defaultValue={initial?.propertyType}
+                  aria-label="Loại hình"
+                  className={`${wysiwygInput} mt-1 text-center text-[11px] font-bold text-[#0C0D0D] placeholder:text-[#C9C6C5]`}
+                />
+                <p className="leading-tight text-[9px] text-[#5F5D5D]">Loại hình</p>
+              </div>
+              <div className="rounded-lg border border-[#EDEBEA] p-2 text-center">
+                <Icon name="building" size={20} className="mx-auto text-[#880206]" />
+                <input
+                  name="scale"
+                  placeholder="Đang cập nhật"
+                  defaultValue={initial?.scale}
+                  aria-label="Quy mô"
+                  className={`${wysiwygInput} mt-1 text-center text-[11px] font-bold text-[#0C0D0D] placeholder:text-[#C9C6C5]`}
+                />
+                <p className="leading-tight text-[9px] text-[#5F5D5D]">Quy mô</p>
+              </div>
+              <div className="rounded-lg border border-[#EDEBEA] p-2 text-center">
+                <Icon name="building" size={20} className="mx-auto text-[#880206]" />
+                <input
+                  name="unitCount"
+                  placeholder="Đang cập nhật"
+                  defaultValue={initial?.unitCount}
+                  aria-label="Số lượng"
+                  className={`${wysiwygInput} mt-1 text-center text-[11px] font-bold text-[#0C0D0D] placeholder:text-[#C9C6C5]`}
+                />
+                <p className="leading-tight text-[9px] text-[#5F5D5D]">Số lượng</p>
+              </div>
             </div>
 
             {/* Summary — same heading/style as "Thông tin dự án" on WEB. */}
@@ -374,6 +473,168 @@ export function DuAnForm({ initial }: DuAnFormProps) {
                 })}
               </div>
             </div>
+          </div>
+
+          {/* Điểm nổi bật zone — bullet-point USPs, same "Xem thêm" panel as
+              Quy hoạch - Mặt bằng, one level above it. */}
+          <div className="border-t border-line px-6 py-6">
+            <p className="text-[16px] font-bold text-[#0C0D0D]">Điểm nổi bật</p>
+            <p className="text-body text-muted">
+              Mỗi dòng là 1 điểm nổi bật — để trống sẽ ẩn cả mục này trên trang dự án.
+            </p>
+            <div className="mt-4 flex flex-col gap-2">
+              {highlights.map((h, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={h}
+                    onChange={(e) => updateHighlight(i, e.target.value)}
+                    placeholder="VD: Vận hành bởi Accor với hai thương hiệu Sofitel & Swissôtel"
+                    aria-label={`Điểm nổi bật ${i + 1}`}
+                    className="flex-1 rounded-md border border-line px-3 py-2 text-body outline-none transition-colors duration-fast focus:border-primary focus:ring-2 focus:ring-primary"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeHighlight(i)}
+                    aria-label={`Xóa điểm nổi bật ${i + 1}`}
+                    className="rounded-md border border-line p-2 text-muted transition-colors hover:border-error hover:text-error"
+                  >
+                    <Icon name="close" size={14} />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={addHighlight}
+              className="mt-3 rounded-md border border-dashed border-line px-4 py-2 text-label text-muted transition-colors hover:border-primary hover:text-primary"
+            >
+              + Thêm điểm nổi bật
+            </button>
+          </div>
+
+          {/* Quy hoạch - Mặt bằng zone — per-unit-type breakdown, shown in
+              the "Xem thêm" panel on WEB. Placed after Điểm nổi bật to match
+              the WEB rendering order there. Optional: an empty list here
+              hides that whole panel on the public page instead of showing a
+              fabricated or blank-looking table. */}
+          <div className="border-t border-line px-6 py-6">
+            <p className="text-[16px] font-bold text-[#0C0D0D]">Quy hoạch - Mặt bằng (phân loại đơn vị)</p>
+            <p className="text-body text-muted">
+              Nhập khi có dữ liệu thật — để trống sẽ ẩn cả bảng này trên trang dự án, không hiện bảng rỗng.
+            </p>
+            <input
+              ref={unitTypeFileInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif"
+              className="hidden"
+              aria-hidden="true"
+              tabIndex={-1}
+              onChange={handleUnitTypeFileChange}
+            />
+            <div className="mt-4 flex flex-col gap-4">
+              {unitTypes.map((u, i) => (
+                <div key={i} className="flex flex-col gap-3 rounded-md border border-line p-3 tablet:flex-row">
+                  <div className="shrink-0">
+                    {u.image ? (
+                      <div className="group relative aspect-square w-24 overflow-hidden rounded-md">
+                        <Image src={u.image} alt={u.name || `Loại hình ${i + 1}`} fill className="object-cover" unoptimized />
+                        <button
+                          type="button"
+                          onClick={() => removeUnitTypeImage(i)}
+                          aria-label={`Xóa ảnh loại hình ${i + 1}`}
+                          className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white opacity-0 transition-opacity hover:bg-error group-hover:opacity-100"
+                        >
+                          <Icon name="close" size={12} />
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="w-24">
+                        <Uploader
+                          state={unitTypeUploadRow === i ? "uploading" : "empty"}
+                          errorMessage={unitTypeUploadRow === null ? unitTypeUploadError : undefined}
+                          onClick={() => triggerUnitTypeImageUpload(i)}
+                          onRetry={() => triggerUnitTypeImageUpload(i)}
+                        />
+                      </div>
+                    )}
+                  </div>
+                  <div className="grid flex-1 grid-cols-2 gap-3">
+                    <label className="flex flex-col gap-1">
+                      <span className="text-label text-ink">Tên loại hình</span>
+                      <input
+                        type="text"
+                        value={u.name}
+                        onChange={(e) => updateUnitTypeText(i, "name", e.target.value)}
+                        placeholder="VD: Nhà liền kề"
+                        aria-label={`Tên loại hình ${i + 1}`}
+                        className="rounded-md border border-line px-3 py-2 text-body outline-none transition-colors duration-fast focus:border-primary focus:ring-2 focus:ring-primary"
+                      />
+                    </label>
+                    <label className="flex flex-col gap-1">
+                      <span className="text-label text-ink">Số căn</span>
+                      <input
+                        type="number"
+                        min={0}
+                        value={u.count || ""}
+                        onChange={(e) => updateUnitTypeCount(i, e.target.value)}
+                        placeholder="VD: 65"
+                        aria-label={`Số căn loại hình ${i + 1}`}
+                        className="rounded-md border border-line px-3 py-2 text-body outline-none transition-colors duration-fast focus:border-primary focus:ring-2 focus:ring-primary"
+                      />
+                    </label>
+                    <label className="flex flex-col gap-1">
+                      <span className="text-label text-ink">Diện tích</span>
+                      <input
+                        type="text"
+                        value={u.areaRange}
+                        onChange={(e) => updateUnitTypeText(i, "areaRange", e.target.value)}
+                        placeholder="VD: 105m² - 192m²"
+                        aria-label={`Diện tích loại hình ${i + 1}`}
+                        className="rounded-md border border-line px-3 py-2 text-body outline-none transition-colors duration-fast focus:border-primary focus:ring-2 focus:ring-primary"
+                      />
+                    </label>
+                    <label className="flex flex-col gap-1">
+                      <span className="text-label text-ink">Mặt tiền</span>
+                      <input
+                        type="text"
+                        value={u.frontage}
+                        onChange={(e) => updateUnitTypeText(i, "frontage", e.target.value)}
+                        placeholder="VD: 6m (bỏ trống nếu không áp dụng)"
+                        aria-label={`Mặt tiền loại hình ${i + 1}`}
+                        className="rounded-md border border-line px-3 py-2 text-body outline-none transition-colors duration-fast focus:border-primary focus:ring-2 focus:ring-primary"
+                      />
+                    </label>
+                    <label className="col-span-2 flex flex-col gap-1">
+                      <span className="text-label text-ink">Mô tả ảnh (hiện dưới ảnh trên trang dự án)</span>
+                      <input
+                        type="text"
+                        value={u.caption}
+                        onChange={(e) => updateUnitTypeText(i, "caption", e.target.value)}
+                        placeholder="VD: Nhà liền kề/shophouse"
+                        aria-label={`Mô tả ảnh loại hình ${i + 1}`}
+                        className="rounded-md border border-line px-3 py-2 text-body outline-none transition-colors duration-fast focus:border-primary focus:ring-2 focus:ring-primary"
+                      />
+                    </label>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => removeUnitTypeRow(i)}
+                    aria-label={`Xóa loại hình ${i + 1}`}
+                    className="self-start rounded-md border border-line p-2 text-muted transition-colors hover:border-error hover:text-error"
+                  >
+                    <Icon name="close" size={14} />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={addUnitTypeRow}
+              className="mt-3 rounded-md border border-dashed border-line px-4 py-2 text-label text-muted transition-colors hover:border-primary hover:text-primary"
+            >
+              + Thêm loại hình
+            </button>
           </div>
 
           {/* Tiến độ dự án zone — same 5-photo-tile grid as WEB, each tile

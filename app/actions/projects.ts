@@ -24,6 +24,11 @@ export interface ProjectFormInput {
   progressPercent: number;
   media: string[];
   progressPhotos: { label: string; image: string }[];
+  unitTypes: { name: string; count: number; areaRange: string; frontage: string; image: string; caption: string }[];
+  propertyType: string;
+  scale: string;
+  unitCount: string;
+  highlights: string[];
 }
 
 export interface ProjectActionResult {
@@ -103,6 +108,15 @@ export async function saveProjectAction(input: ProjectFormInput, publish: boolea
     progressPercent: Math.min(100, Math.max(0, Math.round(Number(input.progressPercent) || 0))),
     media: input.media,
     progressPhotos: input.progressPhotos,
+    // Drop a row an admin started (typed a name) but never actually
+    // attached a count to — an entry with count 0/NaN would otherwise
+    // render "0 căn" as if that were a real fact about the project.
+    unitTypes: input.unitTypes.filter((u) => u.name.trim() && u.count > 0),
+    propertyType: input.propertyType,
+    scale: input.scale,
+    unitCount: input.unitCount,
+    // Drop blank lines an admin left empty when adding/removing rows.
+    highlights: input.highlights.map((h) => h.trim()).filter(Boolean),
     published: publish,
     createdAt: existing?.createdAt ?? now,
     updatedAt: now,

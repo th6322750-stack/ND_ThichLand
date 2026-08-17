@@ -14,6 +14,11 @@ export function toPublicProjectListing(record: ProjectRecord): ProjectListing {
     progressText: record.progressText,
     progressPercent: record.progressPercent,
     progressPhotos: record.progressPhotos,
+    unitTypes: record.unitTypes,
+    propertyType: record.propertyType,
+    scale: record.scale,
+    unitCount: record.unitCount,
+    highlights: record.highlights,
   };
 }
 

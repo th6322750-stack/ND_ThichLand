@@ -42,6 +42,31 @@ function safeProgressPhotos(json: string | undefined): { label: string; image: s
   }
 }
 
+function safeUnitTypes(
+  json: string | undefined,
+): { name: string; count: number; areaRange: string; frontage: string; image: string; caption: string }[] {
+  if (!json) return [];
+  try {
+    const value = JSON.parse(json);
+    if (!Array.isArray(value)) return [];
+    return value
+      .filter(
+        (v): v is Record<string, unknown> =>
+          typeof v === "object" && v !== null && typeof v.name === "string" && typeof v.count === "number",
+      )
+      .map((v) => ({
+        name: v.name as string,
+        count: v.count as number,
+        areaRange: typeof v.areaRange === "string" ? v.areaRange : "",
+        frontage: typeof v.frontage === "string" ? v.frontage : "",
+        image: typeof v.image === "string" ? v.image : "",
+        caption: typeof v.caption === "string" ? v.caption : "",
+      }));
+  } catch {
+    return [];
+  }
+}
+
 /** Clamped to 0-100: the value drives a milestone indicator, and a stray
     "550" or "-3" in the sheet would otherwise index past the last step. */
 function safeProgressPercent(raw: string | undefined): number {
@@ -67,6 +92,11 @@ function rowToRecord(row: string[]): ProjectRecord | null {
     createdAt,
     updatedAt,
     progressPhotosJson,
+    unitTypesJson,
+    propertyType,
+    scale,
+    unitCount,
+    highlightsJson,
   ] = row;
   if (!id) return null;
   return {
@@ -89,6 +119,14 @@ function rowToRecord(row: string[]): ProjectRecord | null {
     // Appended at the end of the row (not inserted mid-sequence) so
     // existing WEB_PROJECTS rows keep their column alignment.
     progressPhotos: safeProgressPhotos(progressPhotosJson),
+    // Appended after progressPhotos — same never-insert-mid-sequence rule.
+    unitTypes: safeUnitTypes(unitTypesJson),
+    // Appended after unitTypes — same never-insert-mid-sequence rule.
+    propertyType: propertyType ?? "",
+    scale: scale ?? "",
+    unitCount: unitCount ?? "",
+    // Appended after unitCount — same never-insert-mid-sequence rule.
+    highlights: safeJsonArray(highlightsJson),
   };
 }
 
@@ -109,23 +147,28 @@ function recordToRow(r: ProjectRecord): (string | number)[] {
     r.createdAt,
     r.updatedAt,
     JSON.stringify(r.progressPhotos),
+    JSON.stringify(r.unitTypes),
+    r.propertyType,
+    r.scale,
+    r.unitCount,
+    JSON.stringify(r.highlights),
   ];
 }
 
 export class GoogleProjectRepository implements ProjectRepository {
   async list(): Promise<ProjectRecord[]> {
     const { cmsSpreadsheetId } = requireGoogleSpreadsheetEnv();
-    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A2:O`);
+    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A2:T`);
     return values.map(rowToRecord).filter((r): r is ProjectRecord => r !== null);
   }
 
   async upsert(record: ProjectRecord): Promise<void> {
     const { cmsSpreadsheetId } = requireGoogleSpreadsheetEnv();
-    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A2:O`);
+    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A2:T`);
     const rowIndex = values.findIndex((row) => row[0] === record.id);
     const row = recordToRow(record);
     if (rowIndex >= 0) {
-      await updateSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A${rowIndex + 2}:O${rowIndex + 2}`, row);
+      await updateSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A${rowIndex + 2}:T${rowIndex + 2}`, row);
     } else {
       await appendSheetRow(cmsSpreadsheetId, CMS_TABS.projects, row);
     }

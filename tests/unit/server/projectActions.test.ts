@@ -37,6 +37,11 @@ const baseInput = {
   progressPercent: 30,
   media: [],
   progressPhotos: [],
+  unitTypes: [],
+  propertyType: "",
+  scale: "",
+  unitCount: "",
+  highlights: [],
 };
 
 describe("Project admin actions", () => {
@@ -131,6 +136,11 @@ describe("Project admin actions", () => {
         progressPercent: target.progressPercent,
         media: target.media,
         progressPhotos: target.progressPhotos,
+        unitTypes: target.unitTypes,
+        propertyType: target.propertyType,
+        scale: target.scale,
+        unitCount: target.unitCount,
+        highlights: target.highlights,
       },
       true,
     );

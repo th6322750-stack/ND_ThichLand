@@ -118,7 +118,8 @@ describe("public DTOs never leak internal-only fields", () => {
     const record: ProjectRecord = {
       id: "custom:secret-id", slug: "du-an-test", name: "Dự án", location: "Hà Nội",
       investor: "Chủ đầu tư", status: "Đang triển khai", media: [], summary: "", amenities: [],
-      progressText: "", progressPercent: 0, progressPhotos: [], published: true,
+      progressText: "", progressPercent: 0, progressPhotos: [], unitTypes: [],
+      propertyType: "", scale: "", unitCount: "", highlights: [], published: true,
       createdAt: "2026-08-14T00:00:00.000Z", updatedAt: "2026-08-14T00:00:00.000Z",
     };
     const dto = toPublicProjectListing(record);
@@ -154,7 +155,8 @@ describe("guessing an unpublished/hidden slug cannot retrieve it through the pub
     const hidden: ProjectRecord = {
       id: "custom:hidden-project", slug: "hidden-project", name: "Nội bộ", location: "Hà Nội",
       investor: "N/A", status: "Đang triển khai", media: [], summary: "SECRET-SUMMARY", amenities: [],
-      progressText: "", progressPercent: 0, progressPhotos: [], published: false,
+      progressText: "", progressPercent: 0, progressPhotos: [], unitTypes: [],
+      propertyType: "", scale: "", unitCount: "", highlights: [], published: false,
       createdAt: "2026-08-14T00:00:00.000Z", updatedAt: "2026-08-14T00:00:00.000Z",
     };
     const publicList = toPublicProjectListings([hidden]);

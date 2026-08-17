@@ -79,6 +79,32 @@ export interface ProjectListing {
   // project (never real per-project data). Empty renders a "chưa cập nhật"
   // fallback instead of reusing another project's photos.
   progressPhotos: { label: string; image: string }[];
+  // Per-unit-type breakdown for "Quy hoạch - Mặt bằng" (e.g. "Nhà liền kề:
+  // 65 căn, 105m² - 192m², mặt tiền 6m"). areaRange/frontage are free text
+  // (not a min/max pair) since a source project may quote either a range or
+  // a single value, and frontage doesn't always apply (e.g. a standalone
+  // "dinh thự" lot). `image` is an admin-uploaded representative photo of
+  // that unit type — empty string renders no photo rather than borrowing
+  // another unit type's or another project's image. `caption` is a free-text
+  // line shown under the image (e.g. "Nhà liền kề/shophouse") — separate
+  // from `name` so admin can write a different display caption than the
+  // structured row label without the table text changing. Admin-entered
+  // only when real; an empty array hides the whole section rather than
+  // showing a fabricated or blank-looking table.
+  unitTypes: { name: string; count: number; areaRange: string; frontage: string; image: string; caption: string }[];
+  // Back the "Loại hình"/"Quy mô"/"Số lượng" fact tiles on the detail page.
+  // Free text (not enums) since these vary too much across project types to
+  // constrain ("Shop khối đế & Penthouse Duplex", "6ha", "282 sản phẩm").
+  // Empty string renders "Đang cập nhật" — same never-fabricate rule as
+  // status/investor: no CMS value yet is not the same as "Căn hộ".
+  propertyType: string;
+  scale: string;
+  unitCount: string;
+  // Bullet-point USPs for the "Điểm nổi bật" tab in the "Tổng quan dự án"
+  // panel — same level as Vị trí/Quy hoạch-Mặt bằng. Free text per line
+  // (e.g. "Vận hành bởi Accor với hai thương hiệu Sofitel & Swissôtel"),
+  // admin-entered. Empty array hides that tab instead of showing nothing.
+  highlights: string[];
 }
 
 export interface NewsArticle {

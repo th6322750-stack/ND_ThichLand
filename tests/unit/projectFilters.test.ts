@@ -24,6 +24,11 @@ function project(patch: Partial<ProjectListing>): ProjectListing {
     progressText: "",
     progressPercent: 0,
     progressPhotos: [],
+    unitTypes: [],
+    propertyType: "",
+    scale: "",
+    unitCount: "",
+    highlights: [],
     ...patch,
   };
 }

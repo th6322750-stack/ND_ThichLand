@@ -40,7 +40,7 @@ export function RangeSlider2({ fromLabel = "Từ", toLabel = "Đến", stops, fr
         <label className="block">
           <span className="block text-[12px] text-[#5F5D5D]">{fromLabel}</span>
           <select
-            className="mt-1 w-full rounded-md border border-[#E4E1E0] px-3 py-[10px] text-[13px] text-[#0C0D0D]"
+            className="mt-1 w-full truncate rounded-md border border-[#E4E1E0] py-[10px] pl-3 pr-8 text-[13px] text-[#0C0D0D]"
             value={fromIndex}
             onChange={(e) => handleFromChange(Number(e.target.value))}
           >
@@ -54,7 +54,7 @@ export function RangeSlider2({ fromLabel = "Từ", toLabel = "Đến", stops, fr
         <label className="block">
           <span className="block text-[12px] text-[#5F5D5D]">{toLabel}</span>
           <select
-            className="mt-1 w-full rounded-md border border-[#E4E1E0] px-3 py-[10px] text-[13px] text-[#0C0D0D]"
+            className="mt-1 w-full truncate rounded-md border border-[#E4E1E0] py-[10px] pl-3 pr-8 text-[13px] text-[#0C0D0D]"
             value={toIndex}
             onChange={(e) => handleToChange(Number(e.target.value))}
           >

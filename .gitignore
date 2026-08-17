@@ -41,3 +41,6 @@ _qa_shot2.mjs
 # contract/manifest authority (.webby/client-approved-v2/ROUND8_ASSET_SOURCE.md).
 # ~500MB of PNGs is intentionally not committed; re-download via the manifest.
 /public/assets/round8/
+
+# Vercel CLI project link — local machine's, not shared
+.vercel

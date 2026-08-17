@@ -110,6 +110,7 @@ describe("production runtime without Google/Drive config fails closed", () => {
       {
         slug: "", name: "Dự án Test", location: "Hà Nội", investor: "CDT", status: "Đang triển khai",
         summary: "", amenities: [], progressText: "", progressPercent: 0, media: [], progressPhotos: [],
+        unitTypes: [], propertyType: "", scale: "", unitCount: "", highlights: [],
       },
       true,
     );

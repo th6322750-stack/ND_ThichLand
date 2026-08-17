@@ -33,10 +33,14 @@ interface Carousel2Props {
  *
  * Auto-advance stops whenever it would be intrusive or wasteful: pointer
  * over it, keyboard focus inside it, the tab hidden, the user scrolling it
- * by hand, or prefers-reduced-motion. A visible pause control is also
- * provided — WCAG 2.2.2 requires a mechanism to stop motion that starts
- * automatically and runs more than five seconds, and hover alone does not
- * satisfy that for keyboard or touch users.
+ * by hand, or prefers-reduced-motion.
+ *
+ * No visible pause button by user decision (2026-08-17) — three
+ * independently-autoplaying carousels stacked close together on the
+ * homepage each showing their own pause toggle read as a duplicated
+ * control. WCAG 2.2.2 technically wants a visible stop mechanism for
+ * auto-motion past 5s; hover/focus/touch-pause above is the mitigation kept
+ * in its place.
  */
 export function Carousel2({
   children,
@@ -50,11 +54,8 @@ export function Carousel2({
   const [pages, setPages] = useState(1);
   const [page, setPage] = useState(0);
   const [canScroll, setCanScroll] = useState(false);
-  // The visitor's explicit choice via the pause button. Kept separate from
-  // the conditions below so toggling it never has to fight them.
-  const [autoPlayWanted, setAutoPlayWanted] = useState(true);
   const reducedMotion = useReducedMotion();
-  const playing = autoPlayWanted && canScroll && !reducedMotion;
+  const playing = canScroll && !reducedMotion;
   const pausedRef = useRef(false);
 
   const measure = useCallback(() => {
@@ -174,26 +175,6 @@ export function Carousel2({
             className="flex h-8 w-8 items-center justify-center rounded-full border border-[#E4E1E0] text-[#5F5D5D] transition-colors duration-fast ease-base hover:border-[#880206] hover:text-[#880206]"
           >
             <Icon name="chevron-right" size={14} />
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setAutoPlayWanted((p) => !p)}
-            aria-label={playing ? "Tạm dừng tự động chuyển" : "Bật tự động chuyển"}
-            className="ml-1 flex h-8 w-8 items-center justify-center rounded-full border border-[#E4E1E0] text-[#5F5D5D] transition-colors duration-fast ease-base hover:border-[#880206] hover:text-[#880206]"
-          >
-            {/* Pure CSS glyphs — the frozen icon set has no play/pause. */}
-            {playing ? (
-              <span aria-hidden="true" className="flex gap-[3px]">
-                <span className="block h-[10px] w-[3px] bg-current" />
-                <span className="block h-[10px] w-[3px] bg-current" />
-              </span>
-            ) : (
-              <span
-                aria-hidden="true"
-                className="ml-[2px] block h-0 w-0 border-y-[5px] border-l-[8px] border-y-transparent border-l-current"
-              />
-            )}
           </button>
         </div>
       )}
