@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { useFocusTrap } from "@/lib/useFocusTrap";
 import { Icon2 as Icon } from "@/components/public-v2/Icon2";
 
@@ -96,6 +96,21 @@ export function Header2() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  function handleLogoClick(event: MouseEvent<HTMLAnchorElement>) {
+    // Keep modified clicks working like a normal link (open in a new tab,
+    // copy/open through browser shortcuts). A regular click while the page is
+    // scrolled first returns the visitor to the top of the current page; once
+    // already there, the Link continues normally to the homepage.
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+    if (window.scrollY <= 8) return;
+
+    event.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+    });
+  }
+
   return (
     <header
       className={`sticky top-0 z-50 border-b bg-white transition-[box-shadow,border-color] duration-base ease-base ${
@@ -112,6 +127,8 @@ export function Header2() {
             hotline disc — so it sat visibly right of centre. */}
         <Link
           href="/"
+          onClick={handleLogoClick}
+          aria-label={scrolled ? "Lên đầu trang" : "Về trang chủ NDTHICH LAND"}
           className="flex shrink-0 items-center gap-2 transition-opacity duration-fast ease-base hover:opacity-80 min-[900px]:flex-1"
         >
           {/* Client feedback: logo + company name read too small against
