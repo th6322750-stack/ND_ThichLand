@@ -47,7 +47,7 @@ npm run gd6:bootstrap-cms
 ```
 
 Service account phải được chia sẻ quyền phù hợp vào cả spreadsheet và thư mục Drive trước khi bootstrap/deploy.
-Bootstrap có thể chạy lại an toàn: tab mới được tạo, còn header cũ chỉ được nối thêm cột khi khớp chính xác với tiền tố schema hiện tại. Bản phát hành này cần chạy lại để tạo `WEB_ADMIN_SECURITY` và thêm `apartment_area`, `legal_status` vào `WEB_PROJECTS`.
+Bootstrap có thể chạy lại an toàn: tab mới được tạo, còn header cũ chỉ được nối thêm cột khi khớp chính xác với tiền tố schema hiện tại. Bản phát hành này cần chạy lại để tạo `WEB_ADMIN_SECURITY`, `WEB_PAGE_CONTENT` và thêm `apartment_area`, `legal_status` vào `WEB_PROJECTS`. `WEB_PAGE_CONTENT` lưu cấu hình có cấu trúc cho hai màn admin “Trang Về chúng tôi” và “Trang Liên hệ”.
 
 ## Media Round 8
 

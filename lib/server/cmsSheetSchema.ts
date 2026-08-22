@@ -10,6 +10,7 @@ export const CMS_TABS = {
   contacts: "WEB_CONTACTS",
   media: "WEB_MEDIA",
   settings: "WEB_SETTINGS",
+  pageContent: "WEB_PAGE_CONTENT",
   adminSecurity: "WEB_ADMIN_SECURITY",
 } as const;
 
@@ -105,6 +106,9 @@ export const CMS_HEADERS: Record<(typeof CMS_TABS)[keyof typeof CMS_TABS], strin
     "updated_at",
     "profile_pdf_url",
   ],
+  // One row per editable public page. Structured repeating blocks live in
+  // JSON so adding a stat/value/card never shifts unrelated CMS columns.
+  [CMS_TABS.pageContent]: ["page_key", "content_json", "updated_at"],
   // Single-row, server-only record. The TOTP seed is encrypted with
   // AUTH_SECRET before it reaches Sheets; passwords remain scrypt hashes.
   [CMS_TABS.adminSecurity]: [

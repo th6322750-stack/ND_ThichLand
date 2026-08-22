@@ -182,3 +182,55 @@ export interface SiteSettings {
    */
   profilePdfUrl: string;
 }
+
+export interface AboutPageContent {
+  metadataTitle: string;
+  metadataDescription: string;
+  heroEyebrow: string;
+  heroTitle: string;
+  heroBody: string;
+  heroImage: string;
+  heroMediaLabel: string;
+  statsEyebrow: string;
+  statsTitle: string;
+  statsDescription: string;
+  stats: { value: string; label: string }[];
+  valuesEyebrow: string;
+  valuesTitle: string;
+  values: { title: string; body: string }[];
+  areasEyebrow: string;
+  areasTitle: string;
+  areasDescription: string;
+  areas: { title: string; description: string; image: string }[];
+  ctaTitle: string;
+  ctaSubtitle: string;
+  ctaCallLabel: string;
+  ctaZaloLabel: string;
+}
+
+export interface ContactPageContent {
+  metadataTitle: string;
+  metadataDescription: string;
+  heroTitle: string;
+  heroBody: string;
+  callButtonLabel: string;
+  zaloButtonLabel: string;
+  mapLabel: string;
+  primaryPhoneLabel: string;
+  secondaryPhoneLabel: string;
+  locationLabel: string;
+  formTitle: string;
+  formDescription: string;
+  formNameLabel: string;
+  formPhoneLabel: string;
+  formNeedLabel: string;
+  formNeedPlaceholder: string;
+  formAreaLabel: string;
+  formAreaPlaceholder: string;
+  formMessageLabel: string;
+  formSubmitLabel: string;
+  formSubmittingLabel: string;
+  formNameRequiredError: string;
+  formPhoneRequiredError: string;
+  formSuccessMessage: string;
+}

@@ -11,11 +11,9 @@ import { getSiteSettingsRepository } from "@/lib/server/settings/providers";
 // the v2 components so nav, branding and hotline read as one site instead
 // of visibly switching design systems mid-browse.
 export default async function PublicLayout({ children }: { children: React.ReactNode }) {
-  // /gioi-thieu and /lien-he stay prerendered — awaiting a repository does not
-  // opt a route out of static rendering. Their footers are baked at build time
-  // and refreshed by the revalidatePath("/", "layout") that saveSiteSettings
-  // issues, so an address change still reaches them without making every
-  // request pay for a settings read.
+  // Contact details remain shared by the footer and the editable public-page
+  // bodies. saveSiteSettings revalidates the whole layout so a hotline/address
+  // change reaches every route without separate duplicated page settings.
   const settings = await (await getSiteSettingsRepository()).get();
   return (
     <>

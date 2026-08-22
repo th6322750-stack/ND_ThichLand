@@ -11,7 +11,9 @@ const SECTIONS: Record<string, string> = {
   "/admin/du-an": "Dự án",
   "/admin/tin-tuc": "Tin tức",
   "/admin/media": "Media",
-  "/admin/cai-dat": "Cài đặt liên hệ",
+  "/admin/gioi-thieu": "Trang Về chúng tôi",
+  "/admin/lien-he": "Trang Liên hệ",
+  "/admin/cai-dat": "Cài đặt chung",
 };
 
 /**

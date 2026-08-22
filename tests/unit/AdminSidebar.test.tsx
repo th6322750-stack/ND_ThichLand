@@ -28,7 +28,15 @@ function renderWithRouter(push = vi.fn()) {
 describe("Admin Sidebar", () => {
   it("renders the primary nav items without the redundant Media tab", () => {
     renderWithRouter();
-    ["Dashboard", "Dự án", "BĐS cho thuê", "Tin tức", "Cài đặt liên hệ"].forEach((label) => {
+    [
+      "Dashboard",
+      "Dự án",
+      "BĐS cho thuê",
+      "Tin tức",
+      "Trang Về chúng tôi",
+      "Trang Liên hệ",
+      "Cài đặt chung",
+    ].forEach((label) => {
       expect(screen.getAllByRole("link", { name: label }).length).toBeGreaterThan(0);
     });
     expect(screen.queryByRole("link", { name: "Media" })).not.toBeInTheDocument();

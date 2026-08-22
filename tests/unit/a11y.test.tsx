@@ -68,7 +68,7 @@ describe("accessibility sweep", () => {
   });
 
   it("about page has no serious axe violations", async () => {
-    const { container } = render(<GioiThieuPage />);
+    const { container } = render(await GioiThieuPage());
     await expectNoSeriousViolations(container);
   });
 
@@ -78,7 +78,7 @@ describe("accessibility sweep", () => {
   });
 
   it("contact page has no serious axe violations", async () => {
-    const { container } = render(<LienHePage />);
+    const { container } = render(await LienHePage());
     await expectNoSeriousViolations(container);
   });
 

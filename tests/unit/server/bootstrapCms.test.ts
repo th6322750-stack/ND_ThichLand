@@ -52,9 +52,10 @@ describe("bootstrapCms", () => {
       CMS_TABS.contacts,
       CMS_TABS.media,
       CMS_TABS.settings,
+      CMS_TABS.pageContent,
       CMS_TABS.adminSecurity,
     ]);
-    expect(createSheetTabWithHeader).toHaveBeenCalledTimes(7);
+    expect(createSheetTabWithHeader).toHaveBeenCalledTimes(8);
     expect(createSheetTabWithHeader).not.toHaveBeenCalledWith("cms-sheet-id", CMS_TABS.projects, expect.anything());
     expect(result.extended).toEqual([CMS_TABS.projects]);
     expect(updateSheetRange).toHaveBeenCalledWith(

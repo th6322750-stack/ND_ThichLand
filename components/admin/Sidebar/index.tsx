@@ -16,7 +16,9 @@ const NAV_ITEMS: { label: string; href: string; icon: IconName }[] = [
   { label: "Dự án", href: "/admin/du-an", icon: "shop" },
   { label: "BĐS cho thuê", href: "/admin/bds", icon: "building" },
   { label: "Tin tức", href: "/admin/tin-tuc", icon: "edit" },
-  { label: "Cài đặt liên hệ", href: "/admin/cai-dat", icon: "phone" },
+  { label: "Trang Về chúng tôi", href: "/admin/gioi-thieu", icon: "person" },
+  { label: "Trang Liên hệ", href: "/admin/lien-he", icon: "pin" },
+  { label: "Cài đặt chung", href: "/admin/cai-dat", icon: "shield" },
 ];
 
 // NOTE on colours in this file: `text-body` is BOTH a fontSize token (15px)

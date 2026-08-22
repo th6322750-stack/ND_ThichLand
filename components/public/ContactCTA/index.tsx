@@ -1,11 +1,13 @@
 import { Icon } from "@/components/icons";
 import { getZaloHref } from "@/lib/zalo";
+import { telHref } from "@/lib/data/siteSettings";
 
 interface ContactCTAProps {
   title?: string;
   subtitle?: string;
   callLabel?: string;
   zaloLabel?: string;
+  phone?: string;
 }
 
 export function ContactCTA({
@@ -13,6 +15,7 @@ export function ContactCTA({
   subtitle = "Liên hệ trực tiếp để trao đổi nhu cầu và xem nguồn đang trống.",
   callLabel = "Gọi 0986 602 203",
   zaloLabel = "Nhắn Zalo",
+  phone = "0986 602 203",
 }: ContactCTAProps) {
   return (
     <div className="container-page py-10">
@@ -23,7 +26,7 @@ export function ContactCTA({
         </div>
         <div className="flex gap-3">
           <a
-            href="tel:0986602203"
+            href={`tel:${telHref(phone)}`}
             className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-button uppercase text-surface hover:bg-primaryHover"
           >
             <Icon name="phone" size={16} className="invert" /> {callLabel}
