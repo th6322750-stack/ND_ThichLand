@@ -84,6 +84,10 @@ export function getAdminAuthEnv(): AdminAuthEnv | null {
   const passwordHash = process.env.ADMIN_PASSWORD_HASH;
   const authSecret = process.env.AUTH_SECRET;
   if (!email || !passwordHash || !authSecret) return null;
+  // Short signing/encryption keys are accepted only in local/test harnesses.
+  // A real production runtime fails closed instead of silently using a weak
+  // AUTH_SECRET for both session HMAC and AES-256 key derivation.
+  if (process.env.NODE_ENV === "production" && authSecret.length < 32) return null;
   return { email, passwordHash, authSecret };
 }
 

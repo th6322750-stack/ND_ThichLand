@@ -21,27 +21,27 @@ const ASSET = (path: string) => `/assets/v2/${path}`;
 // Round 8 approved demo binaries (.webby/client-approved-v2/ROUND8_ASSET_SOURCE.md,
 // SHA256-verified against ROUND8_ASSET_MANIFEST.json before use). Temporary
 // demo/visual assets only — never factual evidence for a named real property.
-const R8 = (n: string) => `/assets/round8/${n}`;
-const R8_01 = R8("R8_01-toa-thap-ven-song-luc-hoang-hon.png");
-const R8_02 = R8("R8_02-khu-phuc-hop-ven-song-hien-dai.png");
-const R8_03 = R8("R8_03-khu-do-thi-cao-tang-ben-song.png");
-const R8_04 = R8("R8_04-toa-nha-kinh-giua-quang-truong-xanh.png");
-const R8_05 = R8("R8_05-quang-truong-hien-dai-duoi-thap-kinh.png");
-const R8_06 = R8("R8_06-do-thi-ven-song-luc-hoang-hon.png");
-const R8_07 = R8("R8_07-bo-song-do-thi-luc-hoang-hon.png");
-const R8_08 = R8("R8_08-hoang-hon-ben-pho-ven-song.png");
-const R8_09 = R8("R8_09-pho-thi-hien-dai-luc-chang-vang.png");
-const R8_10 = R8("R8_10-hoang-hon-tren-khu-do-thi-xanh.png");
-const R8_11 = R8("R8_11-sanh-sang-trong-hien-dai.png");
-const R8_12 = R8("R8_12-sanh-sang-trong-doi-xung.png");
-const R8_13 = R8("R8_13-ho-boi-sang-trong-luc-hoang-hon.png");
-const R8_14 = R8("R8_14-san-chung-cu-xanh-mat.png");
-const R8_15 = R8("R8_15-khu-do-thi-xanh-ben-san-golf.png");
-const R8_16 = R8("R8_16-ben-nuoc-do-thi-luc-hoang-hon.png");
-const R8_17 = R8("R8_17-noi-that-can-ho-cao-cap.png");
-const R8_18 = R8("R8_18-ngoai-that-ban-dem-cao-cap.png");
-const R8_19 = R8("R8_19-canh-quan-tien-ich-noi-khu.png");
-const R8_20 = R8("R8_20-building-facade-cao-cap.png");
+const R8 = (n: string) => `/assets/round8-web/${n}`;
+const R8_01 = R8("R8_01-toa-thap-ven-song-luc-hoang-hon.webp");
+const R8_02 = R8("R8_02-khu-phuc-hop-ven-song-hien-dai.webp");
+const R8_03 = R8("R8_03-khu-do-thi-cao-tang-ben-song.webp");
+const R8_04 = R8("R8_04-toa-nha-kinh-giua-quang-truong-xanh.webp");
+const R8_05 = R8("R8_05-quang-truong-hien-dai-duoi-thap-kinh.webp");
+const R8_06 = R8("R8_06-do-thi-ven-song-luc-hoang-hon.webp");
+const R8_07 = R8("R8_07-bo-song-do-thi-luc-hoang-hon.webp");
+const R8_08 = R8("R8_08-hoang-hon-ben-pho-ven-song.webp");
+const R8_09 = R8("R8_09-pho-thi-hien-dai-luc-chang-vang.webp");
+const R8_10 = R8("R8_10-hoang-hon-tren-khu-do-thi-xanh.webp");
+const R8_11 = R8("R8_11-sanh-sang-trong-hien-dai.webp");
+const R8_12 = R8("R8_12-sanh-sang-trong-doi-xung.webp");
+const R8_13 = R8("R8_13-ho-boi-sang-trong-luc-hoang-hon.webp");
+const R8_14 = R8("R8_14-san-chung-cu-xanh-mat.webp");
+const R8_15 = R8("R8_15-khu-do-thi-xanh-ben-san-golf.webp");
+const R8_16 = R8("R8_16-ben-nuoc-do-thi-luc-hoang-hon.webp");
+const R8_17 = R8("R8_17-noi-that-can-ho-cao-cap.webp");
+const R8_18 = R8("R8_18-ngoai-that-ban-dem-cao-cap.webp");
+const R8_19 = R8("R8_19-canh-quan-tien-ich-noi-khu.webp");
+const R8_20 = R8("R8_20-building-facade-cao-cap.webp");
 
 export function getVisualFixtureProperties(): PropertyListing[] {
   return [
@@ -242,7 +242,7 @@ interface ProjectFixture extends ProjectListing {
 }
 
 export function getVisualFixtureProjects(): ProjectFixture[] {
-  return [
+  return ([
     {
       slug: "sun-galaxy-complex",
       name: "Sun Galaxy Complex",
@@ -452,5 +452,9 @@ export function getVisualFixtureProjects(): ProjectFixture[] {
       unitCount: "1.200 căn",
       highlights: [],
     },
-  ];
+  ] satisfies ProjectFixture[]).map((project) => ({
+    apartmentArea: "50m² - 120m²",
+    legalStatus: "Sở hữu lâu dài",
+    ...project,
+  }));
 }

@@ -3,13 +3,13 @@ import type { NewsArticle } from "../types";
 // Real approved demo photography (same Round 8 set already used elsewhere),
 // one per article so the news list/detail pages show a real cover instead
 // of a blank placeholder tile during a client demo.
-const R8 = (n: string) => `/assets/round8/${n}`;
-const COVER_RENTAL_TIPS = R8("R8_09-pho-thi-hien-dai-luc-chang-vang.png");
-const COVER_APARTMENT_CHECKLIST = R8("R8_17-noi-that-can-ho-cao-cap.png");
-const COVER_STOREFRONT_TREND = R8("R8_05-quang-truong-hien-dai-duoi-thap-kinh.png");
-const COVER_SERVICE_FEE = R8("R8_14-san-chung-cu-xanh-mat.png");
-const COVER_OFFICE_CRITERIA = R8("R8_04-toa-nha-kinh-giua-quang-truong-xanh.png");
-const COVER_COMPANY_NEWS = R8("R8_01-toa-thap-ven-song-luc-hoang-hon.png");
+const R8 = (n: string) => `/assets/round8-web/${n}`;
+const COVER_RENTAL_TIPS = R8("R8_09-pho-thi-hien-dai-luc-chang-vang.webp");
+const COVER_APARTMENT_CHECKLIST = R8("R8_17-noi-that-can-ho-cao-cap.webp");
+const COVER_STOREFRONT_TREND = R8("R8_05-quang-truong-hien-dai-duoi-thap-kinh.webp");
+const COVER_SERVICE_FEE = R8("R8_14-san-chung-cu-xanh-mat.webp");
+const COVER_OFFICE_CRITERIA = R8("R8_04-toa-nha-kinh-giua-quang-truong-xanh.webp");
+const COVER_COMPANY_NEWS = R8("R8_01-toa-thap-ven-song-luc-hoang-hon.webp");
 
 export const news: NewsArticle[] = [
   {
@@ -151,4 +151,3 @@ export const news: NewsArticle[] = [
     cover: COVER_COMPANY_NEWS,
   },
 ];
-

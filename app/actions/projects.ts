@@ -34,6 +34,8 @@ export interface ProjectFormInput {
   propertyType: string;
   scale: string;
   unitCount: string;
+  apartmentArea?: string;
+  legalStatus?: string;
   highlights: string[];
 }
 
@@ -124,6 +126,8 @@ export async function saveProjectAction(input: ProjectFormInput, publish: boolea
     propertyType: input.propertyType,
     scale: input.scale,
     unitCount: input.unitCount,
+    apartmentArea: input.apartmentArea?.trim() ?? "",
+    legalStatus: input.legalStatus?.trim() ?? "",
     // Drop blank lines an admin left empty when adding/removing rows.
     highlights: input.highlights.map((h) => h.trim()).filter(Boolean),
     published: publish,

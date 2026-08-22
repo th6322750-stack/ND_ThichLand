@@ -89,7 +89,7 @@ export default async function TinTucDetailPage({
               fill
               className="object-cover"
               unoptimized
-              priority
+              loading="eager"
             />
           </div>
 

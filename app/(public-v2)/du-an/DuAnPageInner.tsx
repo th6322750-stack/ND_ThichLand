@@ -263,7 +263,7 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
               the 5th card onwards below 900px to match a canonical capture,
               which meant a phone visitor could never reach projects 5+ —
               there is no pagination or "xem thêm" here to reach them with. */}
-          {visible.map((project) => (
+          {visible.map((project, i) => (
             <ProjectCardOverlay2
               key={project.slug}
               slug={project.slug}
@@ -273,6 +273,7 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
               mobileAspect="2.8/1"
               desktopAspect="4/3"
               showButton
+              priority={i === 0}
             />
           ))}
         </div>

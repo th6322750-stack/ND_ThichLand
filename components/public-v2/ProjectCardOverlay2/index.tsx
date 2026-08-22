@@ -17,6 +17,7 @@ interface ProjectCardOverlay2Props {
   desktopAspect?: string;
   /** USER_APPROVED_PREMIUM_WIDE_SCALE section 10/12: >=1440px aspect ratio, separate from desktopAspect so the 900-1439px tier (already tuned against live client feedback) doesn't shift. Falls back to desktopAspect when unset. */
   wideAspect?: string;
+  priority?: boolean;
 }
 
 // Dark-gradient-overlay project card — home featured projects and the
@@ -36,6 +37,7 @@ export function ProjectCardOverlay2({
   mobileAspect = "4/5",
   desktopAspect = "272/292",
   wideAspect,
+  priority = false,
 }: ProjectCardOverlay2Props) {
   const media = (
     <div
@@ -54,6 +56,7 @@ export function ProjectCardOverlay2({
         fill
         className="object-cover transition-transform duration-base ease-base group-hover:scale-[1.03] motion-reduce:transform-none"
         unoptimized
+        loading={priority ? "eager" : "lazy"}
       />
       {/* Client feedback: white title/location text sank into brighter
           photos (sky, light facades) — strengthened the mid-stop so there's

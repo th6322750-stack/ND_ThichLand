@@ -131,6 +131,9 @@ export interface ProjectListing {
   propertyType: string;
   scale: string;
   unitCount: string;
+  /** Real CMS-backed values used by the public overview/FAQ. */
+  apartmentArea?: string;
+  legalStatus?: string;
   // Bullet-point USPs for the "Điểm nổi bật" tab in the "Tổng quan dự án"
   // panel — same level as Vị trí/Quy hoạch-Mặt bằng. Free text per line
   // (e.g. "Vận hành bởi Accor với hai thương hiệu Sofitel & Swissôtel"),

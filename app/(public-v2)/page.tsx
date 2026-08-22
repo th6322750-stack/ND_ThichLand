@@ -75,10 +75,10 @@ export default async function HomePageV2() {
   // listing always shows its own photo (see the call site below), because a
   // stock skyline presented as a specific rental misrepresents it.
   const HOME_RENTAL_FALLBACK_IMAGES = [
-    "/assets/round8/R8_05-quang-truong-hien-dai-duoi-thap-kinh.png",
-    "/assets/round8/R8_06-do-thi-ven-song-luc-hoang-hon.png",
-    "/assets/round8/R8_07-bo-song-do-thi-luc-hoang-hon.png",
-    "/assets/round8/R8_08-hoang-hon-ben-pho-ven-song.png",
+    "/assets/round8-web/R8_05-quang-truong-hien-dai-duoi-thap-kinh.webp",
+    "/assets/round8-web/R8_06-do-thi-ven-song-luc-hoang-hon.webp",
+    "/assets/round8-web/R8_07-bo-song-do-thi-luc-hoang-hon.webp",
+    "/assets/round8-web/R8_08-hoang-hon-ben-pho-ven-song.webp",
   ];
   const featuredProjects = projects.slice(0, 8);
 
@@ -301,7 +301,7 @@ export default async function HomePageV2() {
           className="mt-3 min-[900px]:mt-3 wide:mt-6"
           slideClassName="w-[62%] min-[600px]:w-[42%] min-[900px]:w-[calc((100%-3*1rem)/4)] wide:w-[calc((100%-3*1.5rem)/4)]"
         >
-          {featuredProjects.map((p) => (
+          {featuredProjects.map((p, i) => (
             <ProjectCardOverlay2
               key={p.slug}
               slug={p.slug}
@@ -316,6 +316,7 @@ export default async function HomePageV2() {
               mobileAspect="4/5"
               desktopAspect="4/5"
               wideAspect="4/5"
+              priority={i === 0}
             />
           ))}
         </Carousel2>
@@ -353,6 +354,7 @@ export default async function HomePageV2() {
                 p.media.length > 0 ? undefined : HOME_RENTAL_FALLBACK_IMAGES[i % HOME_RENTAL_FALLBACK_IMAGES.length]
               }
               wideAspect="16/10"
+              priority={i === 0}
             />
           ))}
         </Carousel2>
@@ -369,7 +371,7 @@ export default async function HomePageV2() {
         <div className="grid grid-cols-1 gap-3 min-[900px]:grid-cols-2 min-[900px]:items-center min-[900px]:gap-8 wide:gap-10">
           <div className="relative aspect-[16/9] overflow-hidden rounded-lg min-[900px]:aspect-auto min-[900px]:h-[280px] wide:h-[360px] wide:rounded-[16px]">
             <Image
-              src="/assets/round8/R8_11-sanh-sang-trong-hien-dai.png"
+              src="/assets/round8-web/R8_11-sanh-sang-trong-hien-dai.webp"
               alt="Sảnh đón NDTHICH"
               fill
               className="v2-parallax object-cover"

@@ -11,6 +11,7 @@ import { saveBdsAction, type BdsFormInput } from "@/app/actions/bds";
 import { uploadMediaAction } from "@/app/actions/media";
 import { formatArea, formatCurrencyVnd } from "@/lib/format";
 import type { AdminPropertyRecord, Availability, PropertyType } from "@/lib/types";
+import { moveItem } from "@/lib/admin/mediaOrder";
 
 // Mirrors the closed sets app/actions/bds.ts validates against.
 const PROPERTY_TYPE_OPTIONS: PropertyType[] = ["Căn hộ", "Nhà", "Mặt bằng", "Văn phòng", "Xưởng", "Studio"];
@@ -127,6 +128,10 @@ export function BdsForm({ initial }: BdsFormProps) {
     setMedia((prev) => prev.filter((_, i) => i !== index));
   }
 
+  function moveMedia(index: number, target: number) {
+    setMedia((prev) => moveItem(prev, index, target));
+  }
+
   async function save(form: HTMLFormElement, publish: boolean) {
     setSaving(publish ? "publish" : "draft");
     setFormError(undefined);
@@ -230,28 +235,43 @@ export function BdsForm({ initial }: BdsFormProps) {
                   onChange={handleFileChange}
                 />
                 {media.map((src, i) => (
-                  <div key={src + i} className="group relative aspect-[4/3] overflow-hidden rounded-md">
-                    <Image src={src} alt={`Ảnh ${i + 1}`} fill className="object-cover" unoptimized />
-                    {i === 0 && (
-                      <span className="absolute bottom-1 left-1 rounded bg-black/60 px-1.5 py-0.5 text-[10px] font-medium text-white">
-                        Ảnh chính
-                      </span>
-                    )}
-                    <button
-                      type="button"
-                      onClick={() => removeMediaAt(i)}
-                      aria-label={`Xóa ảnh ${i + 1}`}
-                      className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white opacity-0 transition-opacity hover:bg-error group-hover:opacity-100"
-                    >
-                      <Icon2 name="close" size={12} />
-                    </button>
+                  <div key={src + i} className="group overflow-hidden rounded-md border border-line bg-surface">
+                    <div className="relative aspect-[4/3] overflow-hidden">
+                      <Image src={src} alt={i === 0 ? "Ảnh chính BĐS" : `Ảnh thành phần ${i}`} fill className="object-cover" unoptimized />
+                      <button
+                        type="button"
+                        onClick={() => removeMediaAt(i)}
+                        aria-label={`Xóa ảnh ${i + 1}`}
+                        className="absolute right-1 top-1 flex h-10 w-10 items-center justify-center rounded-full bg-black/70 text-white transition-colors hover:bg-error"
+                      >
+                        <Icon2 name="close" size={16} />
+                      </button>
+                    </div>
+                    <div className="p-2">
+                      <p className={`text-[11px] font-semibold ${i === 0 ? "text-primary" : "text-ink"}`}>
+                        {i === 0 ? "Ảnh chính · ngoài danh sách" : `Ảnh thành phần ${i} · gallery`}
+                      </p>
+                      <div className="mt-1 flex min-h-[44px] items-center justify-end gap-1">
+                      {i > 0 && (
+                        <button type="button" onClick={() => moveMedia(i, 0)} aria-label={`Đặt ảnh ${i + 1} làm ảnh chính`} title="Đặt làm ảnh chính" className="mr-auto h-[44px] rounded border border-primary px-2 text-[10px] font-semibold text-primary hover:bg-primary hover:text-surface">
+                          ĐẶT CHÍNH
+                        </button>
+                      )}
+                      <button type="button" disabled={i === 0} onClick={() => moveMedia(i, i - 1)} aria-label={`Đưa ảnh ${i + 1} sang trái`} className="h-[44px] w-[44px] rounded border border-line text-base text-ink disabled:opacity-30" title="Đưa sang trái">
+                        ←
+                      </button>
+                      <button type="button" disabled={i === media.length - 1} onClick={() => moveMedia(i, i + 1)} aria-label={`Đưa ảnh ${i + 1} sang phải`} className="h-[44px] w-[44px] rounded border border-line text-base text-ink disabled:opacity-30" title="Đưa sang phải">
+                        →
+                      </button>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
               <p className="mt-2 text-body text-muted">
                 {media.length === 0
                   ? "Chưa có ảnh — đây là khu vực gallery chính trên trang chi tiết. Có thể chọn nhiều ảnh cùng lúc."
-                  : "Có thể bấm ô tải ảnh nhiều lần hoặc chọn nhiều ảnh cùng lúc để thêm; ảnh đầu tiên là ảnh chính."}
+                  : "Ảnh số 1 là ảnh chính dùng ngoài danh sách; các ảnh sau là ảnh thành phần trong gallery. Dùng CHÍNH hoặc mũi tên để đổi thứ tự."}
               </p>
             </div>
 

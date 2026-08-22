@@ -21,6 +21,8 @@ export function toPublicProjectListing(record: ProjectRecord): ProjectListing {
     propertyType: record.propertyType,
     scale: record.scale,
     unitCount: record.unitCount,
+    apartmentArea: record.apartmentArea,
+    legalStatus: record.legalStatus,
     highlights: record.highlights,
   };
 }

@@ -225,7 +225,7 @@ export function ChoThuePageInner({ properties, now }: { properties: PropertyList
               className="mt-4"
               slideClassName="w-[72%] min-[600px]:w-[46%] min-[900px]:w-[calc((100%-3*1rem)/4.2)] wide:w-[calc((100%-4*1.5rem)/4.5)]"
             >
-              {newListings.map((p) => (
+              {newListings.map((p, i) => (
                 <PropertyCardGrid2
                   key={p.slug}
                   listing={p}
@@ -234,6 +234,7 @@ export function ChoThuePageInner({ properties, now }: { properties: PropertyList
                   mobileAspect="4/3"
                   desktopAspect="16/10"
                   wideAspect="16/10"
+                  priority={i === 0}
                 />
               ))}
             </Carousel2>
@@ -310,8 +311,8 @@ export function ChoThuePageInner({ properties, now }: { properties: PropertyList
               </div>
             ) : (
               <div className="v2-stagger mt-2 flex flex-col gap-2 min-[900px]:mt-0 min-[900px]:gap-5">
-                {visible.map((listing) => (
-                  <PropertyListRow2 key={listing.slug} listing={listing} />
+                {visible.map((listing, i) => (
+                  <PropertyListRow2 key={listing.slug} listing={listing} priority={i === 0} />
                 ))}
               </div>
             )}

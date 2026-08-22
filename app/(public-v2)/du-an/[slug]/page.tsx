@@ -68,11 +68,6 @@ function progressStepIndex(progressPercent: number): number {
   return 0;
 }
 
-// ProjectListing still has no real field backing apartment-area-range/
-// legal-status (checklist below) — those stay VISUAL_FIXTURE_V2-only /
-// "Đang cập nhật" (Round 8 blocker 2). Loại hình/Quy mô/Số lượng got real
-// admin-editable fields (propertyType/scale/unitCount), so they now read
-// from the record with the same "Đang cập nhật" fallback investor uses.
 function projectFacts(project: ProjectListing): { icon: IconName; label: string; value: string }[] {
   const tbd = "Đang cập nhật";
   return [
@@ -90,14 +85,10 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
   const project = projects.find((p) => p.slug === slug);
   if (!project) notFound();
 
-  const isFixture = isVisualFixtureV2Enabled();
   const stepIndex = progressStepIndex(project.progressPercent);
   const photoStepIndex = progressPhotoStepIndex(project.progressPercent, project.progressPhotos.length);
   const facts = projectFacts(project);
 
-  // Diện tích căn hộ/Pháp lý still have no real field — stay
-  // VISUAL_FIXTURE_V2-only (Round 8 blocker 2). The other 3 lines now
-  // reuse the same real propertyType/scale/unitCount facts above.
   const tbd = "Đang cập nhật";
   const checklist = [
     `Vị trí: ${project.location}`,
@@ -105,8 +96,8 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
     `Loại hình phát triển: ${project.propertyType || tbd}`,
     `Quy mô: ${project.scale || tbd}`,
     `Số lượng sản phẩm: ${project.unitCount || tbd}`,
-    `Diện tích căn hộ: ${isFixture ? "50m² - 120m²" : tbd}`,
-    `Pháp lý: ${isFixture ? "Sở hữu lâu dài" : tbd}`,
+    `Diện tích căn hộ: ${project.apartmentArea || tbd}`,
+    `Pháp lý: ${project.legalStatus || tbd}`,
   ];
 
   // Real project data is a flat "location" string (e.g. "Hà Nội", or
@@ -123,7 +114,7 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
     { q: `Chủ đầu tư dự án ${project.name} là ai?`, a: project.investor || tbd },
     { q: `Vị trí dự án ${project.name} ở đâu?`, a: project.location || tbd },
     { q: `Quy mô dự án ${project.name} như thế nào?`, a: facts.find((f) => f.label === "Quy mô")?.value ?? tbd },
-    { q: `Tình trạng pháp lý của dự án như thế nào?`, a: isFixture ? "Sở hữu lâu dài" : tbd },
+    { q: `Tình trạng pháp lý của dự án như thế nào?`, a: project.legalStatus || tbd },
   ];
 
   return (
@@ -407,7 +398,7 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
               forced into the "Tiến độ dự án" milestone slots below, which
               keep their already-approved (round 7) construction-stage
               progress-1..5.png set instead. */}
-          <Image src="/assets/round8/R8_13-ho-boi-sang-trong-luc-hoang-hon.png" alt={`${project.name} — tiện ích hồ bơi`} fill className="v2-parallax object-cover" unoptimized />
+          <Image src="/assets/round8-web/R8_13-ho-boi-sang-trong-luc-hoang-hon.webp" alt={`${project.name} — tiện ích hồ bơi`} fill className="v2-parallax object-cover" unoptimized />
         </div>
       </section>
 

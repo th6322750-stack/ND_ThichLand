@@ -11,6 +11,7 @@ import { uploadMediaAction } from "@/app/actions/media";
 import { PROJECT_AMENITY_CATALOG } from "@/lib/projectAmenities";
 import { KNOWN_PROJECT_STATUSES } from "@/lib/projectStatus";
 import type { ProjectRecord } from "@/lib/server/projects/repository";
+import { moveItem } from "@/lib/admin/mediaOrder";
 
 // Same WYSIWYG approach as BdsForm — "để admin biết nội dung sẽ hiển thị ở
 // đâu, đồng nhất 1:1 với giao diện web" — the inputs below are styled with
@@ -84,6 +85,10 @@ export function DuAnForm({ initial }: DuAnFormProps) {
     setMedia((prev) => prev.filter((_, i) => i !== index));
   }
 
+  function moveMedia(index: number, target: number) {
+    setMedia((prev) => moveItem(prev, index, target));
+  }
+
   async function handleMasterplanFileChange(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     e.target.value = "";
@@ -138,6 +143,10 @@ export function DuAnForm({ initial }: DuAnFormProps) {
 
   function removeProgressPhotoAt(index: number) {
     setProgressPhotos((prev) => prev.filter((_, i) => i !== index));
+  }
+
+  function moveProgressPhoto(index: number, target: number) {
+    setProgressPhotos((prev) => moveItem(prev, index, target));
   }
 
   function toggleAmenity(label: string) {
@@ -233,6 +242,8 @@ export function DuAnForm({ initial }: DuAnFormProps) {
         propertyType: get("propertyType"),
         scale: get("scale"),
         unitCount: get("unitCount"),
+        apartmentArea: get("apartmentArea"),
+        legalStatus: get("legalStatus"),
         highlights,
       };
 
@@ -337,23 +348,43 @@ export function DuAnForm({ initial }: DuAnFormProps) {
                   onChange={handleFileChange}
                 />
                 {media.map((src, i) => (
-                  <div key={src + i} className="group relative aspect-[4/3] overflow-hidden rounded-md">
-                    <Image src={src} alt={`Ảnh ${i + 1}`} fill className="object-cover" unoptimized />
-                    <button
-                      type="button"
-                      onClick={() => removeMediaAt(i)}
-                      aria-label={`Xóa ảnh ${i + 1}`}
-                      className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white opacity-0 transition-opacity hover:bg-error group-hover:opacity-100"
-                    >
-                      <Icon name="close" size={12} />
-                    </button>
+                  <div key={src + i} className="group overflow-hidden rounded-md border border-line bg-surface">
+                    <div className="relative aspect-[4/3] overflow-hidden">
+                      <Image src={src} alt={i === 0 ? "Ảnh chính dự án" : `Ảnh thành phần ${i}`} fill className="object-cover" unoptimized />
+                      <button
+                        type="button"
+                        onClick={() => removeMediaAt(i)}
+                        aria-label={`Xóa ảnh ${i + 1}`}
+                        className="absolute right-1 top-1 flex h-10 w-10 items-center justify-center rounded-full bg-black/70 text-white transition-colors hover:bg-error"
+                      >
+                        <Icon name="close" size={16} />
+                      </button>
+                    </div>
+                    <div className="p-2">
+                      <p className={`text-[11px] font-semibold ${i === 0 ? "text-primary" : "text-ink"}`}>
+                        {i === 0 ? "Ảnh chính · ngoài danh sách" : `Ảnh thành phần ${i} · gallery`}
+                      </p>
+                      <div className="mt-1 flex min-h-[44px] items-center justify-end gap-1">
+                      {i > 0 && (
+                        <button type="button" onClick={() => moveMedia(i, 0)} aria-label={`Đặt ảnh ${i + 1} làm ảnh chính`} title="Đặt làm ảnh chính" className="mr-auto h-[44px] rounded border border-primary px-2 text-[10px] font-semibold text-primary hover:bg-primary hover:text-surface">
+                          ĐẶT CHÍNH
+                        </button>
+                      )}
+                      <button type="button" disabled={i === 0} onClick={() => moveMedia(i, i - 1)} aria-label={`Đưa ảnh ${i + 1} sang trái`} className="h-[44px] w-[44px] rounded border border-line text-base text-ink disabled:opacity-30" title="Đưa sang trái">
+                        ←
+                      </button>
+                      <button type="button" disabled={i === media.length - 1} onClick={() => moveMedia(i, i + 1)} aria-label={`Đưa ảnh ${i + 1} sang phải`} className="h-[44px] w-[44px] rounded border border-line text-base text-ink disabled:opacity-30" title="Đưa sang phải">
+                        →
+                      </button>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
               <p className="mt-2 text-body text-muted">
                 {media.length === 0
                   ? "Chưa có ảnh — đây là khu vực gallery chính trên trang chi tiết. Có thể chọn nhiều ảnh cùng lúc."
-                  : "Có thể bấm ô tải ảnh nhiều lần hoặc chọn nhiều ảnh cùng lúc để thêm."}
+                  : "Ảnh số 1 là ảnh chính dùng ngoài danh sách; các ảnh sau là ảnh thành phần trong gallery. Dùng CHÍNH hoặc mũi tên để đổi thứ tự."}
               </p>
             </div>
 
@@ -465,6 +496,29 @@ export function DuAnForm({ initial }: DuAnFormProps) {
                 />
                 <p className="leading-tight text-[9px] text-[#5F5D5D]">Số lượng</p>
               </div>
+            </div>
+
+            <div className="mt-3 grid grid-cols-1 gap-3 tablet:grid-cols-2">
+              <label className="flex flex-col gap-1 rounded-lg border border-[#EDEBEA] p-3">
+                <span className="text-[12px] font-semibold text-[#0C0D0D]">Diện tích căn hộ / sản phẩm</span>
+                <input
+                  name="apartmentArea"
+                  placeholder="VD: 50m² - 120m²"
+                  defaultValue={initial?.apartmentArea}
+                  className={`${wysiwygInput} text-[13px] text-[#3A3838] placeholder:text-[#C9C6C5]`}
+                />
+                <span className="text-[10px] text-[#8A8785]">Để trống thì website hiện “Đang cập nhật”.</span>
+              </label>
+              <label className="flex flex-col gap-1 rounded-lg border border-[#EDEBEA] p-3">
+                <span className="text-[12px] font-semibold text-[#0C0D0D]">Pháp lý</span>
+                <input
+                  name="legalStatus"
+                  placeholder="VD: Sổ hồng lâu dài"
+                  defaultValue={initial?.legalStatus}
+                  className={`${wysiwygInput} text-[13px] text-[#3A3838] placeholder:text-[#C9C6C5]`}
+                />
+                <span className="text-[10px] text-[#8A8785]">Chỉ nhập thông tin đã được xác minh.</span>
+              </label>
             </div>
 
             {/* Summary — same heading/style as "Thông tin dự án" on WEB. */}
@@ -798,10 +852,19 @@ export function DuAnForm({ initial }: DuAnFormProps) {
                       type="button"
                       onClick={() => removeProgressPhotoAt(i)}
                       aria-label={`Xóa mốc tiến độ ${i + 1}`}
-                      className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white opacity-0 transition-opacity hover:bg-error group-hover:opacity-100"
+                      className="absolute right-1 top-1 flex h-10 w-10 items-center justify-center rounded-full bg-black/70 text-white transition-colors hover:bg-error"
                     >
-                      <Icon name="close" size={12} />
+                      <Icon name="close" size={16} />
                     </button>
+                    <div className="absolute inset-x-0 bottom-0 flex min-h-10 items-center justify-center gap-2 bg-black/70 px-2 text-white">
+                      <button type="button" disabled={i === 0} onClick={() => moveProgressPhoto(i, i - 1)} aria-label={`Đưa mốc tiến độ ${i + 1} sang trái`} className="h-[44px] w-[44px] rounded bg-white/15 text-base disabled:opacity-30">
+                        ←
+                      </button>
+                      <span className="text-[10px] font-semibold">MỐC {i + 1}</span>
+                      <button type="button" disabled={i === progressPhotos.length - 1} onClick={() => moveProgressPhoto(i, i + 1)} aria-label={`Đưa mốc tiến độ ${i + 1} sang phải`} className="h-[44px] w-[44px] rounded bg-white/15 text-base disabled:opacity-30">
+                        →
+                      </button>
+                    </div>
                   </div>
                   <input
                     type="text"

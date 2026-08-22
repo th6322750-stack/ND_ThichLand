@@ -87,6 +87,7 @@ function SidebarBody({
               height={128}
               className="h-6 w-auto"
               unoptimized
+              loading="eager"
             />
           </span>
           {!compact && (

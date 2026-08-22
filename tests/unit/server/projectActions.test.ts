@@ -44,6 +44,8 @@ const baseInput = {
   propertyType: "",
   scale: "",
   unitCount: "",
+  apartmentArea: "50m² - 120m²",
+  legalStatus: "Sổ hồng lâu dài",
   highlights: [],
 };
 
@@ -95,6 +97,8 @@ describe("Project admin actions", () => {
     expect(created).toBeDefined();
     expect(created!.published).toBe(true);
     expect(created!.investor).toBe("Chủ đầu tư Test");
+    expect(created!.apartmentArea).toBe("50m² - 120m²");
+    expect(created!.legalStatus).toBe("Sổ hồng lâu dài");
   });
 
   it("persists progressPhotos (per-project milestone photos, not a shared hardcoded set)", async () => {
@@ -146,6 +150,8 @@ describe("Project admin actions", () => {
         propertyType: target.propertyType,
         scale: target.scale,
         unitCount: target.unitCount,
+        apartmentArea: target.apartmentArea,
+        legalStatus: target.legalStatus,
         highlights: target.highlights,
       },
       true,

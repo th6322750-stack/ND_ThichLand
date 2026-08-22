@@ -127,6 +127,7 @@ export function Header2() {
             height={128}
             className="h-[30px] w-auto min-[900px]:h-[36px] wide:h-[44px]"
             unoptimized
+            loading="eager"
           />
           {variant.tagline && (
             <span className="whitespace-nowrap text-[8px] leading-tight text-[#5F5D5D] min-[900px]:hidden">

@@ -20,7 +20,7 @@ import type { PropertyListing } from "@/lib/types";
 // browser via lib/useSavedListings.ts and drives the "Yêu thích" tab in the
 // mobile bottom nav — it used to be a button that looked interactive and did
 // nothing at all.
-export function PropertyListRow2({ listing }: { listing: PropertyListing }) {
+export function PropertyListRow2({ listing, priority = false }: { listing: PropertyListing; priority?: boolean }) {
   const specs = [
     `${listing.area}m²`,
     listing.bedroomCount !== null ? `${listing.bedroomCount} PN` : null,
@@ -36,6 +36,7 @@ export function PropertyListRow2({ listing }: { listing: PropertyListing }) {
           fill
           className="object-cover transition-transform duration-base ease-base group-hover:scale-[1.03] motion-reduce:transform-none"
           unoptimized
+          loading={priority ? "eager" : "lazy"}
         />
         <span className="absolute bottom-2 left-2 rounded-full bg-black/55 px-2 py-1 text-[10px] font-medium text-white min-[900px]:hidden">
           {listing.propertyType}

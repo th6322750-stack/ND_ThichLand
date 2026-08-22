@@ -48,7 +48,7 @@ export function NewsRail2({
       </div>
 
       <ul className="mt-4 flex flex-col gap-5">
-        {articles.map((a) => (
+        {articles.map((a, i) => (
           <li key={a.slug}>
             <Link
               href={`/tin-tuc/${a.slug}`}
@@ -66,6 +66,7 @@ export function NewsRail2({
                   fill
                   className="object-cover transition-transform duration-base ease-base group-hover:scale-[1.04] motion-reduce:transform-none"
                   unoptimized
+                  loading={i === 0 ? "eager" : "lazy"}
                 />
               </span>
               <span className="min-w-0 flex-1">

@@ -6,6 +6,7 @@ import { mediaSrc, NEWS_PLACEHOLDER } from "@/lib/media";
 interface NewsCardProps {
   article: NewsArticle;
   state?: "default" | "hover" | "loading";
+  priority?: boolean;
 }
 
 /** An article saved without a publish date rendered "undefined.undefined.undefined". */
@@ -15,7 +16,7 @@ function formatDate(iso: string): string {
   return `${d}.${m}.${y}`;
 }
 
-export function NewsCard({ article, state = "default" }: NewsCardProps) {
+export function NewsCard({ article, state = "default", priority = false }: NewsCardProps) {
   if (state === "loading") {
     return (
       <div className="animate-pulse overflow-hidden rounded-md border border-line bg-surface">
@@ -40,6 +41,7 @@ export function NewsCard({ article, state = "default" }: NewsCardProps) {
           fill
           className="object-cover"
           unoptimized
+          loading={priority ? "eager" : "lazy"}
         />
         <span className="absolute left-3 top-3 rounded-full bg-black/40 px-3 py-1 text-label text-surface">
           Tin tức

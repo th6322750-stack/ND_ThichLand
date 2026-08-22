@@ -77,8 +77,8 @@ export function TinTucPageInner({ articles }: { articles: NewsArticle[] }) {
         </div>
       ) : (
         <div className="mt-8 grid grid-cols-1 gap-6 tablet:grid-cols-2 desktop:grid-cols-3">
-          {visible.map((article) => (
-            <NewsCard key={article.slug} article={article} />
+          {visible.map((article, i) => (
+            <NewsCard key={article.slug} article={article} priority={i === 0} />
           ))}
         </div>
       )}

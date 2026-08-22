@@ -100,6 +100,8 @@ function rowToRecord(row: string[]): ProjectRecord | null {
     mapQuery,
     masterplanImage,
     showMasterplan,
+    apartmentArea,
+    legalStatus,
   ] = row;
   if (!id) return null;
   return {
@@ -137,6 +139,8 @@ function rowToRecord(row: string[]): ProjectRecord | null {
     // Absent cell (every row written before this column existed) reads as
     // false, so no project starts showing the placeholder box again.
     showMasterplan: showMasterplan === "true",
+    apartmentArea: apartmentArea ?? "",
+    legalStatus: legalStatus ?? "",
   };
 }
 
@@ -165,23 +169,25 @@ function recordToRow(r: ProjectRecord): (string | number)[] {
     r.mapQuery,
     r.masterplanImage,
     String(r.showMasterplan),
+    r.apartmentArea ?? "",
+    r.legalStatus ?? "",
   ];
 }
 
 export class GoogleProjectRepository implements ProjectRepository {
   async list(): Promise<ProjectRecord[]> {
     const { cmsSpreadsheetId } = requireGoogleSpreadsheetEnv();
-    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A2:W`);
+    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A2:Y`);
     return values.map(rowToRecord).filter((r): r is ProjectRecord => r !== null);
   }
 
   async upsert(record: ProjectRecord): Promise<void> {
     const { cmsSpreadsheetId } = requireGoogleSpreadsheetEnv();
-    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A2:W`);
+    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A2:Y`);
     const rowIndex = values.findIndex((row) => row[0] === record.id);
     const row = recordToRow(record);
     if (rowIndex >= 0) {
-      await updateSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A${rowIndex + 2}:T${rowIndex + 2}`, row);
+      await updateSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A${rowIndex + 2}:Y${rowIndex + 2}`, row);
     } else {
       await appendSheetRow(cmsSpreadsheetId, CMS_TABS.projects, row);
     }

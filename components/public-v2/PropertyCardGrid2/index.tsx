@@ -18,6 +18,7 @@ export function PropertyCardGrid2({
   imageOverride,
   isNew = false,
   showPhotoCount = false,
+  priority = false,
 }: {
   listing: PropertyListing;
   /** Home's 3-col mobile grid is short/wide; the detail page's "related" strip is taller, per master. */
@@ -36,6 +37,8 @@ export function PropertyCardGrid2({
       exists in the frozen icon set, so this is text-only rather than
       reaching for an icon that doesn't actually depict a photo count. */
   showPhotoCount?: boolean;
+  /** Eager-load only when the caller knows this is the first above-fold card. */
+  priority?: boolean;
 }) {
   const specs = [
     `${listing.area}m²`,
@@ -64,6 +67,7 @@ export function PropertyCardGrid2({
           fill
           className="object-cover transition-transform duration-base ease-base group-hover:scale-[1.03] motion-reduce:transform-none"
           unoptimized
+          loading={priority ? "eager" : "lazy"}
         />
         <span className="absolute left-[10px] top-[10px] rounded-full border border-white/20 bg-black/60 px-[10px] py-1 text-[11px] font-medium text-white backdrop-blur-[4px] transition-all duration-base ease-base group-hover:border-white/40 group-hover:bg-[#880206] wide:py-[6px] wide:text-[12px]">
           {listing.propertyType}

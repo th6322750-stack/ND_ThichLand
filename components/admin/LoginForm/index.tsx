@@ -10,6 +10,7 @@ export function LoginForm() {
   const router = useRouter();
   const [error, setError] = useState<string>();
   const [submitting, setSubmitting] = useState(false);
+  const [requiresTwoFactor, setRequiresTwoFactor] = useState(false);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -22,7 +23,8 @@ export function LoginForm() {
         router.push("/admin");
         router.refresh();
       } else {
-        setError(result.error ?? "Đăng nhập thất bại.");
+        if (result.requiresTwoFactor) setRequiresTwoFactor(true);
+        setError(result.error ?? (result.requiresTwoFactor ? undefined : "Đăng nhập thất bại."));
       }
     } finally {
       setSubmitting(false);
@@ -46,6 +48,7 @@ export function LoginForm() {
               height={128}
               className="h-8 w-auto"
               unoptimized
+              loading="eager"
             />
           </span>
           <span className="text-label uppercase tracking-[0.14em] text-line/60">Quản trị</span>
@@ -70,19 +73,32 @@ export function LoginForm() {
             <div className="mt-6">
               <FormField label="Mật khẩu" name="password" type="password" required />
             </div>
+            {requiresTwoFactor && (
+              <div className="mt-6">
+                <FormField
+                  label="Mã xác thực 2 bước"
+                  name="totpCode"
+                  type="text"
+                  required
+                  inputMode="numeric"
+                  autoComplete="one-time-code"
+                  pattern="[0-9]{6}"
+                  maxLength={6}
+                  placeholder="000000"
+                  hint="Nhập mã 6 số đang hiển thị trong ứng dụng Authenticator."
+                />
+              </div>
+            )}
             {error && (
               <p role="alert" className="mt-3 text-body text-error">
                 {error}
               </p>
             )}
-            <div className="mt-4 flex items-center justify-between">
-              <label className="flex items-center gap-2 text-body text-ink">
-                <input type="checkbox" name="remember" className="h-4 w-4" />
+            <div className="mt-4 flex items-center">
+              <label className="flex min-h-[44px] cursor-pointer items-center gap-2 text-body text-ink">
+                <input type="checkbox" name="remember" className="h-5 w-5" />
                 Ghi nhớ đăng nhập
               </label>
-              <a href="#" className="text-label text-primary hover:underline">
-                Quên mật khẩu?
-              </a>
             </div>
             <button
               type="submit"

@@ -23,9 +23,9 @@ export const dynamic = "force-dynamic";
 // Painting a stock skyline over a real rental's card misrepresents that
 // specific property to a customer.
 const RELATED_FALLBACK_IMAGES = [
-  "/assets/round8/R8_05-quang-truong-hien-dai-duoi-thap-kinh.png",
-  "/assets/round8/R8_07-bo-song-do-thi-luc-hoang-hon.png",
-  "/assets/round8/R8_08-hoang-hon-ben-pho-ven-song.png",
+  "/assets/round8-web/R8_05-quang-truong-hien-dai-duoi-thap-kinh.webp",
+  "/assets/round8-web/R8_07-bo-song-do-thi-luc-hoang-hon.webp",
+  "/assets/round8-web/R8_08-hoang-hon-ben-pho-ven-song.webp",
 ];
 
 // React cache(): generateMetadata and the page body both need the listing.

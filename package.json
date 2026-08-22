@@ -20,7 +20,8 @@
     "check": "npm run lint && npm run typecheck && npm test && npm run build",
     "release:check": "npm run lint && npm run typecheck && npm test && npm run test:e2e:mock && npm run test:e2e:failclosed",
     "gd6:hash-password": "node scripts/hash-password.mjs",
-    "gd6:bootstrap-cms": "tsx scripts/gd6-bootstrap-cms.ts"
+    "gd6:bootstrap-cms": "tsx scripts/gd6-bootstrap-cms.ts",
+    "assets:round8": "node scripts/optimize-round8-assets.mjs"
   },
   "dependencies": {
     "googleapis": "^174.0.1",
@@ -50,6 +51,7 @@
     "pngjs": "^7.0.0",
     "postcss": "8.5.26",
     "prettier": "3.3.3",
+    "sharp": "^0.35.3",
     "tailwindcss": "3.4.7",
     "tsx": "4.23.12",
     "typescript": "5.9.3",

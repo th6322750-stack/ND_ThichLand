@@ -10,6 +10,7 @@ export const CMS_TABS = {
   contacts: "WEB_CONTACTS",
   media: "WEB_MEDIA",
   settings: "WEB_SETTINGS",
+  adminSecurity: "WEB_ADMIN_SECURITY",
 } as const;
 
 export const CMS_HEADERS: Record<(typeof CMS_TABS)[keyof typeof CMS_TABS], string[]> = {
@@ -62,6 +63,8 @@ export const CMS_HEADERS: Record<(typeof CMS_TABS)[keyof typeof CMS_TABS], strin
     "map_query",
     "masterplan_image",
     "show_masterplan",
+    "apartment_area",
+    "legal_status",
   ],
   [CMS_TABS.news]: [
     "id",
@@ -101,5 +104,13 @@ export const CMS_HEADERS: Record<(typeof CMS_TABS)[keyof typeof CMS_TABS], strin
     "hours_weekend",
     "updated_at",
     "profile_pdf_url",
+  ],
+  // Single-row, server-only record. The TOTP seed is encrypted with
+  // AUTH_SECRET before it reaches Sheets; passwords remain scrypt hashes.
+  [CMS_TABS.adminSecurity]: [
+    "password_hash",
+    "totp_secret_ciphertext",
+    "totp_enabled",
+    "updated_at",
   ],
 };
