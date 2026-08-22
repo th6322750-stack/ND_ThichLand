@@ -231,9 +231,7 @@ export function TinTucForm({ initial, knownCategories = [] }: TinTucFormProps) {
             </p>
           )}
 
-          <p className="mt-3 text-body text-muted">
-            Ngày đăng và thời gian đọc được tính tự động khi xuất bản — không cần nhập.
-          </p>
+          <p className="mt-3 text-body text-muted">Ngày đăng được tính tự động khi xuất bản — không cần nhập.</p>
 
           {/* Keep the current preview visible while a replacement uploads, so
               a failed upload never removes the image already attached. */}

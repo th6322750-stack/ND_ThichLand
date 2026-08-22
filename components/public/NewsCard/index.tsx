@@ -50,9 +50,7 @@ export function NewsCard({ article, state = "default", priority = false }: NewsC
       <div className="p-4">
         <span className="text-label text-primary">{article.category.toUpperCase()}</span>
         <h3 className="mt-2 line-clamp-2 text-h3 text-ink">{article.title}</h3>
-        <p className="mt-3 text-body text-muted">
-          {formatDate(article.publishedAt)} • {article.readMinutes} phút đọc
-        </p>
+        <p className="mt-3 text-body text-muted">{formatDate(article.publishedAt)}</p>
       </div>
     </Link>
   );

@@ -95,9 +95,7 @@ export default async function TinTucDetailPage({
         <article>
           <span className="text-label text-primary">{article.category.toUpperCase()}</span>
           <h1 className="mt-3 text-h1-mobile text-ink desktop:text-h1">{article.title}</h1>
-          <p className="mt-3 text-body text-muted">
-            {formatDate(article.publishedAt)} • {article.readMinutes} phút đọc
-          </p>
+          <p className="mt-3 text-body text-muted">{formatDate(article.publishedAt)}</p>
 
           {/* The "Ảnh bài viết 16:9" / "Ảnh minh họa" chips were layout-mock
               scaffolding that shipped into production, and every section

@@ -14,9 +14,8 @@ export interface NewsFormInput {
   excerpt: string;
   cover: string;
   sections: { heading: string; body: string }[];
-  // No readMinutes: it is derived from the content below, never submitted —
-  // there was no input for it in any form, so every saved article used to
-  // persist 0 and the public page printed "0 phút đọc".
+  // readMinutes remains a derived compatibility field in the stored schema;
+  // it is not submitted by the form or displayed on the public website.
 }
 
 export interface NewsActionResult {
@@ -54,11 +53,8 @@ function validate(input: NewsFormInput): Record<string, string> {
 const WORDS_PER_MINUTE = 200;
 
 /**
- * Derived, not invented: the public article page prints "N phút đọc", and
- * `readMinutes` had no input anywhere in the admin form, so every
- * CMS-authored article shipped "0 phút đọc". Computing it from the article's
- * own word count is a deterministic property of the text, not a business
- * fact about a property.
+ * Keep the legacy storage field deterministic for existing Sheets schemas
+ * even though reading time is no longer shown on the public website.
  */
 function estimateReadMinutes(input: NewsFormInput): number {
   const text = [input.excerpt, ...input.sections.flatMap((s) => [s.heading, s.body])].join(" ").trim();

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Icon2 as Icon } from "@/components/public-v2/Icon2";
 import { firstMedia, PROPERTY_PLACEHOLDER } from "@/lib/media";
 import type { NewsArticle } from "@/lib/types";
 
@@ -73,11 +72,6 @@ export function NewsRail2({
                 <span className="line-clamp-3 block text-[15px] font-semibold leading-[21px] text-[#0C0D0D] transition-colors duration-fast ease-base group-hover:text-[#880206]">
                   {a.title}
                 </span>
-                {a.readMinutes > 0 && (
-                  <span className="mt-2 flex items-center gap-1 text-[12px] text-[#8A8785]">
-                    <Icon name="clock" size={12} /> {a.readMinutes} phút đọc
-                  </span>
-                )}
               </span>
             </Link>
           </li>

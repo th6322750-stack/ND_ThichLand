@@ -119,3 +119,17 @@ test("missing detail pages return 404 without homepage canonical or social metad
     await expect(page.locator('meta[property^="og:"]')).toHaveCount(0);
   }
 });
+
+test("public news surfaces do not display estimated reading time", async ({ page }) => {
+  await page.goto("/tin-tuc");
+  await expect(page.getByText(/phút đọc/i)).toHaveCount(0);
+
+  const detailHref = await page.locator('a[href^="/tin-tuc/"]').first().getAttribute("href");
+  expect(detailHref).toBeTruthy();
+  await page.goto(detailHref as string);
+  await expect(page.getByText(/phút đọc/i)).toHaveCount(0);
+
+  await page.setViewportSize({ width: 1920, height: 1080 });
+  await page.goto("/");
+  await expect(page.getByText(/phút đọc/i)).toHaveCount(0);
+});
