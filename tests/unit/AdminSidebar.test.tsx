@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { AppRouterContext } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { Sidebar } from "@/components/admin/Sidebar";
@@ -31,6 +31,16 @@ describe("Admin Sidebar", () => {
     ["Dashboard", "BĐS cho thuê", "Dự án", "Tin tức", "Media"].forEach((label) => {
       expect(screen.getAllByRole("link", { name: label }).length).toBeGreaterThan(0);
     });
+  });
+
+  it("places Dự án above BĐS cho thuê", () => {
+    renderWithRouter();
+    const firstNav = screen.getAllByRole("navigation", { name: "Điều hướng quản trị" })[0];
+    const labels = within(firstNav)
+      .getAllByRole("link")
+      .map((link) => link.getAttribute("aria-label") ?? link.textContent);
+
+    expect(labels.indexOf("Dự án")).toBeLessThan(labels.indexOf("BĐS cho thuê"));
   });
 
   it("logs out and navigates to /admin/login when Đăng xuất is clicked", async () => {

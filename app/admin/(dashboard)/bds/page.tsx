@@ -9,6 +9,7 @@ import { getRentalProviders } from "@/lib/server/rental/providers";
 import { buildMergedRentalData } from "@/lib/server/rental/merge";
 import { BdsExportCsvButton } from "@/components/admin/BdsExportCsvButton";
 import { BdsRowActions } from "@/components/admin/BdsRowActions";
+import { PublicShareButton } from "@/components/admin/PublicShareButton";
 import type { AdminPropertyRecord, PropertyType } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -195,6 +196,11 @@ export default async function AdminBdsListPage({
               align: "right" as const,
               render: (r) => (
                 <div className="flex items-center justify-end gap-3">
+                  <PublicShareButton
+                    publicPath={`/cho-thue/${r.slug}`}
+                    title={r.roomNo}
+                    disabled={!r.published}
+                  />
                   <Link
                     href={`/admin/bds/${r.slug}`}
                     className="text-label text-primary transition-opacity duration-fast ease-base hover:opacity-70"

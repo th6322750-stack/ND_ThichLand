@@ -13,8 +13,8 @@ import { logoutAction } from "@/app/actions/auth";
 // identical in compact mode, where the glyph is the ONLY label.
 const NAV_ITEMS: { label: string; href: string; icon: IconName }[] = [
   { label: "Dashboard", href: "/admin", icon: "home" },
-  { label: "BĐS cho thuê", href: "/admin/bds", icon: "building" },
   { label: "Dự án", href: "/admin/du-an", icon: "shop" },
+  { label: "BĐS cho thuê", href: "/admin/bds", icon: "building" },
   { label: "Tin tức", href: "/admin/tin-tuc", icon: "edit" },
   { label: "Media", href: "/admin/media", icon: "upload" },
   { label: "Cài đặt liên hệ", href: "/admin/cai-dat", icon: "phone" },

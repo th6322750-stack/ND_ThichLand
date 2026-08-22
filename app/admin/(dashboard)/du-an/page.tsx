@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/admin/PageHeader";
 import { ProjectStateChip } from "@/components/admin/StatusChip";
 import { getProjectRepository } from "@/lib/server/projects/providers";
 import { ProjectRowActions } from "@/components/admin/ProjectRowActions";
+import { PublicShareButton } from "@/components/admin/PublicShareButton";
 import type { ProjectRecord } from "@/lib/server/projects/repository";
 
 export const dynamic = "force-dynamic";
@@ -72,6 +73,11 @@ export default async function AdminDuAnListPage() {
               align: "right" as const,
               render: (r) => (
                 <div className="flex items-center justify-end gap-3">
+                  <PublicShareButton
+                    publicPath={`/du-an/${r.slug}`}
+                    title={r.name}
+                    disabled={!r.published}
+                  />
                   <Link
                     href={`/admin/du-an/${r.slug}`}
                     className="text-label text-primary transition-opacity duration-fast ease-base hover:opacity-70"
