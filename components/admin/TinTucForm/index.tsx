@@ -58,15 +58,23 @@ export function TinTucForm({ initial, knownCategories = [] }: TinTucFormProps) {
       formData.append("file", file);
       const result = await uploadMediaAction(formData);
       if (!result.ok || !result.record) {
-        setUploadError(result.error);
+        setUploadError(result.error ?? "Không thể tải ảnh lên. Vui lòng thử lại.");
         setUploaderState("error");
         return;
       }
       setCover(result.record.webViewLink);
+      setUploadError(undefined);
       setUploaderState("empty");
     } catch {
+      setUploadError("Không thể tải ảnh lên. Vui lòng thử lại.");
       setUploaderState("error");
     }
+  }
+
+  function removeCover() {
+    setCover("");
+    setUploadError(undefined);
+    setUploaderState("empty");
   }
 
   function updateSection(index: number, patch: Partial<Section>) {
@@ -227,9 +235,8 @@ export function TinTucForm({ initial, knownCategories = [] }: TinTucFormProps) {
             Ngày đăng và thời gian đọc được tính tự động khi xuất bản — không cần nhập.
           </p>
 
-          {/* Cover — real preview, and removable. Previously the uploader
-              only flipped to a green "thành công" tile: the editor never saw
-              which image was attached and had no way to detach it. */}
+          {/* Keep the current preview visible while a replacement uploads, so
+              a failed upload never removes the image already attached. */}
           <div className="mt-6">
             <span className="text-label text-ink">Ảnh bìa (16:9)</span>
             <div className="mt-2 max-w-xl">
@@ -238,12 +245,25 @@ export function TinTucForm({ initial, knownCategories = [] }: TinTucFormProps) {
                   <Image src={cover} alt="Ảnh bìa bài viết" fill className="object-cover" unoptimized />
                   <button
                     type="button"
-                    onClick={() => setCover("")}
-                    aria-label="Xóa ảnh bìa"
-                    className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white transition-colors duration-fast ease-base hover:bg-error"
+                    onClick={removeCover}
+                    disabled={uploaderState === "uploading"}
+                    aria-label="Gỡ ảnh bìa"
+                    className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white transition-colors duration-fast ease-base hover:bg-error disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <Icon name="close" size={14} />
                   </button>
+                  <div className="absolute inset-x-0 bottom-0 flex justify-center bg-gradient-to-t from-black/70 to-transparent px-4 pb-4 pt-10">
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={uploaderState === "uploading"}
+                      aria-label="Thay ảnh bìa"
+                      className="flex items-center gap-2 rounded-md bg-surface px-4 py-2 text-label text-ink shadow-lg transition-colors duration-fast ease-base hover:bg-soft disabled:cursor-wait disabled:opacity-80"
+                    >
+                      <Icon name="upload" size={16} />
+                      {uploaderState === "uploading" ? "Đang tải ảnh..." : "Thay ảnh"}
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <div className="aspect-video">
@@ -251,14 +271,30 @@ export function TinTucForm({ initial, knownCategories = [] }: TinTucFormProps) {
                     state={uploaderState}
                     onClick={() => fileInputRef.current?.click()}
                     errorMessage={uploadError}
-                onRetry={() => {
-                  setUploadError(undefined);
-                  setUploaderState("empty");
-                }}
+                    onRetry={() => {
+                      setUploadError(undefined);
+                      setUploaderState("empty");
+                      fileInputRef.current?.click();
+                    }}
                   />
                 </div>
               )}
             </div>
+            {cover && uploaderState === "error" && (
+              <div
+                role="alert"
+                className="mt-2 flex max-w-xl flex-wrap items-center justify-between gap-2 rounded-md border border-error bg-[#FDF1F1] px-3 py-2 text-body text-error"
+              >
+                <span>{uploadError}</span>
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="rounded-md border border-error px-3 py-1 text-label transition-colors duration-fast ease-base hover:bg-surface"
+                >
+                  Thử lại
+                </button>
+              </div>
+            )}
             <input
               ref={fileInputRef}
               type="file"
