@@ -533,20 +533,20 @@ export function BdsForm({ initial }: BdsFormProps) {
           />
         </FormSection>
 
-        <FormSection title="Thông tin INTERNAL-ONLY" internalOnly>
+        <FormSection title="Thông tin nội bộ" internalOnly>
           <FormField
             label="Hoa hồng"
             name="commission"
             placeholder="Theo dữ liệu"
             defaultValue={initial?.commission}
-            hint="INTERNAL"
+            hint="Chỉ dùng nội bộ"
           />
           <FormField
             label="Người dẫn"
             name="guidePerson"
             placeholder="Tên / SĐT"
             defaultValue={initial?.guidePerson}
-            hint="INTERNAL"
+            hint="Chỉ dùng nội bộ"
           />
           <div className="desktop:col-span-2">
             <FormField
@@ -555,7 +555,7 @@ export function BdsForm({ initial }: BdsFormProps) {
               type="textarea"
               placeholder="Ghi chú vận hành"
               defaultValue={initial?.internalNotes}
-              hint="INTERNAL"
+              hint="Chỉ dùng nội bộ"
             />
           </div>
         </FormSection>
