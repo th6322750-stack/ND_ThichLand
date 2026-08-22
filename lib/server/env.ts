@@ -104,6 +104,12 @@ export function getRateLimitSecret(): string | null {
   return process.env.RATE_LIMIT_SECRET ?? process.env.AUTH_SECRET ?? null;
 }
 
+/** Signs public legacy-Drive delivery URLs so an arbitrary Drive file ID
+ * cannot turn the service account into a public file proxy. */
+export function getDriveMediaProxySecret(): string | null {
+  return process.env.DRIVE_MEDIA_PROXY_SECRET ?? process.env.AUTH_SECRET ?? null;
+}
+
 /**
  * A backend feature is "live-capable" only when every secret it needs is
  * present. Repository factories use this to choose the Google-backed

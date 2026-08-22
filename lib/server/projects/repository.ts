@@ -97,6 +97,9 @@ function rowToRecord(row: string[]): ProjectRecord | null {
     scale,
     unitCount,
     highlightsJson,
+    mapQuery,
+    masterplanImage,
+    showMasterplan,
   ] = row;
   if (!id) return null;
   return {
@@ -127,6 +130,13 @@ function rowToRecord(row: string[]): ProjectRecord | null {
     unitCount: unitCount ?? "",
     // Appended after unitCount — same never-insert-mid-sequence rule.
     highlights: safeJsonArray(highlightsJson),
+    // Appended after highlights — same never-insert-mid-sequence rule.
+    mapQuery: mapQuery ?? "",
+    // Appended after mapQuery — same never-insert-mid-sequence rule.
+    masterplanImage: masterplanImage ?? "",
+    // Absent cell (every row written before this column existed) reads as
+    // false, so no project starts showing the placeholder box again.
+    showMasterplan: showMasterplan === "true",
   };
 }
 
@@ -152,19 +162,22 @@ function recordToRow(r: ProjectRecord): (string | number)[] {
     r.scale,
     r.unitCount,
     JSON.stringify(r.highlights),
+    r.mapQuery,
+    r.masterplanImage,
+    String(r.showMasterplan),
   ];
 }
 
 export class GoogleProjectRepository implements ProjectRepository {
   async list(): Promise<ProjectRecord[]> {
     const { cmsSpreadsheetId } = requireGoogleSpreadsheetEnv();
-    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A2:T`);
+    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A2:W`);
     return values.map(rowToRecord).filter((r): r is ProjectRecord => r !== null);
   }
 
   async upsert(record: ProjectRecord): Promise<void> {
     const { cmsSpreadsheetId } = requireGoogleSpreadsheetEnv();
-    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A2:T`);
+    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.projects}!A2:W`);
     const rowIndex = values.findIndex((row) => row[0] === record.id);
     const row = recordToRow(record);
     if (rowIndex >= 0) {

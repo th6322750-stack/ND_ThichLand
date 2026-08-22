@@ -126,7 +126,7 @@ export function ProjectInquiryForm2({
       <button
         type="submit"
         disabled={submitting}
-        className={`mt-1 flex items-center justify-center gap-2 rounded-md px-3 py-2 text-[11px] font-semibold uppercase disabled:opacity-60 min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px] wide:h-[52px] wide:rounded-[10px] wide:text-[15px] ${
+        className={`mt-1 flex items-center justify-center gap-2 rounded-md px-3 py-2 text-[11px] font-semibold uppercase transition-transform duration-fast ease-base active:scale-[0.97] disabled:opacity-60 disabled:active:scale-100 motion-reduce:active:scale-100 min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px] wide:h-[52px] wide:rounded-[10px] wide:text-[15px] ${
           isPanel ? "bg-[#880206] text-white hover:bg-[#750F0D]" : "bg-white text-[#880206]"
         }`}
       >

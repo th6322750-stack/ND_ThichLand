@@ -32,6 +32,14 @@ export interface PropertyListing {
   amenities: string[];
   locationNote: string | null;
   videoUrl: string | null;
+  // ISO timestamp backing "Hàng Mới Lên" (/cho-thue) — no sheet column
+  // exists for this (same admin-override-only reasoning as bathroomCount
+  // above), so a sheet-sourced listing always starts null. A custom listing
+  // gets this for free from CustomBdsRecord.createdAt at creation time.
+  // null means "unknown post date", never "not new" — it just never
+  // qualifies for the new-listings section, same as any other unfabricated
+  // unknown value in this codebase.
+  postedAt: string | null;
 }
 
 export interface AdminPropertyRecord extends Omit<PropertyListing, "propertyType" | "availability"> {
@@ -62,6 +70,29 @@ export interface ProjectListing {
   slug: string;
   name: string;
   location: string;
+  /**
+   * What the project's map pin geocodes to. `location` is a display label
+   * ("Hòa Xuân, Đà Nẵng") that is usually too coarse to pin a building, so
+   * this holds the precise address, place name or "lat, lng" pair the admin
+   * verified. Empty means the project has no confirmed pin and the map
+   * section is hidden rather than showing an approximate one as if it were
+   * the site.
+   */
+  mapQuery: string;
+  /**
+   * The project's own masterplan / site-layout drawing. Empty means there
+   * isn't one; it is never filled with a stand-in, because a generic layout
+   * shown under "Mặt bằng dự án" reads as this project's actual site plan.
+   */
+  masterplanImage: string;
+  /**
+   * Whether the "Mặt bằng dự án" section appears at all. Off by default: the
+   * section used to render a large empty dashed box reading "đang được cập
+   * nhật" on every project, which is a placeholder shown to customers rather
+   * than information. Admin turns it on when there is something to show — or
+   * deliberately, to advertise that a drawing is coming.
+   */
+  showMasterplan: boolean;
   investor: string;
   // Nullable for the same reason PropertyListing keeps propertyType/
   // availability strict but AdminPropertyRecord allows null: a CMS row can
@@ -116,4 +147,35 @@ export interface NewsArticle {
   excerpt: string;
   sections: { heading: string; body: string }[];
   cover: string;
+}
+
+/**
+ * Company contact details shown in the homepage contact panel, the footer and
+ * the contact page. These were hardcoded in JSX in three places, so changing
+ * an address or a hotline meant a code edit and a redeploy; they are now one
+ * admin-editable record.
+ *
+ * `mapQuery` is what gets geocoded by the embedded map. It defaults to
+ * `address` and only needs its own value when the postal address does not
+ * resolve cleanly (e.g. a plus-code or a "near X" landmark string).
+ */
+export interface SiteSettings {
+  address: string;
+  /** Optional geocoding override for the map. Empty = use `address`. */
+  mapQuery: string;
+  /** Primary hotline — the one every "Gọi ngay" button dials. */
+  phonePrimary: string;
+  /** Optional second line shown alongside the first. Empty = hidden. */
+  phoneSecondary: string;
+  email: string;
+  /** e.g. "Thứ 2 - Thứ 7: 8:00 - 18:00" */
+  hoursWeekday: string;
+  /** e.g. "Chủ nhật: 8:00 - 12:00". Empty = hidden. */
+  hoursWeekend: string;
+  /**
+   * Uploaded "Hồ sơ năng lực" PDF. Empty hides the homepage section entirely
+   * — a capability profile is a claim about the company, so an empty slot
+   * shows nothing rather than a placeholder booklet.
+   */
+  profilePdfUrl: string;
 }

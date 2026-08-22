@@ -1,5 +1,8 @@
+import { Suspense } from "react";
 import { Header2 } from "@/components/public-v2/Header2";
 import { Footer2 } from "@/components/public-v2/Footer2";
+import { NavigationProgress2 } from "@/components/public-v2/NavigationProgress2";
+import { getSiteSettingsRepository } from "@/lib/server/settings/providers";
 
 // Minimal sync patch: /gioi-thieu, /lien-he, /tin-tuc(/[slug]) were never
 // part of the PHA1-3 v2 migration scope (only /, /cho-thue(/[slug]),
@@ -7,7 +10,13 @@ import { Footer2 } from "@/components/public-v2/Footer2";
 // own legacy page bodies/tokens — only the header/footer chrome swaps to
 // the v2 components so nav, branding and hotline read as one site instead
 // of visibly switching design systems mid-browse.
-export default function PublicLayout({ children }: { children: React.ReactNode }) {
+export default async function PublicLayout({ children }: { children: React.ReactNode }) {
+  // /gioi-thieu and /lien-he stay prerendered — awaiting a repository does not
+  // opt a route out of static rendering. Their footers are baked at build time
+  // and refreshed by the revalidatePath("/", "layout") that saveSiteSettings
+  // issues, so an address change still reaches them without making every
+  // request pay for a settings read.
+  const settings = await (await getSiteSettingsRepository()).get();
   return (
     <>
       <a
@@ -16,9 +25,16 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
       >
         Bỏ qua đến nội dung
       </a>
+      <Suspense fallback={null}>
+        <NavigationProgress2 />
+      </Suspense>
       <Header2 />
-      <main id="main">{children}</main>
-      <Footer2 />
+      {/* Same reason as the (public-v2) layout: holds the footer below the
+          fold through the empty frame between two pages. */}
+      <main id="main" className="min-h-[100svh]">
+        {children}
+      </main>
+      <Footer2 settings={settings} />
     </>
   );
 }

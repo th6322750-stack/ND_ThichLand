@@ -33,15 +33,29 @@ export function LoginForm() {
     <div className="grid min-h-screen grid-cols-1 desktop:grid-cols-[7fr_11fr]">
       <div className="flex flex-col justify-center bg-footer px-10 py-16 desktop:px-20">
         <div className="flex items-center gap-3">
-          <Image src="/assets/logos/NO_LOGO.svg" alt="NDTHICH ADMIN" width={48} height={48} unoptimized />
-          <span className="text-h3 text-surface">NDTHICH ADMIN</span>
+          {/* Was the NO_LOGO.svg placeholder while the real mark was still
+              unknown — the public header has shipped the real one for a
+              while now, so the sign-in screen stops being the odd one out.
+              The asset is opaque RGB, so the white plate behind it is
+              deliberate (see Sidebar) rather than a stray background. */}
+          <span className="flex items-center rounded-sm bg-surface px-3 py-2">
+            <Image
+              src="/assets/v2/branding/ndthich-logo-reference.png"
+              alt="NDTHICH LAND"
+              width={168}
+              height={128}
+              className="h-8 w-auto"
+              unoptimized
+            />
+          </span>
+          <span className="text-label uppercase tracking-[0.14em] text-line/60">Quản trị</span>
         </div>
         <h1 className="mt-10 text-h1-mobile text-surface desktop:text-h1">
           Quản trị nội dung
           <br />
           BĐS &amp; dự án
         </h1>
-        <p className="mt-6 max-w-sm text-body-lg-mobile text-[#B9B9B9] desktop:text-body-lg">
+        <p className="mt-6 max-w-sm text-body-lg-mobile text-line/70 desktop:text-body-lg">
           Dữ liệu phòng cho thuê, dự án và tin tức được quản lý theo schema đã chuẩn hóa.
         </p>
       </div>
@@ -73,12 +87,11 @@ export function LoginForm() {
             <button
               type="submit"
               disabled={submitting}
-              className="mt-6 w-full rounded-md bg-primary px-6 py-3 text-button uppercase text-surface hover:bg-primaryHover disabled:opacity-60"
+              className="mt-6 w-full rounded-sm bg-primary px-6 py-3 text-button uppercase text-surface transition-[background-color,transform] duration-fast ease-base hover:bg-primaryHover active:scale-[0.98] disabled:opacity-60 disabled:active:scale-100 motion-reduce:active:scale-100"
             >
-              Đăng nhập
+              {submitting ? "Đang đăng nhập..." : "Đăng nhập"}
             </button>
           </form>
-          <p className="mt-6 text-center text-body text-muted">NO LOGO • sẽ thay sau</p>
         </div>
       </div>
     </div>

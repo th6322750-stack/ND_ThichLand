@@ -117,6 +117,9 @@ describe("public DTOs never leak internal-only fields", () => {
   it("projects: toPublicProjectListing strips id/published/createdAt/updatedAt", () => {
     const record: ProjectRecord = {
       id: "custom:secret-id", slug: "du-an-test", name: "Dự án", location: "Hà Nội",
+      mapQuery: "",
+      masterplanImage: "",
+      showMasterplan: false,
       investor: "Chủ đầu tư", status: "Đang triển khai", media: [], summary: "", amenities: [],
       progressText: "", progressPercent: 0, progressPhotos: [], unitTypes: [],
       propertyType: "", scale: "", unitCount: "", highlights: [], published: true,
@@ -154,6 +157,9 @@ describe("guessing an unpublished/hidden slug cannot retrieve it through the pub
   it("an unpublished project is absent from toPublicProjectListings regardless of slug", () => {
     const hidden: ProjectRecord = {
       id: "custom:hidden-project", slug: "hidden-project", name: "Nội bộ", location: "Hà Nội",
+      mapQuery: "",
+      masterplanImage: "",
+      showMasterplan: false,
       investor: "N/A", status: "Đang triển khai", media: [], summary: "SECRET-SUMMARY", amenities: [],
       progressText: "", progressPercent: 0, progressPhotos: [], unitTypes: [],
       propertyType: "", scale: "", unitCount: "", highlights: [], published: false,

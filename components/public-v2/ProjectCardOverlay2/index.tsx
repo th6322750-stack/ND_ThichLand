@@ -62,11 +62,11 @@ export function ProjectCardOverlay2({
       {/* Slightly deeper on hover so the card reads as "coming forward"
           rather than only shifting position. */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent transition-opacity duration-base ease-base group-hover:from-black/90 group-hover:via-black/40" />
-      <div className={compact ? "absolute inset-x-0 bottom-0 p-3 min-[900px]:p-3 wide:p-[18px]" : "absolute inset-x-0 bottom-0 p-4"}>
+      <div className={compact ? "absolute inset-x-0 bottom-0 p-3 min-[900px]:p-4 wide:p-[18px]" : "absolute inset-x-0 bottom-0 p-4"}>
         <h3
           className={
             compact
-              ? "line-clamp-2 text-[14px] leading-[20px] font-bold text-white min-[900px]:line-clamp-1 min-[900px]:text-[14px] min-[900px]:leading-normal wide:text-[18px] wide:leading-[25px]"
+              ? "line-clamp-2 text-[15px] leading-[21px] font-bold text-white min-[900px]:line-clamp-1 min-[900px]:text-[18px] min-[900px]:leading-[25px] wide:text-[20px] wide:leading-[27px]"
               : "text-[16px] font-bold text-white min-[900px]:text-[17px] wide:text-[19px]"
           }
         >
@@ -75,7 +75,7 @@ export function ProjectCardOverlay2({
         <p
           className={
             compact
-              ? "mt-1 flex items-center gap-1 text-[11px] leading-[17px] text-white/90 min-[900px]:mt-1 min-[900px]:text-[11px] min-[900px]:leading-normal wide:text-[13px] wide:leading-[19px]"
+              ? "mt-1 flex items-center gap-1 text-[12px] leading-[18px] text-white/90 min-[900px]:mt-1 min-[900px]:text-[13px] min-[900px]:leading-[19px] wide:text-[14px] wide:leading-[20px]"
               : "mt-1 flex items-center gap-1 text-[12px] text-white/90"
           }
         >
@@ -89,7 +89,7 @@ export function ProjectCardOverlay2({
     return (
       <Link
         href={`/du-an/${slug}`}
-        className="block overflow-hidden rounded-lg transition-[transform,box-shadow] duration-base ease-base hover:-translate-y-1 hover:shadow-[0_16px_32px_-14px_rgba(12,13,13,0.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#880206] motion-reduce:transform-none"
+        className="block overflow-hidden rounded-lg transition-[transform,box-shadow] duration-base ease-base hover:-translate-y-1 hover:shadow-[0_16px_32px_-14px_rgba(12,13,13,0.35)] active:scale-[0.98] active:shadow-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#880206] motion-reduce:transform-none"
       >
         {media}
       </Link>
@@ -99,7 +99,7 @@ export function ProjectCardOverlay2({
   return (
     <Link
       href={`/du-an/${slug}`}
-      className="group/card block overflow-hidden rounded-lg border border-[#EDEBEA] bg-white transition-[transform,box-shadow] duration-base ease-base hover:-translate-y-1 hover:shadow-[0_16px_32px_-14px_rgba(12,13,13,0.28)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#880206] motion-reduce:transform-none"
+      className="group/card block overflow-hidden rounded-lg border border-[#EDEBEA] bg-white transition-[transform,box-shadow] duration-base ease-base hover:-translate-y-1 hover:shadow-[0_16px_32px_-14px_rgba(12,13,13,0.28)] active:scale-[0.98] active:shadow-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#880206] motion-reduce:transform-none"
     >
       {media}
       <div className="p-1 min-[900px]:p-3">

@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { StatCard } from "@/components/admin/StatCard";
+import { PageHeader } from "@/components/admin/PageHeader";
+import { DataTable } from "@/components/admin/DataTable";
+import { RentalStateChip } from "@/components/admin/StatusChip";
+import { Icon } from "@/components/icons";
 import { formatCurrencyVnd, formatArea } from "@/lib/format";
+import { isIncompleteRental } from "@/lib/adminRecords";
 import { getRentalProviders } from "@/lib/server/rental/providers";
 import { buildMergedRentalData } from "@/lib/server/rental/merge";
 import { getProjectRepository } from "@/lib/server/projects/providers";
@@ -34,38 +39,39 @@ export default async function AdminDashboardPage() {
   const draftArticles = articles.length - publishedArticles;
   // Records the merge layer could not validate — these are invisible on the
   // public site, so surfacing the count is the point.
-  const incomplete = merged.admin.filter(
-    (r) => r.propertyType === null || r.availability === null || r.price <= 0 || r.area <= 0,
-  ).length;
+  const incomplete = merged.admin.filter(isIncompleteRental).length;
 
+  // Each card links into the section it counts. No status colour: these are
+  // counts, and "10 đang trống" is not by itself good or bad — tinting them
+  // would be inventing a signal the data does not carry.
   const stats = [
     {
-      color: "#8A1822",
+      href: "/admin/bds",
+      icon: "building" as const,
       label: "BĐS đang trống",
       value: String(vacant),
-      delta: `${published.length} tin đang đăng`,
-      deltaColor: "#8A1822",
+      note: `${published.length} tin đang đăng`,
     },
     {
-      color: "#BE8A3F",
+      href: "/admin/du-an",
+      icon: "shop" as const,
       label: "Dự án đang đăng",
       value: String(publishedProjects),
-      delta: `${inProgressProjects} đang triển khai`,
-      deltaColor: "#BE8A3F",
+      note: `${inProgressProjects} đang triển khai`,
     },
     {
-      color: "#2E6FE0",
+      href: "/admin/tin-tuc",
+      icon: "edit" as const,
       label: "Tin đã đăng",
       value: String(publishedArticles),
-      delta: draftArticles > 0 ? `${draftArticles} bản nháp` : "không có nháp",
-      deltaColor: "#2E6FE0",
+      note: draftArticles > 0 ? `${draftArticles} bản nháp` : "Không có bản nháp",
     },
     {
-      color: "#23825C",
+      href: "/admin/media",
+      icon: "upload" as const,
       label: "Media",
       value: String(media.length),
-      delta: "ảnh / video đã tải lên",
-      deltaColor: "#23825C",
+      note: "Ảnh / video đã tải lên",
     },
   ];
 
@@ -77,20 +83,27 @@ export default async function AdminDashboardPage() {
 
   const { ignored, quarantined, quarantinedRows, mediaDiagnostics } = merged.diagnostics;
 
-  return (
-    <div>
-      <h2 className="text-h1-mobile text-ink desktop:text-h1">Tổng quan</h2>
-      <p className="mt-2 text-body text-muted">Theo dõi nguồn cho thuê và nội dung đang vận hành.</p>
+  // The source-quality panel used to render in warning gold unconditionally —
+  // so a sheet with nothing wrong still looked like it needed attention.
+  // Tone now follows the numbers.
+  const sourceClean = ignored === 0 && quarantined === 0 && mediaDiagnostics.length === 0;
 
-      <div className="mt-8 grid grid-cols-1 gap-4 tablet:grid-cols-2 desktop:grid-cols-4">
+  return (
+    <div className="flex flex-col gap-8">
+      <PageHeader
+        title="Tổng quan"
+        description="Theo dõi nguồn cho thuê và nội dung đang vận hành."
+      />
+
+      <div className="grid grid-cols-1 gap-4 tablet:grid-cols-2 desktop:grid-cols-4">
         {stats.map((stat) => (
           <StatCard key={stat.label} {...stat} />
         ))}
       </div>
 
       {incomplete > 0 && (
-        <div className="mt-6 rounded-md border border-error bg-[#FDF1F1] p-6">
-          <p className="font-bold text-error">
+        <div className="rounded-md border border-error bg-error/5 p-6">
+          <p className="text-body font-bold text-error">
             {incomplete} bản ghi thiếu dữ liệu bắt buộc nên không hiển thị trên website.
           </p>
           <p className="mt-2 text-body text-ink">
@@ -98,88 +111,114 @@ export default async function AdminDashboardPage() {
           </p>
           <Link
             href="/admin/bds?tt=incomplete"
-            className="mt-4 inline-block rounded-md border border-error px-4 py-2 text-label uppercase text-error transition-colors duration-fast ease-base hover:bg-surface"
+            className="mt-4 inline-block rounded-sm border border-error px-4 py-2 text-label uppercase text-error transition-colors duration-fast ease-base hover:bg-surface"
           >
             Xem danh sách
           </Link>
         </div>
       )}
 
-      <h3 className="mt-10 text-h2-mobile text-ink desktop:text-h2">BĐS trong hệ thống</h3>
-      <div className="mt-4 overflow-x-auto rounded-md border border-line bg-surface">
-        <table className="w-full min-w-[720px] text-left text-body">
-          <thead>
-            <tr className="border-b border-line text-muted">
-              <th className="px-6 py-3 font-normal">Phòng / BĐS</th>
-              <th className="px-6 py-3 font-normal">Loại</th>
-              <th className="px-6 py-3 font-normal">Khu vực</th>
-              <th className="px-6 py-3 font-normal">Giá</th>
-              <th className="px-6 py-3 font-normal">Diện tích</th>
-              <th className="px-6 py-3 font-normal">Trạng thái</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sample.length === 0 ? (
-              <tr>
-                <td colSpan={6} className="px-6 py-8 text-center text-muted">
-                  Chưa có bản ghi nào.{" "}
-                  <Link href="/admin/bds/new" className="text-primary hover:underline">
-                    Thêm BĐS đầu tiên
-                  </Link>
-                  .
-                </td>
-              </tr>
-            ) : (
-              sample.map((p) => (
-                <tr key={p.slug} className="border-b border-line last:border-0 hover:bg-soft">
-                  <td className="px-6 py-4 font-bold text-ink">
-                    <Link href={`/admin/bds/${p.slug}`} className="hover:text-primary hover:underline">
-                      {p.roomNo}
-                    </Link>
-                  </td>
-                  <td className="px-6 py-4">{p.propertyType ?? "—"}</td>
-                  <td className="px-6 py-4">{p.location}</td>
-                  <td className="px-6 py-4">{p.price > 0 ? formatCurrencyVnd(p.price) : "—"}</td>
-                  <td className="px-6 py-4">{p.area > 0 ? formatArea(p.area) : "—"}</td>
-                  <td className="px-6 py-4">{p.published ? (p.availability ?? "—") : "Nháp"}</td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+      <section className="flex flex-col gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h3 className="text-h3 text-ink">BĐS trong hệ thống</h3>
+          <Link
+            href="/admin/bds"
+            className="text-label text-primary transition-opacity duration-fast ease-base hover:opacity-70"
+          >
+            Xem tất cả
+          </Link>
+        </div>
+        <DataTable
+          rowKey={(p: (typeof sample)[number]) => p.slug}
+          rows={sample}
+          emptyLabel="Chưa có bản ghi nào. Bấm “Thêm BĐS” để tạo bản ghi đầu tiên."
+          columns={[
+            {
+              key: "roomNo",
+              label: "Phòng / BĐS",
+              render: (p) => (
+                <Link
+                  href={`/admin/bds/${p.slug}`}
+                  className="font-bold text-ink transition-colors duration-fast ease-base hover:text-primary"
+                >
+                  {p.roomNo}
+                </Link>
+              ),
+            },
+            { key: "propertyType", label: "Loại", render: (p) => p.propertyType ?? "—" },
+            { key: "location", label: "Khu vực", render: (p) => p.location },
+            {
+              key: "price",
+              label: "Giá",
+              numeric: true,
+              render: (p) => (p.price > 0 ? formatCurrencyVnd(p.price) : "—"),
+            },
+            {
+              key: "area",
+              label: "Diện tích",
+              numeric: true,
+              render: (p) => (p.area > 0 ? formatArea(p.area) : "—"),
+            },
+            {
+              key: "availability",
+              label: "Trạng thái",
+              render: (p) => (
+                <RentalStateChip
+                  published={p.published}
+                  availability={p.availability}
+                  incomplete={isIncompleteRental(p)}
+                />
+              ),
+            },
+          ]}
+        />
+      </section>
 
-      <h3 className="mt-10 text-h2-mobile text-ink desktop:text-h2">Chất lượng dữ liệu nguồn</h3>
-      {/* buildMergedRentalData already computes these on every read and the
-          dashboard used to throw them away in favour of a static paragraph.
-          They are the only place an operator can see that rows from the
-          source sheet are being skipped. */}
-      <div className="mt-4 rounded-md border border-gold bg-[#FBF3E4] p-6 text-body text-ink">
-        <p>
-          <span className="font-bold text-gold">{ignored}</span> dòng bị bỏ qua (dòng phân nhóm / dòng trống) và{" "}
-          <span className="font-bold text-gold">{quarantined}</span> dòng bị cách ly do lệch cột hoặc sai định
-          dạng.
-        </p>
-        {quarantinedRows.length > 0 && (
-          <ul className="mt-3 list-disc pl-5">
-            {quarantinedRows.slice(0, 5).map((row) => (
-              <li key={row.sourceRow}>
-                Dòng {row.sourceRow}: {row.reason}
-              </li>
-            ))}
-            {quarantinedRows.length > 5 && <li>… và {quarantinedRows.length - 5} dòng khác.</li>}
-          </ul>
-        )}
-        {mediaDiagnostics.length > 0 && (
-          <p className="mt-3">
-            <span className="font-bold text-gold">{mediaDiagnostics.length}</span> dòng có link ảnh không đọc
-            được — tin vẫn đăng nhưng dùng ảnh mặc định.
+      <section className="flex flex-col gap-4">
+        <h3 className="text-h3 text-ink">Chất lượng dữ liệu nguồn</h3>
+        {/* buildMergedRentalData already computes these on every read and the
+            dashboard used to throw them away in favour of a static paragraph.
+            They are the only place an operator can see that rows from the
+            source sheet are being skipped. */}
+        <div
+          className={`rounded-md border p-6 text-body text-ink ${
+            sourceClean ? "border-line bg-surface" : "border-gold bg-gold/5"
+          }`}
+        >
+          {sourceClean ? (
+            <p className="flex items-center gap-2 font-bold text-success">
+              <Icon name="check" size={16} aria-hidden />
+              Không có dòng nào bị bỏ qua hay cách ly.
+            </p>
+          ) : (
+            <p>
+              <span className="font-bold text-gold tabular-nums">{ignored}</span> dòng bị bỏ qua (dòng phân
+              nhóm / dòng trống) và{" "}
+              <span className="font-bold text-gold tabular-nums">{quarantined}</span> dòng bị cách ly do lệch
+              cột hoặc sai định dạng.
+            </p>
+          )}
+          {quarantinedRows.length > 0 && (
+            <ul className="mt-3 list-disc pl-5">
+              {quarantinedRows.slice(0, 5).map((row) => (
+                <li key={row.sourceRow}>
+                  Dòng {row.sourceRow}: {row.reason}
+                </li>
+              ))}
+              {quarantinedRows.length > 5 && <li>… và {quarantinedRows.length - 5} dòng khác.</li>}
+            </ul>
+          )}
+          {mediaDiagnostics.length > 0 && (
+            <p className="mt-3">
+              <span className="font-bold text-gold tabular-nums">{mediaDiagnostics.length}</span> dòng có link
+              ảnh không đọc được — tin vẫn đăng nhưng dùng ảnh mặc định.
+            </p>
+          )}
+          <p className="mt-3 text-muted">
+            Hoa hồng / người dẫn / ghi chú là INTERNAL-ONLY, không bao giờ xuất hiện trên trang public.
           </p>
-        )}
-        <p className="mt-3 text-muted">
-          Hoa hồng / người dẫn / ghi chú là INTERNAL-ONLY, không bao giờ xuất hiện trên trang public.
-        </p>
-      </div>
+        </div>
+      </section>
     </div>
   );
 }

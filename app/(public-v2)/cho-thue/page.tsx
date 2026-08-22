@@ -25,9 +25,15 @@ export default async function ChoThuePage() {
     properties = toPublicPropertyListings(merged.admin);
   }
 
+  // Computed once per request (this route is force-dynamic already) and
+  // passed down as a plain prop — "Hàng Mới Lên"'s <24h check needs a "now"
+  // reference, and calling Date.now() inside ChoThuePageInner's render
+  // (a client component) is what React's purity check rejects.
+  const now = new Date().toISOString();
+
   return (
     <Suspense fallback={null}>
-      <ChoThuePageInner properties={properties} />
+      <ChoThuePageInner properties={properties} now={now} />
     </Suspense>
   );
 }

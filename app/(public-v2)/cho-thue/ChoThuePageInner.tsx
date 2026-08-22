@@ -9,6 +9,8 @@ import { Filter2 } from "@/components/public-v2/Filter2";
 import { FilterDrawer2 } from "@/components/public-v2/FilterDrawer2";
 import { SortSheet2 } from "@/components/public-v2/SortSheet2";
 import { PropertyListRow2 } from "@/components/public-v2/PropertyListRow2";
+import { PropertyCardGrid2 } from "@/components/public-v2/PropertyCardGrid2";
+import { Carousel2 } from "@/components/public-v2/Carousel2";
 import { Pagination2 } from "@/components/public-v2/Pagination2";
 import { MobileBottomNav2 } from "@/components/public-v2/MobileBottomNav2";
 import { EmptySearchResults } from "@/components/public/EmptySearchResults";
@@ -27,7 +29,7 @@ import type { PropertyListing } from "@/lib/types";
 
 const PAGE_SIZE = 6;
 
-export function ChoThuePageInner({ properties }: { properties: PropertyListing[] }) {
+export function ChoThuePageInner({ properties, now }: { properties: PropertyListing[]; now: string }) {
   const { filters, page, setFilters, setPage, reset } = useRentalFilters();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -42,6 +44,16 @@ export function ChoThuePageInner({ properties }: { properties: PropertyListing[]
 
   const locationOptions = useMemo(() => getLocationOptions(properties), [properties]);
   const propertyTypeOptions = useMemo(() => getPropertyTypeOptions(properties), [properties]);
+  // "Hàng Mới Lên" — only listings with a real postedAt (admin-created;
+  // sheet-sourced listings have no posted-date column, see
+  // lib/server/rental/merge.ts) within the last 24h. Empty array hides the
+  // whole section rather than showing a stale or fabricated "new" claim.
+  const newListings = useMemo(() => {
+    const cutoff = new Date(now).getTime() - 24 * 60 * 60 * 1000;
+    return properties
+      .filter((p): p is typeof p & { postedAt: string } => p.postedAt !== null && new Date(p.postedAt).getTime() >= cutoff)
+      .sort((a, b) => new Date(b.postedAt).getTime() - new Date(a.postedAt).getTime());
+  }, [properties, now]);
   const filtered = useMemo(() => {
     const base = savedOnly ? properties.filter((p) => saved.includes(p.slug)) : properties;
     return sortProperties(filterProperties(base, filters), filters.sort);
@@ -186,6 +198,47 @@ export function ChoThuePageInner({ properties }: { properties: PropertyListing[]
           </div>
         )}
         <p className="mt-2 text-[12px] font-bold text-[#0C0D0D] min-[900px]:hidden">{filtered.length} kết quả</p>
+
+        {/* Hàng Mới Lên — only listings with a real postedAt within 24h
+            (admin-created; sheet-sourced listings don't have one yet, see
+            newListings above). Hidden entirely when nothing qualifies, and
+            hidden in the "đã lưu" view since that's a different browsing
+            context. */}
+        {!savedOnly && newListings.length > 0 && (
+          <section className="v2-reveal mt-4 min-[900px]:mt-8" data-qa-region="new-listings">
+            <div>
+              <h2 className="text-[18px] font-extrabold text-[#0C0D0D] min-[900px]:text-[20px] wide:text-[22px]">
+                Hàng Mới Lên
+              </h2>
+              <p className="mt-1 text-[12px] text-[#5F5D5D] min-[900px]:text-[13px] wide:text-[14px]">
+                Cập nhật trong 24 giờ gần nhất
+              </p>
+            </div>
+
+            {/* Wider slides and a taller crop than the main grid below: this
+                row is the one meant to stop a visitor, and at four-across it
+                read as just another strip of the catalogue. The fractional
+                widths leave part of the next card showing, which is what tells
+                someone there is more to swipe to. */}
+            <Carousel2
+              ariaLabel="Hàng mới lên"
+              className="mt-4"
+              slideClassName="w-[72%] min-[600px]:w-[46%] min-[900px]:w-[calc((100%-3*1rem)/4.2)] wide:w-[calc((100%-4*1.5rem)/4.5)]"
+            >
+              {newListings.map((p) => (
+                <PropertyCardGrid2
+                  key={p.slug}
+                  listing={p}
+                  isNew
+                  showPhotoCount
+                  mobileAspect="4/3"
+                  desktopAspect="16/10"
+                  wideAspect="16/10"
+                />
+              ))}
+            </Carousel2>
+          </section>
+        )}
 
         {/* Sidebar targets ~25% of the content column (master), not a fixed
             280px rail — 1fr/3fr keeps that ratio at any content width. */}

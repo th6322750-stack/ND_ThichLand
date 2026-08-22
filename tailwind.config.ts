@@ -102,6 +102,9 @@ const config: Config = {
       zIndex: {
         base: "0",
         "sticky-header": "100",
+        // Inline overlay panels (WebField's dropdown) — above sticky header,
+        // below the mobile action bar and any drawer/sheet/lightbox.
+        dropdown: "150",
         "sticky-mobile-actions": "200",
         "drawer-backdrop": "900",
         "drawer-panel": "910",

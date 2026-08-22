@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s",
   },
   description:
-    "Công ty TNHH Đầu tư & Kinh doanh Nguyễn Đắc Thích — cho thuê nhà, căn hộ, mặt bằng kinh doanh và giới thiệu các dự án đã, đang triển khai.",
+    "NDTHICH LAND — cho thuê nhà, căn hộ, mặt bằng kinh doanh và giới thiệu các dự án đã, đang triển khai.",
   openGraph: {
     siteName: "NDTHICH LAND",
     locale: "vi_VN",

@@ -6,6 +6,8 @@ import { Breadcrumb2 } from "@/components/public-v2/Breadcrumb2";
 import { Gallery2 } from "@/components/public-v2/Gallery2";
 import { ProjectInquiryForm2 } from "@/components/public-v2/ProjectInquiryForm2";
 import { LoanEstimator2 } from "@/components/public-v2/LoanEstimator2";
+import { InteractiveMap2 } from "@/components/public-v2/InteractiveMap2";
+import { ExpandableBlock2 } from "@/components/public-v2/ExpandableBlock2";
 import { Icon2 as Icon, type IconName } from "@/components/public-v2/Icon2";
 import { getZaloHref } from "@/lib/zalo";
 import { getProjectRepository } from "@/lib/server/projects/providers";
@@ -276,20 +278,14 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
           showing a fabricated table, same rule as progressPhotos/masterplan
           above). */}
       <section className="v2-reveal mt-3 min-[900px]:mt-8 wide:mt-16" data-qa-region="overview-expand">
-        <details className="group">
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-3">
-            <h2 className="text-[12px] font-bold text-[#0C0D0D] min-[900px]:text-[16px] wide:text-v2-h2">Tổng quan dự án</h2>
-            <span className="flex shrink-0 items-center gap-1 text-[11px] font-semibold text-[#880206] wide:text-[14px]">
-              Xem thêm
-              <Icon
-                name="chevron-right"
-                size={12}
-                className="rotate-90 transition-transform duration-fast ease-base group-open:-rotate-90"
-              />
-            </span>
-          </summary>
+        <h2 className="text-[12px] font-bold text-[#0C0D0D] min-[900px]:text-[16px] wide:text-v2-h2">Tổng quan dự án</h2>
 
-          <div className="mt-4 flex flex-col gap-5 min-[900px]:mt-6 wide:gap-8">
+        {/* Was a <details> that hid the whole block until clicked, so a
+            visitor could not tell whether opening it was worth it. It now
+            shows a teaser that fades out, with the control only appearing
+            when there is genuinely more below the fold. */}
+        <ExpandableBlock2 className="mt-4 min-[900px]:mt-6">
+          <div className="flex flex-col gap-5 wide:gap-8">
             {project.location && (
               <div>
                 <h3 className="text-[11px] font-bold text-[#0C0D0D] min-[900px]:text-[13px] wide:text-[16px]">Vị trí</h3>
@@ -352,7 +348,7 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
               </div>
             )}
           </div>
-        </details>
+        </ExpandableBlock2>
       </section>
 
       {/* Mặt bằng dự án — a real per-project masterplan/site-layout image, not
@@ -362,14 +358,29 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
           taught this project not to do — so this renders an honest pending
           state (same convention as progressPhotos when empty) instead. Ready
           to show a real image the moment a per-project field exists. */}
-      <section className="v2-reveal mt-3 min-[900px]:mt-8 wide:mt-16" data-qa-region="masterplan">
-        <h2 className="text-[12px] font-bold text-[#0C0D0D] min-[900px]:text-[16px] wide:text-v2-h2">Mặt bằng dự án</h2>
-        <div className="mt-[6px] flex aspect-[16/7] items-center justify-center rounded-lg border border-dashed border-[#E4E1E0] bg-[#F7F6F6] text-center min-[900px]:mt-4 wide:mt-6 wide:rounded-[16px]">
-          <p className="max-w-xs px-4 text-[11px] leading-relaxed text-[#5F5D5D] wide:text-[14px]">
-            Bản vẽ mặt bằng dự án đang được cập nhật.
-          </p>
-        </div>
-      </section>
+      {project.showMasterplan && (
+        <section className="v2-reveal mt-3 min-[900px]:mt-8 wide:mt-16" data-qa-region="masterplan">
+          <h2 className="text-[12px] font-bold text-[#0C0D0D] min-[900px]:text-[16px] wide:text-v2-h2">Mặt bằng dự án</h2>
+          {project.masterplanImage ? (
+            <div className="mt-[6px] overflow-hidden rounded-lg border border-[#EDEBEA] bg-[#F7F6F6] min-[900px]:mt-4 wide:mt-6 wide:rounded-[16px]">
+              <Image
+                src={project.masterplanImage}
+                alt={`Mặt bằng dự án ${project.name}`}
+                width={1600}
+                height={700}
+                className="h-auto w-full object-contain"
+                unoptimized
+              />
+            </div>
+          ) : (
+            <div className="mt-[6px] flex aspect-[16/7] items-center justify-center rounded-lg border border-dashed border-[#E4E1E0] bg-[#F7F6F6] text-center min-[900px]:mt-4 wide:mt-6 wide:rounded-[16px]">
+              <p className="max-w-xs px-4 text-[11px] leading-relaxed text-[#5F5D5D] wide:text-[14px]">
+                Bản vẽ mặt bằng dự án đang được cập nhật.
+              </p>
+            </div>
+          )}
+        </section>
+      )}
 
       {/* Master (WEB) puts the description+checklist LEFT and a large pool
           photo RIGHT, side by side — WEB only. Mobile's flow is hero -> title
@@ -485,22 +496,29 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
         </section>
       </div>
 
-      {/* Master's canonical WEB composition ends with the burgundy CTA right
-          after progress — no large map section there (mobile's master DOES
-          show one), so this is mobile-only. */}
-      <section className="v2-reveal mt-3 min-[900px]:hidden" data-qa-region="map">
-        <h2 className="text-[12px] font-bold text-[#0C0D0D]">Vị trí dự án</h2>
-        <p className="mt-1 text-[10px] text-[#5F5D5D]">{project.location}</p>
-        <div className="relative mt-[6px] aspect-[16/6] overflow-hidden rounded-lg">
-          <Image src="/assets/v2/property-detail/map.png" alt={`Bản đồ ${project.location}`} fill className="object-cover" unoptimized />
-        </div>
-      </section>
+      {/* A "Trải nghiệm Virtual 360°" section sat here. It was not a 360°
+          tour: a flat marketing photo in a 160%-wide box that slid sideways on
+          drag, labelled "360° INTERACTIVE". Its room tabs were mislabelled
+          too — "Phòng ngủ Master" showed a swimming pool, "Bếp" a public
+          plaza — because the images were stock renders picked per slot, not
+          photographs of the project. Removed rather than restyled; there is
+          no 360° asset to show. */}
 
-      {/* Liên hệ tư vấn dự án — di chuyển xuống cuối cùng trên mobile (trước
-          đây nằm ngay dưới tiêu đề, đầu trang) theo yêu cầu, thành điểm chốt
-          sau khi đã đọc hết thông tin dự án. id="tu-van-du-an" giữ nguyên —
-          nút "Đặt lịch xem dự án" ở thanh CTA cố định bên dưới vẫn trỏ
-          đúng vào đây dù đổi vị trí. */}
+      {/* Vị trí dự án — only when an admin has entered and verified a pin.
+          Without one there is nothing truthful to point at, so the section is
+          omitted rather than centred on the city the project happens to be in. */}
+      {project.mapQuery.trim() && (
+        <section className="v2-reveal mt-3 min-[900px]:mt-8 wide:mt-16" data-qa-region="map">
+          <InteractiveMap2
+            query={project.mapQuery.trim()}
+            address={project.location}
+            locationNote={project.summary}
+            title={`Vị trí dự án ${project.name}`}
+          />
+        </section>
+      )}
+
+      {/* Liên hệ tư vấn dự án — di chuyển xuống cuối cùng trên mobile */}
       <div
         id="tu-van-du-an"
         className="v2-reveal mt-3 scroll-mt-20 rounded-lg border-2 border-[#880206] bg-[#880206] p-3 min-[900px]:hidden"
@@ -514,35 +532,28 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
         </div>
       </div>
 
-      {/* Master's mobile bottom CTA is a fixed two-button bar (Gọi tư vấn
-          ngay + Đặt lịch xem dự án) always visible at the screen bottom,
-          not a scrolled-in-document block — round 4 rendered it in normal
-          flow, which pushed it below the canonical viewport entirely. WEB
-          keeps the original scrolled single-message + Zalo-button block. */}
+      {/* Master's mobile bottom CTA */}
       <div className="h-[64px] min-[900px]:hidden" aria-hidden="true" />
       <div
-        className="fixed inset-x-0 bottom-0 z-sticky-mobile-actions flex gap-2 border-t border-[#EDEBEA] bg-white p-2 min-[900px]:hidden"
+        className="fixed inset-x-0 bottom-0 z-sticky-mobile-actions flex gap-2 border-t border-[#EDEBEA] bg-white/90 backdrop-blur-md p-2 min-[900px]:hidden"
         data-qa-region="bottom-cta"
       >
         <a
           href={`tel:${HOTLINE_TEL}`}
-          className="flex flex-1 items-center justify-center gap-1 rounded-md border border-[#880206] px-2 py-2 text-[11px] font-semibold text-[#880206]"
+          className="flex flex-1 items-center justify-center gap-1 rounded-md border border-[#880206] px-2 py-2 text-[11px] font-semibold text-[#880206] transition-transform duration-fast ease-base active:scale-[0.96] motion-reduce:active:scale-100"
         >
           <Icon name="phone" size={13} /> Gọi tư vấn ngay
         </a>
-        {/* Was an inert <button>. The page already carries a real inquiry
-            form wired to the approved WEB_CONTACTS backend, so this now
-            takes the visitor straight to it instead of doing nothing. */}
         <a
           href="#tu-van-du-an"
-          className="flex flex-1 items-center justify-center gap-1 rounded-md bg-[#880206] px-2 py-2 text-[11px] font-semibold text-white transition-colors duration-fast ease-base hover:bg-[#750F0D]"
+          className="btn-primary-gradient flex flex-1 items-center justify-center gap-1 rounded-md px-2 py-2 text-[11px] font-semibold text-white transition-transform duration-fast ease-base active:scale-[0.96] motion-reduce:active:scale-100"
         >
           <Icon name="calendar" size={13} className="text-white" /> Đặt lịch xem dự án
         </a>
       </div>
 
       <section
-        className="v2-reveal mt-6 hidden flex-col items-start justify-between gap-2 rounded-lg bg-[#880206] p-3 text-white min-[900px]:flex min-[900px]:flex-row min-[900px]:items-center min-[900px]:gap-4 min-[900px]:p-4 wide:mt-16 wide:rounded-[16px] wide:p-8"
+        className="v2-reveal mt-6 hidden flex-col items-start justify-between gap-2 rounded-lg bg-gradient-to-r from-[#880206] to-[#5C0104] p-3 text-white shadow-lg min-[900px]:flex min-[900px]:flex-row min-[900px]:items-center min-[900px]:gap-4 min-[900px]:p-4 wide:mt-16 wide:rounded-[16px] wide:p-8"
         data-qa-region="bottom-cta"
       >
         <div className="flex items-center gap-3">
@@ -554,7 +565,7 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
         </div>
         <a
           href={getZaloHref()}
-          className="group flex items-center justify-center gap-2 rounded-md bg-white px-4 py-2 text-[12px] font-semibold text-[#880206] transition-colors duration-fast ease-base hover:bg-[#FBEFE3] wide:h-[52px] wide:rounded-[10px] wide:px-6 wide:text-[15px]"
+          className="group flex items-center justify-center gap-2 rounded-md bg-white px-4 py-2 text-[12px] font-semibold text-[#880206] shadow-sm transition-all duration-fast ease-base hover:bg-[#FBEFE3] hover:shadow-md wide:h-[52px] wide:rounded-[10px] wide:px-6 wide:text-[15px]"
         >
           Liên hệ ngay{" "}
           <Icon name="arrow-right" size={13} className="transition-transform duration-fast ease-base group-hover:translate-x-1" />

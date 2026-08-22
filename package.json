@@ -2,23 +2,31 @@
   "name": "ndthich-land",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test -c playwright.mock.config.ts",
     "test:e2e:mock": "playwright test -c playwright.mock.config.ts",
     "test:e2e:failclosed": "next build && playwright test -c playwright.failclosed.config.ts",
     "test:e2e:live": "node scripts/check-live-e2e-secrets.mjs && next build && playwright test -c playwright.live.config.ts",
+    "check": "npm run lint && npm run typecheck && npm test && npm run build",
+    "release:check": "npm run lint && npm run typecheck && npm test && npm run test:e2e:mock && npm run test:e2e:failclosed",
     "gd6:hash-password": "node scripts/hash-password.mjs",
     "gd6:bootstrap-cms": "tsx scripts/gd6-bootstrap-cms.ts"
   },
   "dependencies": {
     "googleapis": "^174.0.1",
     "next": "16.3.0",
+    "page-flip": "^2.0.7",
+    "pdfjs-dist": "^6.2.108",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "server-only": "^0.0.1"

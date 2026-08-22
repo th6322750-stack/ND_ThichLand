@@ -77,13 +77,13 @@ function ActionButtons({ listingName }: { listingName: string }) {
     <div className="flex gap-2 min-[900px]:gap-3">
       <a
         href="tel:0986602203"
-        className="flex flex-1 items-center justify-center gap-1 rounded-md bg-[#880206] px-2 py-2 text-[10px] font-semibold leading-tight text-white hover:bg-[#750F0D] min-[900px]:gap-2 min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px] wide:h-[48px] wide:rounded-[10px] wide:text-[15px]"
+        className="btn-primary-gradient flex flex-1 items-center justify-center gap-1 rounded-md px-2 py-2 text-[10px] font-semibold leading-tight text-white transition-transform duration-fast ease-base active:scale-[0.96] motion-reduce:active:scale-100 min-[900px]:gap-2 min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px] wide:h-[48px] wide:rounded-[10px] wide:text-[15px]"
       >
         <Icon name="phone" size={12} className="shrink-0 text-white min-[900px]:!h-4 min-[900px]:!w-4" /> Gọi ngay
       </a>
       <a
         href={getZaloHref()}
-        className="flex flex-1 items-center justify-center gap-1 rounded-md bg-[#0068FF] px-2 py-2 text-[10px] font-semibold leading-tight text-white hover:bg-[#0056D6] min-[900px]:gap-2 min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px] wide:h-[48px] wide:rounded-[10px] wide:text-[15px]"
+        className="flex flex-1 items-center justify-center gap-1 rounded-md bg-gradient-to-r from-[#0068FF] to-[#0052CC] px-2 py-2 text-[10px] font-semibold leading-tight text-white shadow-[0_4px_14px_-2px_rgba(0,104,255,0.3)] transition-transform duration-fast ease-base hover:brightness-105 active:scale-[0.96] motion-reduce:active:scale-100 min-[900px]:gap-2 min-[900px]:px-5 min-[900px]:py-3 min-[900px]:text-[13px] wide:h-[48px] wide:rounded-[10px] wide:text-[15px]"
       >
         <Icon name="chat" size={12} className="shrink-0 text-white min-[900px]:!h-4 min-[900px]:!w-4" /> Nhắn Zalo
       </a>
@@ -91,7 +91,7 @@ function ActionButtons({ listingName }: { listingName: string }) {
           approved WEB_CONTACTS channel (see ViewingRequestButton). */}
       <ViewingRequestButton
         listingName={listingName}
-        className="flex flex-1 items-center justify-center gap-1 rounded-md border border-[#880206] px-2 py-2 text-[10px] font-semibold leading-tight text-[#880206] transition-colors duration-fast ease-base hover:bg-[#F7F6F6] min-[900px]:hidden"
+        className="flex flex-1 items-center justify-center gap-1 rounded-md border border-[#880206] px-2 py-2 text-[10px] font-semibold leading-tight text-[#880206] transition-[background-color,transform] duration-fast ease-base hover:bg-[#F7F6F6] active:scale-[0.96] motion-reduce:active:scale-100 min-[900px]:hidden"
       />
     </div>
   );
@@ -196,7 +196,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
       />
 
       {related.length > 0 && (
-        <section className="mt-4 min-[900px]:mt-12" data-qa-region="related">
+        <section className="v2-reveal mt-4 min-[900px]:mt-12" data-qa-region="related">
           <div className="flex items-end justify-between">
             <h2 className="text-[13px] font-extrabold text-[#0C0D0D] min-[900px]:text-[20px] wide:text-v2-h2">
               Bất động sản cùng khu vực
@@ -223,7 +223,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
 
       {/* Bottom consultation CTA before the footer, matching the master. */}
       <section
-        className="mt-4 flex flex-col items-start justify-between gap-2 rounded-lg bg-[#880206] p-3 text-white min-[900px]:mt-12 min-[900px]:flex-row min-[900px]:items-center min-[900px]:gap-4 min-[900px]:p-8 wide:rounded-[16px] wide:p-10"
+        className="v2-reveal mt-4 flex flex-col items-start justify-between gap-2 rounded-lg bg-[#880206] p-3 text-white min-[900px]:mt-12 min-[900px]:flex-row min-[900px]:items-center min-[900px]:gap-4 min-[900px]:p-8 wide:rounded-[16px] wide:p-10"
         data-qa-region="bottom-cta"
       >
         <div>

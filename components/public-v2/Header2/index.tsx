@@ -3,20 +3,24 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useFocusTrap } from "@/lib/useFocusTrap";
 import { Icon2 as Icon } from "@/components/public-v2/Icon2";
 
 const NAV = [
   { label: "Trang chủ", href: "/" },
-  { label: "Cho thuê", href: "/cho-thue" },
   { label: "Dự án", href: "/du-an" },
+  { label: "Cho thuê", href: "/cho-thue" },
   { label: "Về chúng tôi", href: "/gioi-thieu" },
   { label: "Tin tức", href: "/tin-tuc" },
   { label: "Liên hệ", href: "/lien-he" },
 ];
 
-const HOTLINE_LABEL = "0986 602 203 - 0985 551 396";
+// One number, not two. The pill expands on hover, and animating it open at
+// the width of "0986 602 203 - 0985 551 396" was both a long travel and a
+// wide layout change every frame — it read as a stutter. The second line is
+// still in the footer and the contact block.
+const HOTLINE_LABEL = "0986 602 203";
 // Mobile masters show a single-number hotline pill — each of the 5 mobile
 // master exports uses a different mock number, so this uses the one real
 // hotline number everywhere rather than fabricating a route-specific one.
@@ -62,6 +66,17 @@ export function Header2() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const drawerRef = useFocusTrap(mobileOpen, () => setMobileOpen(false));
+  const hotlineRef = useRef<HTMLAnchorElement>(null);
+
+  // The open width is the label's own width, measured rather than guessed, so
+  // the easing curve describes exactly the distance the pill travels. Written
+  // straight to the node as a custom property — no state, no re-render.
+  useEffect(() => {
+    const el = hotlineRef.current;
+    const label = el?.querySelector<HTMLElement>(".v2-hotline-label");
+    if (!el || !label) return;
+    el.style.setProperty("--v2-hotline-w", `${label.scrollWidth}px`);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -91,9 +106,13 @@ export function Header2() {
       <div
         className={`v2-container flex items-center justify-between gap-4 ${variant.mobilePadding} min-[900px]:py-3 wide:min-h-[80px] wide:py-4`}
       >
+        {/* Both outer groups grow equally (flex-1) so the nav lands on the
+            header's true centre. Under justify-between it was only centred in
+            the leftover space, and the logo lockup is far wider than the 44px
+            hotline disc — so it sat visibly right of centre. */}
         <Link
           href="/"
-          className="flex shrink-0 items-center gap-2 transition-opacity duration-fast ease-base hover:opacity-80"
+          className="flex shrink-0 items-center gap-2 transition-opacity duration-fast ease-base hover:opacity-80 min-[900px]:flex-1"
         >
           {/* Client feedback: logo + company name read too small against
               the header's width, with a lot of empty vertical margin
@@ -116,10 +135,12 @@ export function Header2() {
               Kinh doanh lý tưởng
             </span>
           )}
-          <span className="hidden whitespace-nowrap text-[10px] leading-tight text-[#5F5D5D] min-[900px]:block wide:text-[11px]">
-            CÔNG TY TNHH MTV
-            <br />
-            <span className="font-bold text-[#880206]">NGUYỄN ĐẮC THÍCH</span>
+          {/* Two-line lockup: a quiet descriptor over the name, so the mark
+              says what the company does without spending the brand colour on
+              it. Single-line "NDTHICH LAND" carried no such line. */}
+          <span className="hidden whitespace-nowrap leading-tight min-[900px]:block">
+            <span className="block text-[10px] font-medium text-[#5F5D5D] wide:text-[11px]">Bất động sản</span>
+            <span className="block text-[14px] font-bold text-[#880206] wide:text-[16px]">NDTHICH LAND</span>
           </span>
         </Link>
 
@@ -152,17 +173,33 @@ export function Header2() {
           })}
         </nav>
 
-        <div className="flex shrink-0 items-center gap-2">
-          <a
-            href={`tel:${HOTLINE_TEL}`}
-            className="hidden shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-[#880206] px-4 py-2 text-[11px] font-semibold text-white hover:bg-[#750F0D] min-[900px]:flex wide:h-[46px] wide:px-5 wide:text-[13px]"
-          >
-            <Icon name="phone" size={14} className="text-white" /> {HOTLINE_LABEL}
-          </a>
+        <div className="flex shrink-0 items-center gap-2 min-[900px]:flex-1 min-[900px]:justify-end">
+          {/* Collapsed to a phone disc until hovered/focused. The pill sits
+              absolutely inside a fixed 44px slot so opening it does not take
+              layout space — growing it in flow pushed the whole nav left every
+              time the pointer crossed it, which is the "stutter" that was
+              actually being seen. See .v2-hotline in globals.css. */}
+          <span className="v2-hotline-slot hidden min-[900px]:block">
+            <a
+              ref={hotlineRef}
+              href={`tel:${HOTLINE_TEL}`}
+              aria-label={`Gọi hotline ${HOTLINE_LABEL}`}
+              className="btn-primary-gradient v2-hotline h-[44px] items-center whitespace-nowrap rounded-full px-[13px] text-[11px] font-semibold text-white active:scale-[0.96] motion-reduce:active:scale-100 wide:text-[13px]"
+            >
+              <Icon name="phone" size={16} className="shrink-0 text-white" />
+              {/* The gap sits on an inner span, not on the collapsing column
+                  itself: padding belongs to the element's own box and survives
+                  a 0fr track, so it stayed behind as an 8px sliver. As content
+                  it gets clipped away with the text. */}
+              <span className="v2-hotline-label">
+                <span className="pl-2">{HOTLINE_LABEL}</span>
+              </span>
+            </a>
+          </span>
           {variant.hotlineTextMobile ? (
             <a
               href={`tel:${HOTLINE_TEL}`}
-              className="flex items-center gap-[6px] rounded-full bg-[#880206] px-3 py-[6px] text-[11px] font-semibold text-white min-[900px]:hidden"
+              className="btn-primary-gradient flex items-center gap-[6px] rounded-full px-3 py-[6px] text-[11px] font-semibold text-white transition-transform duration-fast ease-base active:scale-[0.94] motion-reduce:active:scale-100 min-[900px]:hidden"
             >
               <Icon name="phone" size={12} className="text-white" /> {HOTLINE_MOBILE_LABEL}
             </a>
@@ -170,7 +207,7 @@ export function Header2() {
             <a
               href={`tel:${HOTLINE_TEL}`}
               aria-label={`Gọi ${HOTLINE_MOBILE_LABEL}`}
-              className="flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-lg bg-[#880206] text-white min-[900px]:hidden"
+              className="btn-primary-gradient flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-lg text-white transition-transform duration-fast ease-base active:scale-[0.94] motion-reduce:active:scale-100 min-[900px]:hidden"
             >
               <Icon name="phone" size={15} className="text-white" />
             </a>

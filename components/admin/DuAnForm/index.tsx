@@ -47,6 +47,14 @@ export function DuAnForm({ initial }: DuAnFormProps) {
   const unitTypeFileInputRef = useRef<HTMLInputElement>(null);
   const unitTypeUploadTargetRef = useRef<number | null>(null);
   const [highlights, setHighlights] = useState<string[]>(initial?.highlights ?? []);
+  // Mirrored into state so the map preview re-geocodes as it is typed — the
+  // point of the field is confirming the pin before saving.
+  const [mapQuery, setMapQuery] = useState<string>(initial?.mapQuery ?? "");
+  const [masterplanImage, setMasterplanImage] = useState<string>(initial?.masterplanImage ?? "");
+  const [showMasterplan, setShowMasterplan] = useState<boolean>(initial?.showMasterplan ?? false);
+  const [masterplanUploaderState, setMasterplanUploaderState] = useState<UploaderState>("empty");
+  const [masterplanUploadError, setMasterplanUploadError] = useState<string>();
+  const masterplanFileInputRef = useRef<HTMLInputElement>(null);
 
   async function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files ?? []);
@@ -74,6 +82,30 @@ export function DuAnForm({ initial }: DuAnFormProps) {
 
   function removeMediaAt(index: number) {
     setMedia((prev) => prev.filter((_, i) => i !== index));
+  }
+
+  async function handleMasterplanFileChange(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    setMasterplanUploadError(undefined);
+    setMasterplanUploaderState("uploading");
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const result = await uploadMediaAction(formData);
+      if (!result.ok || !result.record) {
+        setMasterplanUploadError(result.error);
+        setMasterplanUploaderState("error");
+        return;
+      }
+      setMasterplanImage(result.record.webViewLink);
+      // Uploading a drawing is the clearest possible signal it should show.
+      setShowMasterplan(true);
+      setMasterplanUploaderState("empty");
+    } catch {
+      setMasterplanUploaderState("error");
+    }
   }
 
   async function handleProgressFileChange(e: ChangeEvent<HTMLInputElement>) {
@@ -186,6 +218,9 @@ export function DuAnForm({ initial }: DuAnFormProps) {
         slug: initial?.slug ?? "",
         name: get("name"),
         location: get("location"),
+        mapQuery: get("mapQuery"),
+        masterplanImage,
+        showMasterplan,
         investor: get("investor"),
         status: get("status") || (initial?.status ?? ""),
         summary: get("summary"),
@@ -511,6 +546,111 @@ export function DuAnForm({ initial }: DuAnFormProps) {
             >
               + Thêm điểm nổi bật
             </button>
+          </div>
+
+          {/* Vị trí trên bản đồ — the public page's map section used to be a
+              static picture of an unrelated place with a pin drawn in the
+              middle. It is a real embed now, and this is the only thing that
+              tells it where to point. Empty hides the section rather than
+              pinning an approximate spot as if it were the site. */}
+          <div className="border-t border-line px-6 py-6">
+            <p className="text-[16px] font-bold text-[#0C0D0D]">Vị trí chính xác trên bản đồ</p>
+            <p className="text-body text-muted">
+              Nhập địa chỉ, tên toà nhà hoặc toạ độ (vd: <code>21.0278, 105.7669</code>). Bản đồ bên dưới dò
+              ngay — ghim đúng thì lưu, để trống sẽ ẩn phần bản đồ trên trang dự án.
+            </p>
+            <input
+              name="mapQuery"
+              defaultValue={initial?.mapQuery ?? ""}
+              onChange={(e) => setMapQuery(e.target.value)}
+              placeholder="VD: Cổng làng Nhân Mỹ, Mỹ Đình, Hà Nội"
+              aria-label="Vị trí chính xác trên bản đồ"
+              className="mt-3 w-full rounded-md border border-line px-4 py-3 text-body text-ink outline-none transition-colors duration-fast ease-base focus:border-primary"
+            />
+            {mapQuery.trim() ? (
+              <div className="mt-3">
+                <div className="relative h-[300px] overflow-hidden rounded-md border border-line">
+                  <iframe
+                    key={mapQuery.trim()}
+                    src={`https://www.google.com/maps?q=${encodeURIComponent(mapQuery.trim())}&output=embed&hl=vi&z=16`}
+                    title={`Xem trước bản đồ ${mapQuery.trim()}`}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="absolute inset-0 h-full w-full border-0"
+                  />
+                </div>
+                <p className="mt-2 text-body text-muted">
+                  Đang dò: <span className="text-ink">{mapQuery.trim()}</span>
+                </p>
+              </div>
+            ) : (
+              <p className="mt-3 rounded-md border border-dashed border-line px-4 py-6 text-center text-body text-muted">
+                Chưa nhập vị trí — trang dự án sẽ không hiện phần bản đồ.
+              </p>
+            )}
+          </div>
+
+          {/* Mặt bằng dự án — the public section used to render a large empty
+              dashed box reading "đang được cập nhật" on every project, i.e. a
+              placeholder shown to customers. It is opt-in now. */}
+          <div className="border-t border-line px-6 py-6">
+            <p className="text-[16px] font-bold text-[#0C0D0D]">Mặt bằng dự án</p>
+            <p className="text-body text-muted">
+              Bản vẽ mặt bằng/phối cảnh tổng thể của dự án. Tắt thì mục này không xuất hiện trên website.
+            </p>
+
+            <label className="mt-3 flex w-fit cursor-pointer items-center gap-3 rounded-md border border-line px-4 py-3 transition-colors duration-fast ease-base hover:border-primary">
+              <input
+                type="checkbox"
+                checked={showMasterplan}
+                onChange={(e) => setShowMasterplan(e.target.checked)}
+                className="h-4 w-4"
+              />
+              <span className="text-body text-ink">Hiện mục “Mặt bằng dự án” trên website</span>
+            </label>
+
+            {showMasterplan && (
+              <div className="mt-4">
+                {masterplanImage ? (
+                  <div className="flex flex-col gap-3">
+                    <div className="relative aspect-[16/7] w-full overflow-hidden rounded-md border border-line">
+                      {/* eslint-disable-next-line @next/next/no-img-element -- media links are external Drive URLs, same as the other uploads in this form */}
+                      <img src={masterplanImage} alt="Mặt bằng dự án" className="h-full w-full object-contain" />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setMasterplanImage("")}
+                      className="w-fit text-label text-muted transition-colors duration-fast ease-base hover:text-error"
+                    >
+                      Xóa ảnh
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <div className="max-w-sm">
+                      <Uploader
+                        state={masterplanUploaderState}
+                        errorMessage={masterplanUploadError}
+                        onClick={() => masterplanFileInputRef.current?.click()}
+                        onRetry={() => masterplanFileInputRef.current?.click()}
+                      />
+                    </div>
+                    <p className="mt-2 text-body text-muted">
+                      Chưa có bản vẽ — website sẽ hiện dòng “Bản vẽ mặt bằng dự án đang được cập nhật.”
+                    </p>
+                  </>
+                )}
+                <input
+                  ref={masterplanFileInputRef}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  className="hidden"
+                  aria-hidden="true"
+                  tabIndex={-1}
+                  onChange={handleMasterplanFileChange}
+                />
+              </div>
+            )}
           </div>
 
           {/* Quy hoạch - Mặt bằng zone — per-unit-type breakdown, shown in

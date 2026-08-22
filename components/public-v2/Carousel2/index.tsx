@@ -111,6 +111,62 @@ export function Carousel2({
     pausedRef.current = false;
   };
 
+  // Drag-to-scroll, mouse only.
+  //
+  // Touch already works: the track is a native overflow-x container, so a
+  // finger swipe gets real momentum and rubber-banding from the browser —
+  // measured moving scrollLeft 0 -> 186 on a phone viewport. A mouse gets
+  // none of that from the platform, so on desktop the arrows were the only
+  // way across, which is what this adds. Touch is deliberately left to the
+  // browser rather than re-implemented worse.
+  const dragRef = useRef<{ startX: number; startScroll: number; moved: boolean } | null>(null);
+  const [dragging, setDragging] = useState(false);
+
+  function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
+    if (e.pointerType !== "mouse" || e.button !== 0) return;
+    const el = trackRef.current;
+    if (!el || !canScroll) return;
+    dragRef.current = { startX: e.clientX, startScroll: el.scrollLeft, moved: false };
+    setDragging(true);
+    // Without capture the browser starts its own image/link drag on the first
+    // move and swallows every pointermove after that — measured: three events
+    // for a whole drag, and scrollLeft never budged.
+    e.currentTarget.setPointerCapture(e.pointerId);
+  }
+
+  function onPointerMove(e: React.PointerEvent<HTMLDivElement>) {
+    const drag = dragRef.current;
+    const el = trackRef.current;
+    if (!drag || !el) return;
+    const delta = e.clientX - drag.startX;
+    // A few pixels of slop so a slightly shaky click still reaches the card.
+    if (!drag.moved && Math.abs(delta) < 5) return;
+    drag.moved = true;
+    el.scrollLeft = drag.startScroll - delta;
+  }
+
+  function endDrag() {
+    const drag = dragRef.current;
+    if (!drag) return;
+    dragRef.current = null;
+    setDragging(false);
+    if (!drag.moved) return;
+    // Every slide is a link; without this, letting go after a drag would
+    // navigate to whichever card happens to be under the cursor.
+    trackRef.current?.addEventListener(
+      "click",
+      (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+      },
+      { capture: true, once: true },
+    );
+    // Where it lands is left to CSS scroll-snap, which comes back the moment
+    // `dragging` clears and settles on the nearest slide. Rounding to a whole
+    // page here instead threw away most drags: dragging 540px of a 1376px
+    // page rounds to page 0, so the track sprang back to where it started.
+  }
+
   return (
     <div
       className={`relative ${className}`}
@@ -129,8 +185,19 @@ export function Carousel2({
           const el = trackRef.current;
           if (el) setPage(Math.round(el.scrollLeft / Math.max(1, el.clientWidth)));
         }}
-        className={`v2-track flex ${gapClassName} overflow-x-auto overscroll-x-contain scroll-smooth ${
-          canScroll ? "snap-x snap-mandatory" : ""
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        // Cards contain images and links, both of which the browser will
+        // happily start a native drag-and-drop with.
+        onDragStart={(e) => e.preventDefault()}
+        className={`v2-track flex ${gapClassName} overflow-x-auto overscroll-x-contain ${
+          // scroll-smooth would fight the direct scrollLeft writes below, and
+          // snapping mid-drag would yank the track out from under the cursor.
+          dragging ? "cursor-grabbing select-none" : "scroll-smooth"
+        } ${canScroll && !dragging ? "snap-x snap-mandatory" : ""} ${
+          canScroll && !dragging ? "min-[900px]:cursor-grab" : ""
         }`}
       >
         {/* toArray, not children.map: a caller passing a single element or a
@@ -144,13 +211,17 @@ export function Carousel2({
 
       {canScroll && (
         <div className="mt-3 flex items-center justify-center gap-2">
-          <button
-            type="button"
-            onClick={() => goTo(page - 1)}
-            aria-label="Xem mục trước"
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-[#E4E1E0] text-[#5F5D5D] transition-colors duration-fast ease-base hover:border-[#880206] hover:text-[#880206]"
-          >
-            <Icon name="chevron-right" size={14} className="rotate-180" />
+          <button type="button" onClick={() => goTo(page - 1)} aria-label="Xem mục trước" className="v2-arrow">
+            {/* Two arrows: the pair slides one slot on hover, so a fresh
+                arrow arrives as the first leaves. See .v2-arrow in globals.css. */}
+            <span className="v2-arrow-track" aria-hidden="true">
+              <span className="v2-arrow-slot">
+                <Icon name="chevron-right" size={14} className="rotate-180" />
+              </span>
+              <span className="v2-arrow-slot">
+                <Icon name="chevron-right" size={14} className="rotate-180" />
+              </span>
+            </span>
           </button>
 
           <div className="flex items-center gap-[6px]">
@@ -168,13 +239,15 @@ export function Carousel2({
             ))}
           </div>
 
-          <button
-            type="button"
-            onClick={() => goTo(page + 1)}
-            aria-label="Xem mục kế tiếp"
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-[#E4E1E0] text-[#5F5D5D] transition-colors duration-fast ease-base hover:border-[#880206] hover:text-[#880206]"
-          >
-            <Icon name="chevron-right" size={14} />
+          <button type="button" onClick={() => goTo(page + 1)} aria-label="Xem mục kế tiếp" className="v2-arrow">
+            <span className="v2-arrow-track" aria-hidden="true">
+              <span className="v2-arrow-slot">
+                <Icon name="chevron-right" size={14} />
+              </span>
+              <span className="v2-arrow-slot">
+                <Icon name="chevron-right" size={14} />
+              </span>
+            </span>
           </button>
         </div>
       )}

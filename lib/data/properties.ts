@@ -15,6 +15,13 @@ const THUMB_KITCHEN = "/assets/v2/property-detail/thumb-kitchen.png";
 const THUMB_DINING = "/assets/v2/property-detail/thumb-dining.png";
 const MAIN_INTERIOR = "/assets/v2/property-detail/main-interior.png";
 
+// Dev-only "posted N hours ago" stand-ins so "Hàng Mới Lên" has something to
+// show locally — every real listing gets this for free from
+// CustomBdsRecord.createdAt at creation time (see lib/server/rental/merge.ts);
+// this fixture just backdates a few by a fixed offset from server-start so
+// the mix of "new" / "not new" is visible without waiting a real 24h.
+const hoursAgo = (h: number) => new Date(Date.now() - h * 60 * 60 * 1000).toISOString();
+
 export const properties: PropertyListing[] = [
   {
     slug: "can-ho-2pn-noi-that-day-du-p301",
@@ -36,6 +43,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    postedAt: hoursAgo(2),
   },
   {
     slug: "studio-ban-cong-thoang-p301",
@@ -57,6 +65,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    postedAt: hoursAgo(6),
   },
   {
     slug: "mat-bang-kinh-doanh-mat-pho-mb05",
@@ -78,6 +87,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    postedAt: hoursAgo(11),
   },
   {
     slug: "nha-nguyen-can-4-tang",
@@ -99,6 +109,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    postedAt: hoursAgo(19),
   },
   {
     slug: "van-phong-sang-vao-ngay-vp03",
@@ -120,6 +131,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    postedAt: hoursAgo(30),
   },
   {
     slug: "xuong-rong-xe-tai-vao",
@@ -141,6 +153,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    postedAt: hoursAgo(72),
   },
   {
     slug: "can-ho-1pn-can-1208",
@@ -162,6 +175,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    postedAt: hoursAgo(72),
   },
   {
     slug: "studio-gac-lung-p205",
@@ -183,6 +197,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    postedAt: hoursAgo(72),
   },
   {
     slug: "mat-bang-van-phong-toa-nha-mb12",
@@ -204,6 +219,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    postedAt: hoursAgo(72),
   },
   {
     slug: "nha-mat-pho-kinh-doanh",
@@ -225,6 +241,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    postedAt: hoursAgo(72),
   },
   {
     slug: "van-phong-chia-se-vp08",
@@ -246,6 +263,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    postedAt: hoursAgo(72),
   },
   {
     slug: "xuong-kho-bai-xn05",
@@ -267,6 +285,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    postedAt: hoursAgo(72),
   },
 ];
 

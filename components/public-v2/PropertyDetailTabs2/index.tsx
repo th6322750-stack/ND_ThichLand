@@ -3,6 +3,7 @@
 import { useRef, useState, type KeyboardEvent } from "react";
 import Image from "next/image";
 import { Icon2 as Icon, type IconName } from "@/components/public-v2/Icon2";
+import { InteractiveMap2 } from "@/components/public-v2/InteractiveMap2";
 
 interface DetailTab {
   id: "info" | "amenities" | "location" | "media";
@@ -57,14 +58,24 @@ function AmenitiesList({ amenities }: { amenities: string[] }) {
 }
 
 function LocationPanel({ address, locationNote }: { address: string; locationNote: string | null }) {
+  // A rental's own `address` is the full street address the CMS already
+  // stores, so it doubles as the map query — no extra field needed here.
+  const query = address.trim();
+  if (!query) {
+    return (
+      <p className="rounded-lg border border-dashed border-[#EDEBEA] px-4 py-8 text-center text-[13px] text-[#5F5D5D]">
+        Chưa có địa chỉ cho bất động sản này.
+      </p>
+    );
+  }
   return (
     <div>
-      <div className="relative aspect-[16/9] overflow-hidden rounded-lg wide:rounded-[14px]">
-        <Image src="/assets/v2/property-detail/map.png" alt={`Bản đồ ${address}`} fill className="object-cover" unoptimized />
-      </div>
-      <p className="mt-3 text-[11px] leading-relaxed text-[#3A3838] min-[900px]:text-[13px]">
-        {locationNote ?? "Thông tin kết nối khu vực đang được cập nhật."}
-      </p>
+      <InteractiveMap2
+        query={query}
+        address={address}
+        locationNote={locationNote}
+        title="Vị trí bất động sản"
+      />
     </div>
   );
 }

@@ -9,14 +9,14 @@ import { useSavedListings } from "@/lib/useSavedListings";
 
 const TABS: { label: string; href: string; icon: IconName }[] = [
   { label: "Trang chủ", href: "/", icon: "home" },
-  { label: "Cho thuê", href: "/cho-thue", icon: "shop" },
   { label: "Dự án", href: "/du-an", icon: "building" },
+  { label: "Cho thuê", href: "/cho-thue", icon: "shop" },
 ];
 
 const MENU_LINKS = [
   { label: "Trang chủ", href: "/" },
-  { label: "Cho thuê", href: "/cho-thue" },
   { label: "Dự án", href: "/du-an" },
+  { label: "Cho thuê", href: "/cho-thue" },
   { label: "Về chúng tôi", href: "/gioi-thieu" },
   { label: "Tin tức", href: "/tin-tuc" },
   { label: "Liên hệ", href: "/lien-he" },

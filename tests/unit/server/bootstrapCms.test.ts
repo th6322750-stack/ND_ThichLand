@@ -44,8 +44,9 @@ describe("bootstrapCms", () => {
       CMS_TABS.news,
       CMS_TABS.contacts,
       CMS_TABS.media,
+      CMS_TABS.settings,
     ]);
-    expect(createSheetTabWithHeader).toHaveBeenCalledTimes(5);
+    expect(createSheetTabWithHeader).toHaveBeenCalledTimes(6);
     expect(createSheetTabWithHeader).not.toHaveBeenCalledWith("cms-sheet-id", CMS_TABS.projects, expect.anything());
   });
 

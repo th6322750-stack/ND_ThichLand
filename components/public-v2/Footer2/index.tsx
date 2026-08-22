@@ -4,14 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Icon2 as Icon } from "@/components/public-v2/Icon2";
-
-const HOTLINE_LABEL = "0986 602 203 - 0985 551 396";
-const HOTLINE_TEL = "0986602203";
+import { DEFAULT_SITE_SETTINGS, telHref } from "@/lib/data/siteSettings";
+import type { SiteSettings } from "@/lib/types";
 
 const QUICK_LINKS = [
   { label: "Trang chủ", href: "/" },
-  { label: "Cho thuê", href: "/cho-thue" },
   { label: "Dự án", href: "/du-an" },
+  { label: "Cho thuê", href: "/cho-thue" },
   { label: "Về chúng tôi", href: "/gioi-thieu" },
   { label: "Tin tức", href: "/tin-tuc" },
   { label: "Liên hệ", href: "/lien-he" },
@@ -33,9 +32,14 @@ const SOCIALS: { name: "facebook" | "youtube" | "chat" | "tiktok"; href: string;
 // "Thông tin liên hệ". Every other route's mobile master scrolls off well
 // before the footer, so those keep the default (Home's) composition.
 // "Loại hình" is desktop-only everywhere — mobile never shows it.
-export function Footer2() {
+export function Footer2({ settings = DEFAULT_SITE_SETTINGS }: { settings?: SiteSettings }) {
   const pathname = usePathname() ?? "";
   const compact = pathname === "/du-an";
+  // Address/hotline/email/hours used to be hardcoded here AND in the homepage
+  // contact panel — two copies to keep in sync by hand. Both now read the one
+  // admin-editable record; the default keeps this component renderable on its
+  // own (and in tests) without a settings fetch.
+  const hotlineLabel = [settings.phonePrimary, settings.phoneSecondary].filter((p) => p.trim()).join(" - ");
 
   return (
     <footer className="bg-[#1C1F1E] text-white" data-qa-region="footer">
@@ -56,7 +60,7 @@ export function Footer2() {
               unoptimized
             />
             <p className="mt-1 text-[6px] font-bold uppercase tracking-wide text-white min-[900px]:mt-2 min-[900px]:text-[11px] wide:text-[13px]">
-              Công ty TNHH MTV Nguyễn Đắc Thích
+              NDTHICH LAND
             </p>
             <p className="mt-1 line-clamp-2 text-[6px] leading-tight text-[#A6A6A6] min-[900px]:mt-1 min-[900px]:text-[11px] wide:text-[14px] wide:leading-[24px]">
               {compact
@@ -118,26 +122,30 @@ export function Footer2() {
             <ul className="mt-1 flex flex-col gap-[2px] text-[6px] leading-tight text-[#A6A6A6] min-[900px]:mt-2 min-[900px]:gap-[3px] min-[900px]:text-[11px] wide:mt-4 wide:gap-3 wide:text-[14px] wide:leading-[24px]">
               <li className="flex items-start gap-1 min-[900px]:gap-1">
                 <Icon name="pin" size={12} className="mt-[2px] hidden shrink-0 text-white min-[900px]:block" />
-                <span>120 Nguyễn Xí, Phường 26, Quận Bình Thạnh, TP. HCM</span>
+                <span>{settings.address}</span>
               </li>
               <li className="flex items-center gap-1 min-[900px]:gap-1">
                 <Icon name="phone" size={12} className="hidden shrink-0 text-white min-[900px]:block" />
-                <a href={`tel:${HOTLINE_TEL}`} className="hover:text-white">
-                  {HOTLINE_LABEL}
+                <a href={`tel:${telHref(settings.phonePrimary)}`} className="hover:text-white">
+                  {hotlineLabel}
                 </a>
               </li>
               <li className="flex items-center gap-1 min-[900px]:gap-1">
                 <Icon name="chat" size={12} className="hidden shrink-0 text-white min-[900px]:block" />
-                <a href="mailto:info@ndthich.com.vn" className="hover:text-white">
-                  info@ndthich.com.vn
+                <a href={`mailto:${settings.email}`} className="hover:text-white">
+                  {settings.email}
                 </a>
               </li>
               <li className="flex items-start gap-1 min-[900px]:gap-1">
                 <Icon name="clock" size={12} className="mt-[2px] hidden shrink-0 text-white min-[900px]:block" />
                 <span>
-                  Thứ 2 - Thứ 7: 8:00 - 18:00
-                  <br />
-                  Chủ nhật: 8:00 - 12:00
+                  {settings.hoursWeekday}
+                  {settings.hoursWeekend && (
+                    <>
+                      <br />
+                      {settings.hoursWeekend}
+                    </>
+                  )}
                 </span>
               </li>
             </ul>
@@ -147,7 +155,7 @@ export function Footer2() {
 
       <div className="bg-[#880206]">
         <div className="v2-container flex items-center justify-between gap-2 py-1 text-[6px] text-white/90 min-[900px]:py-1 min-[900px]:text-[11px] wide:py-3 wide:text-[13px] wide:leading-[22px]">
-          <span>© 2026 Nguyễn Đắc Thích. All rights reserved.</span>
+          <span>© 2026 NDTHICH LAND. All rights reserved.</span>
           <span>Thiết kế bởi NDTHICH</span>
         </div>
       </div>

@@ -50,14 +50,11 @@ test.describe("rental discovery URL state", () => {
 
   test("homepage search navigates and back returns to the homepage", async ({ page }) => {
     await page.goto("/");
-    // HomeSearchBar2 renders separate MOBILE (2x2 grid) and WEB (single
-    // row) selects for the same field, toggled by CSS breakpoint — both
-    // exist in the DOM with the identical accessible name (both now
-    // single-line selects using their own aria-label), so `exact: true`
-    // alone no longer disambiguates. Playwright's default viewport is
-    // >=900px, so filtering to the one CSS makes visible picks the WEB
-    // select.
-    await page.locator('[aria-label="Loại bất động sản"]:visible').selectOption("Studio");
+    // HomeSearchBar2 renders a native select on MOBILE and a custom
+    // combobox/listbox on WEB. The explicit role selector targets the WEB
+    // trigger at Playwright's default desktop viewport.
+    await page.locator('[role="combobox"][aria-label="Loại bất động sản"]:visible').click();
+    await page.getByRole("option", { name: "Studio", exact: true }).click();
     await page.getByRole("button", { name: "Tìm kiếm" }).click();
     await page.waitForURL("**/cho-thue?type=Studio");
 

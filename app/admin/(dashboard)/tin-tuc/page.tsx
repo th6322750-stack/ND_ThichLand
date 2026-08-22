@@ -1,13 +1,11 @@
 import Link from "next/link";
 import { DataTable } from "@/components/admin/DataTable";
+import { PageHeader } from "@/components/admin/PageHeader";
+import { PublishChip } from "@/components/admin/StatusChip";
 import { getNewsRepository } from "@/lib/server/news/providers";
 import type { NewsRecord } from "@/lib/server/news/repository";
 
 export const dynamic = "force-dynamic";
-
-function formatTitle(title: string): string {
-  return title.length > 28 ? `${title.slice(0, 28)}...` : title;
-}
 
 function formatUpdatedAt(iso: string): string {
   if (!iso) return "—";
@@ -21,40 +19,63 @@ export default async function AdminTinTucListPage() {
   const rows = await repo.list();
 
   return (
-    <div>
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <h2 className="text-h1-mobile text-ink desktop:text-h1">Tin tức</h2>
-          <p className="mt-2 text-body text-muted">Quản lý tin tức trong CMS.</p>
-        </div>
-        <Link
-          href="/admin/tin-tuc/new"
-          className="rounded-md bg-primary px-6 py-3 text-button uppercase text-surface hover:bg-primaryHover"
-        >
-          Thêm bài viết
-        </Link>
-      </div>
+    <div className="flex flex-col gap-6">
+      <PageHeader
+        title="Tin tức"
+        description="Quản lý tin tức trong CMS."
+        action={
+          <Link
+            href="/admin/tin-tuc/new"
+            className="rounded-sm bg-primary px-6 py-3 text-button uppercase text-surface transition-[background-color,transform] duration-fast ease-base hover:bg-primaryHover active:scale-[0.97] motion-reduce:active:scale-100"
+          >
+            Thêm bài viết
+          </Link>
+        }
+      />
 
-      <div className="mt-6">
+      <div className="flex flex-col gap-3">
+        <p className="text-body text-muted">
+          <span className="tabular-nums text-ink">{rows.length}</span> bài viết
+        </p>
         <DataTable
           rowKey={(row: NewsRecord) => row.slug}
           rows={rows}
+          emptyLabel="Chưa có bài viết nào. Bấm “Thêm bài viết” để tạo bản ghi đầu tiên."
           columns={[
             {
               key: "title",
               label: "Tên / tiêu đề",
-              render: (r) => <span className="font-bold text-ink">{formatTitle(r.title)}</span>,
+              // Titles were cut to 28 chars in JS and given a literal "...".
+              // CSS truncation keeps the whole title in the DOM (so it is
+              // still searchable and readable via tooltip) and adapts to the
+              // column's actual width instead of a fixed guess.
+              render: (r) => (
+                <Link
+                  href={`/admin/tin-tuc/${r.slug}`}
+                  title={r.title}
+                  className="block max-w-[40ch] truncate font-bold text-ink transition-colors duration-fast ease-base hover:text-primary"
+                >
+                  {r.title}
+                </Link>
+              ),
             },
-            { key: "status", label: "Trạng thái", render: (r) => (r.published ? "Đã đăng" : "Nháp") },
-            { key: "updatedAt", label: "Cập nhật", render: (r) => formatUpdatedAt(r.updatedAt) },
-            { key: "editor", label: "Người sửa", render: () => "Admin" },
+            { key: "status", label: "Trạng thái", render: (r) => <PublishChip published={r.published} /> },
+            { key: "updatedAt", label: "Cập nhật", numeric: true, render: (r) => formatUpdatedAt(r.updatedAt) },
+            // Dropped a "Người sửa" column that rendered the constant "Admin"
+            // for every row — NewsRecord carries no editor.
             {
               key: "actions",
               label: "Thao tác",
+              align: "right" as const,
               render: (r) => (
-                <Link href={`/admin/tin-tuc/${r.slug}`} className="text-label text-primary hover:underline">
-                  Sửa
-                </Link>
+                <div className="flex items-center justify-end">
+                  <Link
+                    href={`/admin/tin-tuc/${r.slug}`}
+                    className="text-label text-primary transition-opacity duration-fast ease-base hover:opacity-70"
+                  >
+                    Sửa
+                  </Link>
+                </div>
               ),
             },
           ]}

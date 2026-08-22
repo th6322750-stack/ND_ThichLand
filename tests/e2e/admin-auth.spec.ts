@@ -24,6 +24,17 @@ test.describe("real admin authentication", () => {
     await expect(page).toHaveURL(/\/admin\/login$/);
   });
 
+  test("unauthenticated callers cannot spend the private Claude API key", async ({ page }) => {
+    const getResponse = await page.request.get("/api/claude");
+    expect(getResponse.status()).toBe(405);
+    expect(getResponse.headers().allow).toBe("POST");
+
+    const postResponse = await page.request.post("/api/claude", {
+      data: { messages: [{ role: "user", content: "Hello" }] },
+    });
+    expect(postResponse.status()).toBe(401);
+  });
+
   test("wrong password shows a generic error and does not redirect", async ({ page }) => {
     await page.goto("/admin/login");
     await page.getByLabel(/email/i).fill(TEST_EMAIL);

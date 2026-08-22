@@ -13,6 +13,12 @@ export interface ProjectFormInput {
   slug: string;
   name: string;
   location: string;
+  /** Precise address/place/"lat, lng" the map pin geocodes to. Empty hides the map section. */
+  mapQuery: string;
+  /** The project's own masterplan drawing. Empty = none uploaded. */
+  masterplanImage: string;
+  /** Whether the "Mặt bằng dự án" section renders at all. */
+  showMasterplan: boolean;
   investor: string;
   // Raw typed text, not ProjectStatus — validate() below is the only place
   // that turns this into the validated union value (same never-fabricate
@@ -98,6 +104,9 @@ export async function saveProjectAction(input: ProjectFormInput, publish: boolea
     slug,
     name: input.name,
     location: input.location,
+    mapQuery: input.mapQuery.trim(),
+    masterplanImage: input.masterplanImage.trim(),
+    showMasterplan: input.showMasterplan,
     investor: input.investor,
     // Non-null: validate() above already rejected a null status before
     // this point is reached.

@@ -1,5 +1,5 @@
 export interface ClaudeMessage {
-  role: "user" | "assistant" | "system";
+  role: "user" | "assistant";
   content: string;
 }
 
@@ -12,7 +12,7 @@ export interface ClaudeRequest {
 }
 
 export async function callClaude({
-  model = "claude-3-5-sonnet-20241022",
+  model = process.env.ANTHROPIC_MODEL ?? "claude-sonnet-4-6",
   system,
   messages,
   max_tokens = 1024,
@@ -55,7 +55,7 @@ export async function callClaude({
     id: string;
     type: string;
     role: string;
-    content: Array<{ type: string; text?: string; }>; 
+    content: Array<{ type: string; text?: string }>;
     model: string;
     stop_reason: string | null;
     usage: {

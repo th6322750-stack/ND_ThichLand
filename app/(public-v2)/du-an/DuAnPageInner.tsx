@@ -283,7 +283,7 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
           band (04_DuAn_MOBILE.png, y~1500-1900). */}
       <section className="v2-reveal mt-4 text-center min-[900px]:hidden" data-qa-region="about">
         <h2 className="text-[13px] font-extrabold leading-snug text-[#0C0D0D]">
-          Về Công ty TNHH Đầu tư &amp; Kinh doanh <span className="text-[#880206]">NDTHICH</span>
+          Về <span className="text-[#880206]">NDTHICH LAND</span>
         </h2>
         <p className="mx-auto mt-1 max-w-xs text-[9px] leading-relaxed text-[#5F5D5D]">
           Đơn vị uy tín trong lĩnh vực bất động sản, chúng tôi cam kết mang đến những sản phẩm chất
@@ -315,7 +315,7 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
           <Image src="/assets/v2/home/about-reception.png" alt="Sảnh đón NDTHICH" fill className="v2-parallax object-cover" unoptimized />
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-[12px] font-bold uppercase tracking-wide text-[#880206] wide:text-[13px]">Về Nguyễn Đắc Thích</p>
+          <p className="text-[12px] font-bold uppercase tracking-wide text-[#880206] wide:text-[13px]">Về NDTHICH LAND</p>
           <h2 className="mt-2 text-[24px] font-extrabold leading-snug text-[#0C0D0D] wide:text-v2-h2">
             Kiến tạo không gian sống
             <br />

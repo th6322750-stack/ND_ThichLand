@@ -9,6 +9,7 @@ export const CMS_TABS = {
   news: "WEB_NEWS",
   contacts: "WEB_CONTACTS",
   media: "WEB_MEDIA",
+  settings: "WEB_SETTINGS",
 } as const;
 
 export const CMS_HEADERS: Record<(typeof CMS_TABS)[keyof typeof CMS_TABS], string[]> = {
@@ -52,6 +53,15 @@ export const CMS_HEADERS: Record<(typeof CMS_TABS)[keyof typeof CMS_TABS], strin
     "published",
     "created_at",
     "updated_at",
+    "progress_photos_json",
+    "unit_types_json",
+    "property_type",
+    "scale",
+    "unit_count",
+    "highlights_json",
+    "map_query",
+    "masterplan_image",
+    "show_masterplan",
   ],
   [CMS_TABS.news]: [
     "id",
@@ -78,5 +88,18 @@ export const CMS_HEADERS: Record<(typeof CMS_TABS)[keyof typeof CMS_TABS], strin
     "web_view_link",
     "uploaded_by",
     "created_at",
+  ],
+  // Single-row tab: row 2 holds the whole record. Company contact details
+  // that used to be hardcoded in three separate components.
+  [CMS_TABS.settings]: [
+    "address",
+    "map_query",
+    "phone_primary",
+    "phone_secondary",
+    "email",
+    "hours_weekday",
+    "hours_weekend",
+    "updated_at",
+    "profile_pdf_url",
   ],
 };

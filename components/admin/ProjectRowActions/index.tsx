@@ -25,7 +25,9 @@ export function ProjectRowActions({ record }: { record: ProjectRecord }) {
       type="button"
       onClick={handleDelete}
       disabled={busy}
-      className="text-label text-error hover:underline disabled:opacity-60"
+      // Quiet until reached for, then red — same rule as BdsRowActions, so
+      // "Sửa" (primary) and the destructive action never read as one pair.
+      className="text-label text-muted transition-colors duration-fast ease-base hover:text-error disabled:opacity-60"
     >
       {busy ? "Đang xóa..." : "Xóa"}
     </button>

@@ -5,7 +5,7 @@ import { ContactCTA } from "@/components/public/ContactCTA";
 export const metadata: Metadata = {
   title: "Về chúng tôi | NDTHICH LAND",
   description:
-    "Công ty TNHH Đầu tư & Kinh doanh Nguyễn Đắc Thích — giới thiệu năng lực, giá trị và cách chúng tôi làm việc với khách thuê và chủ nhà.",
+    "NDTHICH LAND — giới thiệu năng lực, giá trị và cách chúng tôi làm việc với khách thuê và chủ nhà.",
   alternates: { canonical: "/gioi-thieu" },
 };
 
@@ -24,14 +24,14 @@ const VALUES = [
 
 const BUSINESS_AREAS = [
   { title: "Bất động sản cho thuê", gradient: "from-[#D3D8DD] via-[#B5BEC5] to-[#89949C]" },
-  { title: "Dự án công ty", gradient: "from-[#E6D6CE] via-[#C5AEA1] to-[#9A786A]" },
+  { title: "Dự án", gradient: "from-[#E6D6CE] via-[#C5AEA1] to-[#9A786A]" },
   { title: "Tin tức & tư vấn", gradient: "from-[#C9D6CC] via-[#9CB09E] to-[#6E8570]" },
 ];
 
 export default function GioiThieuPage() {
   return (
     <>
-      <section className="bg-soft">
+      <section className="v2-reveal bg-soft">
         <div className="container-page grid grid-cols-1 gap-8 py-16 desktop:grid-cols-2 desktop:items-center">
           <div>
             <span className="text-label text-primary">VỀ NDTHICH</span>
@@ -41,7 +41,7 @@ export default function GioiThieuPage() {
               kinh doanh bền vững
             </h1>
             <p className="mt-4 text-body-lg-mobile text-body desktop:text-body-lg">
-              Công ty tập trung bất động sản cho thuê và các dự án đầu tư / kinh doanh với trải
+              NDTHICH LAND tập trung bất động sản cho thuê và các dự án đầu tư / kinh doanh với trải
               nghiệm khách hàng rõ ràng.
             </p>
           </div>
@@ -51,7 +51,7 @@ export default function GioiThieuPage() {
         </div>
       </section>
 
-      <section className="container-page py-16">
+      <section className="v2-reveal container-page py-16">
         <span className="text-label text-primary">NĂNG LỰC</span>
         <h2 className="mt-2 text-h2-mobile text-ink desktop:text-h2">Các con số nổi bật</h2>
         <p className="mt-1 text-body text-muted">Thông tin có thể cập nhật khi có số liệu chính thức</p>
@@ -65,7 +65,7 @@ export default function GioiThieuPage() {
         </div>
       </section>
 
-      <section className="container-page py-16">
+      <section className="v2-reveal container-page py-16">
         <span className="text-label text-primary">GIÁ TRỊ</span>
         <h2 className="mt-2 text-h2-mobile text-ink desktop:text-h2">Cách NDTHICH vận hành</h2>
         <div className="mt-8 grid grid-cols-1 gap-6 tablet:grid-cols-3">
@@ -81,10 +81,10 @@ export default function GioiThieuPage() {
         </div>
       </section>
 
-      <section className="container-page py-16">
+      <section className="v2-reveal container-page py-16">
         <span className="text-label text-primary">HOẠT ĐỘNG</span>
         <h2 className="mt-2 text-h2-mobile text-ink desktop:text-h2">Lĩnh vực chính</h2>
-        <p className="mt-1 text-body text-muted">Tập trung đúng nhu cầu khách và năng lực công ty</p>
+        <p className="mt-1 text-body text-muted">Tập trung đúng nhu cầu khách và năng lực NDTHICH LAND</p>
         <div className="mt-8 grid grid-cols-1 gap-6 tablet:grid-cols-3">
           {BUSINESS_AREAS.map((area) => (
             <div key={area.title}>

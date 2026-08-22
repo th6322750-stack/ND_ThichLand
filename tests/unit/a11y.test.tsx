@@ -34,7 +34,12 @@ function withRouter(children: React.ReactNode, pathname = "/", search = "") {
 }
 
 function expectNoSeriousViolations(container: Element) {
-  return axe(container).then((results) => {
+  // `iframes: false` — the homepage's contact panel embeds a Google Map, and
+  // jsdom never gives that <iframe> a real content document, so axe's
+  // cross-frame probe throws "Respondable target must be a frame in the
+  // current window" before any rule runs. The frame's own a11y surface here
+  // is its title attribute, which this container-level scan still checks.
+  return axe(container, { iframes: false }).then((results) => {
     const serious = results.violations.filter(
       (v) => v.impact === "serious" || v.impact === "critical",
     );

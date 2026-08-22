@@ -1,6 +1,7 @@
 // No "server-only" guard — see lib/server/env.ts for why.
-import { isGoogleRuntimeConfigured } from "@/lib/server/env";
+import { getDriveMediaProxySecret, isGoogleRuntimeConfigured } from "@/lib/server/env";
 import { getDriveFileMetadata, listDriveFolderFiles } from "@/lib/server/google/drive";
+import { signDriveMediaFileId } from "./driveProxySignature";
 
 export const MEDIA_PLACEHOLDER = "/assets/placeholders/property-placeholder.svg";
 
@@ -42,6 +43,14 @@ async function resolveUncached(trimmed: string): Promise<LegacyMediaResolution> 
     return placeholder("Google Drive chưa cấu hình runtime — giữ placeholder.");
   }
 
+  const proxySecret = getDriveMediaProxySecret();
+  if (!proxySecret) {
+    return placeholder("Media proxy chưa cấu hình chữ ký — giữ placeholder.");
+  }
+
+  const publicUrl = (fileId: string) =>
+    `/api/drive-media/${encodeURIComponent(fileId)}?sig=${signDriveMediaFileId(fileId, proxySecret)}`;
+
   try {
     if (folderMatch) {
       const files = await listDriveFolderFiles(folderMatch[1]);
@@ -49,7 +58,7 @@ async function resolveUncached(trimmed: string): Promise<LegacyMediaResolution> 
       if (images.length === 0) {
         return placeholder(`Thư mục Drive không có ảnh truy cập được: ${folderMatch[1]}`);
       }
-      return { media: images.map((f) => `/api/drive-media/${f.id}`) };
+      return { media: images.map((f) => publicUrl(f.id)) };
     }
 
     const fileId = fileMatch![1];
@@ -57,7 +66,7 @@ async function resolveUncached(trimmed: string): Promise<LegacyMediaResolution> 
     if (!meta || !meta.mimeType.startsWith(IMAGE_MIME_PREFIX)) {
       return placeholder(`Không truy cập được file Drive: ${fileId}`);
     }
-    return { media: [`/api/drive-media/${fileId}`] };
+    return { media: [publicUrl(fileId)] };
   } catch {
     return placeholder(`Lỗi truy cập Drive cho link media: ${trimmed}`);
   }
