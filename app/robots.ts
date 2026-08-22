@@ -7,12 +7,14 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        // The CMS is behind auth, but keeping it out of the index avoids
-        // pointless crawl traffic hitting the login redirect, and the media
-        // delivery routes are byte proxies with nothing to index.
-        disallow: ["/admin", "/admin/", "/api/"],
+        // Admin pages expose noindex in both HTML metadata and X-Robots-Tag.
+        // They stay crawlable so bots can actually see that directive;
+        // robots.txt disallow alone can still leave a URL indexed by anchor
+        // text. API byte/data endpoints have no document to index.
+        disallow: ["/api/"],
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
   };
 }

@@ -31,6 +31,7 @@ npm run release:check
 Sao chép danh sách biến từ `.env.example` vào kho secrets của nền tảng deploy. Tối thiểu cần:
 
 - URL chính thức: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_ZALO_URL`.
+- SEO: có thể đặt `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` bằng token xác minh HTML tag của Google Search Console.
 - Social footer (không cấu hình thì không hiện liên kết giả): `NEXT_PUBLIC_FACEBOOK_URL`, `NEXT_PUBLIC_YOUTUBE_URL`, `NEXT_PUBLIC_TIKTOK_URL`.
 - Google: service-account email/private key, hai spreadsheet ID và media-folder ID.
 - Admin: email, password hash và `AUTH_SECRET`.
@@ -57,10 +58,12 @@ Deploy từ Git đã có đủ bản WebP nên không còn phụ thuộc chép t
 
 ## Checklist phát hành
 
-1. Cấu hình domain và `NEXT_PUBLIC_SITE_URL`; kiểm tra canonical, `/robots.txt`, `/sitemap.xml`.
+1. Cấu hình domain và `NEXT_PUBLIC_SITE_URL` đúng origin HTTPS duy nhất; kiểm tra canonical, Open Graph, `/robots.txt`, `/sitemap.xml` trên chính domain đó.
 2. Cấu hình Google/CMS/Drive, chạy bootstrap và nhập dữ liệu đã publish.
 3. Xác nhận 20 media WebP Round 8 trả HTTP 200 trên deployment và nội dung đã được duyệt.
 4. Chạy `npm run release:check` và lưu lại kết quả kiểm tra.
 5. Smoke test desktop/mobile cho `/`, `/cho-thue`, `/du-an`, `/tin-tuc`, form liên hệ và đăng nhập admin.
 6. Kiểm tra upload media, chỉnh sửa BĐS/dự án/tin tức và quyền truy cập file Drive.
 7. Sau deploy, kiểm tra log lỗi, Core Web Vitals và luồng liên hệ thực tế.
+8. Xác minh domain trong Google Search Console, gửi `/sitemap.xml`, kiểm tra các URL mẫu bằng URL Inspection và Rich Results Test.
+9. Chia sẻ thử một BĐS, dự án và bài tin để xác nhận tiêu đề, mô tả, ảnh social hiển thị đúng trên Facebook/Zalo.

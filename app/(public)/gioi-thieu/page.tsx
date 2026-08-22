@@ -4,6 +4,9 @@ import { Icon } from "@/components/icons";
 import { ContactCTA } from "@/components/public/ContactCTA";
 import { getPageContentRepository } from "@/lib/server/pageContent/providers";
 import { getSiteSettingsRepository } from "@/lib/server/settings/providers";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildPageMetadata } from "@/lib/seo";
+import { webPageJsonLd } from "@/lib/seoJsonLd";
 
 const AREA_GRADIENTS = [
   "from-[#D3D8DD] via-[#B5BEC5] to-[#89949C]",
@@ -17,11 +20,13 @@ async function loadAboutContent() {
 
 export async function generateMetadata(): Promise<Metadata> {
   const content = await loadAboutContent();
-  return {
+  return buildPageMetadata({
     title: content.metadataTitle,
     description: content.metadataDescription,
-    alternates: { canonical: "/gioi-thieu" },
-  };
+    path: "/gioi-thieu",
+    image: content.heroImage,
+    imageAlt: content.heroMediaLabel,
+  });
 }
 
 export default async function GioiThieuPage() {
@@ -32,6 +37,16 @@ export default async function GioiThieuPage() {
 
   return (
     <>
+      <JsonLd
+        id="about-page-jsonld"
+        data={webPageJsonLd({
+          type: "AboutPage",
+          name: content.metadataTitle,
+          description: content.metadataDescription,
+          path: "/gioi-thieu",
+          image: content.heroImage,
+        })}
+      />
       <section className="v2-reveal bg-soft">
         <div className="container-page grid grid-cols-1 gap-8 py-16 desktop:grid-cols-2 desktop:items-center">
           <div>

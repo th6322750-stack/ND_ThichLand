@@ -16,6 +16,9 @@ import { isVisualFixtureV2Enabled, getVisualFixtureProjects } from "@/lib/visual
 import { iconForAmenity } from "@/lib/projectAmenities";
 import { projectStatusLabel } from "@/lib/projectStatus";
 import type { ProjectListing } from "@/lib/types";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildNotFoundMetadata, buildPageMetadata } from "@/lib/seo";
+import { breadcrumbJsonLd, webPageJsonLd } from "@/lib/seoJsonLd";
 
 export const dynamic = "force-dynamic";
 
@@ -32,18 +35,15 @@ const loadProjects = cache(async (): Promise<ProjectListing[]> => {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const project = (await loadProjects()).find((p) => p.slug === slug);
-  if (!project) return { title: "Không tìm thấy dự án | NDTHICH LAND" };
-  return {
-    title: `${project.name} | Dự án NDTHICH LAND`,
+  if (!project) return buildNotFoundMetadata("Không tìm thấy dự án | NDTHICH LAND");
+  return buildPageMetadata({
+    title: `${project.name} tại ${project.location} | NDTHICH LAND`,
     // Only real, CMS-backed copy — no invented scale/legal/unit-count facts.
     description: project.summary || `Thông tin dự án ${project.name} tại ${project.location}.`,
-    alternates: { canonical: `/du-an/${project.slug}` },
-    openGraph: {
-      title: project.name,
-      description: project.summary || undefined,
-      images: project.media.length > 0 ? [project.media[0]] : undefined,
-    },
-  };
+    path: `/du-an/${project.slug}`,
+    image: project.media[0],
+    imageAlt: `${project.name} tại ${project.location}`,
+  });
 }
 
 // 05_ChiTietDuAn_WEB.png uses 5 frozen milestone photographs instead of an
@@ -117,8 +117,27 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
     { q: `Tình trạng pháp lý của dự án như thế nào?`, a: project.legalStatus || tbd },
   ];
 
+  const seoDescription = project.summary || `Thông tin dự án ${project.name} tại ${project.location}.`;
+
   return (
-    <div className="v2-container py-3 min-[900px]:py-8 wide:py-12">
+    <>
+      <JsonLd
+        id="project-detail-jsonld"
+        data={[
+          webPageJsonLd({
+            name: `${project.name} tại ${project.location}`,
+            description: seoDescription,
+            path: `/du-an/${project.slug}`,
+            image: project.media[0],
+          }),
+          breadcrumbJsonLd([
+            { name: "Trang chủ", path: "/" },
+            { name: "Dự án", path: "/du-an" },
+            { name: project.name, path: `/du-an/${project.slug}` },
+          ]),
+        ]}
+      />
+      <div className="v2-container py-3 min-[900px]:py-8 wide:py-12">
       <Breadcrumb2
         withHomeIcon
         items={[
@@ -562,6 +581,7 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
           <Icon name="arrow-right" size={13} className="transition-transform duration-fast ease-base group-hover:translate-x-1" />
         </a>
       </section>
-    </div>
+      </div>
+    </>
   );
 }

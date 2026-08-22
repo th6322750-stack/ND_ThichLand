@@ -3,6 +3,8 @@ import { Header2 } from "@/components/public-v2/Header2";
 import { Footer2 } from "@/components/public-v2/Footer2";
 import { NavigationProgress2 } from "@/components/public-v2/NavigationProgress2";
 import { getSiteSettingsRepository } from "@/lib/server/settings/providers";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { organizationJsonLd } from "@/lib/seoJsonLd";
 
 // Minimal sync patch: /gioi-thieu, /lien-he, /tin-tuc(/[slug]) were never
 // part of the PHA1-3 v2 migration scope (only /, /cho-thue(/[slug]),
@@ -17,6 +19,7 @@ export default async function PublicLayout({ children }: { children: React.React
   const settings = await (await getSiteSettingsRepository()).get();
   return (
     <>
+      <JsonLd id="organization-jsonld" data={organizationJsonLd(settings)} />
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-toast focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-surface"

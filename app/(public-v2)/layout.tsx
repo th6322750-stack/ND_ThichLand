@@ -4,6 +4,8 @@ import { Footer2 } from "@/components/public-v2/Footer2";
 import { SmoothScroll } from "@/components/public-v2/SmoothScroll";
 import { NavigationProgress2 } from "@/components/public-v2/NavigationProgress2";
 import { getSiteSettingsRepository } from "@/lib/server/settings/providers";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { organizationJsonLd } from "@/lib/seoJsonLd";
 
 // PHA2 client-approved visual V2 — scoped to /, /cho-thue, /cho-thue/[slug],
 // /du-an, /du-an/[slug] only (see .webby/client-approved-v2/IMPLEMENTATION_CONTRACT.json).
@@ -17,6 +19,7 @@ export default async function PublicV2Layout({ children }: { children: React.Rea
   const settings = await (await getSiteSettingsRepository()).get();
   return (
     <>
+      <JsonLd id="organization-jsonld" data={organizationJsonLd(settings)} />
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-toast focus:rounded-md focus:bg-[#880206] focus:px-4 focus:py-2 focus:text-white"

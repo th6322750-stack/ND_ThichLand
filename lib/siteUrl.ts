@@ -9,4 +9,15 @@
  * to import the root layout (and with it globals.css and next/font) just to
  * read one string.
  */
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+function normalizeSiteUrl(value: string | undefined): string {
+  const fallback = "http://localhost:3000";
+  try {
+    const url = new URL(value || fallback);
+    if (url.protocol !== "http:" && url.protocol !== "https:") return fallback;
+    return url.toString().replace(/\/+$/, "");
+  } catch {
+    return fallback;
+  }
+}
+
+export const SITE_URL = normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL);

@@ -5,6 +5,9 @@ import { getZaloHref } from "@/lib/zalo";
 import { mapQueryOf, telHref } from "@/lib/data/siteSettings";
 import { getPageContentRepository } from "@/lib/server/pageContent/providers";
 import { getSiteSettingsRepository } from "@/lib/server/settings/providers";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { absoluteUrl, buildPageMetadata } from "@/lib/seo";
+import { webPageJsonLd } from "@/lib/seoJsonLd";
 
 async function loadContactContent() {
   return (await getPageContentRepository()).get("contact");
@@ -12,11 +15,11 @@ async function loadContactContent() {
 
 export async function generateMetadata(): Promise<Metadata> {
   const content = await loadContactContent();
-  return {
+  return buildPageMetadata({
     title: content.metadataTitle,
     description: content.metadataDescription,
-    alternates: { canonical: "/lien-he" },
-  };
+    path: "/lien-he",
+  });
 }
 
 export default async function LienHePage() {
@@ -32,7 +35,18 @@ export default async function LienHePage() {
   const mapQuery = mapQueryOf(settings);
 
   return (
-    <div className="container-page py-10">
+    <>
+      <JsonLd
+        id="contact-page-jsonld"
+        data={webPageJsonLd({
+          type: "ContactPage",
+          name: content.metadataTitle,
+          description: content.metadataDescription,
+          path: "/lien-he",
+          mainEntity: { "@id": absoluteUrl("/#organization") },
+        })}
+      />
+      <div className="container-page py-10">
       <div className="grid grid-cols-1 gap-8 rounded-md bg-soft p-8 desktop:grid-cols-2 desktop:items-center">
         <div>
           <h1 className="text-h1-mobile text-ink desktop:text-h1">{content.heroTitle}</h1>
@@ -92,6 +106,7 @@ export default async function LienHePage() {
           />
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

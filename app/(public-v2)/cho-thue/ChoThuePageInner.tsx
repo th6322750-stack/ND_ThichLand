@@ -89,32 +89,14 @@ export function ChoThuePageInner({ properties, now }: { properties: PropertyList
           Home's hero. */}
       <section className="relative overflow-hidden bg-[#F7F6F6]" data-qa-region="hero">
         <div className="relative h-[240px] min-[900px]:h-[430px] wide:h-[460px]">
-          {/* Mobile crop — manifest objectPosition "76% 50%". */}
-          <div className="absolute inset-0 min-[900px]:hidden">
-            <Image
-              src="/assets/v2/hero/NDTHICH_RENTAL_HERO_PREMIUM_4K.png"
-              alt="NDTHICH — cho thuê bất động sản"
-              fill
-              className="object-cover"
-              style={{ objectPosition: "76% 50%" }}
-              sizes="100vw"
-              unoptimized
-              priority
-            />
-          </div>
-          {/* Desktop/wide crop — same asset, manifest objectPosition "50% 50%". */}
-          <div className="absolute inset-0 hidden min-[900px]:block">
-            <Image
-              src="/assets/v2/hero/NDTHICH_RENTAL_HERO_PREMIUM_4K.png"
-              alt="NDTHICH — cho thuê bất động sản"
-              fill
-              className="object-cover"
-              style={{ objectPosition: "50% 50%" }}
-              sizes="100vw"
-              unoptimized
-              priority
-            />
-          </div>
+          <Image
+            src="/assets/v2/hero/NDTHICH_RENTAL_HERO_PREMIUM_4K.png"
+            alt="NDTHICH — cho thuê bất động sản"
+            fill
+            className="object-cover object-[76%_50%] min-[900px]:object-[50%_50%]"
+            sizes="100vw"
+            priority
+          />
           <div
             className="absolute inset-0 min-[900px]:hidden"
             style={{
@@ -129,30 +111,18 @@ export function ChoThuePageInner({ properties, now }: { properties: PropertyList
                 "linear-gradient(90deg, rgba(255,255,255,.97) 0%, rgba(255,255,255,.9) 32%, rgba(255,255,255,.6) 48%, rgba(255,255,255,.2) 62%, rgba(255,255,255,0) 74%)",
             }}
           />
-          <div className="absolute inset-0 flex flex-col justify-center px-4 min-[900px]:hidden">
-            <h1 className="text-[22px] font-extrabold leading-[1.15] text-[#0C0D0D]">
+          <div className="v2-container absolute inset-0 flex flex-col justify-center px-4 min-[900px]:px-10 wide:px-0">
+            <h1 className="text-[22px] font-extrabold leading-[1.15] text-[#0C0D0D] min-[900px]:text-[32px] min-[900px]:leading-tight wide:text-v2-h1">
               Cho thuê
               <br />
               <span className="text-[#880206]">Bất động sản</span>
             </h1>
-            <p className="mt-1 max-w-[220px] text-[13px] leading-snug text-[#5F5D5D]">
+            <p className="mt-1 max-w-[220px] text-[13px] leading-snug text-[#5F5D5D] min-[900px]:mt-2 min-[900px]:max-w-md min-[900px]:text-[14px] wide:text-[17px] wide:leading-[28px]">
               Tìm kiếm không gian sống và mặt bằng kinh doanh phù hợp với bạn
             </p>
           </div>
         </div>
 
-        <div className="v2-container absolute inset-0 hidden min-[900px]:flex min-[900px]:items-center">
-          <div className="w-[55%] wide:max-w-[620px]">
-            <h1 className="text-[32px] font-extrabold leading-tight text-[#0C0D0D] wide:text-v2-h1">
-              Cho thuê
-              <br />
-              <span className="text-[#880206]">Bất động sản</span>
-            </h1>
-            <p className="mt-2 max-w-md text-[14px] text-[#5F5D5D] wide:text-[17px] wide:leading-[28px]">
-              Tìm kiếm không gian sống và mặt bằng kinh doanh phù hợp với bạn
-            </p>
-          </div>
-        </div>
       </section>
 
       <div className="v2-container py-3 min-[900px]:py-6 wide:py-10">

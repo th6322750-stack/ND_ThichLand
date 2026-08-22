@@ -37,9 +37,15 @@ const nextConfig = {
   // Don't auto-generate AGENTS.md/CLAUDE.md — this repo's agent docs live in .webby/.
   agentRules: false,
   async headers() {
-    return [{ source: "/(.*)", headers: securityHeaders }];
+    const noIndexHeaders = [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, nosnippet" }];
+    return [
+      { source: "/(.*)", headers: securityHeaders },
+      { source: "/admin/:path*", headers: noIndexHeaders },
+      { source: "/api/:path*", headers: noIndexHeaders },
+    ];
   },
   experimental: {
+    globalNotFound: true,
     // Server Actions default to a 1MB body, which is smaller than everything
     // lib/server/media/validate.ts says it accepts: 8MB images, 50MB video,
     // 25MB PDFs. Uploads over 1MB were failing at the action boundary with

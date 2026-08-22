@@ -5,15 +5,17 @@ import { toPublicProjectListings } from "@/lib/server/projects/dto";
 import { isVisualFixtureV2Enabled, getVisualFixtureProjects } from "@/lib/visualFixtureV2";
 import { firstMedia, PROJECT_PLACEHOLDER } from "@/lib/media";
 import { DuAnPageInner } from "./DuAnPageInner";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildPageMetadata } from "@/lib/seo";
+import { itemListJsonLd, webPageJsonLd } from "@/lib/seoJsonLd";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Dự án tiêu biểu | NDTHICH LAND",
-  description:
-    "Danh mục dự án NDTHICH đã và đang tham gia phát triển: vị trí, chủ đầu tư, tiện ích và tiến độ thi công.",
-  alternates: { canonical: "/du-an" },
-};
+const SEO_TITLE = "Dự án bất động sản tiêu biểu | NDTHICH LAND";
+const SEO_DESCRIPTION =
+  "Danh mục dự án NDTHICH đã và đang tham gia phát triển với thông tin vị trí, chủ đầu tư, tiện ích, pháp lý và tiến độ thi công.";
+
+export const metadata: Metadata = buildPageMetadata({ title: SEO_TITLE, description: SEO_DESCRIPTION, path: "/du-an" });
 
 export default async function DuAnPage() {
   let projects;
@@ -30,8 +32,24 @@ export default async function DuAnPage() {
   }
   // DuAnPageInner reads its filters from useSearchParams.
   return (
-    <Suspense fallback={null}>
-      <DuAnPageInner projects={projects} />
-    </Suspense>
+    <>
+      <JsonLd
+        id="project-list-jsonld"
+        data={webPageJsonLd({
+          type: "CollectionPage",
+          name: SEO_TITLE,
+          description: SEO_DESCRIPTION,
+          path: "/du-an",
+          mainEntity: itemListJsonLd(projects.map((project) => ({
+            name: project.name,
+            path: `/du-an/${project.slug}`,
+            image: project.media[0],
+          }))),
+        })}
+      />
+      <Suspense fallback={null}>
+        <DuAnPageInner projects={projects} />
+      </Suspense>
+    </>
   );
 }

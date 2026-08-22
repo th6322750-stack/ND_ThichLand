@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Icon2 as Icon } from "@/components/public-v2/Icon2";
 import { TrustMetrics2 } from "@/components/public-v2/TrustMetrics2";
 import { HomeSearchBar2 } from "@/components/public-v2/HomeSearchBar2";
@@ -21,8 +22,17 @@ import { getProjectRepository } from "@/lib/server/projects/providers";
 import { toPublicProjectListings } from "@/lib/server/projects/dto";
 import { isVisualFixtureV2Enabled, getVisualFixtureProperties, getVisualFixtureProjects } from "@/lib/visualFixtureV2";
 import { firstMedia, PROJECT_PLACEHOLDER } from "@/lib/media";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildPageMetadata, DEFAULT_DESCRIPTION, DEFAULT_TITLE } from "@/lib/seo";
+import { webPageJsonLd, websiteJsonLd } from "@/lib/seoJsonLd";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: DEFAULT_TITLE,
+  description: DEFAULT_DESCRIPTION,
+  path: "/",
+});
 
 const TESTIMONIALS = [
   {
@@ -97,6 +107,7 @@ export default async function HomePageV2() {
 
   return (
     <>
+      <JsonLd id="home-jsonld" data={[websiteJsonLd(), webPageJsonLd({ name: DEFAULT_TITLE, description: DEFAULT_DESCRIPTION, path: "/" })]} />
       {/* ============ HERO ============ */}
       {/* HERO_PACK_PREMIUM_V1 (NDTHICH_HOME_HERO_PREMIUM_4K.png): full-bleed
           photo at every width, text overlaid over a white->transparent
@@ -112,32 +123,14 @@ export default async function HomePageV2() {
             (mobile 72% 50%, desktop 50% 50%). Full-bleed at every width —
             no more separate 900-1439px "box on right" asset/treatment. */}
         <div className="relative h-[280px] min-[900px]:h-[520px] wide:h-[560px]">
-          {/* Mobile crop — manifest objectPosition "72% 50%". */}
-          <div className="absolute inset-0 min-[900px]:hidden">
-            <Image
-              src="/assets/v2/hero/NDTHICH_HOME_HERO_PREMIUM_4K.png"
-              alt="NDTHICH — không gian sống & kinh doanh"
-              fill
-              className="animate-v2-hero-settle object-cover"
-              style={{ objectPosition: "72% 50%" }}
-              sizes="100vw"
-              unoptimized
-              priority
-            />
-          </div>
-          {/* Desktop/wide crop — same asset, manifest objectPosition "50% 50%". */}
-          <div className="absolute inset-0 hidden min-[900px]:block">
-            <Image
-              src="/assets/v2/hero/NDTHICH_HOME_HERO_PREMIUM_4K.png"
-              alt="NDTHICH — không gian sống & kinh doanh"
-              fill
-              className="animate-v2-hero-settle object-cover"
-              style={{ objectPosition: "50% 50%" }}
-              sizes="100vw"
-              unoptimized
-              priority
-            />
-          </div>
+          <Image
+            src="/assets/v2/hero/NDTHICH_HOME_HERO_PREMIUM_4K.png"
+            alt="NDTHICH — không gian sống và kinh doanh"
+            fill
+            className="animate-v2-hero-settle object-cover object-[72%_50%] min-[900px]:object-[50%_50%]"
+            sizes="100vw"
+            priority
+          />
           <div
             className="absolute inset-0 min-[900px]:hidden"
             style={{
@@ -152,11 +145,11 @@ export default async function HomePageV2() {
                 "linear-gradient(90deg, rgba(255,255,255,.97) 0%, rgba(255,255,255,.9) 32%, rgba(255,255,255,.6) 48%, rgba(255,255,255,.2) 62%, rgba(255,255,255,0) 74%)",
             }}
           />
-          <div className="absolute inset-0 flex flex-col justify-center px-4 min-[900px]:hidden">
+          <div className="v2-container absolute inset-0 flex flex-col justify-center px-4 min-[900px]:px-10 wide:px-0">
             {/* Above the fold, so this runs on load rather than on scroll —
                 staggered in reading order. */}
             <h1
-              className="animate-v2-rise-in text-[22px] font-extrabold leading-[1.15] text-[#0C0D0D]"
+              className="animate-v2-rise-in text-[22px] font-extrabold leading-[1.15] text-[#0C0D0D] min-[900px]:text-[32px] wide:text-v2-hero"
               style={{ animationDelay: "80ms" }}
             >
               Không gian sống &amp;
@@ -164,22 +157,22 @@ export default async function HomePageV2() {
               <span className="text-[#880206]">Kinh doanh lý tưởng</span>
             </h1>
             <p
-              className="animate-v2-rise-in mt-1 text-[13px] font-bold text-[#0C0D0D]"
+              className="animate-v2-rise-in mt-1 text-[13px] font-bold text-[#0C0D0D] min-[900px]:mt-3 min-[900px]:text-[16px] wide:text-[18px] wide:leading-[26px]"
               style={{ animationDelay: "200ms" }}
             >
               NDTHICH LAND
             </p>
             <p
-              className="animate-v2-rise-in mt-1 max-w-[260px] text-[13px] leading-snug text-[#5F5D5D]"
+              className="animate-v2-rise-in mt-1 max-w-[260px] text-[13px] leading-snug text-[#5F5D5D] min-[900px]:mt-3 min-[900px]:max-w-md min-[900px]:text-[14px] wide:max-w-[560px] wide:text-[17px] wide:leading-[28px]"
               style={{ animationDelay: "320ms" }}
             >
               Chuyên cho thuê nhà, căn hộ, mặt bằng kinh doanh và bán các dự án BĐS cao cấp của Sun Group,
               Vin Group.
             </p>
-            <div className="animate-v2-rise-in mt-3 flex flex-wrap gap-2" style={{ animationDelay: "440ms" }}>
+            <div className="animate-v2-rise-in mt-3 flex flex-wrap gap-2 min-[900px]:mt-5 min-[900px]:gap-3" style={{ animationDelay: "440ms" }}>
               <Link
                 href="/cho-thue"
-                className="group flex items-center gap-1 rounded-[10px] bg-[#880206] px-4 py-[10px] text-[13px] font-semibold text-white transition-[background-color,transform,box-shadow] duration-fast ease-base hover:-translate-y-[1px] hover:bg-[#750F0D] hover:shadow-[0_8px_18px_-8px_rgba(136,2,6,0.7)] active:translate-y-0 motion-reduce:transform-none"
+                className="group flex items-center gap-1 rounded-[10px] bg-[#880206] px-4 py-[10px] text-[13px] font-semibold text-white transition-[background-color,transform,box-shadow] duration-fast ease-base hover:-translate-y-[1px] hover:bg-[#750F0D] hover:shadow-[0_8px_18px_-8px_rgba(136,2,6,0.7)] active:translate-y-0 motion-reduce:transform-none min-[900px]:gap-2 min-[900px]:rounded-md min-[900px]:px-5 wide:h-[52px] wide:rounded-[10px] wide:px-6 wide:text-[15px]"
               >
                 Tìm thuê ngay{" "}
                 <Icon
@@ -190,7 +183,7 @@ export default async function HomePageV2() {
               </Link>
               <Link
                 href="/du-an"
-                className="flex items-center gap-1 rounded-[10px] border border-[#880206] bg-white px-4 py-[10px] text-[13px] font-semibold text-[#880206] transition-[background-color,transform] duration-fast ease-base hover:-translate-y-[1px] hover:bg-[#F7F6F6] active:translate-y-0 motion-reduce:transform-none"
+                className="flex items-center gap-1 rounded-[10px] border border-[#880206] bg-white px-4 py-[10px] text-[13px] font-semibold text-[#880206] transition-[background-color,transform] duration-fast ease-base hover:-translate-y-[1px] hover:bg-[#F7F6F6] active:translate-y-0 motion-reduce:transform-none min-[900px]:gap-2 min-[900px]:rounded-md min-[900px]:px-5 wide:h-[52px] wide:rounded-[10px] wide:px-6 wide:text-[15px]"
               >
                 Xem dự án
               </Link>
@@ -198,50 +191,6 @@ export default async function HomePageV2() {
           </div>
         </div>
 
-        <div className="v2-container absolute inset-0 hidden min-[900px]:flex min-[900px]:items-center">
-          <div className="w-1/2 wide:w-full wide:max-w-[620px]">
-            <h1
-              className="animate-v2-rise-in text-[32px] font-extrabold leading-[1.15] text-[#0C0D0D] wide:text-v2-hero"
-              style={{ animationDelay: "80ms" }}
-            >
-              Không gian sống &amp;
-              <br />
-              <span className="text-[#880206]">Kinh doanh lý tưởng</span>
-            </h1>
-            <p
-              className="animate-v2-rise-in mt-3 text-[16px] font-bold text-[#0C0D0D] wide:text-[18px] wide:leading-[26px]"
-              style={{ animationDelay: "200ms" }}
-            >
-              NDTHICH LAND
-            </p>
-            <p
-              className="animate-v2-rise-in mt-3 max-w-md text-[14px] leading-snug text-[#5F5D5D] wide:max-w-[560px] wide:text-[17px] wide:leading-[28px]"
-              style={{ animationDelay: "320ms" }}
-            >
-              Chuyên cho thuê nhà, căn hộ, mặt bằng kinh doanh và bán các dự án BĐS cao cấp của Sun Group,
-              Vin Group.
-            </p>
-            <div className="animate-v2-rise-in mt-5 flex flex-wrap gap-3" style={{ animationDelay: "440ms" }}>
-              <Link
-                href="/cho-thue"
-                className="group flex items-center gap-2 rounded-md bg-[#880206] px-5 py-[10px] text-[13px] font-semibold text-white transition-[background-color,transform,box-shadow] duration-fast ease-base hover:-translate-y-[1px] hover:bg-[#750F0D] hover:shadow-[0_10px_22px_-10px_rgba(136,2,6,0.75)] active:translate-y-0 motion-reduce:transform-none wide:h-[52px] wide:rounded-[10px] wide:px-6 wide:text-[15px]"
-              >
-                Tìm thuê ngay{" "}
-                <Icon
-                  name="arrow-right"
-                  size={16}
-                  className="text-white transition-transform duration-fast ease-base group-hover:translate-x-[3px] motion-reduce:transform-none"
-                />
-              </Link>
-              <Link
-                href="/du-an"
-                className="flex items-center gap-2 rounded-md border border-[#880206] bg-white px-5 py-[10px] text-[13px] font-semibold text-[#880206] transition-[background-color,transform] duration-fast ease-base hover:-translate-y-[1px] hover:bg-[#F7F6F6] active:translate-y-0 motion-reduce:transform-none wide:h-[52px] wide:rounded-[10px] wide:px-6 wide:text-[15px]"
-              >
-                Xem dự án
-              </Link>
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* Everything below the hero, with the news rails living in this

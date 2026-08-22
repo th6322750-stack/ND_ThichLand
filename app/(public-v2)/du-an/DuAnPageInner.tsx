@@ -97,30 +97,14 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
           not duplicated) — title/description copy unchanged. */}
       <section className="relative overflow-hidden bg-[#F7F6F6]" data-qa-region="hero">
         <div className="relative h-[240px] min-[900px]:h-[430px] wide:h-[460px]">
-          <div className="absolute inset-0 min-[900px]:hidden">
-            <Image
-              src="/assets/v2/hero/NDTHICH_PROJECTS_HERO_PREMIUM_4K.png"
-              alt="NDTHICH — các dự án tiêu biểu"
-              fill
-              className="object-cover"
-              style={{ objectPosition: "79% 50%" }}
-              sizes="100vw"
-              unoptimized
-              priority
-            />
-          </div>
-          <div className="absolute inset-0 hidden min-[900px]:block">
-            <Image
-              src="/assets/v2/hero/NDTHICH_PROJECTS_HERO_PREMIUM_4K.png"
-              alt="NDTHICH — các dự án tiêu biểu"
-              fill
-              className="object-cover"
-              style={{ objectPosition: "50% 48%" }}
-              sizes="100vw"
-              unoptimized
-              priority
-            />
-          </div>
+          <Image
+            src="/assets/v2/hero/NDTHICH_PROJECTS_HERO_PREMIUM_4K.png"
+            alt="NDTHICH — các dự án tiêu biểu"
+            fill
+            className="object-cover object-[79%_50%] min-[900px]:object-[50%_48%]"
+            sizes="100vw"
+            priority
+          />
           <div
             className="absolute inset-0 min-[900px]:hidden"
             style={{
@@ -135,28 +119,17 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
                 "linear-gradient(90deg, rgba(255,255,255,.97) 0%, rgba(255,255,255,.9) 32%, rgba(255,255,255,.6) 48%, rgba(255,255,255,.2) 62%, rgba(255,255,255,0) 74%)",
             }}
           />
-          <div className="absolute inset-0 flex flex-col justify-center px-4 min-[900px]:hidden">
-            <h1 className="text-[20px] font-extrabold leading-[1.15] text-[#0C0D0D]">
+          <div className="v2-container absolute inset-0 flex flex-col justify-center px-4 min-[900px]:px-10 wide:px-0">
+            <h1 className="text-[20px] font-extrabold leading-[1.15] text-[#0C0D0D] min-[900px]:text-[32px] min-[900px]:leading-tight wide:text-v2-h1">
               Các dự án <span className="text-[#880206]">tiêu biểu</span>
             </h1>
-            <p className="mt-1 max-w-[240px] text-[12px] leading-snug text-[#5F5D5D]">
+            <p className="mt-1 max-w-[240px] text-[12px] leading-snug text-[#5F5D5D] min-[900px]:mt-2 min-[900px]:max-w-md min-[900px]:text-[14px] wide:text-[17px] wide:leading-[28px]">
               Những dự án chúng tôi đã và đang tham gia phát triển, mang đến không gian sống &amp; kinh
               doanh chất lượng, bền vững cho cộng đồng.
             </p>
           </div>
         </div>
 
-        <div className="v2-container absolute inset-0 hidden min-[900px]:flex min-[900px]:items-center">
-          <div className="w-[55%] wide:max-w-[620px]">
-            <h1 className="text-[32px] font-extrabold leading-tight text-[#0C0D0D] wide:text-v2-h1">
-              Các dự án <span className="text-[#880206]">tiêu biểu</span>
-            </h1>
-            <p className="mt-2 max-w-md text-[14px] text-[#5F5D5D] wide:text-[17px] wide:leading-[28px]">
-              Những dự án chúng tôi đã và đang tham gia phát triển, mang đến không gian sống &amp; kinh
-              doanh chất lượng, bền vững cho cộng đồng.
-            </p>
-          </div>
-        </div>
       </section>
 
       <div className="v2-container py-1 min-[900px]:py-8 wide:py-12">

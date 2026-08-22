@@ -31,6 +31,7 @@ export default defineConfig({
     timeout: 60_000,
     env: {
       NEXT_DIST_DIR: ".next-playwright-mock",
+      NEXT_PUBLIC_SITE_URL: `http://localhost:${PORT}`,
       ADMIN_EMAIL: TEST_ADMIN_EMAIL,
       ADMIN_PASSWORD_HASH: TEST_ADMIN_PASSWORD_HASH,
       AUTH_SECRET: TEST_AUTH_SECRET,

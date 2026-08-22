@@ -9,6 +9,9 @@ import { getNewsRepository } from "@/lib/server/news/providers";
 import { toPublicNewsArticle, toPublicNewsArticles } from "@/lib/server/news/dto";
 import { mediaSrc, NEWS_PLACEHOLDER } from "@/lib/media";
 import { getZaloHref } from "@/lib/zalo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildNotFoundMetadata, buildPageMetadata } from "@/lib/seo";
+import { articleJsonLd, breadcrumbJsonLd } from "@/lib/seoJsonLd";
 
 export const dynamic = "force-dynamic";
 
@@ -21,19 +24,17 @@ const loadArticles = cache(async () => {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const record = (await loadArticles()).find((r) => r.slug === slug && r.published);
-  if (!record) return { title: "Không tìm thấy bài viết | NDTHICH LAND" };
-  return {
-    title: `${record.title} | Tin tức NDTHICH LAND`,
-    description: record.excerpt || undefined,
-    alternates: { canonical: `/tin-tuc/${record.slug}` },
-    openGraph: {
-      type: "article",
-      title: record.title,
-      description: record.excerpt || undefined,
-      publishedTime: record.publishedAt || undefined,
-      images: record.cover ? [record.cover] : undefined,
-    },
-  };
+  if (!record) return buildNotFoundMetadata("Không tìm thấy bài viết | NDTHICH LAND");
+  return buildPageMetadata({
+    title: `${record.title} | NDTHICH LAND`,
+    description: record.excerpt || `Tin tức và kinh nghiệm bất động sản: ${record.title}.`,
+    path: `/tin-tuc/${record.slug}`,
+    image: record.cover,
+    imageAlt: record.title,
+    type: "article",
+    publishedTime: record.publishedAt || undefined,
+    modifiedTime: record.updatedAt || record.publishedAt || undefined,
+  });
 }
 
 function formatDate(iso: string): string {
@@ -58,8 +59,30 @@ export default async function TinTucDetailPage({
     .filter((n) => n.slug !== article.slug)
     .slice(0, 3);
 
+  const seoDescription = article.excerpt || `Tin tức và kinh nghiệm bất động sản: ${article.title}.`;
+
   return (
-    <div className="container-page py-8">
+    <>
+      <JsonLd
+        id="article-jsonld"
+        data={[
+          articleJsonLd({
+            headline: article.title,
+            description: seoDescription,
+            path: `/tin-tuc/${article.slug}`,
+            image: article.cover,
+            publishedAt: article.publishedAt,
+            modifiedAt: record.updatedAt || article.publishedAt,
+            section: article.category,
+          }),
+          breadcrumbJsonLd([
+            { name: "Trang chủ", path: "/" },
+            { name: "Tin tức", path: "/tin-tuc" },
+            { name: article.title, path: `/tin-tuc/${article.slug}` },
+          ]),
+        ]}
+      />
+      <div className="container-page py-8">
       <Breadcrumb
         items={[
           { label: "Trang chủ", href: "/" },
@@ -134,6 +157,7 @@ export default async function TinTucDetailPage({
           </div>
         </section>
       )}
-    </div>
+      </div>
+    </>
   );
 }

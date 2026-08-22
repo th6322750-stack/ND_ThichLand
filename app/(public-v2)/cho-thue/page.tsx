@@ -5,15 +5,17 @@ import { buildMergedRentalData } from "@/lib/server/rental/merge";
 import { toPublicPropertyListings } from "@/lib/server/rental/dto";
 import { isVisualFixtureV2Enabled, getVisualFixtureProperties } from "@/lib/visualFixtureV2";
 import { ChoThuePageInner } from "./ChoThuePageInner";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildPageMetadata } from "@/lib/seo";
+import { itemListJsonLd, webPageJsonLd } from "@/lib/seoJsonLd";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Cho thuê bất động sản | NDTHICH LAND",
-  description:
-    "Danh sách nhà, căn hộ, mặt bằng kinh doanh, văn phòng và kho xưởng cho thuê tại NDTHICH — lọc theo khu vực, khoảng giá, diện tích và số phòng ngủ.",
-  alternates: { canonical: "/cho-thue" },
-};
+const SEO_TITLE = "Bất động sản cho thuê | Nhà, căn hộ, mặt bằng | NDTHICH LAND";
+const SEO_DESCRIPTION =
+  "Danh sách nhà, căn hộ, mặt bằng kinh doanh, văn phòng và kho xưởng cho thuê; lọc theo khu vực, giá, diện tích và số phòng ngủ.";
+
+export const metadata: Metadata = buildPageMetadata({ title: SEO_TITLE, description: SEO_DESCRIPTION, path: "/cho-thue" });
 
 export default async function ChoThuePage() {
   let properties;
@@ -32,8 +34,24 @@ export default async function ChoThuePage() {
   const now = new Date().toISOString();
 
   return (
-    <Suspense fallback={null}>
-      <ChoThuePageInner properties={properties} now={now} />
-    </Suspense>
+    <>
+      <JsonLd
+        id="rental-list-jsonld"
+        data={webPageJsonLd({
+          type: "CollectionPage",
+          name: SEO_TITLE,
+          description: SEO_DESCRIPTION,
+          path: "/cho-thue",
+          mainEntity: itemListJsonLd(properties.map((property) => ({
+            name: property.roomNo,
+            path: `/cho-thue/${property.slug}`,
+            image: property.media[0],
+          }))),
+        })}
+      />
+      <Suspense fallback={null}>
+        <ChoThuePageInner properties={properties} now={now} />
+      </Suspense>
+    </>
   );
 }

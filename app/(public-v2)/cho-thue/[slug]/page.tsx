@@ -14,6 +14,9 @@ import { toPublicPropertyListings } from "@/lib/server/rental/dto";
 import { getZaloHref } from "@/lib/zalo";
 import { isVisualFixtureV2Enabled, getVisualFixtureProperties } from "@/lib/visualFixtureV2";
 import type { PropertyListing } from "@/lib/types";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildNotFoundMetadata, buildPageMetadata } from "@/lib/seo";
+import { breadcrumbJsonLd, webPageJsonLd } from "@/lib/seoJsonLd";
 
 export const dynamic = "force-dynamic";
 
@@ -40,21 +43,17 @@ const loadProperties = cache(async (): Promise<PropertyListing[]> => {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const listing = (await loadProperties()).find((p) => p.slug === slug);
-  if (!listing) return { title: "Không tìm thấy bất động sản | NDTHICH LAND" };
-  const title = `${listing.roomNo} — ${formatCurrencyVnd(listing.price)}/tháng | NDTHICH LAND`;
-  return {
+  if (!listing) return buildNotFoundMetadata("Không tìm thấy bất động sản | NDTHICH LAND");
+  const title = `Cho thuê ${listing.roomNo} tại ${listing.location} | NDTHICH LAND`;
+  const description = listing.description ||
+    `${listing.propertyType} ${formatArea(listing.area)} tại ${listing.location}, giá thuê ${formatCurrencyVnd(listing.price)}/tháng.`;
+  return buildPageMetadata({
     title,
-    // Built only from fields the record actually carries.
-    description:
-      listing.description ||
-      `${listing.propertyType} ${formatArea(listing.area)} tại ${listing.location}, giá thuê ${formatCurrencyVnd(listing.price)}/tháng.`,
-    alternates: { canonical: `/cho-thue/${listing.slug}` },
-    openGraph: {
-      title: listing.roomNo,
-      description: listing.description || undefined,
-      images: listing.media.length > 0 ? [listing.media[0]] : undefined,
-    },
-  };
+    description,
+    path: `/cho-thue/${listing.slug}`,
+    image: listing.media[0],
+    imageAlt: `${listing.roomNo} tại ${listing.location}`,
+  });
 }
 
 function buildFacts(listing: PropertyListing): { icon: IconName; label: string; value: string }[] {
@@ -117,8 +116,28 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
     ["Tình trạng", listing.availability],
   ];
 
+  const seoDescription = listing.description ||
+    `${listing.propertyType} ${formatArea(listing.area)} tại ${listing.location}, giá thuê ${formatCurrencyVnd(listing.price)}/tháng.`;
+
   return (
-    <div className="v2-container py-2 min-[900px]:py-8 wide:py-12">
+    <>
+      <JsonLd
+        id="rental-detail-jsonld"
+        data={[
+          webPageJsonLd({
+            name: `Cho thuê ${listing.roomNo} tại ${listing.location}`,
+            description: seoDescription,
+            path: `/cho-thue/${listing.slug}`,
+            image: listing.media[0],
+          }),
+          breadcrumbJsonLd([
+            { name: "Trang chủ", path: "/" },
+            { name: "Cho thuê", path: "/cho-thue" },
+            { name: listing.roomNo, path: `/cho-thue/${listing.slug}` },
+          ]),
+        ]}
+      />
+      <div className="v2-container py-2 min-[900px]:py-8 wide:py-12">
       <Breadcrumb2
         withHomeIcon
         items={[{ label: "Trang chủ", href: "/" }, { label: "Cho thuê", href: "/cho-thue" }, { label: title }]}
@@ -249,6 +268,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
           </a>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 }
