@@ -26,11 +26,12 @@ function renderWithRouter(push = vi.fn()) {
 }
 
 describe("Admin Sidebar", () => {
-  it("renders all five primary nav items with accessible names", () => {
+  it("renders the primary nav items without the redundant Media tab", () => {
     renderWithRouter();
-    ["Dashboard", "BĐS cho thuê", "Dự án", "Tin tức", "Media"].forEach((label) => {
+    ["Dashboard", "Dự án", "BĐS cho thuê", "Tin tức", "Cài đặt liên hệ"].forEach((label) => {
       expect(screen.getAllByRole("link", { name: label }).length).toBeGreaterThan(0);
     });
+    expect(screen.queryByRole("link", { name: "Media" })).not.toBeInTheDocument();
   });
 
   it("places Dự án above BĐS cho thuê", () => {

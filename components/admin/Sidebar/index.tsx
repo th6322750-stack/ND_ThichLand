@@ -16,7 +16,6 @@ const NAV_ITEMS: { label: string; href: string; icon: IconName }[] = [
   { label: "Dự án", href: "/admin/du-an", icon: "shop" },
   { label: "BĐS cho thuê", href: "/admin/bds", icon: "building" },
   { label: "Tin tức", href: "/admin/tin-tuc", icon: "edit" },
-  { label: "Media", href: "/admin/media", icon: "upload" },
   { label: "Cài đặt liên hệ", href: "/admin/cai-dat", icon: "phone" },
 ];
 
