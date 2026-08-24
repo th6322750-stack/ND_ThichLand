@@ -1,0 +1,23 @@
+# Vercel CLI's local-directory deploy is supposed to fall back to .gitignore
+# when no .vercelignore exists, but the last `vercel --prod` upload hit
+# Vercel's 100MB single-file limit at 1.4GB total — meaning something git
+# ignores was still going into the deploy payload. Rather than depend on that
+# fallback behaving identically to git's own ignore matching, this repeats
+# the entries that must never leave this machine, explicitly, for Vercel.
+
+# ~515MB of untouched 4K source PNGs — Drive is the source of truth for these,
+# and public/assets/round8-web (the deployable optimized WebP output of
+# `npm run assets:round8`) is what the site actually serves. This was the
+# confirmed cause of the oversized upload.
+/public/assets/round8/
+
+/node_modules
+/.next/
+/.next-playwright-mock/
+/out/
+/build
+/coverage
+/test-results/
+/playwright-report/
+/playwright/.cache/
+.git
