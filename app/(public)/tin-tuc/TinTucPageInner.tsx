@@ -87,7 +87,7 @@ export function TinTucPageInner({ articles }: { articles: NewsArticle[] }) {
         <Pagination page={safePage} total={totalPages} onChange={setPage} />
       </div>
 
-      <div className="mt-14 flex flex-col items-start justify-between gap-6 rounded-md bg-soft p-8 desktop:flex-row desktop:items-center">
+      <div className="mt-[56px] flex flex-col items-start justify-between gap-6 rounded-md bg-soft p-8 desktop:flex-row desktop:items-center">
         <div>
           <h2 className="text-h2-mobile text-ink desktop:text-h2">Theo dõi nội dung mới</h2>
           <p className="mt-2 text-body text-body">

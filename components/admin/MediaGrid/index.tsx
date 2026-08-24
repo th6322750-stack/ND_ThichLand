@@ -43,7 +43,7 @@ export function MediaGrid({ items, onDelete }: MediaGridProps) {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Tìm theo tên tệp..."
             aria-label="Tìm theo tên tệp"
-            className="w-full bg-transparent text-body text-ink outline-none placeholder:text-muted tablet:w-64"
+            className="w-full bg-transparent text-body text-ink outline-none placeholder:text-muted tablet:w-[256px]"
           />
         </div>
         <div className="flex flex-wrap gap-2">

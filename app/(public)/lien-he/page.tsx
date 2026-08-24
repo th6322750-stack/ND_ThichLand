@@ -74,7 +74,7 @@ export default async function LienHePage() {
       <div className="mt-8 grid grid-cols-1 gap-4 tablet:grid-cols-3">
         {cards.map((card, index) => (
           <div key={index} className="flex items-center gap-4 rounded-md border border-line p-6">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-soft">
+            <span className="flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-full bg-soft">
               <Icon name={card.icon} size={20} className="text-primary" />
             </span>
             <div className="min-w-0">

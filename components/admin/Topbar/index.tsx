@@ -22,7 +22,7 @@ export function Topbar({ crumbs, accountEmail, onMenuClick }: TopbarProps) {
           type="button"
           aria-label="Menu quản trị"
           onClick={onMenuClick}
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-sm transition-colors duration-fast ease-base hover:bg-soft tablet:hidden"
+          className="flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-sm transition-colors duration-fast ease-base hover:bg-soft tablet:hidden"
         >
           <Icon name="menu" size={24} />
         </button>
@@ -75,7 +75,7 @@ export function Topbar({ crumbs, accountEmail, onMenuClick }: TopbarProps) {
         </Link>
         <span
           title={accountEmail}
-          className="flex h-9 w-9 items-center justify-center rounded-full bg-soft text-label text-primary"
+          className="flex h-[36px] w-[36px] items-center justify-center rounded-full bg-soft text-label text-primary"
         >
           {initial}
         </span>

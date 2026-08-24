@@ -463,7 +463,7 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
               <p className={`text-[8px] font-semibold ${i === stepIndex ? "text-[#880206]" : "text-[#5F5D5D]"}`}>
                 {i === stepIndex ? project.progressText || step.label : step.label}
               </p>
-              {i < PROGRESS_STEPS.length - 1 && <div className="h-px w-full bg-[#E4E1E0]" />}
+              {i < PROGRESS_STEPS.length - 1 && <div className="h-[1px] w-full bg-[#E4E1E0]" />}
             </div>
           ))}
         </div>

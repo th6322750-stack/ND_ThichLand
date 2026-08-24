@@ -145,7 +145,7 @@ export default async function TinTucDetailPage({
       </div>
 
       {related.length > 0 && (
-        <section className="mt-14">
+        <section className="mt-[56px]">
           <span className="text-label text-primary">ĐỌC THÊM</span>
           <h2 className="mt-2 text-h2-mobile text-ink desktop:text-h2">Bài viết liên quan</h2>
           <div className="mt-6 grid grid-cols-1 gap-6 tablet:grid-cols-3">
