@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { useFocusTrap } from "@/lib/useFocusTrap";
 import { Icon2 as Icon } from "@/components/public-v2/Icon2";
@@ -59,13 +59,45 @@ function headerVariantFor(pathname: string): HeaderVariant {
   return "home";
 }
 
+// Detail pages (a listing card opened for a closer look) go back to their
+// own list, not the homepage — the homepage isn't where the visitor came
+// from or wants to return to.
+function listingHrefFor(pathname: string): string | null {
+  if (pathname.startsWith("/cho-thue/")) return "/cho-thue";
+  if (pathname.startsWith("/du-an/")) return "/du-an";
+  return null;
+}
+
 export function Header2() {
   const pathname = usePathname() ?? "";
+  const router = useRouter();
   const variant = HEADER_VARIANTS[headerVariantFor(pathname)];
+  const listingHref = listingHrefFor(pathname);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const drawerRef = useFocusTrap(mobileOpen, () => setMobileOpen(false));
   const hotlineRef = useRef<HTMLAnchorElement>(null);
+
+  // Header2 lives in the shared (public-v2) layout, so it mounts once per
+  // tab and stays mounted across client-side navigations within this route
+  // group — it only unmounts on a hard reload / direct link. Comparing the
+  // live pathname against the one captured at mount (a lazy useState
+  // initializer, read once and stable across renders) tells us whether the
+  // visitor has navigated within the site since then: true means
+  // `router.back()` lands on a page we actually rendered — typically the
+  // list, scrolled to where they left it — not an empty tab history.
+  //
+  // An earlier version tracked this with a ref flipped inside a `useEffect`,
+  // skipping the first run. That broke under React Strict Mode: dev
+  // deliberately re-fires a component's mount effects once (mount, cleanup,
+  // mount again) to surface missing cleanup, so the "skip once" ref was
+  // already flipped by the time the effect's second, still-first-real,
+  // invocation ran — cameFromInternalNav read true on the very first load,
+  // and clicking the logo on a direct-linked detail page called
+  // `router.back()` into empty history instead of falling through to the
+  // plain Link. Plain state avoids the footgun entirely.
+  const [mountPathname] = useState(pathname);
+  const cameFromInternalNav = pathname !== mountPathname;
 
   // The open width is the label's own width, measured rather than guessed, so
   // the easing curve describes exactly the distance the pill travels. Written
@@ -97,10 +129,25 @@ export function Header2() {
 
   function handleLogoClick(event: MouseEvent<HTMLAnchorElement>) {
     // Keep modified clicks working like a normal link (open in a new tab,
-    // copy/open through browser shortcuts). A regular click while the page is
-    // scrolled first returns the visitor to the top of the current page; once
-    // already there, the Link continues normally to the homepage.
+    // copy/open through browser shortcuts).
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+
+    if (listingHref) {
+      // Going back (not forward to listingHref) restores the exact scroll
+      // position the visitor left the list at — the card they were just
+      // reading detail for stays in view instead of the list reopening at
+      // the top. Only safe when this tab actually has that list in its
+      // history; otherwise fall through to the plain Link to listingHref.
+      if (cameFromInternalNav) {
+        event.preventDefault();
+        router.back();
+      }
+      return;
+    }
+
+    // A regular click while the page is scrolled first returns the visitor
+    // to the top of the current page; once already there, the Link
+    // continues normally to the homepage.
     if (window.scrollY <= 8) return;
 
     event.preventDefault();
@@ -125,9 +172,17 @@ export function Header2() {
             the leftover space, and the logo lockup is far wider than the 44px
             hotline disc — so it sat visibly right of centre. */}
         <Link
-          href="/"
+          href={listingHref ?? "/"}
           onClick={handleLogoClick}
-          aria-label={scrolled ? "Lên đầu trang" : "Về trang chủ NDTHICH LAND"}
+          aria-label={
+            listingHref
+              ? listingHref === "/cho-thue"
+                ? "Về danh sách cho thuê"
+                : "Về danh sách dự án"
+              : scrolled
+                ? "Lên đầu trang"
+                : "Về trang chủ NDTHICH LAND"
+          }
           className="flex shrink-0 items-center gap-2 transition-opacity duration-fast ease-base hover:opacity-80 min-[900px]:flex-1"
         >
           {/* Client feedback: logo + company name read too small against
