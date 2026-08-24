@@ -47,6 +47,21 @@ function expectNoSeriousViolations(container: Element) {
       console.error(JSON.stringify(serious, null, 2));
     }
     expect(serious).toHaveLength(0);
+
+    // axe's own detection ceiling is well short of 100% — rules it can't
+    // resolve automatically (color-contrast doesn't even run under JSDOM;
+    // see the real-browser Playwright layer for that) land here instead of
+    // in `violations`, and silently dropping this array is how a real gap
+    // stays invisible forever. Not a failing assertion — these need a human
+    // judgment call, not a bot's pass/fail — but printed so it can't be
+    // missed the way a truly ignored array is.
+    if (results.incomplete.length > 0) {
+      console.warn(
+        `axe: ${results.incomplete.length} rule(s) need manual review — ${results.incomplete
+          .map((i) => i.id)
+          .join(", ")}`,
+      );
+    }
   });
 }
 
