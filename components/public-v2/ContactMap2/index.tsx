@@ -28,7 +28,7 @@ function mapEmbedSrc(query: string): string {
 export function ContactMap2({ settings }: { settings: SiteSettings }) {
   const query = mapQueryOf(settings);
   const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(query)}`;
-  const phones = [settings.phonePrimary, settings.phoneSecondary].filter((p) => p.trim());
+  const phone = settings.phonePrimary.trim();
 
   return (
     <section className="v2-reveal v2-container pb-3 min-[900px]:pb-6 wide:pb-16" data-qa-region="contact-map">
@@ -45,19 +45,12 @@ export function ContactMap2({ settings }: { settings: SiteSettings }) {
               <Icon name="pin" size={13} className="mt-[2px] hidden shrink-0 text-white min-[900px]:block" />
               {settings.address}
             </li>
-            {phones.length > 0 && (
+            {phone && (
               <li className="flex items-center gap-1 min-[900px]:gap-1">
                 <Icon name="phone" size={13} className="hidden shrink-0 text-white min-[900px]:block" />
-                <span>
-                  {phones.map((p, i) => (
-                    <span key={p}>
-                      {i > 0 && " - "}
-                      <a href={`tel:${telHref(p)}`} className="hover:underline">
-                        {p}
-                      </a>
-                    </span>
-                  ))}
-                </span>
+                <a href={`tel:${telHref(phone)}`} className="hover:underline">
+                  {phone}
+                </a>
               </li>
             )}
             <li className="flex items-center gap-1 min-[900px]:gap-1">

@@ -7,10 +7,10 @@ import type { SiteSettings } from "@/lib/types";
  * been saved yet, so the public site never renders an empty contact panel.
  */
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
-  address: "120 Nguyễn Xí, Phường 26, Quận Bình Thạnh, TP. HCM",
+  address: "Đội 5, Ích Vịnh, Xã Đại Thanh, Thành phố Hà Nội",
   mapQuery: "",
   phonePrimary: "0986 602 203",
-  phoneSecondary: "0985 551 396",
+  phoneSecondary: "",
   email: "info@ndthich.com.vn",
   hoursWeekday: "Thứ 2 - Thứ 7: 8:00 - 18:00",
   hoursWeekend: "Chủ nhật: 8:00 - 12:00",

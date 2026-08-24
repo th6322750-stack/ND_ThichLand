@@ -29,7 +29,10 @@ export function ContactPageForm({ initial }: { initial: ContactPageContent }) {
     try {
       const form = new FormData(event.currentTarget);
       const input = Object.fromEntries(
-        (Object.keys(initial) as (keyof ContactPageContent)[]).map((key) => [key, read(form, key)]),
+        (Object.keys(initial) as (keyof ContactPageContent)[]).map((key) => [
+          key,
+          key === "secondaryPhoneLabel" ? initial[key] : read(form, key),
+        ]),
       ) as unknown as ContactPageContent;
       const result = await saveContactPageContentAction(input);
       if (!result.ok) {
@@ -88,7 +91,6 @@ export function ContactPageForm({ initial }: { initial: ContactPageContent }) {
 
       <FormSection title="2. Thẻ thông tin liên hệ">
         {field("Nhãn hotline chính", "primaryPhoneLabel")}
-        {field("Nhãn hotline phụ", "secondaryPhoneLabel")}
         {field("Nhãn địa chỉ / khu vực", "locationLabel")}
       </FormSection>
 

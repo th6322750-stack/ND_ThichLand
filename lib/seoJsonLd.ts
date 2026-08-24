@@ -27,7 +27,7 @@ function validSocialUrls(): string[] {
 }
 
 export function organizationJsonLd(settings: SiteSettings): Record<string, unknown> {
-  const phones = [settings.phonePrimary, settings.phoneSecondary].filter(Boolean);
+  const phones = [settings.phonePrimary].filter(Boolean);
   const socialUrls = validSocialUrls();
   return {
     "@context": "https://schema.org",

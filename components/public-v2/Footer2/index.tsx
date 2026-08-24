@@ -52,7 +52,7 @@ export function Footer2({ settings = DEFAULT_SITE_SETTINGS }: { settings?: SiteS
   // contact panel — two copies to keep in sync by hand. Both now read the one
   // admin-editable record; the default keeps this component renderable on its
   // own (and in tests) without a settings fetch.
-  const hotlineLabel = [settings.phonePrimary, settings.phoneSecondary].filter((p) => p.trim()).join(" - ");
+  const hotlineLabel = settings.phonePrimary;
   const socials = socialLinks(settings.phonePrimary);
 
   return (

@@ -29,7 +29,6 @@ export default async function LienHePage() {
   ]);
   const cards = [
     { icon: "phone" as const, label: content.primaryPhoneLabel, value: settings.phonePrimary, href: `tel:${telHref(settings.phonePrimary)}` },
-    ...(settings.phoneSecondary ? [{ icon: "phone" as const, label: content.secondaryPhoneLabel, value: settings.phoneSecondary, href: `tel:${telHref(settings.phoneSecondary)}` }] : []),
     { icon: "pin" as const, label: content.locationLabel, value: settings.address, href: undefined },
   ];
   const mapQuery = mapQueryOf(settings);

@@ -7,6 +7,10 @@ test("mobile footer has no dead hash links and every visible link has a 44px tou
   await footer.scrollIntoViewIfNeeded();
   await expect(footer).toBeVisible();
   await expect(footer.locator('a[href="#"]')).toHaveCount(0);
+  await expect(footer).toContainText("Đội 5, Ích Vịnh, Xã Đại Thanh, Thành phố Hà Nội");
+  await expect(footer).toContainText("0986 602 203");
+  await expect(page.getByText("0985 551 396")).toHaveCount(0);
+  await expect(page.getByText(/120 Nguyễn Xí/i)).toHaveCount(0);
 
   const targets = await footer.locator("a").evaluateAll((links) =>
     links

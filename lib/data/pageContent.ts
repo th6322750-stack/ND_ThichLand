@@ -43,7 +43,7 @@ export const DEFAULT_ABOUT_PAGE_CONTENT: AboutPageContent = {
 export const DEFAULT_CONTACT_PAGE_CONTENT: ContactPageContent = {
   metadataTitle: "Liên hệ | NDTHICH LAND",
   metadataDescription:
-    "Hotline 0986 602 203 - 0985 551 396, Zalo và form gửi yêu cầu tư vấn bất động sản cho thuê.",
+    "Hotline 0986 602 203, Zalo và form gửi yêu cầu tư vấn bất động sản cho thuê tại Hà Nội.",
   heroTitle: "Liên hệ NDTHICH",
   heroBody: "Trao đổi trực tiếp về bất động sản cho thuê hoặc thông tin dự án.",
   callButtonLabel: "Gọi",

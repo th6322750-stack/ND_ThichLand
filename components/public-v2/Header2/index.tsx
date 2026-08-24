@@ -17,9 +17,8 @@ const NAV = [
 ];
 
 // One number, not two. The pill expands on hover, and animating it open at
-// the width of "0986 602 203 - 0985 551 396" was both a long travel and a
-// wide layout change every frame — it read as a stutter. The second line is
-// still in the footer and the contact block.
+// the width of two phone numbers was both a long travel and a wide layout
+// change every frame — it read as a stutter. Use the one public hotline.
 const HOTLINE_LABEL = "0986 602 203";
 // Mobile masters show a single-number hotline pill — each of the 5 mobile
 // master exports uses a different mock number, so this uses the one real

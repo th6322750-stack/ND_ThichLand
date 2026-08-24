@@ -166,13 +166,6 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
           error={fieldErrors.phonePrimary}
         />
         <FormField
-          label="Hotline phụ"
-          name="phoneSecondary"
-          type="tel"
-          defaultValue={initial.phoneSecondary}
-          placeholder="Để trống nếu chỉ dùng 1 số"
-        />
-        <FormField
           label="Email"
           name="email"
           type="email"

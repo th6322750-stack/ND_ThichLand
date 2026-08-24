@@ -18,6 +18,9 @@ describe("site settings", () => {
   it("serves the shipped defaults before anything has been saved", async () => {
     const repo = new InMemorySiteSettingsRepository();
     expect(await repo.get()).toEqual(DEFAULT_SITE_SETTINGS);
+    expect(DEFAULT_SITE_SETTINGS.address).toBe("Đội 5, Ích Vịnh, Xã Đại Thanh, Thành phố Hà Nội");
+    expect(DEFAULT_SITE_SETTINGS.phonePrimary).toBe("0986 602 203");
+    expect(DEFAULT_SITE_SETTINGS.phoneSecondary).toBe("");
   });
 
   it("round-trips a saved record", async () => {

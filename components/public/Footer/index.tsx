@@ -26,7 +26,7 @@ const columns = [
 const mobileSections = [
   { title: "Cho thuê", summary: "Căn hộ • Nhà • Mặt bằng • Văn phòng" },
   { title: "Dự án", summary: "Dự án tiêu biểu của công ty" },
-  { title: "Liên hệ", summary: "0986 602 203 • 0985 551 396" },
+  { title: "Liên hệ", summary: "0986 602 203" },
 ];
 
 export function Footer() {
@@ -85,10 +85,7 @@ export function Footer() {
               <li>
                 <a href="tel:0986602203">0986 602 203</a>
               </li>
-              <li>
-                <a href="tel:0985551396">0985 551 396</a>
-              </li>
-              <li>Hà Nội</li>
+              <li>Đội 5, Ích Vịnh, Xã Đại Thanh, Thành phố Hà Nội</li>
             </ul>
           </div>
         </div>
