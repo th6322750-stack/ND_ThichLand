@@ -44,7 +44,8 @@ describe("Admin Sidebar", () => {
 
   it("places Dự án above BĐS cho thuê", () => {
     renderWithRouter();
-    const firstNav = screen.getAllByRole("navigation", { name: "Điều hướng quản trị" })[0];
+    // Non-null: getAllByRole throws if it finds nothing, so [0] always exists.
+    const firstNav = screen.getAllByRole("navigation", { name: "Điều hướng quản trị" })[0]!;
     const labels = within(firstNav)
       .getAllByRole("link")
       .map((link) => link.getAttribute("aria-label") ?? link.textContent);
@@ -56,7 +57,8 @@ describe("Admin Sidebar", () => {
     const user = userEvent.setup();
     const push = vi.fn();
     renderWithRouter(push);
-    await user.click(screen.getAllByRole("button", { name: "Đăng xuất" })[0]);
+    // Non-null: getAllByRole throws if it finds nothing, so [0] always exists.
+    await user.click(screen.getAllByRole("button", { name: "Đăng xuất" })[0]!);
     expect(push).toHaveBeenCalledWith("/admin/login");
   });
 });

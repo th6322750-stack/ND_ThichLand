@@ -12,14 +12,14 @@ import {
 
 describe("matchesQuery / filterProperties", () => {
   it("matches by room number, location, address, type, description, and highlights", () => {
-    expect(matchesQuery(properties[0], "P.301")).toBe(true);
-    expect(matchesQuery(properties[0], "nội thất đầy đủ")).toBe(true);
-    expect(matchesQuery(properties[0], "khong-ton-tai-xyz")).toBe(false);
+    expect(matchesQuery(properties[0]!, "P.301")).toBe(true);
+    expect(matchesQuery(properties[0]!, "nội thất đầy đủ")).toBe(true);
+    expect(matchesQuery(properties[0]!, "khong-ton-tai-xyz")).toBe(false);
   });
 
   it("is case- and diacritic-position independent for a direct substring", () => {
-    expect(matchesQuery(properties[0], "studio")).toBe(false);
-    expect(matchesQuery(properties[1], "STUDIO")).toBe(true);
+    expect(matchesQuery(properties[0]!, "studio")).toBe(false);
+    expect(matchesQuery(properties[1]!, "STUDIO")).toBe(true);
   });
 
   it("filters by property type", () => {
@@ -59,10 +59,10 @@ describe("matchesQuery / filterProperties", () => {
   // the group filters for real — and these lock in that it never guesses.
   describe("bedroom filter", () => {
     const withBedrooms = [
-      { ...properties[0], slug: "b-null", bedroomCount: null },
-      { ...properties[0], slug: "b-1", bedroomCount: 1 },
-      { ...properties[0], slug: "b-2", bedroomCount: 2 },
-      { ...properties[0], slug: "b-5", bedroomCount: 5 },
+      { ...properties[0]!, slug: "b-null", bedroomCount: null },
+      { ...properties[0]!, slug: "b-1", bedroomCount: 1 },
+      { ...properties[0]!, slug: "b-2", bedroomCount: 2 },
+      { ...properties[0]!, slug: "b-5", bedroomCount: 5 },
     ];
 
     it("treats the value as a minimum", () => {
@@ -88,9 +88,9 @@ describe("matchesQuery / filterProperties", () => {
 
   describe("sort", () => {
     const unsorted = [
-      { ...properties[0], slug: "mid", price: 20_000_000, area: 50 },
-      { ...properties[0], slug: "low", price: 5_000_000, area: 200 },
-      { ...properties[0], slug: "high", price: 40_000_000, area: 10 },
+      { ...properties[0]!, slug: "mid", price: 20_000_000, area: 50 },
+      { ...properties[0]!, slug: "low", price: 5_000_000, area: 200 },
+      { ...properties[0]!, slug: "high", price: 40_000_000, area: 10 },
     ];
 
     it("leaves source order untouched by default and does not mutate the input", () => {

@@ -127,7 +127,8 @@ describe("Project admin actions", () => {
     signInAsAdmin();
     const { saveProjectAction, listAdminProjectsAction } = await import("@/app/actions/projects");
     const before = await listAdminProjectsAction();
-    const target = before![0];
+    // Non-null: fixture-seeded data always has at least one project.
+    const target = before![0]!;
     const countBefore = before!.length;
 
     await saveProjectAction(
@@ -161,7 +162,7 @@ describe("Project admin actions", () => {
     expect(after!.length).toBe(countBefore);
     const matches = after!.filter((r) => r.slug === target.slug);
     expect(matches).toHaveLength(1);
-    expect(matches[0].investor).toBe("Chủ đầu tư đã cập nhật");
+    expect(matches[0]!.investor).toBe("Chủ đầu tư đã cập nhật");
   });
 
   // Data-loss guard: two projects can easily share a name, and the id is

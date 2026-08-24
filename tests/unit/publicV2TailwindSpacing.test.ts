@@ -92,8 +92,10 @@ function findViolations(root: string): string[] {
       let m: RegExpExecArray | null;
       while ((m = UTILITY_RE.exec(line))) {
         const [whole, , name, suffix] = m;
-        if (!PREFIX_SET.has(name)) continue;
-        if (KEYWORD_SUFFIXES.has(suffix)) continue;
+        // Non-null: groups 2 (utility name) and 3 (numeric suffix) are both
+        // mandatory in UTILITY_RE — only the leading-dash group is optional.
+        if (!PREFIX_SET.has(name!)) continue;
+        if (KEYWORD_SUFFIXES.has(suffix!)) continue;
         const num = Number(suffix);
         if (VALID_NUMBERS.has(num)) continue;
         violations.push(`${path.relative(process.cwd(), file)}:${i + 1} -> "${whole}"`);

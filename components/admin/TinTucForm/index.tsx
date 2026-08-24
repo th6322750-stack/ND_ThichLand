@@ -94,7 +94,9 @@ export function TinTucForm({ initial, knownCategories = [] }: TinTucFormProps) {
       const target = index + delta;
       if (target < 0 || target >= prev.length) return prev;
       const next = [...prev];
-      [next[index], next[target]] = [next[target], next[index]];
+      // Non-null: target is bounds-checked above, and index always comes
+      // from mapping over this same sections array.
+      [next[index], next[target]] = [next[target]!, next[index]!];
       return next;
     });
   }

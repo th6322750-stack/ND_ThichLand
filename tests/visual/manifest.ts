@@ -53,8 +53,10 @@ const ADMIN_ROUTES = [
 ];
 
 export const adminCaptures: Capture[] = adminRenders.admin.map((entry, i) => ({
-  route: ADMIN_ROUTES[i],
-  navigateTo: ADMIN_ROUTES[i],
+  // Non-null: admin-renders.json's entries and ADMIN_ROUTES are authored as
+  // one parallel list — index i names the same screen in both.
+  route: ADMIN_ROUTES[i]!,
+  navigateTo: ADMIN_ROUTES[i]!,
   viewport: "ADMIN" as const,
   width: 1920,
   approvedPng: `.webby/visual-handoff/${entry.render}`,

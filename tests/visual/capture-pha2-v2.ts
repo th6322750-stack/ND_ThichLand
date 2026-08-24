@@ -108,9 +108,12 @@ async function diffOne(item: Capture, capturedPath: string): Promise<DiffResult>
       const mIdx = (y * master.info.width + x) * 4;
       const cIdx = (y * captured.info.width + x) * 4;
       const outIdx = (y * comparedWidth + x) * 4;
-      const dr = Math.abs(master.data[mIdx] - captured.data[cIdx]);
-      const dg = Math.abs(master.data[mIdx + 1] - captured.data[cIdx + 1]);
-      const db = Math.abs(master.data[mIdx + 2] - captured.data[cIdx + 2]);
+      // Non-null: x < comparedWidth and y < comparedHeight (the overlap of
+      // both images) keep mIdx/cIdx and their +1/+2 offsets inside each
+      // buffer's own width*height*4 bounds.
+      const dr = Math.abs(master.data[mIdx]! - captured.data[cIdx]!);
+      const dg = Math.abs(master.data[mIdx + 1]! - captured.data[cIdx + 1]!);
+      const db = Math.abs(master.data[mIdx + 2]! - captured.data[cIdx + 2]!);
       const isDiff = dr > CHANNEL_DIFF_THRESHOLD || dg > CHANNEL_DIFF_THRESHOLD || db > CHANNEL_DIFF_THRESHOLD;
       if (isDiff) {
         diffPixels++;
@@ -119,7 +122,7 @@ async function diffOne(item: Capture, capturedPath: string): Promise<DiffResult>
         diffBuffer[outIdx + 2] = 0;
         diffBuffer[outIdx + 3] = 255;
       } else {
-        const gray = Math.round((master.data[mIdx] + master.data[mIdx + 1] + master.data[mIdx + 2]) / 3);
+        const gray = Math.round((master.data[mIdx]! + master.data[mIdx + 1]! + master.data[mIdx + 2]!) / 3);
         const faded = Math.round(gray * 0.35 + 255 * 0.65);
         diffBuffer[outIdx] = faded;
         diffBuffer[outIdx + 1] = faded;

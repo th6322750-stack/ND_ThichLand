@@ -31,7 +31,8 @@ describe("PropertyDetailTabs2", () => {
       />,
     );
     const tabs = screen.getAllByRole("tab");
-    tabs[0].focus();
+    // Non-null: getAllByRole throws if it finds nothing, so [0] always exists.
+    tabs[0]!.focus();
     await user.keyboard("{ArrowRight}");
     expect(tabs[1]).toHaveFocus();
     expect(tabs[1]).toHaveAttribute("aria-selected", "true");

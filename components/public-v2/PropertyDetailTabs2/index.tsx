@@ -140,7 +140,9 @@ export function PropertyDetailTabs2({
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   function activate(index: number) {
-    setActiveTab(DETAIL_TABS[index].id);
+    // Non-null: every call site passes a DETAIL_TABS.map index, a modulo of
+    // DETAIL_TABS.length, or 0 / length-1 — always a real index.
+    setActiveTab(DETAIL_TABS[index]!.id);
     tabRefs.current[index]?.focus();
   }
 

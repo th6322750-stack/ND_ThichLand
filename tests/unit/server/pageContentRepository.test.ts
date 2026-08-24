@@ -38,7 +38,8 @@ describe("page content repository", () => {
     const content = { ...DEFAULT_ABOUT_PAGE_CONTENT, heroTitle: "Năng lực mới" };
     await new GooglePageContentRepository().save("about", content);
     expect(updateSheetRange).toHaveBeenCalledOnce();
-    const [, range, row] = updateSheetRange.mock.calls[0];
+    // Non-null: the assertion above guarantees exactly one call exists.
+    const [, range, row] = updateSheetRange.mock.calls[0]!;
     expect(range).toBe("WEB_PAGE_CONTENT!A3:C3");
     expect(row[0]).toBe("about");
     expect(JSON.parse(row[1]).heroTitle).toBe("Năng lực mới");

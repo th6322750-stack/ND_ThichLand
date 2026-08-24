@@ -14,7 +14,9 @@ const DURATION_MS = 1100;
 function parseValue(value: string): { prefix: string; target: number; suffix: string } | null {
   const match = /^(\D*)(\d+)(.*)$/.exec(value);
   if (!match) return null;
-  return { prefix: match[1], target: Number(match[2]), suffix: match[3] };
+  // Non-null: groups 1 and 3 (`\D*`, `.*`) always participate in the match —
+  // they can capture an empty string, but never fail to capture at all.
+  return { prefix: match[1]!, target: Number(match[2]), suffix: match[3]! };
 }
 
 function easeOutCubic(t: number): number {

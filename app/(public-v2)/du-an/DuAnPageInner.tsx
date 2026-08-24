@@ -67,7 +67,9 @@ export function DuAnPageInner({ projects }: { projects: ProjectFixtureLike[] }) 
   const noSourceData = projects.length === 0;
 
   function activate(index: number) {
-    setFilters({ status: TABS[index].value });
+    // Non-null: every call site passes a TABS.map index, a modulo of
+    // TABS.length, or 0 / length-1 — always a real index.
+    setFilters({ status: TABS[index]!.value });
     tabRefs.current[index]?.focus();
   }
 

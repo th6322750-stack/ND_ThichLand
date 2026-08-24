@@ -36,10 +36,10 @@ describe("buildMergedRentalData", () => {
     const overlay = new InMemoryRentalOverlayRepository();
     const merged = await buildMergedRentalData(source, overlay);
     expect(merged.admin).toHaveLength(1);
-    expect(merged.admin[0].slug).toBe("p-301-10");
-    expect(merged.admin[0].sourceId).toBe("sheet:10");
-    expect(merged.admin[0].price).toBe(12_000_000);
-    expect(merged.admin[0].published).toBe(true);
+    expect(merged.admin[0]!.slug).toBe("p-301-10");
+    expect(merged.admin[0]!.sourceId).toBe("sheet:10");
+    expect(merged.admin[0]!.price).toBe(12_000_000);
+    expect(merged.admin[0]!.published).toBe(true);
   });
 
   it("excludes ignored (separator) and quarantined rows from the admin list, but counts them", async () => {
@@ -49,7 +49,7 @@ describe("buildMergedRentalData", () => {
     expect(merged.admin).toHaveLength(1);
     expect(merged.diagnostics.ignored).toBe(1);
     expect(merged.diagnostics.quarantined).toBe(1);
-    expect(merged.diagnostics.quarantinedRows[0].sourceRow).toBe(12);
+    expect(merged.diagnostics.quarantinedRows[0]!.sourceRow).toBe(12);
   });
 
   it("a record with unparseable price/area is not published (but still visible to admin)", async () => {
@@ -64,7 +64,7 @@ describe("buildMergedRentalData", () => {
     const overlay = new InMemoryRentalOverlayRepository();
     const merged = await buildMergedRentalData(source, overlay);
     expect(merged.admin).toHaveLength(1);
-    expect(merged.admin[0].published).toBe(false);
+    expect(merged.admin[0]!.published).toBe(false);
   });
 
   it("applies an override patch by sourceId (edit)", async () => {
@@ -79,10 +79,10 @@ describe("buildMergedRentalData", () => {
     });
     const merged = await buildMergedRentalData(source, overlay);
     expect(merged.admin).toHaveLength(1);
-    expect(merged.admin[0].price).toBe(13_500_000);
-    expect(merged.admin[0].description).toBe("Đã sửa lại mô tả");
+    expect(merged.admin[0]!.price).toBe(13_500_000);
+    expect(merged.admin[0]!.description).toBe("Đã sửa lại mô tả");
     // slug must NOT be affected by the patch — route identity stays stable
-    expect(merged.admin[0].slug).toBe("p-301-10");
+    expect(merged.admin[0]!.slug).toBe("p-301-10");
   });
 
   it("an override with hidden:true removes the record from the merged list entirely", async () => {
@@ -182,8 +182,8 @@ describe("buildMergedRentalData — publish eligibility never fabricates status/
     const overlay = new InMemoryRentalOverlayRepository();
     const merged = await buildMergedRentalData(source, overlay);
     expect(merged.admin).toHaveLength(1);
-    expect(merged.admin[0].availability).toBeNull();
-    expect(merged.admin[0].published).toBe(false);
+    expect(merged.admin[0]!.availability).toBeNull();
+    expect(merged.admin[0]!.published).toBe(false);
   });
 
   it("unknown raw property type does NOT publish, and is never coerced to 'Nhà'", async () => {
@@ -191,8 +191,8 @@ describe("buildMergedRentalData — publish eligibility never fabricates status/
     const overlay = new InMemoryRentalOverlayRepository();
     const merged = await buildMergedRentalData(source, overlay);
     expect(merged.admin).toHaveLength(1);
-    expect(merged.admin[0].propertyType).toBeNull();
-    expect(merged.admin[0].published).toBe(false);
+    expect(merged.admin[0]!.propertyType).toBeNull();
+    expect(merged.admin[0]!.published).toBe(false);
   });
 
   it("an explicit Admin override supplying a valid availability makes the record eligible to publish", async () => {
@@ -206,8 +206,8 @@ describe("buildMergedRentalData — publish eligibility never fabricates status/
       updatedBy: "admin@ndthich.vn",
     });
     const merged = await buildMergedRentalData(source, overlay);
-    expect(merged.admin[0].availability).toBe("Còn trống");
-    expect(merged.admin[0].published).toBe(true);
+    expect(merged.admin[0]!.availability).toBe("Còn trống");
+    expect(merged.admin[0]!.published).toBe(true);
   });
 
   it("published:true from an override alone does NOT publish while availability is still unknown", async () => {
@@ -222,8 +222,8 @@ describe("buildMergedRentalData — publish eligibility never fabricates status/
       updatedBy: "admin@ndthich.vn",
     });
     const merged = await buildMergedRentalData(source, overlay);
-    expect(merged.admin[0].availability).toBeNull();
-    expect(merged.admin[0].published).toBe(false);
+    expect(merged.admin[0]!.availability).toBeNull();
+    expect(merged.admin[0]!.published).toBe(false);
   });
 
   it("a WEB_BDS_CUSTOM record with an invalid propertyType is never coerced to 'Nhà' and does not publish", async () => {
@@ -250,15 +250,15 @@ describe("toPublicPropertyListing — internal field stripping", () => {
     const source = new InMemoryRentalSource([VALID_ROW]);
     const overlay = new InMemoryRentalOverlayRepository();
     const merged = await buildMergedRentalData(source, overlay);
-    const dto = toPublicPropertyListing(merged.admin[0]);
+    const dto = toPublicPropertyListing(merged.admin[0]!);
     expect(dto).not.toHaveProperty("commission");
     expect(dto).not.toHaveProperty("guidePerson");
     expect(dto).not.toHaveProperty("internalNotes");
     expect(dto).not.toHaveProperty("sourceId");
     expect(dto).not.toHaveProperty("published");
     // sanity: real public fields are still present
-    expect(dto.slug).toBe(merged.admin[0].slug);
-    expect(dto.price).toBe(merged.admin[0].price);
+    expect(dto.slug).toBe(merged.admin[0]!.slug);
+    expect(dto.price).toBe(merged.admin[0]!.price);
   });
 
   it("toPublicPropertyListings filters out unpublished records entirely", async () => {
@@ -274,6 +274,6 @@ describe("toPublicPropertyListing — internal field stripping", () => {
     const merged = await buildMergedRentalData(source, overlay);
     const publicListings = toPublicPropertyListings(merged.admin);
     expect(publicListings).toHaveLength(1);
-    expect(publicListings[0].slug).toBe("p-301-10");
+    expect(publicListings[0]!.slug).toBe("p-301-10");
   });
 });

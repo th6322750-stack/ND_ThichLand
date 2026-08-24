@@ -54,7 +54,8 @@ describe("Google project repository column contract", () => {
     const { GoogleProjectRepository } = await import("@/lib/server/projects/repository");
     await new GoogleProjectRepository().upsert(RECORD);
     expect(updateSheetRange).toHaveBeenCalledOnce();
-    const [, range, row] = updateSheetRange.mock.calls[0];
+    // Non-null: the assertion above guarantees exactly one call exists.
+    const [, range, row] = updateSheetRange.mock.calls[0]!;
     expect(range).toBe("WEB_PROJECTS!A2:Y2");
     expect(row).toHaveLength(25);
     expect(row.slice(-2)).toEqual(["50m² - 120m²", "Sổ hồng lâu dài"]);

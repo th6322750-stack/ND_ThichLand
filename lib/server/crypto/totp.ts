@@ -53,13 +53,17 @@ export function generateTotpCode(secret: string, nowMs = Date.now()): string | n
   const counter = Math.floor(nowMs / 1000 / PERIOD_SECONDS);
   const counterBuffer = Buffer.alloc(8);
   counterBuffer.writeBigUInt64BE(BigInt(counter));
+  // RFC 4226 dynamic truncation: digest is always the 20-byte SHA-1 output,
+  // so offset (the low nibble of its last byte) is 0-15 and offset+3 maxes
+  // at 18 — always in bounds. Non-null by the algorithm's own math, not by
+  // a runtime check.
   const digest = createHmac("sha1", key).update(counterBuffer).digest();
-  const offset = digest[digest.length - 1] & 0x0f;
+  const offset = digest[digest.length - 1]! & 0x0f;
   const binary =
-    ((digest[offset] & 0x7f) << 24) |
-    ((digest[offset + 1] & 0xff) << 16) |
-    ((digest[offset + 2] & 0xff) << 8) |
-    (digest[offset + 3] & 0xff);
+    ((digest[offset]! & 0x7f) << 24) |
+    ((digest[offset + 1]! & 0xff) << 16) |
+    ((digest[offset + 2]! & 0xff) << 8) |
+    (digest[offset + 3]! & 0xff);
   return String(binary % 10 ** DIGITS).padStart(DIGITS, "0");
 }
 

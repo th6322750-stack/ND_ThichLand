@@ -200,7 +200,9 @@ function WebField({ label, value, onChange, options }: Omit<FilterFieldProps, "p
       case "Enter":
       case " ":
         e.preventDefault();
-        pick(allOptions[activeIndex].value);
+        // Non-null: activeIndex is always clamped into [0, allOptions.length
+        // - 1] (which is >= 0 — allOptions always has the placeholder entry).
+        pick(allOptions[activeIndex]!.value);
         break;
       case "Tab":
         setOpen(false);

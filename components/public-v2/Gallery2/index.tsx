@@ -113,7 +113,8 @@ export function Gallery2({ images, sideBySideOnMobile = false, desktopAspect = "
             className="relative aspect-[21/20] overflow-hidden rounded-lg"
             onClick={() => setActiveIndex(0)}
           >
-            <Image src={images[0]} alt="" fill className="object-cover" unoptimized priority />
+            {/* Non-null: the `images.length === 0` guard above already returned. */}
+            <Image src={images[0]!} alt="" fill className="object-cover" unoptimized priority />
           </button>
           <div className="grid grid-rows-3 gap-1">{thumbs.map((src, i) => renderThumb(src, i, true))}</div>
         </div>
@@ -127,7 +128,8 @@ export function Gallery2({ images, sideBySideOnMobile = false, desktopAspect = "
           style={{ aspectRatio: desktopAspect }}
           onClick={() => setActiveIndex(0)}
         >
-          <Image src={images[0]} alt="" fill className="object-cover" unoptimized priority />
+          {/* Non-null: the `images.length === 0` guard above already returned. */}
+          <Image src={images[0]!} alt="" fill className="object-cover" unoptimized priority />
         </button>
         <div className="mt-2 grid grid-cols-4 gap-2">{thumbs.map((src, i) => renderThumb(src, i, false))}</div>
       </div>
@@ -183,8 +185,10 @@ export function Gallery2({ images, sideBySideOnMobile = false, desktopAspect = "
                   transition: dragging ? "none" : "transform 220ms cubic-bezier(.2,.7,.2,1)",
                 }}
               >
+                {/* Non-null: every setActiveIndex call above sets it from a
+                    real images/thumbs index or a modulo of images.length. */}
                 <Image
-                  src={images[activeIndex!]}
+                  src={images[activeIndex!]!}
                   alt={`${activeIndex! + 1} / ${images.length}`}
                   fill
                   className="object-contain"

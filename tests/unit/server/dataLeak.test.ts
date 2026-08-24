@@ -102,7 +102,7 @@ describe("public DTOs never leak internal-only fields", () => {
     };
     await overlay.upsertCustomRecord(custom);
     const merged = await buildMergedRentalData(source, overlay);
-    const dto = toPublicPropertyListing(merged.admin[0]);
+    const dto = toPublicPropertyListing(merged.admin[0]!);
     const serialized = JSON.stringify(dto);
     expect(serialized).not.toContain("SECRET-COMMISSION");
     expect(serialized).not.toContain("SECRET-GUIDE");

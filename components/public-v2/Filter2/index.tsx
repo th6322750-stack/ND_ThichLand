@@ -145,9 +145,12 @@ export function Filter2({ value, onChange, onApply, onReset, locationOptions, pr
             fromIndex={priceIndexForMin(value.priceMin)}
             toIndex={priceIndexForMax(value.priceMax)}
             onChange={(fromIndex, toIndex) =>
+              // Non-null: RangeSlider2 was handed these exact PRICE_STOPS as
+              // its `stops` prop, so any index it reports back is one of
+              // that same array's own indices.
               onChange({
-                priceMin: fromIndex === 0 ? null : PRICE_STOPS[fromIndex].value,
-                priceMax: toIndex === PRICE_STOPS.length - 1 ? null : PRICE_STOPS[toIndex].value,
+                priceMin: fromIndex === 0 ? null : PRICE_STOPS[fromIndex]!.value,
+                priceMax: toIndex === PRICE_STOPS.length - 1 ? null : PRICE_STOPS[toIndex]!.value,
               })
             }
           />

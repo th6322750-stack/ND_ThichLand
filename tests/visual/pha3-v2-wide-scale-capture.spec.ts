@@ -32,7 +32,9 @@ const WIDTHS_BY_ROUTE: Record<string, number[]> = {
 };
 
 for (const route of ROUTES) {
-  for (const width of WIDTHS_BY_ROUTE[route.slug]) {
+  // Non-null: ROUTES and WIDTHS_BY_ROUTE are hand-authored together right
+  // above — every route.slug here has a matching WIDTHS_BY_ROUTE entry.
+  for (const width of WIDTHS_BY_ROUTE[route.slug]!) {
     test(`wide capture ${route.slug} @ ${width}px`, async ({ page }) => {
       await page.setViewportSize({ width, height: 1200 });
 

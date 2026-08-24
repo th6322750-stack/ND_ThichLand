@@ -20,7 +20,7 @@ describe("/du-an project tabs", () => {
     const user = userEvent.setup();
     renderWithNav(await DuAnPage(), "/du-an");
     const tabs = screen.getAllByRole("tab");
-    tabs[0].focus();
+    tabs[0]!.focus();
     await user.keyboard("{ArrowRight}");
     expect(tabs[1]).toHaveFocus();
     expect(tabs[1]).toHaveAttribute("aria-selected", "true");
@@ -31,7 +31,7 @@ describe("/du-an project tabs", () => {
     const user = userEvent.setup();
     renderWithNav(await DuAnPage(), "/du-an");
     const tabs = screen.getAllByRole("tab");
-    tabs[0].focus();
+    tabs[0]!.focus();
     await user.keyboard("{ArrowLeft}");
     expect(tabs[tabs.length - 1]).toHaveFocus();
     expect(tabs[tabs.length - 1]).toHaveAttribute("aria-selected", "true");
@@ -41,7 +41,7 @@ describe("/du-an project tabs", () => {
     const user = userEvent.setup();
     renderWithNav(await DuAnPage(), "/du-an");
     const tabs = screen.getAllByRole("tab");
-    tabs[1].focus();
+    tabs[1]!.focus();
     await user.keyboard("{End}");
     expect(tabs[tabs.length - 1]).toHaveFocus();
     await user.keyboard("{Home}");

@@ -81,7 +81,8 @@ describe("News admin actions", () => {
     signInAsAdmin();
     const { saveNewsAction, listAdminNewsAction } = await import("@/app/actions/news");
     const before = await listAdminNewsAction();
-    const target = before![0];
+    // Non-null: fixture-seeded data always has at least one article.
+    const target = before![0]!;
     const countBefore = before!.length;
 
     await saveNewsAction(
@@ -100,7 +101,7 @@ describe("News admin actions", () => {
     expect(after!.length).toBe(countBefore);
     const matches = after!.filter((r) => r.slug === target.slug);
     expect(matches).toHaveLength(1);
-    expect(matches[0].category).toBe("Danh mục đã cập nhật");
+    expect(matches[0]!.category).toBe("Danh mục đã cập nhật");
   });
 
   it("deleteNewsAction soft-deletes — record no longer published", async () => {

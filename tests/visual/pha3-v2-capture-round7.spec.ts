@@ -257,9 +257,12 @@ async function buildOverlay(masterPath: string, actualPath: string, outPath: str
   const { width, height } = master.info;
   const overlay = Buffer.alloc(width * height * 4);
   for (let i = 0; i < overlay.length; i += 4) {
-    overlay[i] = Math.round((master.data[i] + actual.data[i]) / 2);
-    overlay[i + 1] = Math.round((master.data[i + 1] + actual.data[i + 1]) / 2);
-    overlay[i + 2] = Math.round((master.data[i + 2] + actual.data[i + 2]) / 2);
+    // Non-null: i iterates [0, overlay.length) where overlay.length ===
+    // master.data.length === actual.data.length (all four buffers are
+    // width*height*4 for the same width/height by construction).
+    overlay[i] = Math.round((master.data[i]! + actual.data[i]!) / 2);
+    overlay[i + 1] = Math.round((master.data[i + 1]! + actual.data[i + 1]!) / 2);
+    overlay[i + 2] = Math.round((master.data[i + 2]! + actual.data[i + 2]!) / 2);
     overlay[i + 3] = 255;
   }
   await sharp(overlay, { raw: { width, height, channels: 4 } }).png().toFile(outPath);

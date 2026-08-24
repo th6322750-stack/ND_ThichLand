@@ -342,6 +342,6 @@ describe("BĐS admin actions", () => {
     expect(after!.length).toBe(countBefore); // no new row created
     const matches = after!.filter((r) => r.slug === target!.slug);
     expect(matches).toHaveLength(1); // no duplicate slug
-    expect(matches[0].price).toBe(99_000_000);
+    expect(matches[0]!.price).toBe(99_000_000);
   });
 });

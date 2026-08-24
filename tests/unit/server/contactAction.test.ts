@@ -58,7 +58,8 @@ describe("submitContactAction", () => {
     await submitContactAction(baseInput);
     const repo = await getContactRepository();
     const records = await repo.list();
-    const last = records[records.length - 1];
+    // Non-null: submitContactAction above just added one.
+    const last = records[records.length - 1]!;
     expect(last.ipHash).not.toBe("203.0.113.10");
     expect(last.ipHash).not.toContain("203.0.113");
     expect(last.ipHash).toMatch(/^[0-9a-f]{64}$/);

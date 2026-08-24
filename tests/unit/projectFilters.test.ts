@@ -64,9 +64,9 @@ describe("filterProjects", () => {
   // The old inline filter only looked at `name`, so searching an investor or
   // a phrase from the summary silently returned nothing.
   it("matches investor and summary text, not just the name", () => {
-    expect(matchesProjectQuery(projects[2], "abc corp")).toBe(true);
+    expect(matchesProjectQuery(projects[2]!, "abc corp")).toBe(true);
     expect(matchesProjectQuery(project({ summary: "ven sông Sài Gòn" }), "ven sông")).toBe(true);
-    expect(matchesProjectQuery(projects[0], "khong-ton-tai")).toBe(false);
+    expect(matchesProjectQuery(projects[0]!, "khong-ton-tai")).toBe(false);
   });
 
   it("reports active filters and lists real locations only", () => {
