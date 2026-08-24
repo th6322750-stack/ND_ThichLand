@@ -1,10 +1,11 @@
 "use server";
 
+import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { getSession } from "@/lib/server/auth/dal";
 import { getProjectRepository } from "@/lib/server/projects/providers";
+import { fieldErrorsFromZodError } from "@/lib/server/validation";
 import type { ProjectRecord } from "@/lib/server/projects/repository";
-import type { ProjectStatus } from "@/lib/types";
 import { parseProjectStatus } from "@/lib/projectStatus";
 import { isGoogleRuntimeConfigured } from "@/lib/server/env";
 import { resolveProviderMode, PERSISTENCE_NOT_CONFIGURED_ERROR } from "@/lib/server/providerMode";
@@ -62,24 +63,34 @@ function slugify(input: string): string {
     .replace(/(^-|-$)/g, "");
 }
 
-function validate(input: ProjectFormInput, status: ProjectStatus | null): Record<string, string> {
-  const errors: Record<string, string> = {};
-  if (!input.name.trim()) errors.name = "Vui lòng nhập tên dự án";
-  if (!input.location.trim()) errors.location = "Vui lòng nhập vị trí";
-  if (!status) errors.status = "Trạng thái không hợp lệ";
-  return errors;
-}
+// Only the three fields that actually need cross-checking against a parser
+// (status) or each other go through the schema — everything else in
+// ProjectFormInput passes straight through untouched, same as before.
+const projectFormSchema = z
+  .object({
+    name: z.string(),
+    location: z.string(),
+    status: z.string(),
+  })
+  .superRefine((val, ctx) => {
+    if (!val.name.trim()) ctx.addIssue({ code: "custom", path: ["name"], message: "Vui lòng nhập tên dự án" });
+    if (!val.location.trim()) ctx.addIssue({ code: "custom", path: ["location"], message: "Vui lòng nhập vị trí" });
+    if (!parseProjectStatus(val.status)) {
+      ctx.addIssue({ code: "custom", path: ["status"], message: "Trạng thái không hợp lệ" });
+    }
+  })
+  .transform((val) => ({ ...val, status: parseProjectStatus(val.status) }));
 
 export async function saveProjectAction(input: ProjectFormInput, publish: boolean): Promise<ProjectActionResult> {
   const session = await getSession();
   if (!session) return UNAUTHORIZED;
   if (persistenceUnavailable()) return NOT_CONFIGURED;
 
-  const status = parseProjectStatus(input.status);
-  const fieldErrors = validate(input, status);
-  if (Object.keys(fieldErrors).length > 0) {
-    return { ok: false, error: "Vui lòng kiểm tra lại thông tin.", fieldErrors };
+  const parsed = projectFormSchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false, error: "Vui lòng kiểm tra lại thông tin.", fieldErrors: fieldErrorsFromZodError(parsed.error) };
   }
+  const { status } = parsed.data;
 
   const repo = await getProjectRepository();
   const slug = input.slug || slugify(input.name);

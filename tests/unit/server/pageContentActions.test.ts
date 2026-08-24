@@ -48,6 +48,18 @@ describe("page content actions", () => {
     expect(result.fieldErrors?.heroTitle).toBeTruthy();
   });
 
+  it("keys a nested array field's error to its own row, not the whole repeater", async () => {
+    signIn();
+    const { saveAboutPageContentAction } = await import("@/app/actions/pageContent");
+    const stats = DEFAULT_ABOUT_PAGE_CONTENT.stats.map((s, i) => (i === 1 ? { ...s, value: "" } : s));
+    const result = await saveAboutPageContentAction({ ...DEFAULT_ABOUT_PAGE_CONTENT, stats });
+    expect(result.ok).toBe(false);
+    // Exactly "stats.1.value" — not just "stats" — so the admin form can
+    // highlight the one broken row instead of the whole "Năng lực" block.
+    expect(result.fieldErrors?.["stats.1.value"]).toBeTruthy();
+    expect(result.fieldErrors?.stats).toBeUndefined();
+  });
+
   it("persists an authenticated edit and returns it through the public repository", async () => {
     signIn();
     const { saveAboutPageContentAction } = await import("@/app/actions/pageContent");

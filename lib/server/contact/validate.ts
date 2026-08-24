@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 const NAME_MAX = 120;
 const TEXT_MAX = 500;
 const MESSAGE_MAX = 2000;
@@ -30,25 +32,40 @@ export function normalizeVietnamesePhone(raw: string): string | null {
   return normalized;
 }
 
+// need/area/message are optional and silently truncated rather than
+// rejected — a visitor pasting a long message shouldn't lose the whole
+// submission to a length error on a field that isn't even required.
+const contactFormSchema = z.object({
+  name: z.string().trim().min(1, "Vui lòng nhập họ và tên").max(NAME_MAX, "Họ và tên quá dài"),
+  phone: z
+    .string()
+    .trim()
+    .min(1, "Vui lòng nhập số điện thoại")
+    .transform((value, ctx) => {
+      const normalized = normalizeVietnamesePhone(value);
+      if (!normalized) {
+        ctx.addIssue({ code: "custom", message: "Số điện thoại không hợp lệ" });
+        return z.NEVER;
+      }
+      return normalized;
+    }),
+  need: z.string().trim().transform((v) => v.slice(0, TEXT_MAX)),
+  area: z.string().trim().transform((v) => v.slice(0, TEXT_MAX)),
+  message: z.string().trim().transform((v) => v.slice(0, MESSAGE_MAX)),
+});
+
 export function validateContactForm(input: ContactFormInput): {
   errors: Record<string, string>;
   value?: ValidatedContact;
 } {
-  const errors: Record<string, string> = {};
-
-  const name = input.name.trim();
-  if (!name) errors.name = "Vui lòng nhập họ và tên";
-  else if (name.length > NAME_MAX) errors.name = "Họ và tên quá dài";
-
-  const phoneNormalized = normalizeVietnamesePhone(input.phone.trim());
-  if (!input.phone.trim()) errors.phone = "Vui lòng nhập số điện thoại";
-  else if (!phoneNormalized) errors.phone = "Số điện thoại không hợp lệ";
-
-  const need = input.need.trim().slice(0, TEXT_MAX);
-  const area = input.area.trim().slice(0, TEXT_MAX);
-  const message = input.message.trim().slice(0, MESSAGE_MAX);
-
-  if (Object.keys(errors).length > 0) return { errors };
-
-  return { errors: {}, value: { name, phone: phoneNormalized!, need, area, message } };
+  const parsed = contactFormSchema.safeParse(input);
+  if (!parsed.success) {
+    const fieldErrors = parsed.error.flatten().fieldErrors as Record<string, string[] | undefined>;
+    const errors: Record<string, string> = {};
+    for (const [field, messages] of Object.entries(fieldErrors)) {
+      if (messages && messages.length > 0) errors[field] = messages[0] as string;
+    }
+    return { errors };
+  }
+  return { errors: {}, value: parsed.data };
 }

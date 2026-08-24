@@ -1,8 +1,10 @@
 "use server";
 
+import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { getSession } from "@/lib/server/auth/dal";
 import { getNewsRepository } from "@/lib/server/news/providers";
+import { fieldErrorsFromZodError } from "@/lib/server/validation";
 import type { NewsRecord } from "@/lib/server/news/repository";
 import { isGoogleRuntimeConfigured } from "@/lib/server/env";
 import { resolveProviderMode, PERSISTENCE_NOT_CONFIGURED_ERROR } from "@/lib/server/providerMode";
@@ -41,14 +43,25 @@ function slugify(input: string): string {
     .replace(/(^-|-$)/g, "");
 }
 
-function validate(input: NewsFormInput): Record<string, string> {
-  const errors: Record<string, string> = {};
-  if (!input.title.trim()) errors.title = "Vui lòng nhập tiêu đề";
-  if (!input.category.trim()) errors.category = "Vui lòng nhập danh mục";
-  const emptySection = input.sections.findIndex((s) => !s.heading.trim() && !s.body.trim());
-  if (emptySection >= 0) errors.sections = `Đoạn ${emptySection + 1} đang trống — nhập nội dung hoặc xóa đoạn đó.`;
-  return errors;
-}
+const newsFormSchema = z
+  .object({
+    slug: z.string(),
+    title: z.string().trim().min(1, "Vui lòng nhập tiêu đề"),
+    category: z.string().trim().min(1, "Vui lòng nhập danh mục"),
+    excerpt: z.string(),
+    cover: z.string(),
+    sections: z.array(z.object({ heading: z.string(), body: z.string() })),
+  })
+  .superRefine((val, ctx) => {
+    const emptySection = val.sections.findIndex((s) => !s.heading.trim() && !s.body.trim());
+    if (emptySection >= 0) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["sections"],
+        message: `Đoạn ${emptySection + 1} đang trống — nhập nội dung hoặc xóa đoạn đó.`,
+      });
+    }
+  });
 
 const WORDS_PER_MINUTE = 200;
 
@@ -68,13 +81,14 @@ export async function saveNewsAction(input: NewsFormInput, publish: boolean): Pr
   if (!session) return UNAUTHORIZED;
   if (persistenceUnavailable()) return NOT_CONFIGURED;
 
-  const fieldErrors = validate(input);
-  if (Object.keys(fieldErrors).length > 0) {
-    return { ok: false, error: "Vui lòng kiểm tra lại thông tin.", fieldErrors };
+  const parsed = newsFormSchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false, error: "Vui lòng kiểm tra lại thông tin.", fieldErrors: fieldErrorsFromZodError(parsed.error) };
   }
+  const { title, category } = parsed.data;
 
   const repo = await getNewsRepository();
-  const slug = input.slug || slugify(input.title);
+  const slug = input.slug || slugify(title);
   if (!slug) {
     return { ok: false, error: "Vui lòng kiểm tra lại thông tin.", fieldErrors: { title: "Tiêu đề cần có ít nhất một chữ cái hoặc số" } };
   }
@@ -94,8 +108,8 @@ export async function saveNewsAction(input: NewsFormInput, publish: boolean): Pr
   const record: NewsRecord = {
     id: `custom:${slug}`,
     slug,
-    title: input.title,
-    category: input.category,
+    title,
+    category,
     excerpt: input.excerpt,
     cover: input.cover,
     sections: input.sections,
