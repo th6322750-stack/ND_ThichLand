@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { WebVitalsReporter } from "@/components/WebVitalsReporter";
 import { SITE_URL } from "@/lib/siteUrl";
 import {
   DEFAULT_DESCRIPTION,
@@ -60,10 +62,23 @@ export const metadata: Metadata = {
     : undefined,
 };
 
+// Unset in every environment until a real GA4 property exists — no
+// placeholder ID, so nothing loads (and no console errors about an invalid
+// measurement ID) until NEXT_PUBLIC_GA_MEASUREMENT_ID is actually configured.
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="vi" className={beVietnamPro.variable}>
-      <body className="bg-surface font-sans text-ink antialiased">{children}</body>
+      <body className="bg-surface font-sans text-ink antialiased">
+        {children}
+        {GA_MEASUREMENT_ID && (
+          <>
+            <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
+            <WebVitalsReporter />
+          </>
+        )}
+      </body>
     </html>
   );
 }

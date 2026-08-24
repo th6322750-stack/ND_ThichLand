@@ -6,7 +6,12 @@ const contentSecurityPolicy = [
   "form-action 'self'",
   "frame-ancestors 'self'",
   "object-src 'none'",
-  `script-src 'self' 'unsafe-inline'${isProduction ? "" : " 'unsafe-eval'"}`,
+  // googletagmanager.com is only ever contacted when NEXT_PUBLIC_GA_
+  // MEASUREMENT_ID is actually set (see app/layout.tsx) — listed
+  // unconditionally here since the header is static at build time, but an
+  // unused allowance for one specific, trusted Google domain isn't a
+  // meaningful CSP relaxation.
+  `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com${isProduction ? "" : " 'unsafe-eval'"}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
