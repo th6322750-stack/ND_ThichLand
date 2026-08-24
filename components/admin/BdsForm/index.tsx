@@ -167,7 +167,10 @@ export function BdsForm({ initial }: BdsFormProps) {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-admin-title-mobile text-ink desktop:text-admin-title">Thêm / sửa BĐS</h1>
-          <p className="mt-1 text-body text-muted">Form bám schema Sheet thực tế; public và internal được tách rõ.</p>
+          <p className="mt-1 text-body text-muted">
+            Phần “Giao diện thật trên website” bên dưới hiện đúng như khách sẽ thấy — sửa gì thấy đó. Thông tin nội bộ
+            (hoa hồng, người dẫn...) nằm riêng ở cuối trang, không bao giờ lên web.
+          </p>
         </div>
         <div className="flex gap-3">
           <button
@@ -418,14 +421,13 @@ export function BdsForm({ initial }: BdsFormProps) {
                   {fieldErrors.propertyType}
                 </p>
               )}
-              <div className="flex items-center justify-between px-4 py-3 text-[13px]">
-                <span className="text-[#5F5D5D]">Diện tích</span>
-                <span className="font-bold text-[#0C0D0D]">(nhập ở ô Diện tích phía trên)</span>
-              </div>
-              <div className="flex items-center justify-between px-4 py-3 text-[13px]">
-                <span className="text-[#5F5D5D]">Giá thuê</span>
-                <span className="font-bold text-[#0C0D0D]">(nhập ở ô Giá thuê phía trên)</span>
-              </div>
+              {/* Diện tích/Giá thuê used to repeat here as plain text
+                  ("(nhập ở ô Diện tích phía trên)") pointing back up at the
+                  real inputs — dead weight that read like a broken field,
+                  not an instruction, since it never became a value: an
+                  operator can already edit both directly in the preview
+                  above. Dropped rather than kept as a pointer to elsewhere
+                  on the same screen. */}
               <div className="flex items-center justify-between px-4 py-3 text-[13px]">
                 <span className="text-[#5F5D5D]">Phí dịch vụ</span>
                 <input
@@ -433,7 +435,7 @@ export function BdsForm({ initial }: BdsFormProps) {
                   placeholder="Theo tháng"
                   defaultValue={initial?.serviceFee}
                   aria-label="Phí dịch vụ"
-                  className={`${wysiwygInput} w-[160px] text-right font-bold text-[#0C0D0D] placeholder:text-[#C9C6C5]`}
+                  className="w-[160px] rounded-md border border-[#EDEBEA] px-2 py-1 text-right font-bold text-[#0C0D0D] outline-none transition-colors duration-fast ease-base placeholder:text-[#C9C6C5] focus:border-[#880206]"
                 />
               </div>
               <div className="flex items-center justify-between px-4 py-3 text-[13px]">
@@ -443,7 +445,7 @@ export function BdsForm({ initial }: BdsFormProps) {
                   placeholder="Có"
                   defaultValue={initial?.verticalAccess}
                   aria-label="Thang"
-                  className={`${wysiwygInput} w-[160px] text-right font-bold text-[#0C0D0D] placeholder:text-[#C9C6C5]`}
+                  className="w-[160px] rounded-md border border-[#EDEBEA] px-2 py-1 text-right font-bold text-[#0C0D0D] outline-none transition-colors duration-fast ease-base placeholder:text-[#C9C6C5] focus:border-[#880206]"
                 />
               </div>
               <div className="flex items-center justify-between px-4 py-3 text-[13px]">
@@ -548,7 +550,7 @@ export function BdsForm({ initial }: BdsFormProps) {
             required
             placeholder="Hà Nội"
             defaultValue={initial?.location}
-            hint="Filter public"
+            hint="Dùng để khách lọc theo khu vực ở trang Cho thuê."
             error={fieldErrors.location}
           />
         </FormSection>

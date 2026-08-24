@@ -57,7 +57,7 @@ export function LoginForm() {
           BĐS &amp; dự án
         </h1>
         <p className="mt-6 max-w-sm text-body-lg-mobile text-line/70 desktop:text-body-lg">
-          Dữ liệu phòng cho thuê, dự án và tin tức được quản lý theo schema đã chuẩn hóa.
+          Cập nhật phòng cho thuê, dự án và tin tức — nội dung lên web ngay sau khi lưu.
         </p>
       </div>
 

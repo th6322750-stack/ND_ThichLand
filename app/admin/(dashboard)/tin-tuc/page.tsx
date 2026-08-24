@@ -22,7 +22,7 @@ export default async function AdminTinTucListPage() {
     <div className="flex flex-col gap-6">
       <PageHeader
         title="Tin tức"
-        description="Quản lý tin tức trong CMS."
+        description="Quản lý bài viết tin tức trên website."
         action={
           <Link
             href="/admin/tin-tuc/new"

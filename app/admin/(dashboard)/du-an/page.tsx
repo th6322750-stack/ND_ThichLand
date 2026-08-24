@@ -24,7 +24,7 @@ export default async function AdminDuAnListPage() {
     <div className="flex flex-col gap-6">
       <PageHeader
         title="Dự án"
-        description="Quản lý dự án trong CMS."
+        description="Quản lý danh sách dự án đang giới thiệu trên website."
         action={
           <Link
             href="/admin/du-an/new"

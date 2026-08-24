@@ -175,7 +175,7 @@ export default async function AdminDashboardPage() {
       </section>
 
       <section className="flex flex-col gap-4">
-        <h3 className="text-h3 text-ink">Chất lượng dữ liệu nguồn</h3>
+        <h3 className="text-h3 text-ink">Kiểm tra dữ liệu từ Google Sheet</h3>
         {/* buildMergedRentalData already computes these on every read and the
             dashboard used to throw them away in favour of a static paragraph.
             They are the only place an operator can see that rows from the
@@ -188,14 +188,14 @@ export default async function AdminDashboardPage() {
           {sourceClean ? (
             <p className="flex items-center gap-2 font-bold text-success">
               <Icon name="check" size={16} aria-hidden />
-              Không có dòng nào bị bỏ qua hay cách ly.
+              Không có dòng nào cần kiểm tra lại.
             </p>
           ) : (
             <p>
-              <span className="font-bold text-gold tabular-nums">{ignored}</span> dòng bị bỏ qua (dòng phân
-              nhóm / dòng trống) và{" "}
-              <span className="font-bold text-gold tabular-nums">{quarantined}</span> dòng bị cách ly do lệch
-              cột hoặc sai định dạng.
+              <span className="font-bold text-gold tabular-nums">{ignored}</span> dòng được bỏ qua (dòng tiêu
+              đề nhóm hoặc dòng để trống — không phải lỗi) và{" "}
+              <span className="font-bold text-gold tabular-nums">{quarantined}</span> dòng bị tách riêng vì
+              thiếu hoặc sai thông tin, cần vào Sheet sửa lại.
             </p>
           )}
           {quarantinedRows.length > 0 && (
@@ -215,7 +215,7 @@ export default async function AdminDashboardPage() {
             </p>
           )}
           <p className="mt-3 text-muted">
-            Hoa hồng / người dẫn / ghi chú là INTERNAL-ONLY, không bao giờ xuất hiện trên trang public.
+            Hoa hồng / người dẫn / ghi chú chỉ dùng nội bộ — không bao giờ hiện trên trang web khách xem.
           </p>
         </div>
       </section>

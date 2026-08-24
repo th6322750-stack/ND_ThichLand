@@ -165,12 +165,14 @@ export function AdminSecurityPanel({
 
       {!statusAvailable && (
         <p role="alert" className="mt-4 rounded-md border border-error bg-error/5 p-3 text-body text-error">
-          Không đọc được trạng thái bảo mật từ CMS. Đăng nhập đang được khóa an toàn; hãy kiểm tra tab WEB_ADMIN_SECURITY và AUTH_SECRET.
+          Không kiểm tra được trạng thái bảo mật lúc này. Hệ thống tạm khóa đổi mật khẩu/2FA để an toàn — liên hệ đội
+          kỹ thuật để kiểm tra lại cấu hình máy chủ.
         </p>
       )}
       {!persistenceAvailable && (
         <p role="alert" className="mt-4 rounded-md border border-[#D49A3A] bg-[#FFF8E8] p-3 text-body text-[#8A5A10]">
-          Chưa cấu hình CMS lưu trữ. Production sẽ không cho đổi mật khẩu hoặc 2FA để tránh lưu tạm rồi mất dữ liệu.
+          Hệ thống lưu trữ chưa sẵn sàng. Chưa thể đổi mật khẩu hoặc bật/tắt 2FA lúc này để tránh mất dữ liệu — liên
+          hệ đội kỹ thuật.
         </p>
       )}
 

@@ -70,7 +70,7 @@ export default async function AdminBdsListPage({
     <div className="flex flex-col gap-6">
       <PageHeader
         title="BĐS cho thuê"
-        description="Quản lý nguồn phòng/căn/mặt bằng theo schema Sheet đã chuẩn hóa."
+        description="Quản lý danh sách phòng, căn hộ, mặt bằng đang cho thuê."
         action={
           <Link
             href="/admin/bds/new"
