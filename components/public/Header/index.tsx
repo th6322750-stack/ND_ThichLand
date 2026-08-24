@@ -19,7 +19,7 @@ const NAV_ITEMS = [
 function Logo() {
   return (
     <Link href="/" className="flex items-center gap-3">
-      <Image src="/assets/logos/NO_LOGO.svg" alt="NDTHICH LAND" width={40} height={40} unoptimized />
+      <Image src="/assets/v2/branding/dac-thich-land-logo-400.jpg" alt="NDTHICH LAND" width={40} height={40} unoptimized />
       <span className="flex flex-col leading-tight">
         <span className="text-h3 text-ink">NDTHICH LAND</span>
         <span className="text-[11px] uppercase tracking-wide text-muted">
@@ -94,14 +94,14 @@ export function Header() {
           <a
             href="tel:0986602203"
             aria-label="Gọi 0986 602 203"
-            className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-surface hover:bg-primaryHover"
+            className="flex h-[44px] w-[44px] items-center justify-center rounded-full bg-primary text-surface hover:bg-primaryHover"
           >
             <Icon name="phone" size={18} className="invert" />
           </a>
           <button
             type="button"
             aria-label="Menu"
-            className="flex h-11 w-11 items-center justify-center"
+            className="flex h-[44px] w-[44px] items-center justify-center"
             onClick={() => setDrawerOpen(true)}
           >
             <Image src="/assets/icons/menu.svg" alt="" width={28} height={28} unoptimized />
@@ -127,7 +127,7 @@ export function Header() {
               <button
                 type="button"
                 aria-label="Đóng menu"
-                className="flex h-11 w-11 items-center justify-center"
+                className="flex h-[44px] w-[44px] items-center justify-center"
                 onClick={() => setDrawerOpen(false)}
               >
                 ✕

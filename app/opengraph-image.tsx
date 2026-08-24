@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { brandLogoDataUrl } from "@/lib/brandLogoDataUrl";
 
 export const alt = "NDTHICH LAND — Bất động sản cho thuê & dự án";
 export const size = { width: 1200, height: 630 };
@@ -20,8 +21,15 @@ export default function OpenGraphImage() {
           fontFamily: "Arial, sans-serif",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-          <div style={{ width: 22, height: 64, borderRadius: 12, background: "#9d131b" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element -- ImageResponse renders with satori, not the DOM; next/image doesn't apply here. */}
+          <img
+            src={brandLogoDataUrl}
+            alt=""
+            width={92}
+            height={92}
+            style={{ borderRadius: "50%", boxShadow: "0 6px 20px rgba(0,0,0,0.18)" }}
+          />
           <div style={{ display: "flex", flexDirection: "column" }}>
             <span style={{ fontSize: 24, color: "#5f5d5d", letterSpacing: 2 }}>BẤT ĐỘNG SẢN</span>
             <span style={{ fontSize: 46, fontWeight: 800, color: "#880206" }}>NDTHICH LAND</span>

@@ -38,9 +38,9 @@ export function organizationJsonLd(settings: SiteSettings): Record<string, unkno
     url: absoluteUrl("/"),
     logo: {
       "@type": "ImageObject",
-      url: absoluteUrl("/assets/v2/branding/ndthich-logo-reference.png"),
-      width: 168,
-      height: 128,
+      url: absoluteUrl("/assets/v2/branding/dac-thich-land-logo-400.jpg"),
+      width: 512,
+      height: 512,
     },
     image: absoluteUrl("/opengraph-image"),
     description: DEFAULT_DESCRIPTION,

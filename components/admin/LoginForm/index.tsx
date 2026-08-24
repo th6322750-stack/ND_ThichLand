@@ -35,17 +35,15 @@ export function LoginForm() {
     <div className="grid min-h-screen grid-cols-1 desktop:grid-cols-[7fr_11fr]">
       <div className="flex flex-col justify-center bg-footer px-10 py-16 desktop:px-20">
         <div className="flex items-center gap-3">
-          {/* Was the NO_LOGO.svg placeholder while the real mark was still
-              unknown — the public header has shipped the real one for a
-              while now, so the sign-in screen stops being the odd one out.
-              The asset is opaque RGB, so the white plate behind it is
-              deliberate (see Sidebar) rather than a stray background. */}
+          {/* Opaque JPEG with its own baked-in white background, so the
+              white plate behind it is deliberate (see Sidebar) rather than
+              a stray background. */}
           <span className="flex items-center rounded-sm bg-surface px-3 py-2">
             <Image
-              src="/assets/v2/branding/ndthich-logo-reference.png"
+              src="/assets/v2/branding/dac-thich-land-logo-400.jpg"
               alt="NDTHICH LAND"
-              width={168}
-              height={128}
+              width={512}
+              height={512}
               className="h-8 w-auto"
               unoptimized
               loading="eager"

@@ -83,10 +83,10 @@ function SidebarBody({
         <div className={`mb-6 flex items-center gap-2 px-3 ${compact ? "justify-center" : ""}`}>
           <span className="flex items-center rounded-sm bg-surface px-2 py-1">
             <Image
-              src="/assets/v2/branding/ndthich-logo-reference.png"
+              src="/assets/v2/branding/dac-thich-land-logo-400.jpg"
               alt="NDTHICH LAND"
-              width={168}
-              height={128}
+              width={512}
+              height={512}
               className="h-6 w-auto"
               unoptimized
               loading="eager"

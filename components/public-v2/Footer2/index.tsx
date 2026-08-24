@@ -66,10 +66,10 @@ export function Footer2({ settings = DEFAULT_SITE_SETTINGS }: { settings?: SiteS
         >
           <div className={compact ? "" : "col-span-2 min-[900px]:col-span-1"}>
             <Image
-              src="/assets/v2/branding/ndthich-logo-reference.png"
+              src="/assets/v2/branding/dac-thich-land-logo-400.jpg"
               alt="NDTHICH"
-              width={168}
-              height={128}
+              width={512}
+              height={512}
               className="h-8 w-auto min-[900px]:h-6 wide:h-8"
               unoptimized
             />

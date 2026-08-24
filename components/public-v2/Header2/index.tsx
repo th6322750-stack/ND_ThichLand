@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { useFocusTrap } from "@/lib/useFocusTrap";
+import { useSavedListings } from "@/lib/useSavedListings";
 import { Icon2 as Icon } from "@/components/public-v2/Icon2";
 
 const NAV = [
@@ -77,6 +78,7 @@ export function Header2() {
   const [scrolled, setScrolled] = useState(false);
   const drawerRef = useFocusTrap(mobileOpen, () => setMobileOpen(false));
   const hotlineRef = useRef<HTMLAnchorElement>(null);
+  const { saved } = useSavedListings();
 
   // Header2 lives in the shared (public-v2) layout, so it mounts once per
   // tab and stays mounted across client-side navigations within this route
@@ -192,10 +194,10 @@ export function Header2() {
               v2-container so the header content actually widens with the
               viewport instead of clumping in a fixed 1240px column. */}
           <Image
-            src="/assets/v2/branding/ndthich-logo-reference.png"
+            src="/assets/v2/branding/dac-thich-land-logo-400.jpg"
             alt="NDTHICH"
-            width={168}
-            height={128}
+            width={512}
+            height={512}
             className="h-[30px] w-auto min-[900px]:h-[36px] wide:h-[44px]"
             unoptimized
             loading="eager"
@@ -246,6 +248,24 @@ export function Header2() {
         </nav>
 
         <div className="flex shrink-0 items-center gap-2 min-[900px]:flex-1 min-[900px]:justify-end">
+          {/* Desktop only — mobile already has its own "Yêu thích" tab in
+              MobileBottomNav2, reading from the same lib/useSavedListings
+              store, so this isn't a second, disconnected favourites list. */}
+          <Link
+            href="/cho-thue?luu=1"
+            aria-label={saved.length > 0 ? `Danh sách yêu thích, ${saved.length} tin đã lưu` : "Danh sách yêu thích"}
+            className="relative hidden h-[44px] w-[44px] shrink-0 items-center justify-center rounded-full border border-[#E4E1E0] text-[#1C1F1E] transition-colors duration-fast ease-base hover:border-[#880206] hover:text-[#880206] min-[900px]:flex"
+          >
+            <Icon name="heart" size={18} />
+            {saved.length > 0 && (
+              <span
+                aria-hidden="true"
+                className="absolute -right-1 -top-1 min-w-[16px] rounded-full bg-[#880206] px-1 text-center text-[9px] font-bold leading-4 text-white"
+              >
+                {saved.length}
+              </span>
+            )}
+          </Link>
           {/* Collapsed to a phone disc until hovered/focused. The pill sits
               absolutely inside a fixed 44px slot so opening it does not take
               layout space — growing it in flow pushed the whole nav left every
