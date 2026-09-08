@@ -45,3 +45,6 @@ _qa_shot2.mjs
 
 # Vercel CLI project link — local machine's, not shared
 .vercel
+
+# scripts/qa-handover-capture.mjs output — generated screenshots, not source
+/qa-handover-output/

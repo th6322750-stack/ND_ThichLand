@@ -19,6 +19,7 @@
     "test:e2e:live": "node scripts/check-live-e2e-secrets.mjs && next build && playwright test -c playwright.live.config.ts",
     "check": "npm run lint && npm run typecheck && npm test && npm run build",
     "release:check": "npm run lint && npm run typecheck && npm test && npm run test:e2e:mock && npm run test:e2e:failclosed",
+    "qa:handover-capture": "node scripts/qa-handover-capture.mjs",
     "gd6:hash-password": "node scripts/hash-password.mjs",
     "gd6:bootstrap-cms": "tsx scripts/gd6-bootstrap-cms.ts",
     "assets:round8": "node scripts/optimize-round8-assets.mjs"

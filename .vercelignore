@@ -21,3 +21,6 @@
 /playwright-report/
 /playwright/.cache/
 .git
+
+# scripts/qa-handover-capture.mjs output — generated screenshots, not source
+/qa-handover-output/
