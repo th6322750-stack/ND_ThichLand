@@ -25,7 +25,13 @@ export async function appendSheetRow(
   await client.spreadsheets.values.append({
     spreadsheetId,
     range: `${sheetName}!A1`,
-    valueInputOption: "USER_ENTERED",
+    // RAW, not USER_ENTERED: every repository writes "true"/"false" as plain
+    // text and reads it back with a case-sensitive `=== "true"` comparison.
+    // USER_ENTERED parses input the way a human typing into Sheets would —
+    // "true"/"false" become the sheet's native Boolean type, which the API
+    // then returns as the string "TRUE"/"FALSE", silently breaking every
+    // published/hidden/showMasterplan flag on the very first real write.
+    valueInputOption: "RAW",
     insertDataOption: "INSERT_ROWS",
     requestBody: { values: [row] },
   });
@@ -40,7 +46,9 @@ export async function updateSheetRange(
   await client.spreadsheets.values.update({
     spreadsheetId,
     range,
-    valueInputOption: "USER_ENTERED",
+    // RAW — see appendSheetRow's comment above for why USER_ENTERED corrupts
+    // the "true"/"false" strings this repository layer round-trips on.
+    valueInputOption: "RAW",
     requestBody: { values: [row] },
   });
 }
