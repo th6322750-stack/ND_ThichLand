@@ -54,6 +54,8 @@ const ADMIN_ROUTES = [
   { name: "07_TinTuc_New", path: "/admin/tin-tuc/new" },
   { name: "08_Media", path: "/admin/media" },
   { name: "09_CaiDat", path: "/admin/cai-dat" },
+  { name: "10_TrangGioiThieu", path: "/admin/gioi-thieu" },
+  { name: "11_TrangLienHe", path: "/admin/lien-he" },
 ];
 
 const manifest = [];
