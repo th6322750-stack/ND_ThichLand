@@ -54,6 +54,8 @@ const ADMIN_ROUTES = [
   { name: "07_TinTuc_New", path: "/admin/tin-tuc/new" },
   { name: "08_Media", path: "/admin/media" },
   { name: "09_CaiDat", path: "/admin/cai-dat" },
+  { name: "10_TrangGioiThieu", path: "/admin/gioi-thieu" },
+  { name: "11_TrangLienHe", path: "/admin/lien-he" },
 ];
 
 const manifest = [];
@@ -87,7 +89,11 @@ async function main() {
   console.log(`Output:   ${OUT_DIR}\n`);
 
   const browser = await chromium.launch();
-  const context = await browser.newContext();
+  // A full-page screenshot does not physically scroll the viewport. Pages in
+  // this project use scroll-driven reveal animations, so forcing the standard
+  // reduced-motion preference keeps every section in its stable, visible state
+  // for an accurate handover capture.
+  const context = await browser.newContext({ reducedMotion: "reduce" });
   const page = await context.newPage();
 
   console.log("Public routes:");
