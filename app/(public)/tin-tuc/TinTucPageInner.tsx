@@ -91,7 +91,7 @@ export function TinTucPageInner({ articles }: { articles: NewsArticle[] }) {
         <div>
           <h2 className="text-h2-mobile text-ink desktop:text-h2">Theo dõi nội dung mới</h2>
           <p className="mt-2 text-body text-body">
-            Tin tức là module CMS riêng; card, ảnh và typography đã khóa.
+            Gọi ngay để được tư vấn nhanh về nhà, căn hộ và mặt bằng đang cho thuê.
           </p>
         </div>
         <a

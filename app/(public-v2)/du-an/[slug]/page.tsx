@@ -176,7 +176,11 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
           <Icon name="pin" size={11} /> {project.location}
         </p>
 
-        <div className="mt-2 grid grid-cols-4 gap-1">
+        {/* 4-across at this width squeezed every card to ~94px, so
+            "Đang cập nhật"/"Shop khối đế" always truncated mid-word no
+            matter how small the text got — 2×2 roughly doubles each
+            card's share of the row. */}
+        <div className="mt-2 grid grid-cols-2 gap-1">
           {facts.map((fact, i) => (
             <div
               key={fact.label}
