@@ -87,7 +87,11 @@ async function main() {
   console.log(`Output:   ${OUT_DIR}\n`);
 
   const browser = await chromium.launch();
-  const context = await browser.newContext();
+  // A full-page screenshot does not physically scroll the viewport. Pages in
+  // this project use scroll-driven reveal animations, so forcing the standard
+  // reduced-motion preference keeps every section in its stable, visible state
+  // for an accurate handover capture.
+  const context = await browser.newContext({ reducedMotion: "reduce" });
   const page = await context.newPage();
 
   console.log("Public routes:");
