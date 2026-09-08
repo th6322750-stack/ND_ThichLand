@@ -591,13 +591,13 @@ export function BdsForm({ initial }: BdsFormProps) {
           <FormField
             label="Hoa hồng"
             name="commission"
-            placeholder="Theo dữ liệu"
+            placeholder="Ví dụ: 1 tháng tiền thuê"
             defaultValue={initial?.commission}
           />
           <FormField
             label="Người dẫn"
             name="guidePerson"
-            placeholder="Tên / SĐT"
+            placeholder="Họ tên và số điện thoại"
             defaultValue={initial?.guidePerson}
           />
           <div className="desktop:col-span-2">
@@ -605,7 +605,7 @@ export function BdsForm({ initial }: BdsFormProps) {
               label="Ghi chú nội bộ"
               name="internalNotes"
               type="textarea"
-              placeholder="Ghi chú vận hành"
+              placeholder="Nhập ghi chú dành cho nội bộ"
               defaultValue={initial?.internalNotes}
             />
           </div>
