@@ -36,6 +36,11 @@ const securityHeaders = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Emits .next/standalone — a self-contained server.js plus only the
+  // node_modules it actually imports (~53MB instead of a full install), which
+  // is what gets shipped to the VPS. The box has 1.9GB RAM and cannot build
+  // there (a build peaks in the GBs), so it only ever receives build output.
+  output: "standalone",
   // Let isolated tooling (for example Playwright) use its own build cache
   // without stopping a developer's already-running `next dev` process.
   distDir: process.env.NEXT_DIST_DIR ?? ".next",

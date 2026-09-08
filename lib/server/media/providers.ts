@@ -1,6 +1,6 @@
 import { GoogleMediaRepository, InMemoryMediaRepository, type MediaRepository, type MediaRecord } from "./repository";
-import { GoogleDriveBlobStore, InMemoryBlobStore, type MediaBlobStore } from "./blobStore";
-import { isMediaConfigured } from "@/lib/server/env";
+import { GoogleDriveBlobStore, InMemoryBlobStore, LocalDiskBlobStore, type MediaBlobStore } from "./blobStore";
+import { getMediaStorageDir, isMediaConfigured } from "@/lib/server/env";
 import { resolveProviderMode } from "@/lib/server/providerMode";
 import { mediaFixtures } from "@/lib/data/media";
 
@@ -54,6 +54,12 @@ async function getSeededProviders(mode: "mock" | "unavailable"): Promise<MediaPr
 
 export async function getMediaProviders(): Promise<MediaProviders> {
   const mode = resolveProviderMode(isMediaConfigured());
-  if (mode === "live") return { repo: new GoogleMediaRepository(), blobStore: new GoogleDriveBlobStore() };
+  if (mode === "live") {
+    // Bytes on the server's own disk when it has one (VPS), else Drive.
+    // Metadata stays in the CMS sheet in both cases.
+    const storageDir = getMediaStorageDir();
+    const blobStore = storageDir ? new LocalDiskBlobStore(storageDir) : new GoogleDriveBlobStore();
+    return { repo: new GoogleMediaRepository(), blobStore };
+  }
   return getSeededProviders(mode);
 }

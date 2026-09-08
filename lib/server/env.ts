@@ -71,6 +71,15 @@ export function getGoogleMediaFolderId(): string | null {
   return process.env.GOOGLE_MEDIA_FOLDER_ID ?? null;
 }
 
+/** Absolute path of a writable directory holding uploaded media bytes, for
+ * deployments that own a real disk (the VPS). When set it takes precedence
+ * over Drive — a Google service account has no storage quota of its own and
+ * cannot upload into a personal Drive folder at all. */
+export function getMediaStorageDir(): string | null {
+  const dir = process.env.MEDIA_STORAGE_DIR?.trim();
+  return dir ? dir : null;
+}
+
 export function requireGoogleMediaFolderId(): string {
   const id = getGoogleMediaFolderId();
   if (!id) {
@@ -127,8 +136,11 @@ export function isAdminAuthConfigured(): boolean {
   return getAdminAuthEnv() !== null;
 }
 
+/** Metadata always lives in the CMS sheet, so Google is required either way;
+ * the bytes go to local disk when MEDIA_STORAGE_DIR is set, otherwise Drive. */
 export function isMediaConfigured(): boolean {
-  return isGoogleRuntimeConfigured() && getGoogleMediaFolderId() !== null;
+  if (!isGoogleRuntimeConfigured()) return false;
+  return getMediaStorageDir() !== null || getGoogleMediaFolderId() !== null;
 }
 
 export function isTestEnv(): boolean {
