@@ -17,7 +17,6 @@ const MENU_LINKS = [
   { label: "Trang chủ", href: "/" },
   { label: "Dự án", href: "/du-an" },
   { label: "Cho thuê", href: "/cho-thue" },
-  { label: "Về chúng tôi", href: "/gioi-thieu" },
   { label: "Tin tức", href: "/tin-tuc" },
   { label: "Liên hệ", href: "/lien-he" },
 ];
