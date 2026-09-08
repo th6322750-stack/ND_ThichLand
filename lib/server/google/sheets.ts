@@ -21,10 +21,31 @@ function getClient(): sheets_v4.Sheets {
 const SHEETS_CACHE_TAG = "google-sheets-read";
 const SHEETS_CACHE_TTL_SECONDS = 30;
 
-async function readSheetRangeUncached(spreadsheetId: string, range: string): Promise<string[][]> {
-  const client = getClient();
-  const res = await client.spreadsheets.values.get({ spreadsheetId, range });
-  return (res.data.values ?? []) as string[][];
+// unstable_cache only starts sharing a result once the FIRST call to
+// populate it has finished — a burst of concurrent requests that all arrive
+// before that first read completes (or right as the 30s TTL lapses) each
+// see a miss and each fire their own Sheets read, which is its own path to
+// the same quota crash this cache exists to prevent (confirmed: 3 failures
+// out of 30 concurrent requests with only the TTL cache in place). Within
+// one serverless instance, coalesce concurrent reads of the same range into
+// the single in-flight promise instead of letting each one call the API.
+const inFlightReads = new Map<string, Promise<string[][]>>();
+
+async function readSheetRangeDirect(spreadsheetId: string, range: string): Promise<string[][]> {
+  const key = `${spreadsheetId}::${range}`;
+  const existing = inFlightReads.get(key);
+  if (existing) return existing;
+  const promise = (async () => {
+    const client = getClient();
+    const res = await client.spreadsheets.values.get({ spreadsheetId, range });
+    return (res.data.values ?? []) as string[][];
+  })();
+  inFlightReads.set(key, promise);
+  try {
+    return await promise;
+  } finally {
+    inFlightReads.delete(key);
+  }
 }
 
 /** This module is also imported by standalone scripts run via `tsx`
@@ -36,13 +57,13 @@ export async function readSheetRange(spreadsheetId: string, range: string): Prom
   try {
     const { unstable_cache } = await import("next/cache");
     const cached = unstable_cache(
-      () => readSheetRangeUncached(spreadsheetId, range),
+      () => readSheetRangeDirect(spreadsheetId, range),
       ["read-sheet-range", spreadsheetId, range],
       { revalidate: SHEETS_CACHE_TTL_SECONDS, tags: [SHEETS_CACHE_TAG] },
     );
     return await cached();
   } catch {
-    return readSheetRangeUncached(spreadsheetId, range);
+    return readSheetRangeDirect(spreadsheetId, range);
   }
 }
 
