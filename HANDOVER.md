@@ -9,7 +9,7 @@ Cập nhật: 2026-09-08
 | Website | https://ndthichland.com.vn |
 | Trang quản trị | https://ndthichland.com.vn/admin |
 | Tài khoản admin | Xem biến môi trường `ADMIN_EMAIL` trên Vercel (không ghi ở đây để tránh lộ khi tài liệu này được chia sẻ) |
-| Repo | Nhánh `claude/pha2-client-visual-v2` |
+| Repo | https://github.com/th6322750-stack/ND_ThichLand — nhánh `claude/pha2-client-visual-v2` |
 | Hạ tầng deploy | Vercel — project `ndthich-demo-2026` (org `lucifer-scmta`) |
 
 Đổi mật khẩu / bật xác thực 2 bước: vào **Cài đặt chung → Bảo mật tài khoản admin**.

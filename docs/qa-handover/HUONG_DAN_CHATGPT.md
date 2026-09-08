@@ -9,13 +9,16 @@ và đánh giá kết quả bằng mắt như một người dùng thật.
 
 ## Bước 0 — Chuẩn bị
 
-Repo này (nhánh `claude/pha2-client-visual-v2`) đã có sẵn script chụp ảnh tại
-`scripts/qa-handover-capture.mjs`. Cần Node.js đã cài, và trình duyệt của Playwright:
-
 ```bash
+git clone https://github.com/th6322750-stack/ND_ThichLand.git
+cd ND_ThichLand
+git checkout claude/pha2-client-visual-v2
 npm install
 npx playwright install chromium
 ```
+
+Repo đã có sẵn script chụp ảnh tại `scripts/qa-handover-capture.mjs` — không cần
+đọc code, chỉ cần chạy đúng lệnh ở các bước dưới.
 
 ## Bước 1 — Chụp ảnh phần công khai (không cần tài khoản)
 
