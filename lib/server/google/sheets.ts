@@ -10,10 +10,54 @@ function getClient(): sheets_v4.Sheets {
   return cachedClient;
 }
 
-export async function readSheetRange(spreadsheetId: string, range: string): Promise<string[][]> {
+// Google Sheets caps reads at ~60/minute per project on the free tier, and
+// every domain (rental/projects/news/settings/page content) re-reads its
+// tabs on every single page view — a handful of real visitors browsing
+// within the same minute exhausts that quota and 500s the entire site
+// (confirmed live on the first day this app read a real spreadsheet).
+// Cached through Next's shared Data Cache, not per-instance memory, so
+// concurrently-scaled serverless instances all see the same cached result
+// instead of each instance doing its own first-hit read against Sheets.
+const SHEETS_CACHE_TAG = "google-sheets-read";
+const SHEETS_CACHE_TTL_SECONDS = 30;
+
+async function readSheetRangeUncached(spreadsheetId: string, range: string): Promise<string[][]> {
   const client = getClient();
   const res = await client.spreadsheets.values.get({ spreadsheetId, range });
   return (res.data.values ?? []) as string[][];
+}
+
+/** This module is also imported by standalone scripts run via `tsx`
+ * (scripts/gd6-bootstrap-cms.ts and one-off data migrations) outside any
+ * Next.js request — unstable_cache/revalidateTag need a request-scoped
+ * store this module can't guarantee exists, so every cache operation below
+ * falls back to the plain uncached call instead of throwing. */
+export async function readSheetRange(spreadsheetId: string, range: string): Promise<string[][]> {
+  try {
+    const { unstable_cache } = await import("next/cache");
+    const cached = unstable_cache(
+      () => readSheetRangeUncached(spreadsheetId, range),
+      ["read-sheet-range", spreadsheetId, range],
+      { revalidate: SHEETS_CACHE_TTL_SECONDS, tags: [SHEETS_CACHE_TAG] },
+    );
+    return await cached();
+  } catch {
+    return readSheetRangeUncached(spreadsheetId, range);
+  }
+}
+
+/** Called after every write below so an admin's own save is never masked by
+ * a stale cached read — the next read of any tab re-fetches instead of
+ * waiting out the 30s TTL. Broad (one shared tag for every tab) rather than
+ * per-range: writes are rare next to reads, so invalidating everything on
+ * any write is a fine trade for staying simple and correct. */
+async function invalidateSheetsCache(): Promise<void> {
+  try {
+    const { revalidateTag } = await import("next/cache");
+    revalidateTag(SHEETS_CACHE_TAG, "max");
+  } catch {
+    // Not in a Next.js request context (e.g. a standalone tsx script) — nothing to invalidate.
+  }
 }
 
 export async function appendSheetRow(
@@ -35,6 +79,7 @@ export async function appendSheetRow(
     insertDataOption: "INSERT_ROWS",
     requestBody: { values: [row] },
   });
+  await invalidateSheetsCache();
 }
 
 export async function updateSheetRange(
@@ -51,11 +96,13 @@ export async function updateSheetRange(
     valueInputOption: "RAW",
     requestBody: { values: [row] },
   });
+  await invalidateSheetsCache();
 }
 
 export async function clearSheetRange(spreadsheetId: string, range: string): Promise<void> {
   const client = getClient();
   await client.spreadsheets.values.clear({ spreadsheetId, range });
+  await invalidateSheetsCache();
 }
 
 export async function listSheetTitles(spreadsheetId: string): Promise<string[]> {
