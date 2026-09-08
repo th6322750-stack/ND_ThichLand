@@ -40,7 +40,7 @@ export function BdsRowActions({ record }: { record: AdminPropertyRecord }) {
       // "Sửa" is primary (#8A1822) and this was error (#C43D45) — two reds
       // side by side, so the destructive action read as just another link.
       // It stays quiet until you reach for it, then commits to red.
-      className="text-label text-muted transition-colors duration-fast ease-base hover:text-error disabled:opacity-60"
+      className="inline-flex min-h-[44px] items-center text-label text-muted transition-colors duration-fast ease-base hover:text-error disabled:opacity-60"
     >
       {busy ? "Đang xóa..." : record.sourceId ? "Ẩn" : "Xóa"}
     </button>

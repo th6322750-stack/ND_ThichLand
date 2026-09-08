@@ -58,7 +58,7 @@ export function PublicShareButton({ publicPath, title, disabled = false }: Publi
       disabled={disabled}
       title={disabled ? "Cần xuất bản trước khi chia sẻ" : "Chia sẻ liên kết công khai"}
       aria-label={disabled ? `Chưa thể chia sẻ ${title}: cần xuất bản trước` : `Chia sẻ ${title}`}
-      className="text-label text-ink transition-colors duration-fast ease-base hover:text-primary disabled:cursor-not-allowed disabled:text-muted disabled:opacity-50"
+      className="inline-flex min-h-[44px] items-center text-label text-ink transition-colors duration-fast ease-base hover:text-primary disabled:cursor-not-allowed disabled:text-muted disabled:opacity-50"
     >
       <span aria-live={state === "idle" ? undefined : "polite"}>{label}</span>
     </button>

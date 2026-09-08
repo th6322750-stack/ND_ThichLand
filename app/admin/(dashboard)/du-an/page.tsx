@@ -28,7 +28,7 @@ export default async function AdminDuAnListPage() {
         action={
           <Link
             href="/admin/du-an/new"
-            className="rounded-sm bg-primary px-6 py-3 text-button uppercase text-surface transition-[background-color,transform] duration-fast ease-base hover:bg-primaryHover active:scale-[0.97] motion-reduce:active:scale-100"
+            className="inline-flex min-h-[44px] items-center rounded-sm bg-primary px-6 py-3 text-button uppercase text-surface transition-[background-color,transform] duration-fast ease-base hover:bg-primaryHover active:scale-[0.97] motion-reduce:active:scale-100"
           >
             Thêm dự án
           </Link>
@@ -80,7 +80,7 @@ export default async function AdminDuAnListPage() {
                   />
                   <Link
                     href={`/admin/du-an/${r.slug}`}
-                    className="text-label text-primary transition-opacity duration-fast ease-base hover:opacity-70"
+                    className="inline-flex min-h-[44px] items-center text-label text-primary transition-opacity duration-fast ease-base hover:opacity-70"
                   >
                     Sửa
                   </Link>

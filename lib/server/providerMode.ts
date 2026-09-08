@@ -1,5 +1,5 @@
 // No "server-only" guard — see lib/server/env.ts for why.
-import { isTestEnv } from "./env";
+import { isGoogleRuntimeConfigured, isTestEnv } from "./env";
 
 /**
  * Single decision point every domain's provider factory (rental/projects/
@@ -43,3 +43,11 @@ export function resolveProviderMode(isConfigured: boolean): ProviderMode {
 
 export const PERSISTENCE_NOT_CONFIGURED_ERROR =
   "Máy chủ chưa được cấu hình lưu trữ dữ liệu. Vui lòng liên hệ quản trị viên.";
+
+// Whether the currently running deployment is serving data through the
+// ephemeral in-memory/fixture providers rather than real Google-backed
+// storage — used only to decide whether to show the Dashboard's demo-mode
+// notice, never to change what any provider actually does.
+export function isDemoModeActive(): boolean {
+  return resolveProviderMode(isGoogleRuntimeConfigured()) === "mock";
+}

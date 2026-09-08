@@ -68,8 +68,8 @@ export function MediaGrid({ items, onDelete }: MediaGridProps) {
       {visible.length === 0 ? (
         <div className="rounded-md border border-line bg-surface p-16 text-center text-body text-muted">
           {items.length === 0
-            ? "Chưa có media nào. Tải ảnh hoặc dán link để bắt đầu."
-            : "Không có media nào khớp bộ lọc hiện tại."}
+            ? "Chưa có ảnh hoặc video nào. Tải lên hoặc dán link để bắt đầu."
+            : "Không có ảnh hoặc video nào khớp bộ lọc hiện tại."}
         </div>
       ) : (
         <div className="grid grid-cols-2 gap-4 tablet:grid-cols-3 desktop:grid-cols-4">

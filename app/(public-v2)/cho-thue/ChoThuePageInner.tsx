@@ -262,7 +262,7 @@ export function ChoThuePageInner({ properties, now }: { properties: PropertyList
                   // a filter, there is simply no published listing to show.
                   <EmptySearchResults
                     title="Hiện chưa có bất động sản nào được đăng"
-                    message="Danh sách đang được cập nhật. Anh/chị có thể gọi hotline để được tư vấn nguồn đang trống."
+                    message="Danh sách đang được cập nhật. Anh/chị có thể gọi hotline để được tư vấn các lựa chọn phù hợp."
                     resetLabel="Liên hệ tư vấn"
                     onReset={() => router.push("/lien-he")}
                   />

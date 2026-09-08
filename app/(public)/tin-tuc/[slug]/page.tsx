@@ -127,7 +127,7 @@ export default async function TinTucDetailPage({
         <aside className="desktop:sticky desktop:top-24 desktop:h-fit">
           <div className="rounded-md border border-line bg-surface p-6 shadow-[0_8px_24px_rgba(0,0,0,0.06)]">
             <h2 className="text-h3 text-ink">Liên hệ NDTHICH</h2>
-            <p className="mt-1 text-body text-muted">Tư vấn nguồn đang trống</p>
+            <p className="mt-1 text-body text-muted">Cần tư vấn thêm? Gọi hoặc nhắn Zalo để được hỗ trợ.</p>
             <a
               href="tel:0986602203"
               className="mt-4 flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-button uppercase text-surface hover:bg-primaryHover"

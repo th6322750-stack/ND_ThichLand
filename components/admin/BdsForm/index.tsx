@@ -166,27 +166,28 @@ export function BdsForm({ initial }: BdsFormProps) {
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} noValidate>
-      <div className="flex items-center justify-between">
+      {/* Stacked on mobile — title/description first, then the two save
+          buttons as their own full-width row below — so the buttons never
+          squeeze into the same line as a two-line title on a narrow screen.
+          Desktop keeps the original side-by-side row. */}
+      <div className="flex flex-col gap-4 desktop:flex-row desktop:items-center desktop:justify-between desktop:gap-3">
         <div>
           <h1 className="text-admin-title-mobile text-ink desktop:text-admin-title">Thêm / sửa BĐS</h1>
-          <p className="mt-1 text-body text-muted">
-            Phần “Giao diện thật trên website” bên dưới hiện đúng như khách sẽ thấy — sửa gì thấy đó. Thông tin nội bộ
-            (hoa hồng, người dẫn...) nằm riêng ở cuối trang, không bao giờ lên web.
-          </p>
+          <p className="mt-1 text-body text-muted">Nhập thông tin và xem trước nội dung hiển thị trên website.</p>
         </div>
         <div className="flex gap-3">
           <button
             type="button"
             onClick={handleSaveDraft}
             disabled={saving !== null}
-            className="rounded-md border border-primary px-6 py-3 text-button uppercase text-primary hover:bg-soft disabled:opacity-60"
+            className="flex-1 min-h-[44px] rounded-md border border-primary px-6 py-3 text-button uppercase text-primary hover:bg-soft disabled:opacity-60 desktop:flex-none"
           >
             {saving === "draft" ? "Đang lưu..." : "Lưu nháp"}
           </button>
           <button
             type="submit"
             disabled={saving !== null}
-            className="rounded-md bg-primary px-6 py-3 text-button uppercase text-surface hover:bg-primaryHover disabled:opacity-60"
+            className="flex-1 min-h-[44px] rounded-md bg-primary px-6 py-3 text-button uppercase text-surface hover:bg-primaryHover disabled:opacity-60 desktop:flex-none"
           >
             {saving === "publish" ? "Đang lưu..." : "Lưu & đăng"}
           </button>
@@ -254,7 +255,7 @@ export function BdsForm({ initial }: BdsFormProps) {
                     </div>
                     <div className="p-2">
                       <p className={`text-[11px] font-semibold ${i === 0 ? "text-primary" : "text-ink"}`}>
-                        {i === 0 ? "Ảnh chính · ngoài danh sách" : `Ảnh thành phần ${i} · gallery`}
+                        {i === 0 ? "Ảnh chính · ngoài danh sách" : `Ảnh thành phần ${i} · thư viện ảnh`}
                       </p>
                       <div className="mt-1 flex min-h-[44px] items-center justify-end gap-1">
                       {i > 0 && (
@@ -275,8 +276,8 @@ export function BdsForm({ initial }: BdsFormProps) {
               </div>
               <p className="mt-2 text-body text-muted">
                 {media.length === 0
-                  ? "Chưa có ảnh — đây là khu vực gallery chính trên trang chi tiết. Có thể chọn nhiều ảnh cùng lúc."
-                  : "Ảnh số 1 là ảnh chính dùng ngoài danh sách; các ảnh sau là ảnh thành phần trong gallery. Dùng CHÍNH hoặc mũi tên để đổi thứ tự."}
+                  ? "Chưa có ảnh — đây là thư viện ảnh chính trên trang chi tiết. Có thể chọn nhiều ảnh cùng lúc."
+                  : "Ảnh số 1 là ảnh chính dùng ngoài danh sách; các ảnh sau là ảnh thành phần trong thư viện ảnh. Dùng CHÍNH hoặc mũi tên để đổi thứ tự."}
               </p>
             </div>
 
@@ -406,14 +407,14 @@ export function BdsForm({ initial }: BdsFormProps) {
                   rows={4}
                   className={`${wysiwygInput} mt-1 resize-none text-[13px] leading-relaxed text-[#3A3838] placeholder:text-[#C9C6C5]`}
                 />
-                <p className="text-body text-muted">Mỗi dòng cách nhau bằng dấu • — mỗi cụm hiện thành 1 dòng có dấu ✓ trên web.</p>
+                <p className="text-body text-muted">Mỗi dòng cách nhau bằng dấu • — mỗi cụm hiện thành 1 dòng có dấu ✓ trên website.</p>
               </div>
 
               <div className="mt-4 flex gap-2">
                 <span className="flex-1 rounded-md bg-[#880206] px-2 py-2 text-center text-[12px] font-semibold text-white">Gọi ngay</span>
                 <span className="flex-1 rounded-md bg-[#0068FF] px-2 py-2 text-center text-[12px] font-semibold text-white">Nhắn Zalo</span>
               </div>
-              <p className="mt-1 text-body text-muted">2 nút này cố định trên web (số hotline chung), không chỉnh theo từng căn.</p>
+              <p className="mt-1 text-body text-muted">2 nút này cố định trên website (số hotline chung), không chỉnh theo từng căn.</p>
             </div>
           </div>
 
@@ -542,7 +543,7 @@ export function BdsForm({ initial }: BdsFormProps) {
               </div>
               <div>
                 <label htmlFor="bds-videoUrl" className="text-[13px] font-bold text-[#0C0D0D]">
-                  Link video
+                  Đường dẫn video
                 </label>
                 <input
                   id="bds-videoUrl"
@@ -551,7 +552,7 @@ export function BdsForm({ initial }: BdsFormProps) {
                   defaultValue={initial?.videoUrl ?? undefined}
                   className={`${wysiwygInput} mt-1 rounded-md border border-[#EDEBEA] p-2 text-[13px] text-[#3A3838] placeholder:text-[#C9C6C5] hover:border-[#EDEBEA] focus:border-[#880206]`}
                 />
-                <p className="text-body text-muted">Để trống nếu chưa có video — tab vẫn hiện gallery ảnh bình thường.</p>
+                <p className="text-body text-muted">Để trống nếu chưa có video — tab vẫn hiện thư viện ảnh bình thường.</p>
               </div>
             </div>
           </div>
@@ -561,7 +562,7 @@ export function BdsForm({ initial }: BdsFormProps) {
               label="Mô tả chi tiết"
               name="description"
               type="textarea"
-              placeholder="Nội dung public..."
+              placeholder="Nội dung hiển thị trên website..."
               defaultValue={initial?.description}
             />
           </div>
@@ -574,7 +575,7 @@ export function BdsForm({ initial }: BdsFormProps) {
             no such field exists on the record, so everything typed into it
             was discarded on save — the building name is already part of
             roomNo ("P.301 - Tòa A"), which IS persisted. */}
-        <FormSection title="Dữ liệu vận hành (không hiển thị trực tiếp)">
+        <FormSection title="Thông tin dùng để tìm kiếm">
           <FormField
             label="Vị trí / khu vực"
             name="location"
@@ -592,14 +593,12 @@ export function BdsForm({ initial }: BdsFormProps) {
             name="commission"
             placeholder="Theo dữ liệu"
             defaultValue={initial?.commission}
-            hint="Chỉ dùng nội bộ"
           />
           <FormField
             label="Người dẫn"
             name="guidePerson"
             placeholder="Tên / SĐT"
             defaultValue={initial?.guidePerson}
-            hint="Chỉ dùng nội bộ"
           />
           <div className="desktop:col-span-2">
             <FormField
@@ -608,7 +607,6 @@ export function BdsForm({ initial }: BdsFormProps) {
               type="textarea"
               placeholder="Ghi chú vận hành"
               defaultValue={initial?.internalNotes}
-              hint="Chỉ dùng nội bộ"
             />
           </div>
         </FormSection>

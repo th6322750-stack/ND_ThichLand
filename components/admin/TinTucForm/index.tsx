@@ -152,11 +152,15 @@ export function TinTucForm({ initial, knownCategories = [] }: TinTucFormProps) {
 
   return (
     <form onSubmit={handleSubmit} noValidate>
-      <div className="flex flex-wrap items-center justify-between gap-4">
+      {/* Stacked on mobile — title/description first, then the two save
+          buttons as their own full-width row below — so the buttons never
+          squeeze into the same line as a two-line title on a narrow screen.
+          Desktop keeps the original side-by-side row. */}
+      <div className="flex flex-col gap-4 desktop:flex-row desktop:items-center desktop:justify-between desktop:gap-3">
         <div>
           <h1 className="text-admin-title-mobile text-ink desktop:text-admin-title">Thêm / sửa tin tức</h1>
           <p className="mt-1 text-body text-muted">
-            Form bám đúng giao diện bài viết thật trên website. {initial ? publishedLabel : "Bài viết mới."}
+            Nhập nội dung và xem trước bài viết trên website. {initial ? publishedLabel : "Bài viết mới."}
           </p>
         </div>
         <div className="flex gap-3">
@@ -164,14 +168,14 @@ export function TinTucForm({ initial, knownCategories = [] }: TinTucFormProps) {
             type="button"
             onClick={handleSaveDraft}
             disabled={saving !== null}
-            className="rounded-md border border-primary px-6 py-3 text-button uppercase text-primary transition-colors duration-fast ease-base hover:bg-soft disabled:opacity-60"
+            className="flex-1 min-h-[44px] rounded-md border border-primary px-6 py-3 text-button uppercase text-primary transition-colors duration-fast ease-base hover:bg-soft disabled:opacity-60 desktop:flex-none"
           >
             {saving === "draft" ? "Đang lưu..." : "Lưu nháp"}
           </button>
           <button
             type="submit"
             disabled={saving !== null}
-            className="rounded-md bg-primary px-6 py-3 text-button uppercase text-surface transition-colors duration-fast ease-base hover:bg-primaryHover disabled:opacity-60"
+            className="flex-1 min-h-[44px] rounded-md bg-primary px-6 py-3 text-button uppercase text-surface transition-colors duration-fast ease-base hover:bg-primaryHover disabled:opacity-60 desktop:flex-none"
           >
             {saving === "publish" ? "Đang lưu..." : "Lưu & xuất bản"}
           </button>
@@ -333,7 +337,7 @@ export function TinTucForm({ initial, knownCategories = [] }: TinTucFormProps) {
             <div>
               <p className="text-h3 text-ink">Nội dung bài viết</p>
               <p className="text-body text-muted">
-                Mỗi đoạn gồm 1 tiêu đề phụ (H2 trên web) và phần nội dung. Xuống dòng trong ô nội dung sẽ giữ
+                Mỗi đoạn gồm 1 tiêu đề phụ (H2 trên website) và phần nội dung. Xuống dòng trong ô nội dung sẽ giữ
                 nguyên khi hiển thị.
               </p>
             </div>

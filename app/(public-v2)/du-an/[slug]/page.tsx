@@ -178,8 +178,12 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
 
         {/* 4-across at this width squeezed every card to ~94px, so
             "Đang cập nhật"/"Shop khối đế" always truncated mid-word no
-            matter how small the text got — 2×2 roughly doubles each
-            card's share of the row. */}
+            matter how small the text got — 2×2 roughly doubles each card's
+            share of the row. A long value like "Shop khối đế & Penthouse
+            Duplex" still doesn't fit 2-across on one line even at ~150px,
+            so the value wraps onto 2 lines instead of `truncate`-ing —
+            losing text to an ellipsis here is a worse failure than an
+            uneven card height. */}
         <div className="mt-2 grid grid-cols-2 gap-1">
           {facts.map((fact, i) => (
             <div
@@ -187,9 +191,9 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
               className="animate-v2-rise-in flex items-center gap-1 rounded-lg border border-[#EDEBEA] p-1"
               style={{ animationDelay: `${240 + i * 60}ms` }}
             >
-              <Icon name={fact.icon} size={14} className="shrink-0 text-[#880206]" />
+              <Icon name={fact.icon} size={14} className="mt-[1px] shrink-0 self-start text-[#880206]" />
               <div className="min-w-0">
-                <p className="truncate text-[9px] font-bold text-[#0C0D0D]">{fact.value}</p>
+                <p className="text-[9px] font-bold leading-snug text-[#0C0D0D]">{fact.value}</p>
                 <p className="truncate text-[7px] text-[#5F5D5D]">{fact.label}</p>
               </div>
             </div>

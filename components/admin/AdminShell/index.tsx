@@ -10,7 +10,7 @@ const SECTIONS: Record<string, string> = {
   "/admin/bds": "BĐS cho thuê",
   "/admin/du-an": "Dự án",
   "/admin/tin-tuc": "Tin tức",
-  "/admin/media": "Media",
+  "/admin/media": "Thư viện ảnh",
   "/admin/gioi-thieu": "Trang Về chúng tôi",
   "/admin/lien-he": "Trang Liên hệ",
   "/admin/cai-dat": "Cài đặt chung",

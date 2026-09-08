@@ -40,8 +40,14 @@ export function DataTable<T>({ columns, rows, rowKey, state = "default", emptyLa
   }
 
   return (
-    <div className="overflow-x-auto rounded-md border border-line bg-surface">
-      <table className="w-full min-w-[720px] text-left text-body">
+    <div className="flex flex-col gap-2">
+      {/* The table itself keeps horizontal scrolling on narrow screens
+          (min-w-[720px] below) rather than wrapping cells onto multiple
+          lines — this just tells a mobile operator that more columns exist
+          off-screen, since nothing else on the page hints at it. */}
+      <p className="text-label text-muted tablet:hidden">Vuốt ngang để xem thêm →</p>
+      <div className="overflow-x-auto rounded-md border border-line bg-surface">
+        <table className="w-full min-w-[720px] text-left text-body">
         {/* The header used to be body-weight text in muted grey, which sat at
             the same visual level as the data under it. Small caps on the soft
             ground separates the two without adding a rule per column. */}
@@ -83,6 +89,7 @@ export function DataTable<T>({ columns, rows, rowKey, state = "default", emptyLa
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

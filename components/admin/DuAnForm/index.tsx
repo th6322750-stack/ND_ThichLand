@@ -278,11 +278,15 @@ export function DuAnForm({ initial }: DuAnFormProps) {
 
   return (
     <form onSubmit={handleSubmit} noValidate>
-      <div className="flex items-center justify-between">
+      {/* Stacked on mobile — title/description first, then the two save
+          buttons as their own full-width row below — so the buttons never
+          squeeze into the same line as a two-line title on a narrow screen.
+          Desktop keeps the original side-by-side row. */}
+      <div className="flex flex-col gap-4 desktop:flex-row desktop:items-center desktop:justify-between desktop:gap-3">
         <div>
           <h1 className="text-admin-title-mobile text-ink desktop:text-admin-title">Thêm / sửa dự án</h1>
           <p className="mt-1 text-body text-muted">
-            Form bám đúng giao diện thật trên website.{" "}
+            Nhập thông tin và xem trước dự án trên website.{" "}
             {initial ? (initial.published ? "Đang hiện trên website." : "Đang là bản nháp.") : "Dự án mới."}
           </p>
         </div>
@@ -291,14 +295,14 @@ export function DuAnForm({ initial }: DuAnFormProps) {
             type="button"
             onClick={handleSaveDraft}
             disabled={saving !== null}
-            className="rounded-md border border-primary px-6 py-3 text-button uppercase text-primary transition-colors duration-fast ease-base hover:bg-soft disabled:opacity-60"
+            className="flex-1 min-h-[44px] rounded-md border border-primary px-6 py-3 text-button uppercase text-primary transition-colors duration-fast ease-base hover:bg-soft disabled:opacity-60 desktop:flex-none"
           >
             {saving === "draft" ? "Đang lưu..." : "Lưu nháp"}
           </button>
           <button
             type="submit"
             disabled={saving !== null}
-            className="rounded-md bg-primary px-6 py-3 text-button uppercase text-surface transition-colors duration-fast ease-base hover:bg-primaryHover disabled:opacity-60"
+            className="flex-1 min-h-[44px] rounded-md bg-primary px-6 py-3 text-button uppercase text-surface transition-colors duration-fast ease-base hover:bg-primaryHover disabled:opacity-60 desktop:flex-none"
           >
             {saving === "publish" ? "Đang lưu..." : "Lưu & đăng"}
           </button>
@@ -364,7 +368,7 @@ export function DuAnForm({ initial }: DuAnFormProps) {
                     </div>
                     <div className="p-2">
                       <p className={`text-[11px] font-semibold ${i === 0 ? "text-primary" : "text-ink"}`}>
-                        {i === 0 ? "Ảnh chính · ngoài danh sách" : `Ảnh thành phần ${i} · gallery`}
+                        {i === 0 ? "Ảnh chính · ngoài danh sách" : `Ảnh thành phần ${i} · thư viện ảnh`}
                       </p>
                       <div className="mt-1 flex min-h-[44px] items-center justify-end gap-1">
                       {i > 0 && (
@@ -385,8 +389,8 @@ export function DuAnForm({ initial }: DuAnFormProps) {
               </div>
               <p className="mt-2 text-body text-muted">
                 {media.length === 0
-                  ? "Chưa có ảnh — đây là khu vực gallery chính trên trang chi tiết. Có thể chọn nhiều ảnh cùng lúc."
-                  : "Ảnh số 1 là ảnh chính dùng ngoài danh sách; các ảnh sau là ảnh thành phần trong gallery. Dùng CHÍNH hoặc mũi tên để đổi thứ tự."}
+                  ? "Chưa có ảnh — đây là khu vực thư viện ảnh chính trên trang chi tiết. Có thể chọn nhiều ảnh cùng lúc."
+                  : "Ảnh số 1 là ảnh chính dùng ngoài danh sách; các ảnh sau là ảnh thành phần trong thư viện ảnh. Dùng CHÍNH hoặc mũi tên để đổi thứ tự."}
               </p>
             </div>
 
@@ -843,7 +847,7 @@ export function DuAnForm({ initial }: DuAnFormProps) {
               type="textarea"
               placeholder="VD: Đang thi công phần thân đến tầng 20, 55% hoàn thành"
               defaultValue={initial?.progressText || (initial ? `${initial.progressPercent}% hoàn thành` : undefined)}
-              hint="Ghi kèm số % (VD: 55%) để cập nhật mốc tiến độ hiện tại — hiện dưới ảnh tương ứng trên WEB."
+              hint="Ghi kèm số % (VD: 55%) để cập nhật mốc tiến độ hiện tại — hiện dưới ảnh tương ứng trên website."
             />
             <div className="mt-4 grid grid-cols-2 gap-3 tablet:grid-cols-5">
               {progressPhotos.map((p, i) => (

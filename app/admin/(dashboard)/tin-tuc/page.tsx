@@ -26,7 +26,7 @@ export default async function AdminTinTucListPage() {
         action={
           <Link
             href="/admin/tin-tuc/new"
-            className="rounded-sm bg-primary px-6 py-3 text-button uppercase text-surface transition-[background-color,transform] duration-fast ease-base hover:bg-primaryHover active:scale-[0.97] motion-reduce:active:scale-100"
+            className="inline-flex min-h-[44px] items-center rounded-sm bg-primary px-6 py-3 text-button uppercase text-surface transition-[background-color,transform] duration-fast ease-base hover:bg-primaryHover active:scale-[0.97] motion-reduce:active:scale-100"
           >
             Thêm bài viết
           </Link>
@@ -71,7 +71,7 @@ export default async function AdminTinTucListPage() {
                 <div className="flex items-center justify-end">
                   <Link
                     href={`/admin/tin-tuc/${r.slug}`}
-                    className="text-label text-primary transition-opacity duration-fast ease-base hover:opacity-70"
+                    className="inline-flex min-h-[44px] items-center text-label text-primary transition-opacity duration-fast ease-base hover:opacity-70"
                   >
                     Sửa
                   </Link>

@@ -65,7 +65,7 @@ export function Uploader({ state = "empty", onRetry, onClick, errorMessage }: Up
       className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-2 rounded-md border-2 border-dashed border-line text-muted hover:border-primary hover:text-primary"
     >
       <Icon name="upload" size={24} />
-      <span className="text-body">Tải ảnh / dán link media</span>
+      <span className="text-body">Tải ảnh, video hoặc dán link</span>
     </button>
   );
 }

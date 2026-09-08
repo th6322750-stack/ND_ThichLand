@@ -11,6 +11,7 @@ import { buildMergedRentalData } from "@/lib/server/rental/merge";
 import { getProjectRepository } from "@/lib/server/projects/providers";
 import { getNewsRepository } from "@/lib/server/news/providers";
 import { getMediaProviders } from "@/lib/server/media/providers";
+import { isDemoModeActive } from "@/lib/server/providerMode";
 
 export const dynamic = "force-dynamic";
 
@@ -69,7 +70,7 @@ export default async function AdminDashboardPage() {
     {
       href: "/admin/media",
       icon: "upload" as const,
-      label: "Media",
+      label: "Thư viện ảnh",
       value: String(media.length),
       note: "Ảnh / video đã tải lên",
     },
@@ -94,6 +95,15 @@ export default async function AdminDashboardPage() {
         title="Tổng quan"
         description="Theo dõi nguồn cho thuê và nội dung đang vận hành."
       />
+
+      {isDemoModeActive() && (
+        <div className="rounded-md border border-gold bg-[#FBF3E4] p-4">
+          <p className="text-body font-bold text-[#8A6A2F]">
+            Chế độ demo: dữ liệu nhập có thể mất khi hệ thống khởi động lại. Lưu trữ lâu dài sẽ được kích hoạt khi
+            cấu hình máy chủ.
+          </p>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 gap-4 tablet:grid-cols-2 desktop:grid-cols-4">
         {stats.map((stat) => (

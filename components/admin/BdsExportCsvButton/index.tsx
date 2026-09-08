@@ -59,7 +59,7 @@ export function BdsExportCsvButton({ records }: BdsExportCsvButtonProps) {
     <button
       type="button"
       onClick={handleExport}
-      className="inline-flex items-center justify-center rounded-md border border-line px-6 py-3 text-button uppercase text-ink hover:border-primary"
+      className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-line px-6 py-3 text-button uppercase text-ink hover:border-primary"
     >
       Xuất CSV
     </button>

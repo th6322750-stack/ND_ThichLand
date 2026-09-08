@@ -50,7 +50,7 @@ export function MediaLibraryClient({ initialItems }: { initialItems: MediaRecord
   return (
     <div className="flex flex-col gap-6">
       <PageHeader
-        title="Media"
+        title="Thư viện ảnh"
         description="Quản lý ảnh/video cho BĐS, dự án và tin tức."
         action={
           <>
@@ -58,9 +58,9 @@ export function MediaLibraryClient({ initialItems }: { initialItems: MediaRecord
               type="button"
               onClick={() => inputRef.current?.click()}
               disabled={uploading}
-              className="rounded-sm bg-primary px-6 py-3 text-button uppercase text-surface transition-[background-color,transform] duration-fast ease-base hover:bg-primaryHover active:scale-[0.97] disabled:opacity-60 disabled:active:scale-100 motion-reduce:active:scale-100"
+              className="min-h-[44px] rounded-sm bg-primary px-6 py-3 text-button uppercase text-surface transition-[background-color,transform] duration-fast ease-base hover:bg-primaryHover active:scale-[0.97] disabled:opacity-60 disabled:active:scale-100 motion-reduce:active:scale-100"
             >
-              {uploading ? "Đang tải..." : "Tải media"}
+              {uploading ? "Đang tải..." : "Tải ảnh/video"}
             </button>
             <input
               ref={inputRef}

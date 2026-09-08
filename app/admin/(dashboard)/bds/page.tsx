@@ -74,7 +74,7 @@ export default async function AdminBdsListPage({
         action={
           <Link
             href="/admin/bds/new"
-            className="rounded-sm bg-primary px-6 py-3 text-button uppercase text-surface transition-[background-color,transform] duration-fast ease-base hover:bg-primaryHover active:scale-[0.97] motion-reduce:active:scale-100"
+            className="inline-flex min-h-[44px] items-center rounded-sm bg-primary px-6 py-3 text-button uppercase text-surface transition-[background-color,transform] duration-fast ease-base hover:bg-primaryHover active:scale-[0.97] motion-reduce:active:scale-100"
           >
             Thêm BĐS
           </Link>
@@ -124,14 +124,14 @@ export default async function AdminBdsListPage({
         </select>
         <button
           type="submit"
-          className="inline-flex items-center justify-center gap-2 rounded-md border border-primary px-6 py-3 text-button uppercase text-primary transition-colors duration-fast ease-base hover:bg-soft"
+          className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-md border border-primary px-6 py-3 text-button uppercase text-primary transition-colors duration-fast ease-base hover:bg-soft"
         >
           <Icon name="filter" size={16} /> Lọc
         </button>
         {filtersActive && (
           <Link
             href="/admin/bds"
-            className="inline-flex items-center justify-center rounded-md border border-line px-6 py-3 text-button uppercase text-muted transition-colors duration-fast ease-base hover:border-primary hover:text-primary"
+            className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-line px-6 py-3 text-button uppercase text-muted transition-colors duration-fast ease-base hover:border-primary hover:text-primary"
           >
             Xóa lọc
           </Link>
@@ -203,7 +203,7 @@ export default async function AdminBdsListPage({
                   />
                   <Link
                     href={`/admin/bds/${r.slug}`}
-                    className="text-label text-primary transition-opacity duration-fast ease-base hover:opacity-70"
+                    className="inline-flex min-h-[44px] items-center text-label text-primary transition-opacity duration-fast ease-base hover:opacity-70"
                   >
                     Sửa
                   </Link>
@@ -216,7 +216,7 @@ export default async function AdminBdsListPage({
       </div>
 
       <p className="flex flex-wrap items-center gap-2 text-body text-muted">
-        <span className="text-label uppercase tracking-[0.08em]">Trường nội bộ không public</span>
+        <span className="text-label uppercase tracking-[0.08em]">Thông tin nội bộ</span>
         <span className="rounded-full border border-line bg-soft px-3 py-1 text-label">Hoa hồng</span>
         <span className="rounded-full border border-line bg-soft px-3 py-1 text-label">Người dẫn</span>
         <span className="rounded-full border border-line bg-soft px-3 py-1 text-label">Ghi chú</span>

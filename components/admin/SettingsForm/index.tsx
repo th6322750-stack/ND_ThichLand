@@ -101,7 +101,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
           <button
             type="submit"
             disabled={saving}
-            className="rounded-sm bg-primary px-6 py-3 text-button uppercase text-surface transition-[background-color,transform] duration-fast ease-base hover:bg-primaryHover active:scale-[0.97] disabled:opacity-60 disabled:active:scale-100 motion-reduce:active:scale-100"
+            className="min-h-[44px] rounded-sm bg-primary px-6 py-3 text-button uppercase text-surface transition-[background-color,transform] duration-fast ease-base hover:bg-primaryHover active:scale-[0.97] disabled:opacity-60 disabled:active:scale-100 motion-reduce:active:scale-100"
           >
             {saving ? "Đang lưu..." : "Lưu thay đổi"}
           </button>

@@ -65,7 +65,7 @@ export const DEFAULT_CONTACT_PAGE_CONTENT: ContactPageContent = {
   secondaryPhoneLabel: "Hotline phụ",
   locationLabel: "Khu vực hoạt động",
   formTitle: "Gửi yêu cầu tư vấn",
-  formDescription: "Form liên hệ chung, không phải chức năng đặt lịch xem nhà.",
+  formDescription: "Để lại thông tin, NDTHICH sẽ liên hệ để tư vấn phù hợp với nhu cầu của bạn.",
   formNameLabel: "Họ và tên",
   formPhoneLabel: "Số điện thoại",
   formNeedLabel: "Nhu cầu",

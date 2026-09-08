@@ -27,7 +27,7 @@ export function ProjectRowActions({ record }: { record: ProjectRecord }) {
       disabled={busy}
       // Quiet until reached for, then red — same rule as BdsRowActions, so
       // "Sửa" (primary) and the destructive action never read as one pair.
-      className="text-label text-muted transition-colors duration-fast ease-base hover:text-error disabled:opacity-60"
+      className="inline-flex min-h-[44px] items-center text-label text-muted transition-colors duration-fast ease-base hover:text-error disabled:opacity-60"
     >
       {busy ? "Đang xóa..." : "Xóa"}
     </button>

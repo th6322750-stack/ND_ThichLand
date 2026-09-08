@@ -12,7 +12,7 @@ interface ContactCTAProps {
 
 export function ContactCTA({
   title = "Cần tìm căn phù hợp?",
-  subtitle = "Liên hệ trực tiếp để trao đổi nhu cầu và xem nguồn đang trống.",
+  subtitle = "Liên hệ trực tiếp để trao đổi nhu cầu và được tư vấn phù hợp.",
   callLabel = "Gọi 0986 602 203",
   zaloLabel = "Nhắn Zalo",
   phone = "0986 602 203",
