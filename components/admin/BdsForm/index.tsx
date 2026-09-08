@@ -12,6 +12,7 @@ import { uploadMediaAction } from "@/app/actions/media";
 import { formatArea, formatCurrencyVnd } from "@/lib/format";
 import type { AdminPropertyRecord, Availability, PropertyType } from "@/lib/types";
 import { moveItem } from "@/lib/admin/mediaOrder";
+import { useScrollToFirstError } from "@/lib/useScrollToFirstError";
 
 // Mirrors the closed sets app/actions/bds.ts validates against.
 const PROPERTY_TYPE_OPTIONS: PropertyType[] = ["Căn hộ", "Nhà", "Mặt bằng", "Văn phòng", "Xưởng", "Studio"];
@@ -96,6 +97,7 @@ export function BdsForm({ initial }: BdsFormProps) {
   const [uploaderState, setUploaderState] = useState<UploaderState>("empty");
   const [uploadError, setUploadError] = useState<string>();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  useScrollToFirstError(fieldErrors);
 
   async function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files ?? []);
@@ -286,9 +288,15 @@ export function BdsForm({ initial }: BdsFormProps) {
                 placeholder="Tên căn (VD: Sunrise City View)"
                 defaultValue={initial?.roomNo}
                 aria-label="Tên căn / Số phòng"
+                aria-invalid={fieldErrors.roomNo ? true : undefined}
+                aria-describedby={fieldErrors.roomNo ? "bds-roomNo-error" : undefined}
                 className={`${wysiwygInput} text-[24px] font-extrabold leading-tight text-[#0C0D0D] placeholder:text-[#C9C6C5]`}
               />
-              {fieldErrors.roomNo && <p className="mt-1 text-body text-error">{fieldErrors.roomNo}</p>}
+              {fieldErrors.roomNo && (
+                <p id="bds-roomNo-error" className="mt-1 text-body text-error">
+                  {fieldErrors.roomNo}
+                </p>
+              )}
 
               <div className="mt-2 flex items-center gap-1">
                 <Icon2 name="pin" size={13} className="shrink-0 text-[#5F5D5D]" />
@@ -297,10 +305,16 @@ export function BdsForm({ initial }: BdsFormProps) {
                   placeholder="Địa chỉ đầy đủ"
                   defaultValue={initial?.address}
                   aria-label="Địa chỉ"
+                  aria-invalid={fieldErrors.address ? true : undefined}
+                  aria-describedby={fieldErrors.address ? "bds-address-error" : undefined}
                   className={`${wysiwygInput} text-[13px] text-[#5F5D5D] placeholder:text-[#C9C6C5]`}
                 />
               </div>
-              {fieldErrors.address && <p className="mt-1 text-body text-error">{fieldErrors.address}</p>}
+              {fieldErrors.address && (
+                <p id="bds-address-error" className="mt-1 text-body text-error">
+                  {fieldErrors.address}
+                </p>
+              )}
 
               <div className="mt-3 flex items-baseline gap-1">
                 <input
@@ -308,11 +322,17 @@ export function BdsForm({ initial }: BdsFormProps) {
                   placeholder="6.500.000"
                   defaultValue={initial ? formatCurrencyVnd(initial.price) : undefined}
                   aria-label="Giá thuê"
+                  aria-invalid={fieldErrors.price ? true : undefined}
+                  aria-describedby={fieldErrors.price ? "bds-price-error" : undefined}
                   className={`${wysiwygInput} w-auto max-w-[180px] text-[26px] font-extrabold text-[#880206] placeholder:text-[#E0B3B4]`}
                 />
                 <span className="text-[14px] font-medium text-[#5F5D5D]">đ/tháng</span>
               </div>
-              {fieldErrors.price && <p className="mt-1 text-body text-error">{fieldErrors.price}</p>}
+              {fieldErrors.price && (
+                <p id="bds-price-error" className="mt-1 text-body text-error">
+                  {fieldErrors.price}
+                </p>
+              )}
 
               <div className="mt-4 grid grid-cols-4 gap-2">
                 <div className="rounded-lg border border-[#EDEBEA] p-2 text-center">
@@ -322,9 +342,20 @@ export function BdsForm({ initial }: BdsFormProps) {
                     placeholder="35m²"
                     defaultValue={initial ? formatArea(initial.area) : undefined}
                     aria-label="Diện tích"
+                    aria-invalid={fieldErrors.area ? true : undefined}
+                    aria-describedby={fieldErrors.area ? "bds-area-error" : undefined}
                     className={`${wysiwygInput} mt-1 text-center text-[13px] font-bold text-[#0C0D0D] placeholder:text-[#C9C6C5]`}
                   />
                   <p className="text-[10px] text-[#5F5D5D]">Diện tích</p>
+                  {/* Was validated server-side (bdsFormSchema requires a
+                      parseable, positive area) but never actually shown
+                      anywhere — a rejected save left this field's own
+                      problem completely invisible, not just hard to find. */}
+                  {fieldErrors.area && (
+                    <p id="bds-area-error" className="mt-1 text-[10px] leading-tight text-error">
+                      {fieldErrors.area}
+                    </p>
+                  )}
                 </div>
                 <div className="rounded-lg border border-[#EDEBEA] p-2 text-center">
                   <Icon2 name="bed" size={20} className="mx-auto text-[#880206]" />

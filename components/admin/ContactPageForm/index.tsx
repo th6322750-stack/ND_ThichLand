@@ -8,6 +8,7 @@ import { FormField } from "@/components/public/FormField";
 import { FormSection } from "@/components/admin/FormSection";
 import { PageHeader } from "@/components/admin/PageHeader";
 import type { ContactPageContent } from "@/lib/types";
+import { useScrollToFirstError } from "@/lib/useScrollToFirstError";
 
 function read(form: FormData, name: keyof ContactPageContent): string {
   return String(form.get(name) ?? "");
@@ -19,6 +20,7 @@ export function ContactPageForm({ initial }: { initial: ContactPageContent }) {
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string>();
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  useScrollToFirstError(fieldErrors);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

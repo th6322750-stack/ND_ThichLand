@@ -10,6 +10,7 @@ import { uploadMediaAction } from "@/app/actions/media";
 import { Uploader, type UploaderState } from "@/components/admin/Uploader";
 import { mapQueryOf } from "@/lib/data/siteSettings";
 import type { SiteSettings } from "@/lib/types";
+import { useScrollToFirstError } from "@/lib/useScrollToFirstError";
 
 export function SettingsForm({ initial }: { initial: SiteSettings }) {
   const router = useRouter();
@@ -17,6 +18,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
   const [error, setError] = useState<string>();
   const [saved, setSaved] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  useScrollToFirstError(fieldErrors);
   // Kept in state purely so the map preview below follows what is typed —
   // the operator can confirm the pin lands on the right building before saving.
   const [preview, setPreview] = useState<SiteSettings>(initial);

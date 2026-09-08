@@ -9,6 +9,7 @@ import { FormSection } from "@/components/admin/FormSection";
 import { PageHeader } from "@/components/admin/PageHeader";
 import { PageImageField } from "@/components/admin/PageImageField";
 import type { AboutPageContent } from "@/lib/types";
+import { useScrollToFirstError } from "@/lib/useScrollToFirstError";
 
 function read(form: FormData, name: string): string {
   return String(form.get(name) ?? "");
@@ -22,6 +23,7 @@ export function AboutPageForm({ initial }: { initial: AboutPageContent }) {
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string>();
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  useScrollToFirstError(fieldErrors);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

@@ -12,6 +12,7 @@ import { PROJECT_AMENITY_CATALOG } from "@/lib/projectAmenities";
 import { KNOWN_PROJECT_STATUSES } from "@/lib/projectStatus";
 import type { ProjectRecord } from "@/lib/server/projects/repository";
 import { moveItem } from "@/lib/admin/mediaOrder";
+import { useScrollToFirstError } from "@/lib/useScrollToFirstError";
 
 // Same WYSIWYG approach as BdsForm — "để admin biết nội dung sẽ hiển thị ở
 // đâu, đồng nhất 1:1 với giao diện web" — the inputs below are styled with
@@ -30,6 +31,7 @@ export function DuAnForm({ initial }: DuAnFormProps) {
   const [saving, setSaving] = useState<"draft" | "publish" | null>(null);
   const [error, setError] = useState<string>();
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  useScrollToFirstError(fieldErrors);
   const [saved, setSaved] = useState<string>();
   const [media, setMedia] = useState<string[]>(initial?.media ?? []);
   const [uploaderState, setUploaderState] = useState<UploaderState>("empty");

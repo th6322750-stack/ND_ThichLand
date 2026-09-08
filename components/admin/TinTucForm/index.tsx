@@ -8,6 +8,7 @@ import { Icon } from "@/components/icons";
 import { saveNewsAction, type NewsFormInput } from "@/app/actions/news";
 import { uploadMediaAction } from "@/app/actions/media";
 import type { NewsRecord } from "@/lib/server/news/repository";
+import { useScrollToFirstError } from "@/lib/useScrollToFirstError";
 
 interface TinTucFormProps {
   initial?: NewsRecord;
@@ -38,6 +39,7 @@ export function TinTucForm({ initial, knownCategories = [] }: TinTucFormProps) {
   const [saving, setSaving] = useState<"draft" | "publish" | null>(null);
   const [error, setError] = useState<string>();
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  useScrollToFirstError(fieldErrors);
   const [saved, setSaved] = useState<string>();
   const [cover, setCover] = useState(initial?.cover ?? "");
   const [uploaderState, setUploaderState] = useState<UploaderState>("empty");
