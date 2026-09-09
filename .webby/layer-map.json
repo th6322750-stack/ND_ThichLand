@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "uiRevision": 3,
+  "layers": {
+    "baseContent": 0,
+    "stickyHeader": 100,
+    "stickyMobileActions": 200,
+    "drawerBackdrop": 900,
+    "drawerPanel": 910,
+    "bottomSheetBackdrop": 920,
+    "bottomSheetPanel": 930,
+    "lightboxBackdrop": 1000,
+    "lightboxContent": 1010,
+    "toast": 1100
+  }
+}
