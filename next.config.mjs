@@ -55,19 +55,30 @@ const nextConfig = {
   // imported by server code; public/ ships separately (see DEPLOY_VPS.md).
   outputFileTracingExcludes: {
     "*": [
+      // Never on a server: history, caches, tooling, secrets.
       ".git/**",
       ".next-*/**",
       ".webby/**",
       ".vercel/**",
+      ".github/**",
       "docs/**",
       "tests/**",
       "scripts/**",
       "qa-handover-output/**",
       "public/**",
       ".env*",
-      "**/*.test.*",
-      "**/*.spec.*",
       "**/*.tsbuildinfo",
+      // TypeScript sources. Node runs the compiled output in .next/server —
+      // these are dead weight, and their presence is the tell-tale that the
+      // tracer is still walking the whole tree. Excluding the source dirs
+      // outright means a directory added later (coverage/, dist/, backups/)
+      // has far less room to slip in behind a name nobody thought to ban.
+      "app/**",
+      "components/**",
+      "lib/**",
+      "*.ts",
+      "*.tsx",
+      "*.md",
     ],
   },
   // Let isolated tooling (for example Playwright) use its own build cache

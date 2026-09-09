@@ -23,7 +23,18 @@ Nên tiêu chí nghiệm thu quan trọng nhất sau khi deploy là: **tải m�
 
 Đã đo thực tế: `next build` đạt đỉnh **~4.9 GB RAM** trên máy dev (nhiều nhân nên chạy song song nhiều luồng). Trên VPS 2 nhân sẽ thấp hơn đáng kể, nhưng vẫn tính bằng GB — trong khi VPS chỉ còn **~840 MB RAM trống**. Build tại chỗ gần như chắc chắn bị OOM-kill hoặc quần swap đến treo máy, **kéo sập luôn cả `hathanhweb` lẫn `hathanh-postgres`**.
 
-**Cách làm đúng:** build ở máy khác (máy dev hoặc CI) → chỉ đẩy **kết quả build** lên VPS → chạy `node server.js`. Repo đã bật `output: "standalone"` để phục vụ đúng việc này.
+**Cách làm đúng:** build ở máy khác (máy dev hoặc CI) → chỉ đẩy **kết quả build** lên VPS → chạy `node server.js`. Repo hỗ trợ `output: "standalone"`, bật bằng biến `BUILD_STANDALONE=1` — xem Bước 1.
+
+Điều này đúng **kể cả với VPS mới rộng hơn**. Ngưỡng không nằm ở chỗ "máy yếu" mà ở chỗ build cần hàng GB còn chạy chỉ cần ~240 MB; không có lý do gì bắt server production gánh việc build.
+
+### Nếu dựng VPS mới thì cần cấu hình gì
+
+| Hạng mục | Mức | Vì sao |
+|---|---|---|
+| RAM | tối thiểu 1 GB, **nên 2 GB** | Web đỉnh 240 MB + OS/nginx ~300 MB. 1 GB chạy được nếu chỉ có mình nó; 2 GB thì thở được |
+| Ổ cứng | tối thiểu 20 GB | Gói ~620 MB, phần còn lại dành cho ảnh khách tải lên tăng dần |
+| CPU | 1–2 nhân | App cache dữ liệu Sheets nên gần như không tốn CPU |
+| Node | 20 trở lên | |
 
 ### Ngân sách RAM lúc chạy
 
@@ -50,10 +61,12 @@ Lưu ý: `kygui-sync` cứ 30 phút quét một lần và vọt lên ~454 MB, l�
 git clone -b claude/pha2-client-visual-v2 https://github.com/th6322750-stack/ND_ThichLand.git
 cd ND_ThichLand
 npm ci
-BUILD_STANDALONE=1 npm run build
+npm run build:vps
 ```
 
-⚠️ **Bắt buộc có `BUILD_STANDALONE=1`.** Không có biến này thì build vẫn chạy bình thường nhưng **không sinh ra `.next/standalone`**, và không có gì để đẩy lên VPS.
+`build:vps` làm hai việc: build ở chế độ standalone, rồi **tự kiểm gói** và thoát mã lỗi nếu gói bẩn. Chạy được trên cả Windows lẫn Linux.
+
+⚠️ Nếu chạy tay `next build` thì phải có `BUILD_STANDALONE=1`, không thì build vẫn xong nhưng **không sinh ra `.next/standalone`** và chẳng có gì để đẩy lên VPS.
 
 Sở dĩ phải bật bằng biến chứ không để mặc định: `output: "standalone"` luôn-bật làm **build trên Vercel hỏng hẳn** (`ENOENT .next/next-server.js.nft.json`). Trong khi web hiện vẫn đang chạy trên Vercel cho tới lúc chuyển xong, nên hai đường build phải sống song song.
 
@@ -77,14 +90,17 @@ Kết quả `.next/standalone/` là gói tự chứa, gồm cả `node_modules` 
 
 VPS còn 13 GB trống → thoải mái.
 
-**Kiểm tra nhanh trước khi đẩy lên** — gói phải sạch, không lẫn thứ không được lên server:
+**Kiểm gói bằng máy, không bằng mắt.** `npm run build:vps` đã tự chạy bước này; chạy lại bất cứ lúc nào bằng:
 
 ```bash
-du -sh .next/standalone          # kỳ vọng ~620MB (55MB nếu chưa chép public)
-ls -a .next/standalone           # KHÔNG được thấy .git, .env.local, .webby, tests
+npm run verify:bundle
 ```
 
-Nếu thấy gói phình lên hàng GB hoặc có `.env.local` trong đó thì **dừng lại, không đẩy lên** — nghĩa là cơ chế lọc file trong `next.config.mjs` (`outputFileTracingExcludes`) đã hỏng, và gói đang mang theo cả lịch sử git lẫn secret của máy build.
+Nó thoát mã lỗi (dừng cả chuỗi lệnh) nếu gói chứa `.git`, bất kỳ file `.env*` nào ở bất kỳ độ sâu nào, mã nguồn `.ts/.tsx`, vượt 150 MB, hoặc thiếu `server.js`.
+
+Vì sao phải là máy chứ không phải người: đã từng có lần gói phình từ 53 MB lên **3.1 GB**, nuốt cả `.git` (461 MB), cache test (1.5 GB) và **`.env.local`**. Phát hiện được chỉ vì tình cờ build Vercel hỏng — nếu không thì secret của máy build đã nằm trên server. Kiểm bằng mắt qua `ls` là thứ chắc chắn có ngày bị bỏ qua.
+
+**Chạy verify TRƯỚC khi chép `public/` vào gói** (chép xong ~620 MB, vượt ngưỡng).
 
 ### Bước 3 — Chạy
 
@@ -146,6 +162,70 @@ Tên file trên đĩa do code tự sinh (`uuid.ext`), không lấy từ tên fil
 
 ---
 
+## 4b. Giữ tiến trình sống (systemd)
+
+Chạy tay `node server.js` thì **đóng SSH là web chết**, reboot máy cũng chết, mà crash thì không tự dậy. Phải có systemd (hoặc Docker restart policy nếu theo nếp Docker sẵn có trên máy).
+
+`/etc/systemd/system/ndthichland.service`:
+
+```ini
+[Unit]
+Description=NDTHICH LAND
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/ndthichland/standalone
+EnvironmentFile=/opt/ndthichland/.env
+Environment=PORT=3000
+Environment=HOSTNAME=127.0.0.1
+ExecStart=/usr/bin/node server.js
+Restart=always
+RestartSec=5
+MemoryMax=400M
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+systemctl daemon-reload && systemctl enable --now ndthichland
+systemctl status ndthichland
+```
+
+Vì sao từng dòng:
+- `MemoryMax=400M` — đo thật đỉnh 240 MB, nên 400M là dư. Quan trọng hơn: nếu app rò rỉ bộ nhớ thì **chỉ mình nó bị khởi động lại**, không ăn hết RAM kéo sập máy.
+- `HOSTNAME=127.0.0.1` — Node chỉ nghe nội bộ, không phơi thẳng ra internet; mọi thứ đi qua nginx.
+- `Restart=always` — crash thì tự dậy sau 5 giây.
+
+⚠️ **Bẫy `EnvironmentFile` + `GOOGLE_PRIVATE_KEY`:** systemd **không đọc được giá trị nhiều dòng**. Khoá riêng của Google vốn dài nhiều dòng, dán nguyên vào `.env` là service không khởi động nổi. Phải viết **trên đúng một dòng**, xuống dòng thay bằng ký tự `\n`:
+
+```
+GOOGLE_PRIVATE_KEY=-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBg...\n-----END PRIVATE KEY-----\n
+```
+
+Code tự chuyển `\n` thành xuống dòng thật (`normalizePrivateKey` trong `lib/server/env.ts`), nên dạng một dòng là dạng đúng. Nhớ `chmod 600 /opt/ndthichland/.env`.
+
+---
+
+## 4c. Thư mục ảnh phải nằm NGOÀI thư mục deploy
+
+```
+/opt/ndthichland/standalone/     <- ghi đè mỗi lần deploy
+/var/lib/ndthichland/media/      <- MEDIA_STORAGE_DIR, không bao giờ bị đụng
+```
+
+Đặt `MEDIA_STORAGE_DIR` vào trong `standalone/` là **mất sạch ảnh khách ngay lần deploy tiếp theo**. Cái bẫy này còn dễ dính hơn khi chạy systemd so với Docker, vì không có volume nào nhắc mình.
+
+```bash
+mkdir -p /var/lib/ndthichland/media
+chown -R <user chạy service>:<group> /var/lib/ndthichland/media
+```
+
+Nhớ đưa thư mục này vào lịch backup — đây là dữ liệu khách, không tái tạo được từ repo.
+
+---
+
 ## 5. nginx
 
 Đề xuất cho nginx phục vụ thẳng thư mục `public` (564 MB ảnh tĩnh) thay vì để Node xử lý — nhanh hơn hẳn và giữ RAM của Node phẳng.
@@ -185,7 +265,37 @@ server {
 
 `/api/media/*` phải đi qua Node (không phải nginx) vì file nằm ngoài `public`.
 
-SSL: dùng certbot như các dự án khác trên máy.
+### SSL
+
+Trên **VPS chung** (máy đã có sẵn certbot): dùng như các dự án khác.
+
+Trên **VPS mới**: chưa có gì, phải cài:
+
+```bash
+apt install certbot python3-certbot-nginx
+certbot --nginx -d ndthichland.com.vn -d www.ndthichland.com.vn
+```
+
+Chỉ chạy được **sau khi DNS đã trỏ về VPS** (certbot cần xác thực qua HTTP). Xem mục 6b về thứ tự chuyển DNS.
+
+---
+
+## 5b. Khoá cửa máy mới ngay giờ đầu
+
+Áp dụng khi dựng **VPS mới**. IP công khai vừa lên là bot dò mật khẩu SSH ngay — trên máy hiện có của anh Thành đo được **7.930 lượt dò mỗi ngày**.
+
+```bash
+printf 'PasswordAuthentication no\nPermitRootLogin prohibit-password\nMaxAuthTries 3\n' \
+  > /etc/ssh/sshd_config.d/01-hardening.conf
+sshd -t && systemctl reload ssh
+ufw allow 22,80,443/tcp && ufw enable
+```
+
+Hai chỗ dễ tự bắn vào chân:
+- **Tên file phải bắt đầu bằng `01-`.** Ubuntu có sẵn `50-cloud-init.conf` ghi `PasswordAuthentication yes`, mà sshd lấy giá trị **gặp đầu tiên** — đặt tên `99-` là vô tác dụng.
+- **`sshd -t` trước khi reload**, và sau khi reload thì **mở một phiên SSH mới để thử** trước khi đóng phiên đang dùng. Sai cấu hình mà đóng mất phiên hiện tại là mất luôn đường vào máy.
+
+Đảm bảo đã cài khoá SSH công khai trước khi tắt đăng nhập bằng mật khẩu.
 
 ---
 
@@ -222,6 +332,23 @@ docker stats --no-stream
 # Kỳ vọng: ~170-190 MB lúc nghỉ, dưới 300 MB lúc tải
 ```
 
+**Ba phép thử về độ bền — đừng bỏ, đây là chỗ hay sót:**
+
+```bash
+# 1. Khởi động lại dịch vụ -> ảnh vừa tải vẫn phải mở được
+systemctl restart ndthichland
+# rồi mở lại đúng ảnh đó trong admin
+
+# 2. Reboot cả máy -> web tự lên, không cần ai SSH vào
+reboot
+
+# 3. Sau 24h -> không có khởi động lại bất thường
+systemctl status ndthichland
+journalctl -u ndthichland --since "24 hours ago" | grep -i "started\|killed\|oom"
+```
+
+Phép thử 1 bắt lỗi `MEDIA_STORAGE_DIR` đặt sai chỗ. Phép thử 2 bắt lỗi quên `systemctl enable`. Phép thử 3 bắt rò rỉ bộ nhớ chạm `MemoryMax`.
+
 **Kiểm tra thủ công (bắt buộc, không tự động được):**
 
 1. Đăng nhập `https://ndthichland.com.vn/admin` → vào được Dashboard.
@@ -241,7 +368,32 @@ Ghi ra đây để không ai tưởng đã xong:
 3. ~~Xoá dòng test trong Sheet~~ — **đã dọn**. `WEB_CONTACTS` và `WEB_MEDIA` hiện đều trống 0 dòng; `WEB_BDS_CUSTOM` 12, `WEB_PROJECTS` 6, `WEB_NEWS` 6 (dữ liệu thật, giữ nguyên).
 4. **Dữ liệu hiện tại vẫn là hàng mẫu**: 12 BĐS, 6 dự án, 6 tin tức đều là nội dung demo, chưa phải hàng thật của khách. Phải thay trước khi chạy quảng cáo.
 5. **Sửa lại tài liệu hướng dẫn PDF**: trang 10 ghi "tệp tải lên lưu trong Google Drive" — sau khi lên VPS thì ảnh nằm trên đĩa VPS, không phải Drive nữa.
-6. **Sau khi VPS chạy ổn**: trỏ DNS về VPS và tắt/ngưng dự án trên Vercel để tránh chạy song song hai bản.
+6. **Chuyển DNS**: xem mục 6b — có thứ tự và đường lùi, đừng đổi thẳng.
+
+---
+
+## 8b. Chuyển DNS — có đường lùi, không cắt đứt
+
+Web đang phục vụ khách thật trên Vercel. Không đổi DNS thẳng rồi hy vọng mọi thứ ổn.
+
+| # | Việc | Vì sao |
+|---|---|---|
+| 1 | Hạ TTL bản ghi DNS xuống 300s, **đợi đủ 24h** | TTL cũ (thường 1-24h) là thời gian phải chịu nếu cần lùi. Hạ trước thì lùi lại chỉ mất 5 phút |
+| 2 | Dựng VPS chạy song song, test bằng file `hosts` trên máy mình | Kiểm tra được bản VPS thật mà chưa ai bị ảnh hưởng |
+| 3 | Chạy **hết** mục 7 trên bản VPS — phải đạt sạch | Đây là cổng chặn cuối. Chưa đạt thì chưa đổi DNS |
+| 4 | Đổi DNS về IP VPS | |
+| 5 | **Giữ nguyên Vercel 48h** | Có sự cố thì trỏ DNS ngược lại là xong, không phải sửa gấp lúc nửa đêm |
+| 6 | Ổn định 48h mới tắt Vercel | |
+
+Test bằng `hosts` ở bước 2 (thay `<IP-VPS>`):
+
+```
+# Windows: C:\Windows\System32\drivers\etc\hosts
+# Linux/macOS: /etc/hosts
+<IP-VPS>  ndthichland.com.vn
+```
+
+Lưu ý: lúc này chưa có SSL hợp lệ (certbot cần DNS thật), nên trình duyệt sẽ cảnh báo chứng chỉ — bình thường ở bước này. Kiểm nội dung và chức năng trước, SSL cấp sau khi DNS đã trỏ (mục 5).
 
 ---
 
@@ -257,12 +409,17 @@ Ghi ra đây để không ai tưởng đã xong:
 | Ảnh >1MB tải lên bị chặn | `client_max_body_size` của nginx còn mặc định 1MB |
 | Sửa admin xong web không đổi | Bình thường, đợi tối đa 30 giây (cache) |
 | Build trên VPS bị treo/kill | Đúng như dự đoán — không build trên VPS, xem mục 1 |
+| Service không khởi động, log báo lỗi env | `GOOGLE_PRIVATE_KEY` đang là nhiều dòng trong `.env` — systemd không đọc được, phải gộp thành một dòng với `\n` (mục 4b) |
+| Đóng SSH là web chết | Đang chạy tay `node server.js`, chưa có systemd (mục 4b) |
+| Reboot xong web không lên | Quên `systemctl enable` |
+| Service bị khởi động lại liên tục | Chạm `MemoryMax` — xem `journalctl -u ndthichland \| grep -i oom` |
+| Ảnh mất sau mỗi lần deploy | `MEDIA_STORAGE_DIR` nằm trong thư mục deploy (mục 4c) |
+| certbot báo lỗi xác thực | DNS chưa trỏ về VPS — phải đổi DNS trước rồi mới cấp SSL |
+| Vẫn đăng nhập SSH được bằng mật khẩu | File hardening đặt tên `99-`, bị `50-cloud-init.conf` chặn trước (mục 5b) |
 
 ---
 
 ## 10. Trạng thái kiểm thử tại thời điểm bàn giao
-
-Chạy trên commit `4bd2b69`:
 
 | Hạng mục | Kết quả |
 |---|---|
@@ -271,6 +428,12 @@ Chạy trên commit `4bd2b69`:
 | Unit test | 353/353 |
 | E2E (mock) | 36/36 |
 | E2E (fail-closed) | 5/5 |
-| Production build | thành công |
+| Production build (đường Vercel) | thành công |
+| Build standalone + gác cổng gói | đạt — 48 MB, không secret, không mã nguồn |
+| Gác cổng có thật sự biết chặn | đạt — thử nhét `.env.local`, `.git`, file `.ts`, `.env` ở sâu, xoá `server.js`: chặn cả 5 |
+| Chạy gói standalone: 7 trang công khai + 8 màn admin | tất cả 200, hiện đủ 12 BĐS |
 | Tải ảnh lên đĩa (đầu-cuối, Sheet thật) | đạt — ảnh hiện đúng, `/api/media/[id]` trả 200 `image/png`, file có trên đĩa |
 | Chịu tải 100 request đồng thời (trên Vercel) | 100/100 trả 200 |
+| RAM khi chạy (1 tiến trình standalone) | nghỉ 174 MB, đỉnh 240 MB khi 200 request đồng thời |
+
+**Chưa kiểm được, phía VPS phải tự làm:** khởi động lại dịch vụ, reboot máy, và theo dõi 24h (mục 7). Ba thứ này chỉ kiểm được trên máy thật.
