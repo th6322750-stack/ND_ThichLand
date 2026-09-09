@@ -53,32 +53,28 @@ const nextConfig = {
   // cache (1.5GB), .webby (524MB) and, worst of all, .env.local into the
   // standalone bundle, taking it from 53MB to 3.1GB. Nothing here is ever
   // imported by server code; public/ ships separately (see DEPLOY_VPS.md).
+  // These patterns are NOT anchored to the project root — they match at any
+  // depth, node_modules included. An earlier attempt to also exclude the
+  // source trees ("app/**", "lib/**", "components/**") looked harmless and
+  // built fine, but "lib/**" also matched node_modules/next/dist/server/lib
+  // and stripped Next's own internals out of the serverless function: every
+  // page 500'd with `Cannot find module './lib/source-maps'`. Only ban names
+  // that cannot plausibly exist inside a dependency.
   outputFileTracingExcludes: {
     "*": [
-      // Never on a server: history, caches, tooling, secrets.
       ".git/**",
       ".next-*/**",
       ".webby/**",
       ".vercel/**",
-      ".github/**",
       "docs/**",
       "tests/**",
       "scripts/**",
       "qa-handover-output/**",
       "public/**",
       ".env*",
+      "**/*.test.*",
+      "**/*.spec.*",
       "**/*.tsbuildinfo",
-      // TypeScript sources. Node runs the compiled output in .next/server —
-      // these are dead weight, and their presence is the tell-tale that the
-      // tracer is still walking the whole tree. Excluding the source dirs
-      // outright means a directory added later (coverage/, dist/, backups/)
-      // has far less room to slip in behind a name nobody thought to ban.
-      "app/**",
-      "components/**",
-      "lib/**",
-      "*.ts",
-      "*.tsx",
-      "*.md",
     ],
   },
   // Let isolated tooling (for example Playwright) use its own build cache
