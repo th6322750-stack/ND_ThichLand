@@ -136,11 +136,19 @@ export function isAdminAuthConfigured(): boolean {
   return getAdminAuthEnv() !== null;
 }
 
-/** Metadata always lives in the CMS sheet, so Google is required either way;
- * the bytes go to local disk when MEDIA_STORAGE_DIR is set, otherwise Drive. */
+/** Vercel Blob is configured by the store's own token, which Vercel injects
+ * into the project once a Blob store is attached. */
+export function isVercelBlobConfigured(): boolean {
+  return Boolean(process.env.BLOB_READ_WRITE_TOKEN?.trim());
+}
+
+/** Metadata always lives in the CMS sheet, so Google is required either way.
+ * The bytes go wherever this deployment actually has room: local disk on the
+ * VPS, Vercel Blob on Vercel, Drive only where a folder is configured (which
+ * needs a Shared Drive — a service account has no storage quota of its own). */
 export function isMediaConfigured(): boolean {
   if (!isGoogleRuntimeConfigured()) return false;
-  return getMediaStorageDir() !== null || getGoogleMediaFolderId() !== null;
+  return getMediaStorageDir() !== null || isVercelBlobConfigured() || getGoogleMediaFolderId() !== null;
 }
 
 export function isTestEnv(): boolean {

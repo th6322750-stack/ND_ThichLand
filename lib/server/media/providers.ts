@@ -1,6 +1,12 @@
 import { GoogleMediaRepository, InMemoryMediaRepository, type MediaRepository, type MediaRecord } from "./repository";
-import { GoogleDriveBlobStore, InMemoryBlobStore, LocalDiskBlobStore, type MediaBlobStore } from "./blobStore";
-import { getMediaStorageDir, isMediaConfigured } from "@/lib/server/env";
+import {
+  GoogleDriveBlobStore,
+  InMemoryBlobStore,
+  LocalDiskBlobStore,
+  VercelBlobStore,
+  type MediaBlobStore,
+} from "./blobStore";
+import { getMediaStorageDir, isMediaConfigured, isVercelBlobConfigured } from "@/lib/server/env";
 import { resolveProviderMode } from "@/lib/server/providerMode";
 import { mediaFixtures } from "@/lib/data/media";
 
@@ -55,10 +61,16 @@ async function getSeededProviders(mode: "mock" | "unavailable"): Promise<MediaPr
 export async function getMediaProviders(): Promise<MediaProviders> {
   const mode = resolveProviderMode(isMediaConfigured());
   if (mode === "live") {
-    // Bytes on the server's own disk when it has one (VPS), else Drive.
-    // Metadata stays in the CMS sheet in both cases.
+    // Bytes go wherever this deployment has room; metadata always to Sheets.
+    // Disk first so the VPS never depends on a third party, then Vercel Blob,
+    // and Drive last — it only works against a Shared Drive, since a service
+    // account has no storage quota of its own.
     const storageDir = getMediaStorageDir();
-    const blobStore = storageDir ? new LocalDiskBlobStore(storageDir) : new GoogleDriveBlobStore();
+    const blobStore = storageDir
+      ? new LocalDiskBlobStore(storageDir)
+      : isVercelBlobConfigured()
+        ? new VercelBlobStore()
+        : new GoogleDriveBlobStore();
     return { repo: new GoogleMediaRepository(), blobStore };
   }
   return getSeededProviders(mode);
