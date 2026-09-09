@@ -7,6 +7,41 @@ Tài liệu này dành cho người/AI phụ trách hạ tầng VPS. Phần code
 - **Commit tại thời điểm bàn giao:** `0ba879a`
 - **Stack:** Next.js 16.3 (App Router) + Node 20+, dữ liệu đọc/ghi qua Google Sheets API, ảnh lưu trên đĩa VPS
 
+### Bàn giao gồm những gì
+
+| # | Thứ cần có | Lấy ở đâu |
+|---|---|---|
+| 1 | **Mã nguồn** | Repo ở trên, nhánh `claude/pha2-client-visual-v2`, commit `653b0cf`. Repo **public** — clone được ngay, không cần tài khoản hay token |
+| 2 | **File biến môi trường** (`.env`) | **Không nằm trong repo.** Người bàn giao sinh riêng — xem ngay dưới |
+| 3 | **Mật khẩu admin mới** | In ra một lần khi sinh file ở mục 2. Lưu vào trình quản lý mật khẩu |
+| 4 | **Quyền truy cập VPS** | SSH của phía nhận |
+
+Chỉ có mục 2 và 3 là bí mật. **Gửi riêng qua kênh bảo mật, đừng dán vào chat nhóm hay đính kèm cùng tài liệu này** — đây chính là lỗi đang có ở bộ PDF hướng dẫn cũ.
+
+#### Sinh file `.env` (người bàn giao làm, một lần)
+
+Cần file JSON khoá service account mà Google Cloud tải về:
+
+```bash
+node scripts/make-vps-env.mjs \
+  --key "<đường/dẫn/service-account.json>" \
+  --sheet "<id-google-sheet>" \
+  --admin-email "admin@ndthichland.com.vn" \
+  --out "<đường/dẫn/ndthichland-vps.env>"
+```
+
+Script tự làm ba việc, để không ai phải chép tay khoá riêng (chép tay sai một ký tự là hỏng — đã xảy ra thật):
+
+1. Đọc khoá riêng từ file JSON và **gộp về một dòng** — dạng duy nhất `systemd` đọc được (xem mục 4b).
+2. Sinh `AUTH_SECRET` mới 64 ký tự.
+3. **Sinh mật khẩu admin mới** và in ra đúng một lần. Mật khẩu đang dùng đã nằm dạng chữ trong bộ PDF cũ nên không mang sang máy mới.
+
+Mẫu không chứa bí mật để đối chiếu: [`deploy/env.vps.example`](deploy/env.vps.example).
+
+Đã kiểm chứng đầu-cuối: file sinh ra đọc được Google Sheet (12 BĐS) và đăng nhập admin bằng mật khẩu vừa sinh thành công.
+
+---
+
 ### Hiện trạng — vì sao phải chuyển sang VPS
 
 Web đang chạy trên Vercel tại `ndthichland.com.vn` và **hoạt động bình thường**: trang công khai, dữ liệu thật từ Google Sheets, đăng nhập admin, sửa nội dung, form liên hệ ghi được lead.
@@ -120,20 +155,20 @@ Tất cả đều bắt buộc trừ khi ghi rõ khác. **Không commit các gi�
 |---|---|---|
 | `NODE_ENV` | Bắt buộc `production` | — |
 | `PORT` | Cổng Node lắng nghe | tự chọn, ví dụ `3000` |
-| `HOSTNAME` | `0.0.0.0` để nginx nối vào được | — |
+| `HOSTNAME` | `127.0.0.1` — Node chỉ nghe nội bộ, ra ngoài qua nginx | — |
 | `NEXT_PUBLIC_SITE_URL` | `https://ndthichland.com.vn` | — |
-| `MEDIA_STORAGE_DIR` | **Thư mục lưu ảnh tải lên.** Phải nằm trên volume bền vững, không mất khi restart container | ví dụ `/data/media` |
-| `GOOGLE_SERVICE_ACCOUNT_EMAIL` | Tài khoản dịch vụ đọc/ghi Sheets | đang có trên Vercel |
-| `GOOGLE_PRIVATE_KEY` | Khoá riêng của tài khoản trên | đang có trên Vercel |
-| `GOOGLE_CMS_SPREADSHEET_ID` | Sheet chứa toàn bộ dữ liệu CMS | đang có trên Vercel |
-| `GOOGLE_RENTAL_SPREADSHEET_ID` | Đặt **cùng giá trị** với biến trên | đang có trên Vercel |
-| `ADMIN_EMAIL` | Email đăng nhập trang quản trị | đang có trên Vercel |
-| `ADMIN_PASSWORD_HASH` | Hash scrypt của mật khẩu admin | đang có trên Vercel |
-| `AUTH_SECRET` | Khoá ký session, **tối thiểu 32 ký tự** ở production | đang có trên Vercel |
+| `MEDIA_STORAGE_DIR` | **Thư mục lưu ảnh tải lên.** Phải nằm ngoài thư mục deploy (mục 4c) | `/var/lib/ndthichland/media` |
+| `GOOGLE_SERVICE_ACCOUNT_EMAIL` | Tài khoản dịch vụ đọc/ghi Sheets | file `.env` bàn giao |
+| `GOOGLE_PRIVATE_KEY` | Khoá riêng của tài khoản trên, **một dòng** | file `.env` bàn giao |
+| `GOOGLE_CMS_SPREADSHEET_ID` | Sheet chứa toàn bộ dữ liệu CMS | file `.env` bàn giao |
+| `GOOGLE_RENTAL_SPREADSHEET_ID` | Đặt **cùng giá trị** với biến trên | file `.env` bàn giao |
+| `ADMIN_EMAIL` | Email đăng nhập trang quản trị | file `.env` bàn giao |
+| `ADMIN_PASSWORD_HASH` | Hash scrypt của mật khẩu admin | file `.env` bàn giao |
+| `AUTH_SECRET` | Khoá ký session, **tối thiểu 32 ký tự** | file `.env` bàn giao |
 | `GOOGLE_MEDIA_FOLDER_ID` | **Bỏ hẳn, không set** | xem mục 4 |
 | `DEMO_MODE` | **Bỏ hẳn, không set** | không còn tác dụng khi đã có Google |
 
-**Lấy giá trị hiện tại:** người bàn giao chạy `vercel env pull` hoặc lấy từ file JSON khoá dịch vụ gốc. `GOOGLE_PRIVATE_KEY` là chuỗi nhiều dòng — khi đưa vào Docker/systemd nhớ giữ nguyên xuống dòng, hoặc thay xuống dòng bằng `\n` (code tự chuyển lại được, xem `normalizePrivateKey` trong `lib/server/env.ts`).
+Toàn bộ giá trị bí mật nằm trong **file `.env` bàn giao riêng** — cách sinh xem mục "Bàn giao gồm những gì" ở đầu tài liệu. Không phải đi lấy thủ công từng cái.
 
 ⚠️ `AUTH_SECRET` ngắn hơn 32 ký tự sẽ khiến **toàn bộ chức năng đăng nhập bị vô hiệu ở production** — code cố tình fail-closed chứ không chạy với khoá yếu.
 

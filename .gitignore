@@ -27,6 +27,10 @@ yarn-error.log*
 # local env files
 .env*.local
 .env
+# Bất kỳ file .env nào, kể cả đặt tên riêng (ndthichland-vps.env) — file bàn
+# giao cho VPS chứa khoá riêng Google và hash mật khẩu admin.
+*.env
+!deploy/env.vps.example
 
 # typescript
 *.tsbuildinfo
