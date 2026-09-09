@@ -70,7 +70,12 @@ const nextConfig = {
       "tests/**",
       "scripts/**",
       "qa-handover-output/**",
-      "public/**",
+      // public/ chỉ loại khi build cho VPS: ở đó nó được chép vào gói bằng
+      // tay (Bước 2 của DEPLOY_VPS.md) nên vẫn có mặt lúc chạy. Trên Vercel
+      // thì KHÔNG được loại — lib/brandLogoDataUrl.ts đọc file logo bằng
+      // readFileSync ngay lúc khởi động module, loại đi là mọi trang dùng
+      // logo hỏng với ENOENT (đã xảy ra trên production).
+      ...(process.env.BUILD_STANDALONE === "1" ? ["public/**"] : []),
       ".env*",
       "**/*.test.*",
       "**/*.spec.*",
