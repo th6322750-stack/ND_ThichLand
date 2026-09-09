@@ -43,8 +43,12 @@ Lưu ý: `kygui-sync` cứ 30 phút quét một lần và vọt lên ~454 MB, l�
 git clone -b claude/pha2-client-visual-v2 https://github.com/th6322750-stack/ND_ThichLand.git
 cd ND_ThichLand
 npm ci
-npm run build
+BUILD_STANDALONE=1 npm run build
 ```
+
+⚠️ **Bắt buộc có `BUILD_STANDALONE=1`.** Không có biến này thì build vẫn chạy bình thường nhưng **không sinh ra `.next/standalone`**, và không có gì để đẩy lên VPS.
+
+Sở dĩ phải bật bằng biến chứ không để mặc định: `output: "standalone"` luôn-bật làm **build trên Vercel hỏng hẳn** (`ENOENT .next/next-server.js.nft.json`). Trong khi web hiện vẫn đang chạy trên Vercel cho tới lúc chuyển xong, nên hai đường build phải sống song song.
 
 ### Bước 2 — Gom gói triển khai
 
@@ -59,12 +63,21 @@ Kết quả `.next/standalone/` là gói tự chứa, gồm cả `node_modules` 
 
 | Thành phần | Dung lượng |
 |---|---|
-| Server + node_modules rút gọn | 53 MB |
+| Server + node_modules rút gọn | 55 MB |
 | `.next/static` | 3.5 MB |
 | `public` (ảnh, hero 4K, assets) | 564 MB |
 | **Tổng** | **~620 MB** |
 
 VPS còn 13 GB trống → thoải mái.
+
+**Kiểm tra nhanh trước khi đẩy lên** — gói phải sạch, không lẫn thứ không được lên server:
+
+```bash
+du -sh .next/standalone          # kỳ vọng ~620MB (55MB nếu chưa chép public)
+ls -a .next/standalone           # KHÔNG được thấy .git, .env.local, .webby, tests
+```
+
+Nếu thấy gói phình lên hàng GB hoặc có `.env.local` trong đó thì **dừng lại, không đẩy lên** — nghĩa là cơ chế lọc file trong `next.config.mjs` (`outputFileTracingExcludes`) đã hỏng, và gói đang mang theo cả lịch sử git lẫn secret của máy build.
 
 ### Bước 3 — Chạy
 

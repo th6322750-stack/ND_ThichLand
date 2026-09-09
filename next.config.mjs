@@ -36,11 +36,40 @@ const securityHeaders = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Emits .next/standalone — a self-contained server.js plus only the
-  // node_modules it actually imports (~53MB instead of a full install), which
-  // is what gets shipped to the VPS. The box has 1.9GB RAM and cannot build
-  // there (a build peaks in the GBs), so it only ever receives build output.
-  output: "standalone",
+  // Opt-in, not always-on: `output: "standalone"` makes the Vercel build fail
+  // outright with `ENOENT .next/next-server.js.nft.json`, because the
+  // standalone assembler reads Node file-tracing output that the build there
+  // doesn't produce. So the VPS build asks for it explicitly
+  // (`BUILD_STANDALONE=1 npm run build`) and every other build is unaffected.
+  //
+  // What it buys the VPS: a self-contained server.js plus only the
+  // node_modules actually imported (~53MB instead of a full install). That
+  // box has 1.9GB RAM and cannot build there at all — a build peaks in the
+  // GBs — so it only ever receives finished build output. See DEPLOY_VPS.md.
+  ...(process.env.BUILD_STANDALONE === "1" ? { output: "standalone" } : {}),
+  // LocalDiskBlobStore reads an uploaded file by a name only known at runtime.
+  // Next's tracer can't follow a dynamic fs path, gives up, and falls back to
+  // "trace the whole project" — which swept .git (461MB), the Playwright build
+  // cache (1.5GB), .webby (524MB) and, worst of all, .env.local into the
+  // standalone bundle, taking it from 53MB to 3.1GB. Nothing here is ever
+  // imported by server code; public/ ships separately (see DEPLOY_VPS.md).
+  outputFileTracingExcludes: {
+    "*": [
+      ".git/**",
+      ".next-*/**",
+      ".webby/**",
+      ".vercel/**",
+      "docs/**",
+      "tests/**",
+      "scripts/**",
+      "qa-handover-output/**",
+      "public/**",
+      ".env*",
+      "**/*.test.*",
+      "**/*.spec.*",
+      "**/*.tsbuildinfo",
+    ],
+  },
   // Let isolated tooling (for example Playwright) use its own build cache
   // without stopping a developer's already-running `next dev` process.
   distDir: process.env.NEXT_DIST_DIR ?? ".next",
