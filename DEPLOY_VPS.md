@@ -4,9 +4,16 @@ Tài liệu này dành cho người/AI phụ trách hạ tầng VPS. Phần code
 
 - **Repo:** https://github.com/th6322750-stack/ND_ThichLand
 - **Nhánh:** `claude/pha2-client-visual-v2`
-- **Commit tại thời điểm bàn giao:** `4bd2b69`
+- **Commit tại thời điểm bàn giao:** `0ba879a`
 - **Stack:** Next.js 16.3 (App Router) + Node 20+, dữ liệu đọc/ghi qua Google Sheets API, ảnh lưu trên đĩa VPS
-- **Hiện đang chạy ở đâu:** Vercel (`ndthichland.com.vn`). Mục tiêu là chuyển hẳn về VPS.
+
+### Hiện trạng — vì sao phải chuyển sang VPS
+
+Web đang chạy trên Vercel tại `ndthichland.com.vn` và **hoạt động bình thường**: trang công khai, dữ liệu thật từ Google Sheets, đăng nhập admin, sửa nội dung, form liên hệ ghi được lead.
+
+**Đúng một thứ hỏng: tải ảnh lên.** Trên Vercel nó báo "Tải lên thất bại" và không có cách nào sửa bằng cấu hình — tài khoản dịch vụ Google không có dung lượng lưu trữ riêng (chi tiết ở mục 4). Đó là lý do duy nhất phải chuyển sang VPS: **VPS có ổ đĩa thật để chứa ảnh.**
+
+Nên tiêu chí nghiệm thu quan trọng nhất sau khi deploy là: **tải một ảnh lên trong admin và thấy nó hiện ra**. Mọi thứ khác vốn đã chạy sẵn, chỉ cần đảm bảo không làm hỏng đi.
 
 ---
 
@@ -231,7 +238,7 @@ Ghi ra đây để không ai tưởng đã xong:
 
 1. **Đổi mật khẩu admin.** Mật khẩu hiện tại do AI sinh ra và đang nằm dạng chữ trong file PDF hướng dẫn + trong lịch sử chat. Phải đổi trong *Cài đặt chung → Bảo mật tài khoản admin*.
 2. **Khoá 2FA của tài khoản Google đang nằm dạng chữ trong PDF bàn giao** (`WAGH CIOF 7TE3 ...`). Ai cầm file PDF đó đều tự sinh được mã 2FA hợp lệ vĩnh viễn. **Phải huỷ và tạo lại khoá 2FA mới**, không phải chỉ đổi mật khẩu.
-3. **Xoá dòng test trong Sheet:** tab `WEB_CONTACTS` có dòng `QA TEST 1788908171934`; tab `WEB_MEDIA` có dòng ảnh test từ lần kiểm thử tải lên.
+3. ~~Xoá dòng test trong Sheet~~ — **đã dọn**. `WEB_CONTACTS` và `WEB_MEDIA` hiện đều trống 0 dòng; `WEB_BDS_CUSTOM` 12, `WEB_PROJECTS` 6, `WEB_NEWS` 6 (dữ liệu thật, giữ nguyên).
 4. **Dữ liệu hiện tại vẫn là hàng mẫu**: 12 BĐS, 6 dự án, 6 tin tức đều là nội dung demo, chưa phải hàng thật của khách. Phải thay trước khi chạy quảng cáo.
 5. **Sửa lại tài liệu hướng dẫn PDF**: trang 10 ghi "tệp tải lên lưu trong Google Drive" — sau khi lên VPS thì ảnh nằm trên đĩa VPS, không phải Drive nữa.
 6. **Sau khi VPS chạy ổn**: trỏ DNS về VPS và tắt/ngưng dự án trên Vercel để tránh chạy song song hai bản.
