@@ -95,13 +95,14 @@ describe("public DTOs never leak internal-only fields", () => {
       id: "custom-1", slug: "test-slug", roomNo: "P.1", location: "Hà Nội", address: "A",
       price: 1_000_000, serviceFee: "", area: 20, verticalAccess: "", propertyType: "Nhà",
       description: "", highlights: [], availability: "Còn trống", bedroomCount: null,
-      furnishingStatus: null, media: [], commission: "SECRET-COMMISSION",
+      furnishingStatus: null, bathroomCount: null, amenities: [], locationNote: null, videoUrl: null,
+      media: [], commission: "SECRET-COMMISSION",
       guidePerson: "SECRET-GUIDE", internalNotes: "SECRET-NOTES",
       published: true, createdAt: "2026-08-14T00:00:00.000Z", updatedAt: "2026-08-14T00:00:00.000Z",
     };
     await overlay.upsertCustomRecord(custom);
     const merged = await buildMergedRentalData(source, overlay);
-    const dto = toPublicPropertyListing(merged.admin[0]);
+    const dto = toPublicPropertyListing(merged.admin[0]!);
     const serialized = JSON.stringify(dto);
     expect(serialized).not.toContain("SECRET-COMMISSION");
     expect(serialized).not.toContain("SECRET-GUIDE");
@@ -116,8 +117,12 @@ describe("public DTOs never leak internal-only fields", () => {
   it("projects: toPublicProjectListing strips id/published/createdAt/updatedAt", () => {
     const record: ProjectRecord = {
       id: "custom:secret-id", slug: "du-an-test", name: "Dự án", location: "Hà Nội",
+      mapQuery: "",
+      masterplanImage: "",
+      showMasterplan: false,
       investor: "Chủ đầu tư", status: "Đang triển khai", media: [], summary: "", amenities: [],
-      progressText: "", progressPercent: 0, published: true,
+      progressText: "", progressPercent: 0, progressPhotos: [], unitTypes: [],
+      propertyType: "", scale: "", unitCount: "", highlights: [], published: true,
       createdAt: "2026-08-14T00:00:00.000Z", updatedAt: "2026-08-14T00:00:00.000Z",
     };
     const dto = toPublicProjectListing(record);
@@ -152,8 +157,12 @@ describe("guessing an unpublished/hidden slug cannot retrieve it through the pub
   it("an unpublished project is absent from toPublicProjectListings regardless of slug", () => {
     const hidden: ProjectRecord = {
       id: "custom:hidden-project", slug: "hidden-project", name: "Nội bộ", location: "Hà Nội",
+      mapQuery: "",
+      masterplanImage: "",
+      showMasterplan: false,
       investor: "N/A", status: "Đang triển khai", media: [], summary: "SECRET-SUMMARY", amenities: [],
-      progressText: "", progressPercent: 0, published: false,
+      progressText: "", progressPercent: 0, progressPhotos: [], unitTypes: [],
+      propertyType: "", scale: "", unitCount: "", highlights: [], published: false,
       createdAt: "2026-08-14T00:00:00.000Z", updatedAt: "2026-08-14T00:00:00.000Z",
     };
     const publicList = toPublicProjectListings([hidden]);

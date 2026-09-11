@@ -24,13 +24,39 @@ test.describe("real admin authentication", () => {
     await expect(page).toHaveURL(/\/admin\/login$/);
   });
 
+  test("unauthenticated callers cannot spend the private Claude API key", async ({ page }) => {
+    const getResponse = await page.request.get("/api/claude");
+    expect(getResponse.status()).toBe(405);
+    expect(getResponse.headers().allow).toBe("POST");
+
+    const postResponse = await page.request.post("/api/claude", {
+      data: { messages: [{ role: "user", content: "Hello" }] },
+    });
+    expect(postResponse.status()).toBe(401);
+  });
+
   test("wrong password shows a generic error and does not redirect", async ({ page }) => {
     await page.goto("/admin/login");
+    await expect(page.getByText("Quên mật khẩu?", { exact: true })).toHaveCount(0);
     await page.getByLabel(/email/i).fill(TEST_EMAIL);
     await page.getByLabel(/mật khẩu/i).fill("totally-wrong-password");
     await page.getByRole("button", { name: /đăng nhập/i }).click();
     await expect(page.getByText("Email hoặc mật khẩu không đúng.")).toBeVisible();
     await expect(page).toHaveURL(/\/admin\/login$/);
+  });
+
+  test("authenticated admin can reach password and Authenticator controls", async ({ page }) => {
+    await page.goto("/admin/login");
+    await page.getByLabel(/email/i).fill(TEST_EMAIL);
+    await page.getByLabel(/mật khẩu/i).fill(TEST_PASSWORD);
+    await page.getByRole("button", { name: /đăng nhập/i }).click();
+    await page.waitForURL("**/admin");
+
+    await page.goto("/admin/cai-dat");
+    await expect(page.getByRole("heading", { name: "Bảo mật tài khoản admin" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Đổi mật khẩu" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Thiết lập 2FA" })).toBeVisible();
+    await expect(page.getByText(/Google Authenticator/)).toBeVisible();
   });
 
   test("correct credentials log in, reach /admin, and survive a hard reload", async ({ page }) => {

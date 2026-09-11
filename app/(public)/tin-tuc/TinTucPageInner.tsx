@@ -9,12 +9,19 @@ import { useNewsFilters } from "@/lib/useNewsFilters";
 import { filterNews } from "@/lib/newsFilters";
 import type { NewsArticle } from "@/lib/types";
 
-const CATEGORIES = ["Cho thuê", "Dự án", "Kinh nghiệm"];
 const PAGE_SIZE = 6;
 
 export function TinTucPageInner({ articles }: { articles: NewsArticle[] }) {
   const { filters, page, setFilters, setPage, reset } = useNewsFilters();
 
+  // Derived from the articles that actually exist. The chips used to be a
+  // hardcoded ["Cho thuê", "Dự án", "Kinh nghiệm"] list that did not match
+  // the real categories, so two of the three always produced zero results
+  // and the categories that DID exist had no chip at all.
+  const categories = useMemo(
+    () => Array.from(new Set(articles.map((a) => a.category).filter(Boolean))).sort(),
+    [articles],
+  );
   const filtered = useMemo(() => filterNews(articles, filters), [articles, filters]);
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages);
@@ -43,14 +50,14 @@ export function TinTucPageInner({ articles }: { articles: NewsArticle[] }) {
           />
         </div>
         <div className="flex flex-wrap gap-2">
-          {CATEGORIES.map((c) => (
+          {categories.map((c) => (
             <button
               key={c}
               type="button"
               onClick={() => setFilters({ category: filters.category === c ? "" : c })}
               aria-pressed={filters.category === c}
-              className={`rounded-full px-4 py-2 text-label ${
-                filters.category === c ? "bg-primary text-surface" : "bg-surface text-ink"
+              className={`rounded-full px-4 py-2 text-label transition-colors duration-fast ease-base ${
+                filters.category === c ? "bg-primary text-surface" : "bg-surface text-ink hover:text-primary"
               }`}
             >
               {c}
@@ -70,8 +77,8 @@ export function TinTucPageInner({ articles }: { articles: NewsArticle[] }) {
         </div>
       ) : (
         <div className="mt-8 grid grid-cols-1 gap-6 tablet:grid-cols-2 desktop:grid-cols-3">
-          {visible.map((article) => (
-            <NewsCard key={article.slug} article={article} />
+          {visible.map((article, i) => (
+            <NewsCard key={article.slug} article={article} priority={i === 0} />
           ))}
         </div>
       )}
@@ -80,11 +87,11 @@ export function TinTucPageInner({ articles }: { articles: NewsArticle[] }) {
         <Pagination page={safePage} total={totalPages} onChange={setPage} />
       </div>
 
-      <div className="mt-14 flex flex-col items-start justify-between gap-6 rounded-md bg-soft p-8 desktop:flex-row desktop:items-center">
+      <div className="mt-[56px] flex flex-col items-start justify-between gap-6 rounded-md bg-soft p-8 desktop:flex-row desktop:items-center">
         <div>
           <h2 className="text-h2-mobile text-ink desktop:text-h2">Theo dõi nội dung mới</h2>
           <p className="mt-2 text-body text-body">
-            Tin tức là module CMS riêng; card, ảnh và typography đã khóa.
+            Gọi ngay để được tư vấn nhanh về nhà, căn hộ và mặt bằng đang cho thuê.
           </p>
         </div>
         <a

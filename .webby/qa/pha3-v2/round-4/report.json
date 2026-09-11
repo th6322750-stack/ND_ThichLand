@@ -1,0 +1,1146 @@
+[
+  {
+    "route": "/",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 449004,
+    "diffPixelRatio": 0.28533462971965645,
+    "round3TrueDiffPixelRatio": 0.49554,
+    "absoluteImprovement": 0.21020537028034353,
+    "percentageImprovement": 0.42419455600020894,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound3": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-4\\master\\web-01-trangchu.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-4\\actual\\web-01-trangchu.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-4\\diff\\web-01-trangchu.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-4\\overlay\\web-01-trangchu.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 65.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "hero",
+        "masterBox": {
+          "x": 0,
+          "y": 64,
+          "width": 935,
+          "height": 281
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 65.5,
+          "width": 935,
+          "height": 280.875
+        },
+        "deltaX": 0,
+        "deltaY": 2,
+        "deltaWidth": 0,
+        "deltaHeight": 0
+      },
+      {
+        "name": "trustmetrics",
+        "masterBox": {
+          "x": 0,
+          "y": 345,
+          "width": 935,
+          "height": 95
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 346.375,
+          "width": 935,
+          "height": 97.25
+        },
+        "deltaX": 0,
+        "deltaY": 1,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "search",
+        "masterBox": {
+          "x": 0,
+          "y": 440,
+          "width": 935,
+          "height": 65
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 443.625,
+          "width": 935,
+          "height": 57
+        },
+        "deltaX": 0,
+        "deltaY": 4,
+        "deltaWidth": 0,
+        "deltaHeight": -8
+      },
+      {
+        "name": "featured-rentals",
+        "masterBox": {
+          "x": 0,
+          "y": 505,
+          "width": 935,
+          "height": 290
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 500.625,
+          "width": 935,
+          "height": 276.171875
+        },
+        "deltaX": 0,
+        "deltaY": -4,
+        "deltaWidth": 0,
+        "deltaHeight": -14
+      },
+      {
+        "name": "featured-projects",
+        "masterBox": {
+          "x": 0,
+          "y": 795,
+          "width": 935,
+          "height": 165
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 776.796875,
+          "width": 935,
+          "height": 166.359375
+        },
+        "deltaX": 0,
+        "deltaY": -18,
+        "deltaWidth": 0,
+        "deltaHeight": 1
+      },
+      {
+        "name": "about",
+        "masterBox": {
+          "x": 0,
+          "y": 960,
+          "width": 935,
+          "height": 205
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 943.15625,
+          "width": 935,
+          "height": 205
+        },
+        "deltaX": 0,
+        "deltaY": -17,
+        "deltaWidth": 0,
+        "deltaHeight": 0
+      },
+      {
+        "name": "testimonials",
+        "masterBox": {
+          "x": 0,
+          "y": 1165,
+          "width": 935,
+          "height": 135
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1148.15625,
+          "width": 935,
+          "height": 134
+        },
+        "deltaX": 0,
+        "deltaY": -17,
+        "deltaWidth": 0,
+        "deltaHeight": -1
+      },
+      {
+        "name": "contact-map",
+        "masterBox": {
+          "x": 0,
+          "y": 1300,
+          "width": 935,
+          "height": 200
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1282.15625,
+          "width": 935,
+          "height": 198.25
+        },
+        "deltaX": 0,
+        "deltaY": -18,
+        "deltaWidth": 0,
+        "deltaHeight": -2
+      },
+      {
+        "name": "footer",
+        "masterBox": {
+          "x": 0,
+          "y": 1500,
+          "width": 935,
+          "height": 183
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1480.40625,
+          "width": 935,
+          "height": 187
+        },
+        "deltaX": 0,
+        "deltaY": -20,
+        "deltaWidth": 0,
+        "deltaHeight": 4
+      }
+    ],
+    "implementationCommit": "2d0da904f779c127ba44c5dd38a1e6fb2e8315b2",
+    "captureSourceCommit": "2d0da904f779c127ba44c5dd38a1e6fb2e8315b2",
+    "gitStatusBeforeCapture": "?? .vercel/ (untracked, non-source, build artifact); ?? .webby/qa/pha3-v2/round-3-audit/ (evidence, staged separately); ?? .webby/qa/pha3-v2/round-4/ (evidence output target of this very capture, staged separately)",
+    "gitStatusAfterCapture": "unknown",
+    "browserVersion": "151.0.7922.34",
+    "renderMode": "next start (production build)",
+    "screenshotSha256": "86edd92ae3d40f4ac2be77d5216259be9eb504f9cd7975ede2550aedf10b01fe"
+  },
+  {
+    "route": "/",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 668460,
+    "diffPixelRatio": 0.42508623057904216,
+    "round3TrueDiffPixelRatio": 0.48895,
+    "absoluteImprovement": 0.06386376942095784,
+    "percentageImprovement": 0.1306141106881232,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound3": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-4\\master\\mobile-01-trangchu.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-4\\actual\\mobile-01-trangchu.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-4\\diff\\mobile-01-trangchu.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-4\\overlay\\mobile-01-trangchu.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 90
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 106
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 16
+      },
+      {
+        "name": "hero",
+        "masterBox": {
+          "x": 0,
+          "y": 90,
+          "width": 724,
+          "height": 282
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 106,
+          "width": 724,
+          "height": 262
+        },
+        "deltaX": 0,
+        "deltaY": 16,
+        "deltaWidth": 0,
+        "deltaHeight": -20
+      },
+      {
+        "name": "trustmetrics",
+        "masterBox": {
+          "x": 0,
+          "y": 372,
+          "width": 724,
+          "height": 100
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 368,
+          "width": 724,
+          "height": 117
+        },
+        "deltaX": 0,
+        "deltaY": -4,
+        "deltaWidth": 0,
+        "deltaHeight": 17
+      },
+      {
+        "name": "search",
+        "masterBox": {
+          "x": 0,
+          "y": 472,
+          "width": 724,
+          "height": 275
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 485,
+          "width": 724,
+          "height": 376
+        },
+        "deltaX": 0,
+        "deltaY": 13,
+        "deltaWidth": 0,
+        "deltaHeight": 101
+      },
+      {
+        "name": "featured-rentals",
+        "masterBox": {
+          "x": 0,
+          "y": 747,
+          "width": 724,
+          "height": 305
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 861,
+          "width": 724,
+          "height": 308.65625
+        },
+        "deltaX": 0,
+        "deltaY": 114,
+        "deltaWidth": 0,
+        "deltaHeight": 4
+      },
+      {
+        "name": "featured-projects",
+        "masterBox": {
+          "x": 0,
+          "y": 1052,
+          "width": 724,
+          "height": 170
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1169.65625,
+          "width": 724,
+          "height": 141.84375
+        },
+        "deltaX": 0,
+        "deltaY": 118,
+        "deltaWidth": 0,
+        "deltaHeight": -28
+      },
+      {
+        "name": "about",
+        "masterBox": {
+          "x": 0,
+          "y": 1222,
+          "width": 724,
+          "height": 290
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1311.5,
+          "width": 724,
+          "height": 263.5
+        },
+        "deltaX": 0,
+        "deltaY": 90,
+        "deltaWidth": 0,
+        "deltaHeight": -26
+      },
+      {
+        "name": "testimonials",
+        "masterBox": {
+          "x": 0,
+          "y": 1512,
+          "width": 724,
+          "height": 165
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1575,
+          "width": 724,
+          "height": 197
+        },
+        "deltaX": 0,
+        "deltaY": 63,
+        "deltaWidth": 0,
+        "deltaHeight": 32
+      },
+      {
+        "name": "contact-map",
+        "masterBox": {
+          "x": 0,
+          "y": 1677,
+          "width": 724,
+          "height": 235
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1772,
+          "width": 724,
+          "height": 211.625
+        },
+        "deltaX": 0,
+        "deltaY": 95,
+        "deltaWidth": 0,
+        "deltaHeight": -23
+      },
+      {
+        "name": "footer",
+        "masterBox": {
+          "x": 0,
+          "y": 1912,
+          "width": 724,
+          "height": 260
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1983.625,
+          "width": 724,
+          "height": 339
+        },
+        "deltaX": 0,
+        "deltaY": 72,
+        "deltaWidth": 0,
+        "deltaHeight": 79
+      }
+    ],
+    "implementationCommit": "2d0da904f779c127ba44c5dd38a1e6fb2e8315b2",
+    "captureSourceCommit": "2d0da904f779c127ba44c5dd38a1e6fb2e8315b2",
+    "gitStatusBeforeCapture": "?? .vercel/ (untracked, non-source, build artifact); ?? .webby/qa/pha3-v2/round-3-audit/ (evidence, staged separately); ?? .webby/qa/pha3-v2/round-4/ (evidence output target of this very capture, staged separately)",
+    "gitStatusAfterCapture": "unknown",
+    "browserVersion": "151.0.7922.34",
+    "renderMode": "next start (production build)",
+    "screenshotSha256": "7926576aa9fdf686f92f4c4f50877370359b195baf2bb598ffaa89844753a46e"
+  },
+  {
+    "route": "/cho-thue",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 428582,
+    "diffPixelRatio": 0.27235678585159556,
+    "round3TrueDiffPixelRatio": 0.38475,
+    "absoluteImprovement": 0.11239321414840442,
+    "percentageImprovement": 0.2921201147456905,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound3": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-4\\master\\web-02-chothue.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-4\\actual\\web-02-chothue.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-4\\diff\\web-02-chothue.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-4\\overlay\\web-02-chothue.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 65.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1468.9375,
+          "width": 935,
+          "height": 187
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      }
+    ],
+    "implementationCommit": "2d0da904f779c127ba44c5dd38a1e6fb2e8315b2",
+    "captureSourceCommit": "2d0da904f779c127ba44c5dd38a1e6fb2e8315b2",
+    "gitStatusBeforeCapture": "?? .vercel/ (untracked, non-source, build artifact); ?? .webby/qa/pha3-v2/round-3-audit/ (evidence, staged separately); ?? .webby/qa/pha3-v2/round-4/ (evidence output target of this very capture, staged separately)",
+    "gitStatusAfterCapture": "unknown",
+    "browserVersion": "151.0.7922.34",
+    "renderMode": "next start (production build)",
+    "screenshotSha256": "f519ac17b525626663dbacb2279f76e4226d71a4a396d4096a2fc55ff71edbe6"
+  },
+  {
+    "route": "/cho-thue",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 704856,
+    "diffPixelRatio": 0.4482311284759318,
+    "round3TrueDiffPixelRatio": 0.55692,
+    "absoluteImprovement": 0.1086888715240682,
+    "percentageImprovement": 0.19516065417666487,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound3": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-4\\master\\mobile-02-chothue.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-4\\actual\\mobile-02-chothue.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-4\\diff\\mobile-02-chothue.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-4\\overlay\\mobile-02-chothue.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 90
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 106
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 16
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 2662.25,
+          "width": 724,
+          "height": 339
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      }
+    ],
+    "implementationCommit": "2d0da904f779c127ba44c5dd38a1e6fb2e8315b2",
+    "captureSourceCommit": "2d0da904f779c127ba44c5dd38a1e6fb2e8315b2",
+    "gitStatusBeforeCapture": "?? .vercel/ (untracked, non-source, build artifact); ?? .webby/qa/pha3-v2/round-3-audit/ (evidence, staged separately); ?? .webby/qa/pha3-v2/round-4/ (evidence output target of this very capture, staged separately)",
+    "gitStatusAfterCapture": "unknown",
+    "browserVersion": "151.0.7922.34",
+    "renderMode": "next start (production build)",
+    "screenshotSha256": "d1e4a4128924fbfb4ebcf8741bafa3cbd48493c9274440ec703da30a7088c580"
+  },
+  {
+    "route": "/cho-thue/[slug]",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 509168,
+    "diffPixelRatio": 0.3235678585159554,
+    "round3TrueDiffPixelRatio": 0.33414,
+    "absoluteImprovement": 0.010572141484044617,
+    "percentageImprovement": 0.03163985600061237,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound3": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-4\\master\\web-03-chitietbds.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-4\\actual\\web-03-chitietbds.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-4\\diff\\web-03-chitietbds.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-4\\overlay\\web-03-chitietbds.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 65.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1466.9375,
+          "width": 935,
+          "height": 187
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      }
+    ],
+    "implementationCommit": "2d0da904f779c127ba44c5dd38a1e6fb2e8315b2",
+    "captureSourceCommit": "2d0da904f779c127ba44c5dd38a1e6fb2e8315b2",
+    "gitStatusBeforeCapture": "?? .vercel/ (untracked, non-source, build artifact); ?? .webby/qa/pha3-v2/round-3-audit/ (evidence, staged separately); ?? .webby/qa/pha3-v2/round-4/ (evidence output target of this very capture, staged separately)",
+    "gitStatusAfterCapture": "unknown",
+    "browserVersion": "151.0.7922.34",
+    "renderMode": "next start (production build)",
+    "screenshotSha256": "8710a3419b46ef7464a1932e59b5d45f68bf1745e74dc2590df0451dea05b14a"
+  },
+  {
+    "route": "/cho-thue/[slug]",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 523710,
+    "diffPixelRatio": 0.3330369952077165,
+    "round3TrueDiffPixelRatio": 0.33249,
+    "absoluteImprovement": -0.0005469952077165052,
+    "percentageImprovement": -0.0016451478472029391,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound3": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-4\\master\\mobile-03-chitietbds.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-4\\actual\\mobile-03-chitietbds.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-4\\diff\\mobile-03-chitietbds.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-4\\overlay\\mobile-03-chitietbds.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 90
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 106
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 16
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 2258.375,
+          "width": 724,
+          "height": 339
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      }
+    ],
+    "implementationCommit": "2d0da904f779c127ba44c5dd38a1e6fb2e8315b2",
+    "captureSourceCommit": "2d0da904f779c127ba44c5dd38a1e6fb2e8315b2",
+    "gitStatusBeforeCapture": "?? .vercel/ (untracked, non-source, build artifact); ?? .webby/qa/pha3-v2/round-3-audit/ (evidence, staged separately); ?? .webby/qa/pha3-v2/round-4/ (evidence output target of this very capture, staged separately)",
+    "gitStatusAfterCapture": "unknown",
+    "browserVersion": "151.0.7922.34",
+    "renderMode": "next start (production build)",
+    "screenshotSha256": "1cb8b6d234db43ec82e54500b64481e1db7ef11da9af8236b18b6da76e517fc4"
+  },
+  {
+    "route": "/du-an",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 811794,
+    "diffPixelRatio": 0.5158816856835101,
+    "round3TrueDiffPixelRatio": 0.55935,
+    "absoluteImprovement": 0.0434683143164899,
+    "percentageImprovement": 0.07771219150172504,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound3": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-4\\master\\web-04-duan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-4\\actual\\web-04-duan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-4\\diff\\web-04-duan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-4\\overlay\\web-04-duan.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 65.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1469.125,
+          "width": 935,
+          "height": 187
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      }
+    ],
+    "implementationCommit": "2d0da904f779c127ba44c5dd38a1e6fb2e8315b2",
+    "captureSourceCommit": "2d0da904f779c127ba44c5dd38a1e6fb2e8315b2",
+    "gitStatusBeforeCapture": "?? .vercel/ (untracked, non-source, build artifact); ?? .webby/qa/pha3-v2/round-3-audit/ (evidence, staged separately); ?? .webby/qa/pha3-v2/round-4/ (evidence output target of this very capture, staged separately)",
+    "gitStatusAfterCapture": "unknown",
+    "browserVersion": "151.0.7922.34",
+    "renderMode": "next start (production build)",
+    "screenshotSha256": "ba821d32b32398dd0372733f1097264c689b18b9676ca99996c003c1eeec5b94"
+  },
+  {
+    "route": "/du-an",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 885126,
+    "diffPixelRatio": 0.5628681969414853,
+    "round3TrueDiffPixelRatio": 0.69614,
+    "absoluteImprovement": 0.13327180305851472,
+    "percentageImprovement": 0.19144396681488596,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound3": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-4\\master\\mobile-04-duan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-4\\actual\\mobile-04-duan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-4\\diff\\mobile-04-duan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-4\\overlay\\mobile-04-duan.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 90
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 106
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 16
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1925.5,
+          "width": 724,
+          "height": 179
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      }
+    ],
+    "implementationCommit": "2d0da904f779c127ba44c5dd38a1e6fb2e8315b2",
+    "captureSourceCommit": "2d0da904f779c127ba44c5dd38a1e6fb2e8315b2",
+    "gitStatusBeforeCapture": "?? .vercel/ (untracked, non-source, build artifact); ?? .webby/qa/pha3-v2/round-3-audit/ (evidence, staged separately); ?? .webby/qa/pha3-v2/round-4/ (evidence output target of this very capture, staged separately)",
+    "gitStatusAfterCapture": "unknown",
+    "browserVersion": "151.0.7922.34",
+    "renderMode": "next start (production build)",
+    "screenshotSha256": "975729db57ccd7a057bd76abebc6a2c479638ce3266f52215e61b1e3e2f244e5"
+  },
+  {
+    "route": "/du-an/[slug]",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 584730,
+    "diffPixelRatio": 0.3715862621178758,
+    "round3TrueDiffPixelRatio": 0.48452,
+    "absoluteImprovement": 0.11293373788212419,
+    "percentageImprovement": 0.23308374862157225,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound3": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-4\\master\\web-05-chitietduan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-4\\actual\\web-05-chitietduan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-4\\diff\\web-05-chitietduan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-4\\overlay\\web-05-chitietduan.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 65.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "amenities",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 561.375,
+          "width": 855,
+          "height": 92
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      },
+      {
+        "name": "progress",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 983.375,
+          "width": 855,
+          "height": 243.140625
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      },
+      {
+        "name": "gallery-strip",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      },
+      {
+        "name": "map",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      },
+      {
+        "name": "bottom-cta",
+        "masterBox": null,
+        "actualBox": {
+          "x": 40,
+          "y": 1266.515625,
+          "width": 855,
+          "height": 91.5
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1390.015625,
+          "width": 935,
+          "height": 187
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      }
+    ],
+    "implementationCommit": "2d0da904f779c127ba44c5dd38a1e6fb2e8315b2",
+    "captureSourceCommit": "2d0da904f779c127ba44c5dd38a1e6fb2e8315b2",
+    "gitStatusBeforeCapture": "?? .vercel/ (untracked, non-source, build artifact); ?? .webby/qa/pha3-v2/round-3-audit/ (evidence, staged separately); ?? .webby/qa/pha3-v2/round-4/ (evidence output target of this very capture, staged separately)",
+    "gitStatusAfterCapture": "unknown",
+    "browserVersion": "151.0.7922.34",
+    "renderMode": "next start (production build)",
+    "screenshotSha256": "fa9cd0e51f0568a577549abe1293317539c828c834136aba5b849a1baa0673c8"
+  },
+  {
+    "route": "/du-an/[slug]",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 517564,
+    "diffPixelRatio": 0.3291286387269416,
+    "round3TrueDiffPixelRatio": 0.43601,
+    "absoluteImprovement": 0.10688136127305842,
+    "percentageImprovement": 0.2451351144998014,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound3": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-4\\master\\mobile-05-chitietduan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-4\\actual\\mobile-05-chitietduan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-4\\diff\\mobile-05-chitietduan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-4\\overlay\\mobile-05-chitietduan.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 90
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 106
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 16
+      },
+      {
+        "name": "amenities",
+        "masterBox": null,
+        "actualBox": {
+          "x": 24,
+          "y": 1286.75,
+          "width": 676,
+          "height": 109
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      },
+      {
+        "name": "progress",
+        "masterBox": null,
+        "actualBox": {
+          "x": 24,
+          "y": 1419.75,
+          "width": 676,
+          "height": 156
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      },
+      {
+        "name": "gallery-strip",
+        "masterBox": null,
+        "actualBox": {
+          "x": 24,
+          "y": 1599.75,
+          "width": 676,
+          "height": 211
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      },
+      {
+        "name": "map",
+        "masterBox": null,
+        "actualBox": {
+          "x": 24,
+          "y": 1834.75,
+          "width": 676,
+          "height": 339.5
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      },
+      {
+        "name": "bottom-cta",
+        "masterBox": null,
+        "actualBox": {
+          "x": 24,
+          "y": 2198.25,
+          "width": 676,
+          "height": 189
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 2411.25,
+          "width": 724,
+          "height": 339
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      }
+    ],
+    "implementationCommit": "2d0da904f779c127ba44c5dd38a1e6fb2e8315b2",
+    "captureSourceCommit": "2d0da904f779c127ba44c5dd38a1e6fb2e8315b2",
+    "gitStatusBeforeCapture": "?? .vercel/ (untracked, non-source, build artifact); ?? .webby/qa/pha3-v2/round-3-audit/ (evidence, staged separately); ?? .webby/qa/pha3-v2/round-4/ (evidence output target of this very capture, staged separately)",
+    "gitStatusAfterCapture": "unknown",
+    "browserVersion": "151.0.7922.34",
+    "renderMode": "next start (production build)",
+    "screenshotSha256": "87372814d43820c8934bbbe9d9574bee46631c27d671e8f23eb228da542d1268"
+  }
+]

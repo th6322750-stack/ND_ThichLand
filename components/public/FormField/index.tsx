@@ -10,11 +10,28 @@ interface FormFieldProps {
   placeholder?: string;
   defaultValue?: string;
   hint?: string;
+  inputMode?: React.HTMLAttributes<HTMLInputElement>["inputMode"];
+  autoComplete?: string;
+  pattern?: string;
+  maxLength?: number;
 }
 
 export const FormField = forwardRef<HTMLInputElement | HTMLTextAreaElement, FormFieldProps>(
   function FormField(
-    { label, name, type = "text", error, required, placeholder, defaultValue, hint },
+    {
+      label,
+      name,
+      type = "text",
+      error,
+      required,
+      placeholder,
+      defaultValue,
+      hint,
+      inputMode,
+      autoComplete,
+      pattern,
+      maxLength,
+    },
     ref,
   ) {
     const id = useId();
@@ -38,6 +55,7 @@ export const FormField = forwardRef<HTMLInputElement | HTMLTextAreaElement, Form
             aria-describedby={error ? errorId : undefined}
             placeholder={placeholder}
             defaultValue={defaultValue}
+            required={required}
             className={`${sharedClassName} min-h-[120px]`}
           />
         ) : (
@@ -50,6 +68,11 @@ export const FormField = forwardRef<HTMLInputElement | HTMLTextAreaElement, Form
             aria-describedby={error ? errorId : undefined}
             placeholder={placeholder}
             defaultValue={defaultValue}
+            required={required}
+            inputMode={inputMode}
+            autoComplete={autoComplete}
+            pattern={pattern}
+            maxLength={maxLength}
             className={sharedClassName}
           />
         )}

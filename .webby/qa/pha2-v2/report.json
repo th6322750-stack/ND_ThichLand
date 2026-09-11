@@ -1,0 +1,202 @@
+[
+  {
+    "name": "01_TrangChu",
+    "viewport": "WEB",
+    "route": "/",
+    "capturedPng": ".webby\\qa\\pha2-v2\\browser\\WEB\\01_TrangChu_WEB.png",
+    "masterPng": "WEB/01_TrangChu_WEB.png",
+    "diffPng": ".webby\\qa\\pha2-v2\\diff\\WEB-01_TrangChu.png",
+    "masterDims": {
+      "width": 935,
+      "height": 1683
+    },
+    "capturedDims": {
+      "width": 935,
+      "height": 2873
+    },
+    "comparedHeight": 1683,
+    "diffPixels": 934975,
+    "totalComparedPixels": 1573605,
+    "diffPercent": 59.41611776780069
+  },
+  {
+    "name": "01_TrangChu",
+    "viewport": "MOBILE",
+    "route": "/",
+    "capturedPng": ".webby\\qa\\pha2-v2\\browser\\MOBILE\\01_TrangChu_MOBILE.png",
+    "masterPng": "MOBILE/01_TrangChu_MOBILE.png",
+    "diffPng": ".webby\\qa\\pha2-v2\\diff\\MOBILE-01_TrangChu.png",
+    "masterDims": {
+      "width": 724,
+      "height": 2172
+    },
+    "capturedDims": {
+      "width": 724,
+      "height": 10872
+    },
+    "comparedHeight": 2172,
+    "diffPixels": 915700,
+    "totalComparedPixels": 1572528,
+    "diffPercent": 58.23107760243379
+  },
+  {
+    "name": "02_ChoThue",
+    "viewport": "WEB",
+    "route": "/cho-thue",
+    "capturedPng": ".webby\\qa\\pha2-v2\\browser\\WEB\\02_ChoThue_WEB.png",
+    "masterPng": "WEB/02_ChoThue_WEB.png",
+    "diffPng": ".webby\\qa\\pha2-v2\\diff\\WEB-02_ChoThue.png",
+    "masterDims": {
+      "width": 935,
+      "height": 1683
+    },
+    "capturedDims": {
+      "width": 935,
+      "height": 2384
+    },
+    "comparedHeight": 1683,
+    "diffPixels": 705136,
+    "totalComparedPixels": 1573605,
+    "diffPercent": 44.810228742282845
+  },
+  {
+    "name": "02_ChoThue",
+    "viewport": "MOBILE",
+    "route": "/cho-thue",
+    "capturedPng": ".webby\\qa\\pha2-v2\\browser\\MOBILE\\02_ChoThue_MOBILE.png",
+    "masterPng": "MOBILE/02_ChoThue_MOBILE.png",
+    "diffPng": ".webby\\qa\\pha2-v2\\diff\\MOBILE-02_ChoThue.png",
+    "masterDims": {
+      "width": 724,
+      "height": 2172
+    },
+    "capturedDims": {
+      "width": 724,
+      "height": 7714
+    },
+    "comparedHeight": 2172,
+    "diffPixels": 922398,
+    "totalComparedPixels": 1572528,
+    "diffPercent": 58.657015964103664
+  },
+  {
+    "name": "03_ChiTietBDS",
+    "viewport": "WEB",
+    "route": "/cho-thue/can-ho-sunrise-city-view",
+    "capturedPng": ".webby\\qa\\pha2-v2\\browser\\WEB\\03_ChiTietBDS_WEB.png",
+    "masterPng": "WEB/03_ChiTietBDS_WEB.png",
+    "diffPng": ".webby\\qa\\pha2-v2\\diff\\WEB-03_ChiTietBDS.png",
+    "masterDims": {
+      "width": 935,
+      "height": 1683
+    },
+    "capturedDims": {
+      "width": 935,
+      "height": 2372
+    },
+    "comparedHeight": 1683,
+    "diffPixels": 736372,
+    "totalComparedPixels": 1573605,
+    "diffPercent": 46.79522497704316
+  },
+  {
+    "name": "03_ChiTietBDS",
+    "viewport": "MOBILE",
+    "route": "/cho-thue/can-ho-sunrise-city-view",
+    "capturedPng": ".webby\\qa\\pha2-v2\\browser\\MOBILE\\03_ChiTietBDS_MOBILE.png",
+    "masterPng": "MOBILE/03_ChiTietBDS_MOBILE.png",
+    "diffPng": ".webby\\qa\\pha2-v2\\diff\\MOBILE-03_ChiTietBDS.png",
+    "masterDims": {
+      "width": 724,
+      "height": 2172
+    },
+    "capturedDims": {
+      "width": 724,
+      "height": 7066
+    },
+    "comparedHeight": 2172,
+    "diffPixels": 825019,
+    "totalComparedPixels": 1572528,
+    "diffPercent": 52.464503016798425
+  },
+  {
+    "name": "04_DuAn",
+    "viewport": "WEB",
+    "route": "/du-an",
+    "capturedPng": ".webby\\qa\\pha2-v2\\browser\\WEB\\04_DuAn_WEB.png",
+    "masterPng": "WEB/04_DuAn_WEB.png",
+    "diffPng": ".webby\\qa\\pha2-v2\\diff\\WEB-04_DuAn.png",
+    "masterDims": {
+      "width": 935,
+      "height": 1683
+    },
+    "capturedDims": {
+      "width": 935,
+      "height": 2290
+    },
+    "comparedHeight": 1683,
+    "diffPixels": 1129075,
+    "totalComparedPixels": 1573605,
+    "diffPercent": 71.75085234223329
+  },
+  {
+    "name": "04_DuAn",
+    "viewport": "MOBILE",
+    "route": "/du-an",
+    "capturedPng": ".webby\\qa\\pha2-v2\\browser\\MOBILE\\04_DuAn_MOBILE.png",
+    "masterPng": "MOBILE/04_DuAn_MOBILE.png",
+    "diffPng": ".webby\\qa\\pha2-v2\\diff\\MOBILE-04_DuAn.png",
+    "masterDims": {
+      "width": 724,
+      "height": 2172
+    },
+    "capturedDims": {
+      "width": 724,
+      "height": 12194
+    },
+    "comparedHeight": 2172,
+    "diffPixels": 1172949,
+    "totalComparedPixels": 1572528,
+    "diffPercent": 74.59002319831507
+  },
+  {
+    "name": "05_ChiTietDuAn",
+    "viewport": "WEB",
+    "route": "/du-an/sun-galaxy-complex",
+    "capturedPng": ".webby\\qa\\pha2-v2\\browser\\WEB\\05_ChiTietDuAn_WEB.png",
+    "masterPng": "WEB/05_ChiTietDuAn_WEB.png",
+    "diffPng": ".webby\\qa\\pha2-v2\\diff\\WEB-05_ChiTietDuAn.png",
+    "masterDims": {
+      "width": 935,
+      "height": 1683
+    },
+    "capturedDims": {
+      "width": 935,
+      "height": 2289
+    },
+    "comparedHeight": 1683,
+    "diffPixels": 968398,
+    "totalComparedPixels": 1573605,
+    "diffPercent": 61.540094242201825
+  },
+  {
+    "name": "05_ChiTietDuAn",
+    "viewport": "MOBILE",
+    "route": "/du-an/sun-galaxy-complex",
+    "capturedPng": ".webby\\qa\\pha2-v2\\browser\\MOBILE\\05_ChiTietDuAn_MOBILE.png",
+    "masterPng": "MOBILE/05_ChiTietDuAn_MOBILE.png",
+    "diffPng": ".webby\\qa\\pha2-v2\\diff\\MOBILE-05_ChiTietDuAn.png",
+    "masterDims": {
+      "width": 724,
+      "height": 2172
+    },
+    "capturedDims": {
+      "width": 724,
+      "height": 7352
+    },
+    "comparedHeight": 2172,
+    "diffPixels": 1000095,
+    "totalComparedPixels": 1572528,
+    "diffPercent": 63.59791367784866
+  }
+]

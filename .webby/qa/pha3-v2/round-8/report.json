@@ -1,0 +1,1755 @@
+[
+  {
+    "route": "/",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 667817,
+    "diffPixelRatio": 0.4243866789950464,
+    "round7DiffPixelRatio": 0.449087922318498,
+    "absoluteImprovement": 0.024701243323451583,
+    "percentageImprovement": 0.055003134343775996,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound7": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-8\\master\\web-01-trangchu.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-8\\actual\\web-01-trangchu.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-8\\diff\\web-01-trangchu.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-8\\overlay\\web-01-trangchu.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 65.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "hero",
+        "masterBox": {
+          "x": 0,
+          "y": 64,
+          "width": 935,
+          "height": 281
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 65.5,
+          "width": 935,
+          "height": 276.875
+        },
+        "deltaX": 0,
+        "deltaY": 2,
+        "deltaWidth": 0,
+        "deltaHeight": -4
+      },
+      {
+        "name": "trustmetrics",
+        "masterBox": {
+          "x": 0,
+          "y": 345,
+          "width": 935,
+          "height": 95
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 342.375,
+          "width": 935,
+          "height": 93.25
+        },
+        "deltaX": 0,
+        "deltaY": -3,
+        "deltaWidth": 0,
+        "deltaHeight": -2
+      },
+      {
+        "name": "search",
+        "masterBox": {
+          "x": 0,
+          "y": 440,
+          "width": 935,
+          "height": 65
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 435.625,
+          "width": 935,
+          "height": 86.5
+        },
+        "deltaX": 0,
+        "deltaY": -4,
+        "deltaWidth": 0,
+        "deltaHeight": 22
+      },
+      {
+        "name": "featured-projects",
+        "masterBox": {
+          "x": 0,
+          "y": 505,
+          "width": 935,
+          "height": 290
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 522.125,
+          "width": 935,
+          "height": 198.359375
+        },
+        "deltaX": 0,
+        "deltaY": 17,
+        "deltaWidth": 0,
+        "deltaHeight": -92
+      },
+      {
+        "name": "featured-rentals",
+        "masterBox": {
+          "x": 0,
+          "y": 795,
+          "width": 935,
+          "height": 165
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 720.484375,
+          "width": 935,
+          "height": 260.171875
+        },
+        "deltaX": 0,
+        "deltaY": -75,
+        "deltaWidth": 0,
+        "deltaHeight": 95
+      },
+      {
+        "name": "about",
+        "masterBox": {
+          "x": 0,
+          "y": 960,
+          "width": 935,
+          "height": 205
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 980.65625,
+          "width": 935,
+          "height": 217
+        },
+        "deltaX": 0,
+        "deltaY": 21,
+        "deltaWidth": 0,
+        "deltaHeight": 12
+      },
+      {
+        "name": "testimonials",
+        "masterBox": {
+          "x": 0,
+          "y": 1165,
+          "width": 935,
+          "height": 135
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1197.65625,
+          "width": 935,
+          "height": 158
+        },
+        "deltaX": 0,
+        "deltaY": 33,
+        "deltaWidth": 0,
+        "deltaHeight": 23
+      },
+      {
+        "name": "contact-map",
+        "masterBox": {
+          "x": 0,
+          "y": 1300,
+          "width": 935,
+          "height": 200
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1355.65625,
+          "width": 935,
+          "height": 206.25
+        },
+        "deltaX": 0,
+        "deltaY": 56,
+        "deltaWidth": 0,
+        "deltaHeight": 6
+      },
+      {
+        "name": "footer",
+        "masterBox": {
+          "x": 0,
+          "y": 1500,
+          "width": 935,
+          "height": 183
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1561.90625,
+          "width": 935,
+          "height": 187
+        },
+        "deltaX": 0,
+        "deltaY": 62,
+        "deltaWidth": 0,
+        "deltaHeight": 4
+      }
+    ],
+    "classification": [
+      "USER_APPROVED_PRODUCT_DELTA",
+      "ASSET_DIFF"
+    ],
+    "implementationCommit": "b13ad1a02f9b43c6c3a6c65c306570e68c702177",
+    "captureSourceCommit": "b13ad1a02f9b43c6c3a6c65c306570e68c702177",
+    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "dbe16f0c1e2a0cdc3a07165f302791f245abc916abbc525f8ecbe75680fe43c3"
+  },
+  {
+    "route": "/",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 554356,
+    "diffPixelRatio": 0.35252536043873306,
+    "round7DiffPixelRatio": 0.4018879155092946,
+    "absoluteImprovement": 0.04936255507056153,
+    "percentageImprovement": 0.12282667173011802,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound7": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-8\\master\\mobile-01-trangchu.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-8\\actual\\mobile-01-trangchu.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-8\\diff\\mobile-01-trangchu.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-8\\overlay\\mobile-01-trangchu.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 90
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 90
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 0
+      },
+      {
+        "name": "hero",
+        "masterBox": {
+          "x": 0,
+          "y": 90,
+          "width": 724,
+          "height": 282
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 90,
+          "width": 724,
+          "height": 262
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": -20
+      },
+      {
+        "name": "trustmetrics",
+        "masterBox": {
+          "x": 0,
+          "y": 372,
+          "width": 724,
+          "height": 100
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 352,
+          "width": 724,
+          "height": 117
+        },
+        "deltaX": 0,
+        "deltaY": -20,
+        "deltaWidth": 0,
+        "deltaHeight": 17
+      },
+      {
+        "name": "search",
+        "masterBox": {
+          "x": 0,
+          "y": 472,
+          "width": 724,
+          "height": 275
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 469,
+          "width": 724,
+          "height": 282
+        },
+        "deltaX": 0,
+        "deltaY": -3,
+        "deltaWidth": 0,
+        "deltaHeight": 7
+      },
+      {
+        "name": "featured-projects",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 751,
+          "width": 724,
+          "height": 149.84375
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "featured-rentals",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 900.84375,
+          "width": 724,
+          "height": 284.65625
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "about",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1185.5,
+          "width": 724,
+          "height": 271.5
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "testimonials",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1457,
+          "width": 724,
+          "height": 205
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "contact-map",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1662,
+          "width": 724,
+          "height": 219.625
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1881.625,
+          "width": 724,
+          "height": 339
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "classification": [
+      "USER_APPROVED_PRODUCT_DELTA",
+      "ASSET_DIFF"
+    ],
+    "implementationCommit": "b13ad1a02f9b43c6c3a6c65c306570e68c702177",
+    "captureSourceCommit": "b13ad1a02f9b43c6c3a6c65c306570e68c702177",
+    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "7d707acc511d12262a5e671a7e9b8dd37b190d4128d1fa5929d1490376cc827b"
+  },
+  {
+    "route": "/cho-thue",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 473923,
+    "diffPixelRatio": 0.30117024285001637,
+    "round7DiffPixelRatio": 0.27235678585159556,
+    "absoluteImprovement": -0.028813456998420806,
+    "percentageImprovement": -0.10579305710459135,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound7": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-8\\master\\web-02-chothue.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-8\\actual\\web-02-chothue.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-8\\diff\\web-02-chothue.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-8\\overlay\\web-02-chothue.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 65.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "hero",
+        "masterBox": {
+          "x": 0,
+          "y": 64,
+          "width": 935,
+          "height": 181
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 65.5,
+          "width": 935,
+          "height": 186
+        },
+        "deltaX": 0,
+        "deltaY": 2,
+        "deltaWidth": 0,
+        "deltaHeight": 5
+      },
+      {
+        "name": "sidebar",
+        "masterBox": {
+          "x": 0,
+          "y": 275,
+          "width": 260,
+          "height": 900
+        },
+        "actualBox": {
+          "x": 40,
+          "y": 319,
+          "width": 260,
+          "height": 1161.9375
+        },
+        "deltaX": 40,
+        "deltaY": 44,
+        "deltaWidth": 0,
+        "deltaHeight": 262
+      },
+      {
+        "name": "list",
+        "masterBox": {
+          "x": 280,
+          "y": 300,
+          "width": 590,
+          "height": 1140
+        },
+        "actualBox": {
+          "x": 332,
+          "y": 319,
+          "width": 563,
+          "height": 1161.9375
+        },
+        "deltaX": 52,
+        "deltaY": 19,
+        "deltaWidth": -27,
+        "deltaHeight": 22
+      },
+      {
+        "name": "pagination",
+        "masterBox": {
+          "x": 280,
+          "y": 1440,
+          "width": 590,
+          "height": 50
+        },
+        "actualBox": {
+          "x": 332,
+          "y": 1444.9375,
+          "width": 563,
+          "height": 36
+        },
+        "deltaX": 52,
+        "deltaY": 5,
+        "deltaWidth": -27,
+        "deltaHeight": -14
+      },
+      {
+        "name": "footer",
+        "masterBox": {
+          "x": 0,
+          "y": 1500,
+          "width": 935,
+          "height": 183
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1504.9375,
+          "width": 935,
+          "height": 187
+        },
+        "deltaX": 0,
+        "deltaY": 5,
+        "deltaWidth": 0,
+        "deltaHeight": 4
+      }
+    ],
+    "classification": [
+      "ASSET_DIFF",
+      "DATA_TEXT_DIFF"
+    ],
+    "implementationCommit": "b13ad1a02f9b43c6c3a6c65c306570e68c702177",
+    "captureSourceCommit": "b13ad1a02f9b43c6c3a6c65c306570e68c702177",
+    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "e6b276349da91729e0b03b2b09d2240e6b753806088b7d7b13102ab3bc4e2b90"
+  },
+  {
+    "route": "/cho-thue",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 726284,
+    "diffPixelRatio": 0.46185759490451045,
+    "round7DiffPixelRatio": 0.4482311284759318,
+    "absoluteImprovement": -0.013626466428578676,
+    "percentageImprovement": -0.03040053571225891,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound7": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-8\\master\\mobile-02-chothue.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-8\\actual\\mobile-02-chothue.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-8\\diff\\mobile-02-chothue.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-8\\overlay\\mobile-02-chothue.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 90
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 106
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 16
+      },
+      {
+        "name": "heading",
+        "masterBox": {
+          "x": 0,
+          "y": 95,
+          "width": 724,
+          "height": 70
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 130,
+          "width": 676,
+          "height": 136
+        },
+        "deltaX": 24,
+        "deltaY": 35,
+        "deltaWidth": -48,
+        "deltaHeight": 66
+      },
+      {
+        "name": "filter-sort",
+        "masterBox": {
+          "x": 0,
+          "y": 175,
+          "width": 724,
+          "height": 60
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 194,
+          "width": 676,
+          "height": 72
+        },
+        "deltaX": 24,
+        "deltaY": 19,
+        "deltaWidth": -48,
+        "deltaHeight": 12
+      },
+      {
+        "name": "list",
+        "masterBox": {
+          "x": 0,
+          "y": 260,
+          "width": 724,
+          "height": 1750
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 334,
+          "width": 676,
+          "height": 2192.25
+        },
+        "deltaX": 24,
+        "deltaY": 74,
+        "deltaWidth": -48,
+        "deltaHeight": 442
+      },
+      {
+        "name": "bottom-nav",
+        "masterBox": {
+          "x": 0,
+          "y": 2090,
+          "width": 724,
+          "height": 82
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 2064,
+          "width": 724,
+          "height": 108
+        },
+        "deltaX": 0,
+        "deltaY": -26,
+        "deltaWidth": 0,
+        "deltaHeight": 26
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 2662.25,
+          "width": 724,
+          "height": 339
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "classification": [
+      "ASSET_DIFF",
+      "GEOMETRY_DIFF",
+      "DATA_TEXT_DIFF"
+    ],
+    "implementationCommit": "b13ad1a02f9b43c6c3a6c65c306570e68c702177",
+    "captureSourceCommit": "b13ad1a02f9b43c6c3a6c65c306570e68c702177",
+    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "210902d6e2a9be4773056a200c32b17501314c321fa063a3c932f777a7bbff46"
+  },
+  {
+    "route": "/cho-thue/[slug]",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 554737,
+    "diffPixelRatio": 0.3525262057504901,
+    "round7DiffPixelRatio": 0.3161867177595394,
+    "absoluteImprovement": -0.036339487990950714,
+    "percentageImprovement": -0.11493046971880383,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound7": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-8\\master\\web-03-chitietbds.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-8\\actual\\web-03-chitietbds.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-8\\diff\\web-03-chitietbds.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-8\\overlay\\web-03-chitietbds.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 65.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "gallery",
+        "masterBox": {
+          "x": 37,
+          "y": 100,
+          "width": 460,
+          "height": 400
+        },
+        "actualBox": {
+          "x": 40,
+          "y": 137,
+          "width": 463,
+          "height": 432.40625
+        },
+        "deltaX": 3,
+        "deltaY": 37,
+        "deltaWidth": 3,
+        "deltaHeight": 32
+      },
+      {
+        "name": "summary",
+        "masterBox": {
+          "x": 520,
+          "y": 100,
+          "width": 380,
+          "height": 120
+        },
+        "actualBox": {
+          "x": 535,
+          "y": 137,
+          "width": 360,
+          "height": 120.5
+        },
+        "deltaX": 15,
+        "deltaY": 37,
+        "deltaWidth": -20,
+        "deltaHeight": 1
+      },
+      {
+        "name": "facts",
+        "masterBox": {
+          "x": 520,
+          "y": 240,
+          "width": 380,
+          "height": 90
+        },
+        "actualBox": {
+          "x": 535,
+          "y": 269.5,
+          "width": 360,
+          "height": 93
+        },
+        "deltaX": 15,
+        "deltaY": 30,
+        "deltaWidth": -20,
+        "deltaHeight": 3
+      },
+      {
+        "name": "highlights",
+        "masterBox": {
+          "x": 520,
+          "y": 340,
+          "width": 380,
+          "height": 145
+        },
+        "actualBox": {
+          "x": 535,
+          "y": 374.5,
+          "width": 360,
+          "height": 146.5
+        },
+        "deltaX": 15,
+        "deltaY": 35,
+        "deltaWidth": -20,
+        "deltaHeight": 2
+      },
+      {
+        "name": "actions",
+        "masterBox": {
+          "x": 520,
+          "y": 490,
+          "width": 380,
+          "height": 40
+        },
+        "actualBox": {
+          "x": 535,
+          "y": 533,
+          "width": 360,
+          "height": 40.25
+        },
+        "deltaX": 15,
+        "deltaY": 43,
+        "deltaWidth": -20,
+        "deltaHeight": 0
+      },
+      {
+        "name": "detail-tabs",
+        "masterBox": {
+          "x": 37,
+          "y": 600,
+          "width": 855,
+          "height": 430
+        },
+        "actualBox": {
+          "x": 40,
+          "y": 605.25,
+          "width": 855,
+          "height": 424
+        },
+        "deltaX": 3,
+        "deltaY": 5,
+        "deltaWidth": 0,
+        "deltaHeight": -6
+      },
+      {
+        "name": "related",
+        "masterBox": {
+          "x": 37,
+          "y": 1060,
+          "width": 855,
+          "height": 240
+        },
+        "actualBox": {
+          "x": 40,
+          "y": 1077.25,
+          "width": 855,
+          "height": 254.9375
+        },
+        "deltaX": 3,
+        "deltaY": 17,
+        "deltaWidth": 0,
+        "deltaHeight": 15
+      },
+      {
+        "name": "bottom-cta",
+        "masterBox": {
+          "x": 37,
+          "y": 1330,
+          "width": 855,
+          "height": 90
+        },
+        "actualBox": {
+          "x": 40,
+          "y": 1380.1875,
+          "width": 855,
+          "height": 116
+        },
+        "deltaX": 3,
+        "deltaY": 50,
+        "deltaWidth": 0,
+        "deltaHeight": 26
+      },
+      {
+        "name": "footer",
+        "masterBox": {
+          "x": 0,
+          "y": 1460,
+          "width": 935,
+          "height": 187
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1528.1875,
+          "width": 935,
+          "height": 187
+        },
+        "deltaX": 0,
+        "deltaY": 68,
+        "deltaWidth": 0,
+        "deltaHeight": 0
+      }
+    ],
+    "classification": [
+      "ASSET_DIFF",
+      "GEOMETRY_DIFF",
+      "DATA_TEXT_DIFF"
+    ],
+    "implementationCommit": "b13ad1a02f9b43c6c3a6c65c306570e68c702177",
+    "captureSourceCommit": "b13ad1a02f9b43c6c3a6c65c306570e68c702177",
+    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "362c4c24d385769e25ba0722e8a2f032cfe2de586951b6f235c8571fd3c3144b"
+  },
+  {
+    "route": "/cho-thue/[slug]",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 558616,
+    "diffPixelRatio": 0.3552343742051016,
+    "round7DiffPixelRatio": 0.33458672913932214,
+    "absoluteImprovement": -0.020647645065779485,
+    "percentageImprovement": -0.061710890682642086,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound7": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-8\\master\\mobile-03-chitietbds.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-8\\actual\\mobile-03-chitietbds.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-8\\diff\\mobile-03-chitietbds.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-8\\overlay\\mobile-03-chitietbds.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 130
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 130
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 0
+      },
+      {
+        "name": "gallery",
+        "masterBox": {
+          "x": 0,
+          "y": 165,
+          "width": 724,
+          "height": 420
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 189,
+          "width": 676,
+          "height": 418.4375
+        },
+        "deltaX": 24,
+        "deltaY": 24,
+        "deltaWidth": -48,
+        "deltaHeight": -2
+      },
+      {
+        "name": "summary",
+        "masterBox": {
+          "x": 0,
+          "y": 600,
+          "width": 724,
+          "height": 145
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 623.4375,
+          "width": 676,
+          "height": 154
+        },
+        "deltaX": 24,
+        "deltaY": 23,
+        "deltaWidth": -48,
+        "deltaHeight": 9
+      },
+      {
+        "name": "facts",
+        "masterBox": {
+          "x": 0,
+          "y": 760,
+          "width": 724,
+          "height": 140
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 793.4375,
+          "width": 676,
+          "height": 141
+        },
+        "deltaX": 24,
+        "deltaY": 33,
+        "deltaWidth": -48,
+        "deltaHeight": 1
+      },
+      {
+        "name": "highlights",
+        "masterBox": {
+          "x": 0,
+          "y": 920,
+          "width": 724,
+          "height": 220
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 950.4375,
+          "width": 676,
+          "height": 220
+        },
+        "deltaX": 24,
+        "deltaY": 30,
+        "deltaWidth": -48,
+        "deltaHeight": 0
+      },
+      {
+        "name": "actions",
+        "masterBox": {
+          "x": 0,
+          "y": 1160,
+          "width": 724,
+          "height": 60
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 1186.4375,
+          "width": 676,
+          "height": 61
+        },
+        "deltaX": 24,
+        "deltaY": 26,
+        "deltaWidth": -48,
+        "deltaHeight": 1
+      },
+      {
+        "name": "detail-tabs",
+        "masterBox": {
+          "x": 0,
+          "y": 1280,
+          "width": 724,
+          "height": 320
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 1279.4375,
+          "width": 676,
+          "height": 336
+        },
+        "deltaX": 24,
+        "deltaY": -1,
+        "deltaWidth": -48,
+        "deltaHeight": 16
+      },
+      {
+        "name": "related",
+        "masterBox": {
+          "x": 0,
+          "y": 1620,
+          "width": 724,
+          "height": 460
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 1647.4375,
+          "width": 676,
+          "height": 391.1875
+        },
+        "deltaX": 24,
+        "deltaY": 27,
+        "deltaWidth": -48,
+        "deltaHeight": -69
+      },
+      {
+        "name": "bottom-cta",
+        "masterBox": null,
+        "actualBox": {
+          "x": 24,
+          "y": 2070.625,
+          "width": 676,
+          "height": 203
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 2289.625,
+          "width": 724,
+          "height": 339
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "classification": [
+      "ASSET_DIFF",
+      "GEOMETRY_DIFF",
+      "DATA_TEXT_DIFF",
+      "ANTIALIASING_NOISE"
+    ],
+    "implementationCommit": "b13ad1a02f9b43c6c3a6c65c306570e68c702177",
+    "captureSourceCommit": "b13ad1a02f9b43c6c3a6c65c306570e68c702177",
+    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "ead9fc7875fa52eba4424eeefd82467914c00a1e76ea4c510ef4bb606e43d896"
+  },
+  {
+    "route": "/du-an",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 718876,
+    "diffPixelRatio": 0.4568338305991656,
+    "round7DiffPixelRatio": 0.5204349249017384,
+    "absoluteImprovement": 0.06360109430257277,
+    "percentageImprovement": 0.1222075830413977,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound7": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-8\\master\\web-04-duan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-8\\actual\\web-04-duan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-8\\diff\\web-04-duan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-8\\overlay\\web-04-duan.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 65.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "heading",
+        "masterBox": {
+          "x": 0,
+          "y": 85,
+          "width": 935,
+          "height": 170
+        },
+        "actualBox": {
+          "x": 40,
+          "y": 133,
+          "width": 855,
+          "height": 165.5
+        },
+        "deltaX": 40,
+        "deltaY": 48,
+        "deltaWidth": -80,
+        "deltaHeight": -4
+      },
+      {
+        "name": "project-grid",
+        "masterBox": {
+          "x": 0,
+          "y": 290,
+          "width": 935,
+          "height": 905
+        },
+        "actualBox": {
+          "x": 40,
+          "y": 322.5,
+          "width": 855,
+          "height": 826.75
+        },
+        "deltaX": 40,
+        "deltaY": 33,
+        "deltaWidth": -80,
+        "deltaHeight": -78
+      },
+      {
+        "name": "about",
+        "masterBox": {
+          "x": 0,
+          "y": 1230,
+          "width": 935,
+          "height": 220
+        },
+        "actualBox": {
+          "x": 40,
+          "y": 1173.25,
+          "width": 855,
+          "height": 238.875
+        },
+        "deltaX": 40,
+        "deltaY": -57,
+        "deltaWidth": -80,
+        "deltaHeight": 19
+      },
+      {
+        "name": "footer",
+        "masterBox": {
+          "x": 0,
+          "y": 1500,
+          "width": 935,
+          "height": 183
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1444.125,
+          "width": 935,
+          "height": 187
+        },
+        "deltaX": 0,
+        "deltaY": -56,
+        "deltaWidth": 0,
+        "deltaHeight": 4
+      }
+    ],
+    "classification": [
+      "ASSET_DIFF",
+      "GEOMETRY_DIFF"
+    ],
+    "implementationCommit": "b13ad1a02f9b43c6c3a6c65c306570e68c702177",
+    "captureSourceCommit": "b13ad1a02f9b43c6c3a6c65c306570e68c702177",
+    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "a8f4afe14e9c302c47d72d55ce486d3512c6810f25f41b2440ee0f00b9292bdb"
+  },
+  {
+    "route": "/du-an",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 871314,
+    "diffPixelRatio": 0.554084887518696,
+    "round7DiffPixelRatio": 0.5424889095774448,
+    "absoluteImprovement": -0.011595977941251223,
+    "percentageImprovement": -0.021375511529412753,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound7": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-8\\master\\mobile-04-duan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-8\\actual\\mobile-04-duan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-8\\diff\\mobile-04-duan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-8\\overlay\\mobile-04-duan.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 90
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 90
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 0
+      },
+      {
+        "name": "heading",
+        "masterBox": {
+          "x": 0,
+          "y": 95,
+          "width": 724,
+          "height": 185
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 133,
+          "width": 676,
+          "height": 185
+        },
+        "deltaX": 24,
+        "deltaY": 38,
+        "deltaWidth": -48,
+        "deltaHeight": 0
+      },
+      {
+        "name": "project-grid",
+        "masterBox": {
+          "x": 0,
+          "y": 290,
+          "width": 724,
+          "height": 1230
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 326,
+          "width": 676,
+          "height": 1276
+        },
+        "deltaX": 24,
+        "deltaY": 36,
+        "deltaWidth": -48,
+        "deltaHeight": 46
+      },
+      {
+        "name": "about",
+        "masterBox": {
+          "x": 0,
+          "y": 1560,
+          "width": 724,
+          "height": 290
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 1634,
+          "width": 676,
+          "height": 316.75
+        },
+        "deltaX": 24,
+        "deltaY": 74,
+        "deltaWidth": -48,
+        "deltaHeight": 27
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1958.75,
+          "width": 724,
+          "height": 179
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "classification": [
+      "ASSET_DIFF",
+      "GEOMETRY_DIFF",
+      "DATA_TEXT_DIFF"
+    ],
+    "implementationCommit": "b13ad1a02f9b43c6c3a6c65c306570e68c702177",
+    "captureSourceCommit": "b13ad1a02f9b43c6c3a6c65c306570e68c702177",
+    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "3e0cec4b8545476e10b4130f689ff1fd0288e0c595da1b868381fe9861183c50"
+  },
+  {
+    "route": "/du-an/[slug]",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 650767,
+    "diffPixelRatio": 0.41355168546109095,
+    "round7DiffPixelRatio": 0.3715862621178758,
+    "absoluteImprovement": -0.041965423343215125,
+    "percentageImprovement": -0.11293588493834768,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound7": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-8\\master\\web-05-chitietduan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-8\\actual\\web-05-chitietduan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-8\\diff\\web-05-chitietduan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-8\\overlay\\web-05-chitietduan.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 65.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 2
+      },
+      {
+        "name": "amenities",
+        "masterBox": {
+          "x": 0,
+          "y": 590,
+          "width": 935,
+          "height": 100
+        },
+        "actualBox": {
+          "x": 40,
+          "y": 608.875,
+          "width": 855,
+          "height": 92
+        },
+        "deltaX": 40,
+        "deltaY": 19,
+        "deltaWidth": -80,
+        "deltaHeight": -8
+      },
+      {
+        "name": "progress",
+        "masterBox": {
+          "x": 0,
+          "y": 1010,
+          "width": 935,
+          "height": 240
+        },
+        "actualBox": {
+          "x": 40,
+          "y": 1022.0625,
+          "width": 855,
+          "height": 243.140625
+        },
+        "deltaX": 40,
+        "deltaY": 12,
+        "deltaWidth": -80,
+        "deltaHeight": 3
+      },
+      {
+        "name": "bottom-cta",
+        "masterBox": {
+          "x": 0,
+          "y": 1250,
+          "width": 935,
+          "height": 60
+        },
+        "actualBox": {
+          "x": 40,
+          "y": 1289.203125,
+          "width": 855,
+          "height": 68
+        },
+        "deltaX": 40,
+        "deltaY": 39,
+        "deltaWidth": -80,
+        "deltaHeight": 8
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1389.203125,
+          "width": 935,
+          "height": 187
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "classification": [
+      "ASSET_DIFF",
+      "GEOMETRY_DIFF"
+    ],
+    "implementationCommit": "b13ad1a02f9b43c6c3a6c65c306570e68c702177",
+    "captureSourceCommit": "b13ad1a02f9b43c6c3a6c65c306570e68c702177",
+    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "d04e4c5d7f42317582ec1ae8eb54cddc4e7d25ae6511defcc87162e9c18a591d"
+  },
+  {
+    "route": "/du-an/[slug]",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 523122,
+    "diffPixelRatio": 0.3326630749977107,
+    "round7DiffPixelRatio": 0.3014814362605944,
+    "absoluteImprovement": -0.03118163873711627,
+    "percentageImprovement": -0.10342805555086812,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound7": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-8\\master\\mobile-05-chitietduan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-8\\actual\\mobile-05-chitietduan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-8\\diff\\mobile-05-chitietduan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-8\\overlay\\mobile-05-chitietduan.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 90
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 106
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 16
+      },
+      {
+        "name": "amenities",
+        "masterBox": {
+          "x": 0,
+          "y": 1195,
+          "width": 724,
+          "height": 200
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 1222.75,
+          "width": 676,
+          "height": 109
+        },
+        "deltaX": 24,
+        "deltaY": 28,
+        "deltaWidth": -48,
+        "deltaHeight": -91
+      },
+      {
+        "name": "progress",
+        "masterBox": {
+          "x": 0,
+          "y": 1420,
+          "width": 724,
+          "height": 100
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 1355.75,
+          "width": 676,
+          "height": 156
+        },
+        "deltaX": 24,
+        "deltaY": -64,
+        "deltaWidth": -48,
+        "deltaHeight": 56
+      },
+      {
+        "name": "gallery-strip",
+        "masterBox": {
+          "x": 0,
+          "y": 1560,
+          "width": 724,
+          "height": 250
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 1535.75,
+          "width": 676,
+          "height": 211
+        },
+        "deltaX": 24,
+        "deltaY": -24,
+        "deltaWidth": -48,
+        "deltaHeight": -39
+      },
+      {
+        "name": "map",
+        "masterBox": {
+          "x": 0,
+          "y": 1850,
+          "width": 724,
+          "height": 220
+        },
+        "actualBox": {
+          "x": 24,
+          "y": 1770.75,
+          "width": 676,
+          "height": 339.5
+        },
+        "deltaX": 24,
+        "deltaY": -79,
+        "deltaWidth": -48,
+        "deltaHeight": 120
+      },
+      {
+        "name": "bottom-cta",
+        "masterBox": {
+          "x": 0,
+          "y": 2090,
+          "width": 724,
+          "height": 82
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 2069,
+          "width": 724,
+          "height": 103
+        },
+        "deltaX": 0,
+        "deltaY": -21,
+        "deltaWidth": 0,
+        "deltaHeight": 21
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 2262.25,
+          "width": 724,
+          "height": 339
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null,
+        "notVisibleInMaster": true
+      }
+    ],
+    "classification": [
+      "ASSET_DIFF",
+      "GEOMETRY_DIFF"
+    ],
+    "implementationCommit": "b13ad1a02f9b43c6c3a6c65c306570e68c702177",
+    "captureSourceCommit": "b13ad1a02f9b43c6c3a6c65c306570e68c702177",
+    "gitStatusBeforeCapture": "tracked: D .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/actual/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/actual/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/diff/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/diff/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/mobile-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n D .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n D .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/overlay/web-04-duan.png\n D .webby/qa/pha3-v2/round-8/overlay/web-05-chitietduan.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "gitStatusAfterCapture": "tracked: M .webby/qa/pha3-v2/round-8/actual/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/actual/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/actual/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/diff/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/diff/web-03-chitietbds.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/mobile-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-01-trangchu.png\n M .webby/qa/pha3-v2/round-8/overlay/web-02-chothue.png\n M .webby/qa/pha3-v2/round-8/overlay/web-03-chitietbds.png\n D .webby/qa/pha3-v2/round-8/report.json; untracked: ?? .vercel/\n?? app/api/claude/\n?? lib/server/claude.ts",
+    "browserVersion": "151.0.7922.34",
+    "screenshotSha256": "fc9b730b0bf60c9b7f1557459ce068ba5ec762478a1e0dc291300d6660545b2b"
+  }
+]

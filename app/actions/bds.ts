@@ -1,12 +1,14 @@
 "use server";
 
+import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { getSession } from "@/lib/server/auth/dal";
 import { getRentalProviders } from "@/lib/server/rental/providers";
 import { buildMergedRentalData } from "@/lib/server/rental/merge";
 import { parsePriceVnd, parseAreaM2, parsePropertyType, parseAvailability } from "@/lib/server/rental/parse";
+import { fieldErrorsFromZodError } from "@/lib/server/validation";
 import type { CustomBdsRecord } from "@/lib/server/rental/overlay";
-import type { AdminPropertyRecord, Availability, PropertyType } from "@/lib/types";
+import type { AdminPropertyRecord } from "@/lib/types";
 import { isGoogleRuntimeConfigured } from "@/lib/server/env";
 import { resolveProviderMode, PERSISTENCE_NOT_CONFIGURED_ERROR } from "@/lib/server/providerMode";
 
@@ -31,6 +33,10 @@ export interface BdsFormInput {
   availability: string;
   bedroomCount: number | null;
   furnishingStatus: string | null;
+  bathroomCount: number | null;
+  amenities: string[];
+  locationNote: string | null;
+  videoUrl: string | null;
   media: string[];
   commission: string;
   guidePerson: string;
@@ -60,29 +66,80 @@ function slugify(input: string): string {
     .replace(/(^-|-$)/g, "");
 }
 
-function validate(
-  input: BdsFormInput,
-  price: number | null,
-  area: number | null,
-  propertyType: PropertyType | null,
-  availability: Availability | null,
-): Record<string, string> {
-  const errors: Record<string, string> = {};
-  if (!input.roomNo.trim()) errors.roomNo = "Vui lòng nhập mã/số phòng";
-  if (!input.location.trim()) errors.location = "Vui lòng nhập khu vực";
-  if (!input.address.trim()) errors.address = "Vui lòng nhập địa chỉ";
-  if (!(price !== null && price > 0)) errors.price = "Giá không hợp lệ — vui lòng nhập số, VD: 6.500.000";
-  if (!(area !== null && area > 0)) errors.area = "Diện tích không hợp lệ — vui lòng nhập số, VD: 35m²";
-  // GĐ6 QA reopen (defect 01): never silently coerce an unrecognized value
-  // to "Nhà"/"Còn trống" — reject it as a field error instead.
-  if (!propertyType) {
-    errors.propertyType = "Loại BĐS không hợp lệ — vui lòng nhập đúng: Căn hộ / Nhà / Mặt bằng / Văn phòng / Xưởng / Studio";
-  }
-  if (!availability) {
-    errors.availability = "Trạng thái không hợp lệ — vui lòng nhập đúng: Còn trống / Đã cho thuê / Sắp trống";
-  }
-  return errors;
-}
+// price/area/propertyType/availability are parsed from the same free-text
+// fields being validated, not separate inputs. All of this runs inside one
+// `superRefine` rather than field-level `.min()`/`.transform()` chains: zod
+// stops a `.transform()` from ever running once any preceding field check
+// in the same pipeline has failed, which silently dropped the price/area/
+// property-type/availability errors whenever roomNo/location/address were
+// *also* blank — the operator only ever saw the first problem, not every
+// field that needed fixing. superRefine's callback always runs against the
+// raw shape, so every check is independent and every failing field is
+// reported in one pass, matching the plain-object `validate()` this
+// replaced.
+const bdsFormSchema = z
+  .object({
+    slug: z.string(),
+    sourceId: z.string().optional(),
+    roomNo: z.string(),
+    location: z.string(),
+    address: z.string(),
+    priceRaw: z.string(),
+    serviceFee: z.string(),
+    areaRaw: z.string(),
+    verticalAccess: z.string(),
+    propertyType: z.string(),
+    description: z.string(),
+    highlights: z.array(z.string()),
+    availability: z.string(),
+    bedroomCount: z.number().nullable(),
+    furnishingStatus: z.string().nullable(),
+    bathroomCount: z.number().nullable(),
+    amenities: z.array(z.string()),
+    locationNote: z.string().nullable(),
+    videoUrl: z.string().nullable(),
+    media: z.array(z.string()),
+    commission: z.string(),
+    guidePerson: z.string(),
+    internalNotes: z.string(),
+  })
+  .superRefine((val, ctx) => {
+    if (!val.roomNo.trim()) ctx.addIssue({ code: "custom", path: ["roomNo"], message: "Vui lòng nhập mã/số phòng" });
+    if (!val.location.trim()) ctx.addIssue({ code: "custom", path: ["location"], message: "Vui lòng nhập khu vực" });
+    if (!val.address.trim()) ctx.addIssue({ code: "custom", path: ["address"], message: "Vui lòng nhập địa chỉ" });
+
+    const price = parsePriceVnd(val.priceRaw);
+    if (!(price !== null && price > 0)) {
+      ctx.addIssue({ code: "custom", path: ["price"], message: "Giá không hợp lệ — vui lòng nhập số, VD: 6.500.000" });
+    }
+    const area = parseAreaM2(val.areaRaw);
+    if (!(area !== null && area > 0)) {
+      ctx.addIssue({ code: "custom", path: ["area"], message: "Diện tích không hợp lệ — vui lòng nhập số, VD: 35m²" });
+    }
+    // GĐ6 QA reopen (defect 01): never silently coerce an unrecognized value
+    // to "Nhà"/"Còn trống" — reject it as a field error instead.
+    if (!parsePropertyType(val.propertyType)) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["propertyType"],
+        message: "Loại BĐS không hợp lệ — vui lòng nhập đúng: Căn hộ / Nhà / Mặt bằng / Văn phòng / Xưởng / Studio",
+      });
+    }
+    if (!parseAvailability(val.availability)) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["availability"],
+        message: "Trạng thái không hợp lệ — vui lòng nhập đúng: Còn trống / Đã cho thuê / Sắp trống",
+      });
+    }
+  })
+  .transform((val) => ({
+    ...val,
+    price: parsePriceVnd(val.priceRaw),
+    area: parseAreaM2(val.areaRaw),
+    propertyType: parsePropertyType(val.propertyType),
+    availability: parseAvailability(val.availability),
+  }));
 
 function revalidateBds() {
   revalidatePath("/admin/bds");
@@ -95,15 +152,11 @@ export async function saveBdsAction(input: BdsFormInput, publish: boolean): Prom
   if (!session) return UNAUTHORIZED;
   if (persistenceUnavailable()) return NOT_CONFIGURED;
 
-  const price = parsePriceVnd(input.priceRaw);
-  const area = parseAreaM2(input.areaRaw);
-  const propertyType = parsePropertyType(input.propertyType);
-  const availability = parseAvailability(input.availability);
-
-  const fieldErrors = validate(input, price, area, propertyType, availability);
-  if (Object.keys(fieldErrors).length > 0) {
-    return { ok: false, error: "Vui lòng kiểm tra lại thông tin.", fieldErrors };
+  const parsed = bdsFormSchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false, error: "Vui lòng kiểm tra lại thông tin.", fieldErrors: fieldErrorsFromZodError(parsed.error) };
   }
+  const { price, area, propertyType, availability } = parsed.data;
 
   const { overlay } = await getRentalProviders();
   const now = new Date().toISOString();
@@ -125,6 +178,10 @@ export async function saveBdsAction(input: BdsFormInput, publish: boolean): Prom
         availability,
         bedroomCount: input.bedroomCount,
         furnishingStatus: input.furnishingStatus,
+        bathroomCount: input.bathroomCount,
+        amenities: input.amenities,
+        locationNote: input.locationNote,
+        videoUrl: input.videoUrl,
         media: input.media,
         published: publish,
       },
@@ -134,6 +191,26 @@ export async function saveBdsAction(input: BdsFormInput, publish: boolean): Prom
     });
   } else {
     const slug = input.slug || slugify(input.roomNo);
+    if (!slug) {
+      return {
+        ok: false,
+        error: "Vui lòng kiểm tra lại thông tin.",
+        fieldErrors: { roomNo: "Mã/số phòng cần có ít nhất một chữ cái hoặc số" },
+      };
+    }
+    // Creating a second record whose name slugifies to an existing id used to
+    // overwrite the first one without warning. Refuse instead — the operator
+    // can rename, or open the existing record and edit it.
+    if (!input.slug) {
+      const existing = await overlay.listCustomRecords();
+      if (existing.some((r) => r.id === `custom:${slug}`)) {
+        return {
+          ok: false,
+          error: "Vui lòng kiểm tra lại thông tin.",
+          fieldErrors: { roomNo: `Đã có BĐS dùng đường dẫn "${slug}". Đổi mã/tên khác, hoặc mở bản ghi đó ra sửa.` },
+        };
+      }
+    }
     const record: CustomBdsRecord = {
       id: `custom:${slug}`,
       slug,
@@ -145,7 +222,7 @@ export async function saveBdsAction(input: BdsFormInput, publish: boolean): Prom
       area,
       verticalAccess: input.verticalAccess,
       // Stored as the validated, normalized union value (never the raw
-      // typed text) — validate() above already guarantees these are
+      // typed text) — bdsFormSchema above already guarantees these are
       // non-null before this point is ever reached.
       propertyType: propertyType!,
       description: input.description,
@@ -153,6 +230,10 @@ export async function saveBdsAction(input: BdsFormInput, publish: boolean): Prom
       availability: availability!,
       bedroomCount: input.bedroomCount,
       furnishingStatus: input.furnishingStatus,
+      bathroomCount: input.bathroomCount,
+      amenities: input.amenities,
+      locationNote: input.locationNote,
+      videoUrl: input.videoUrl,
       media: input.media,
       commission: input.commission,
       guidePerson: input.guidePerson,

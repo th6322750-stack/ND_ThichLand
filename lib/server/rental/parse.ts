@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import type { PropertyType } from "@/lib/types";
+import { splitHighlights } from "@/lib/highlights";
 import type { NormalizedRentalRecord, RawRentalRow, RentalParseOutcome } from "./types";
 
 // Canonical column positions per .webby/GD6_BACKEND_CONTRACT.json rentalSource.canonicalColumns (A:P).
@@ -53,7 +54,8 @@ export function parsePriceVnd(raw: string): number | null {
 
   const millionMatch = lower.match(/^([\d.,]+)\s*(triệu|tr)\b/);
   if (millionMatch) {
-    const numStr = millionMatch[1].replace(/\./g, "").replace(",", ".");
+    // Non-null: group 1 (`[\d.,]+`) is mandatory in the pattern, not optional.
+    const numStr = millionMatch[1]!.replace(/\./g, "").replace(",", ".");
     const num = Number(numStr);
     if (!Number.isFinite(num) || num <= 0) return null;
     return Math.round(num * 1_000_000);
@@ -80,7 +82,8 @@ export function parsePriceVnd(raw: string): number | null {
 export function parseAreaM2(raw: string): number | null {
   const match = raw.trim().match(AREA_PATTERN);
   if (!match) return null;
-  const num = Number(match[1].replace(",", "."));
+  // Non-null: group 1 is mandatory in AREA_PATTERN, not optional.
+  const num = Number(match[1]!.replace(",", "."));
   return Number.isFinite(num) && num > 0 ? num : null;
 }
 
@@ -126,7 +129,8 @@ export function parseBedroomCount(text: string): number | null {
 export function parseFurnishingStatus(text: string): string | null {
   const explicit = text.match(/nội thất\s*:\s*([^.;\n]+)/i);
   if (explicit) {
-    const value = explicit[1].trim();
+    // Non-null: group 1 (`[^.;\n]+`) is mandatory in the pattern, not optional.
+    const value = explicit[1]!.trim();
     return value.length > 0 ? value : null;
   }
   if (/nội thất đầy đủ/i.test(text)) return "Đầy đủ";
@@ -217,10 +221,7 @@ export function parseRentalRow(row: RawRentalRow): RentalParseOutcome {
     propertyTypeRaw,
     propertyType: parsePropertyType(propertyTypeRaw),
     description: descriptionRaw,
-    highlights: highlightsRaw
-      .split(/[|;]/)
-      .map((h) => h.trim())
-      .filter(Boolean),
+    highlights: splitHighlights(highlightsRaw),
     guidePerson: guidePersonRaw,
     internalNotes: internalNotesRaw,
     bedroomCount: parseBedroomCount(bedroomSource),

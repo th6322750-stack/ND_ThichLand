@@ -84,6 +84,7 @@ describe("production runtime without Google/Drive config fails closed", () => {
         slug: "", roomNo: "P.900", location: "Hà Nội", address: "A", priceRaw: "1000000",
         serviceFee: "", areaRaw: "10m2", verticalAccess: "", propertyType: "Nhà", description: "",
         highlights: [], availability: "Còn trống", bedroomCount: null, furnishingStatus: null,
+        bathroomCount: null, amenities: [], locationNote: null, videoUrl: null,
         media: [], commission: "", guidePerson: "", internalNotes: "",
       },
       true,
@@ -107,8 +108,9 @@ describe("production runtime without Google/Drive config fails closed", () => {
     const { saveProjectAction } = await import("@/app/actions/projects");
     const result = await saveProjectAction(
       {
-        slug: "", name: "Dự án Test", location: "Hà Nội", investor: "CDT", status: "Đang triển khai",
-        summary: "", amenities: [], progressText: "", progressPercent: 0, media: [],
+        slug: "", name: "Dự án Test", location: "Hà Nội", mapQuery: "", masterplanImage: "", showMasterplan: false, investor: "CDT", status: "Đang triển khai",
+        summary: "", amenities: [], progressText: "", progressPercent: 0, media: [], progressPhotos: [],
+        unitTypes: [], propertyType: "", scale: "", unitCount: "", highlights: [],
       },
       true,
     );
@@ -130,7 +132,7 @@ describe("production runtime without Google/Drive config fails closed", () => {
     signInAsAdmin();
     const { saveNewsAction } = await import("@/app/actions/news");
     const result = await saveNewsAction(
-      { slug: "", title: "Test", category: "Kinh nghiệm", excerpt: "", cover: "", sections: [], readMinutes: 0 },
+      { slug: "", title: "Test", category: "Kinh nghiệm", excerpt: "", cover: "", sections: [] },
       true,
     );
     expect(result.ok).toBe(false);

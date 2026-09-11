@@ -80,7 +80,7 @@ export function FilterDrawer({
           <button
             type="button"
             aria-label="Đóng bộ lọc"
-            className="flex h-11 w-11 items-center justify-center"
+            className="flex h-[44px] w-[44px] items-center justify-center"
             onClick={onClose}
           >
             ✕

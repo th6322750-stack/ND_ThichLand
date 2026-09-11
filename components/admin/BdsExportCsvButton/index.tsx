@@ -16,7 +16,11 @@ const COLUMNS: { key: keyof AdminPropertyRecord; label: string }[] = [
   { key: "verticalAccess", label: "Thang" },
   { key: "propertyType", label: "Loại BĐS" },
   { key: "bedroomCount", label: "Số phòng ngủ" },
+  { key: "bathroomCount", label: "Số phòng tắm" },
   { key: "furnishingStatus", label: "Nội thất" },
+  { key: "amenities", label: "Tiện ích" },
+  { key: "locationNote", label: "Vị trí (mô tả)" },
+  { key: "videoUrl", label: "Video URL" },
   { key: "availability", label: "Trạng thái" },
   { key: "published", label: "Đã đăng" },
   { key: "commission", label: "Hoa hồng (nội bộ)" },
@@ -55,7 +59,7 @@ export function BdsExportCsvButton({ records }: BdsExportCsvButtonProps) {
     <button
       type="button"
       onClick={handleExport}
-      className="inline-flex items-center justify-center rounded-md border border-line px-6 py-3 text-button uppercase text-ink hover:border-primary"
+      className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-line px-6 py-3 text-button uppercase text-ink hover:border-primary"
     >
       Xuất CSV
     </button>

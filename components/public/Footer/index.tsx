@@ -26,7 +26,7 @@ const columns = [
 const mobileSections = [
   { title: "Cho thuê", summary: "Căn hộ • Nhà • Mặt bằng • Văn phòng" },
   { title: "Dự án", summary: "Dự án tiêu biểu của công ty" },
-  { title: "Liên hệ", summary: "0986 602 203 • 0985 551 396" },
+  { title: "Liên hệ", summary: "0986 602 203" },
 ];
 
 export function Footer() {
@@ -35,7 +35,12 @@ export function Footer() {
       {/* <768px — approved Revision 3 compact composition */}
       <div className="container-page py-8 tablet:hidden">
         <div className="flex items-center gap-3">
-          <Image src="/assets/logos/NO_LOGO.svg" alt="NDTHICH LAND" width={46} height={46} unoptimized />
+          {/* Opaque JPEG with its own baked-in white background — on this
+              dark footer it needs a white plate underneath it (same fix as
+              components/admin/Sidebar) or it reads as a stray light patch. */}
+          <span className="flex items-center rounded-sm bg-surface p-1">
+            <Image src="/assets/v2/branding/dac-thich-land-logo-400.jpg" alt="NDTHICH LAND" width={46} height={46} unoptimized />
+          </span>
           <span className="text-[17px] font-extrabold text-surface">NDTHICH LAND</span>
         </div>
         <p className="mt-5 text-[12px] text-[#CFCFCF]">Đầu tư uy tín • Kinh doanh bền vững</p>
@@ -57,7 +62,9 @@ export function Footer() {
         <div className="container-page grid grid-cols-2 gap-10 py-16 desktop:grid-cols-4">
           <div>
             <div className="flex items-center gap-3">
-              <Image src="/assets/logos/NO_LOGO.svg" alt="NDTHICH LAND" width={36} height={36} unoptimized />
+              <span className="flex items-center rounded-sm bg-surface p-1">
+                <Image src="/assets/v2/branding/dac-thich-land-logo-400.jpg" alt="NDTHICH LAND" width={36} height={36} unoptimized />
+              </span>
               <span className="text-h3 text-surface">NDTHICH LAND</span>
             </div>
             <p className="mt-4 text-body text-[#B9B9B9]">Bất động sản cho thuê và dự án công ty</p>
@@ -85,10 +92,7 @@ export function Footer() {
               <li>
                 <a href="tel:0986602203">0986 602 203</a>
               </li>
-              <li>
-                <a href="tel:0985551396">0985 551 396</a>
-              </li>
-              <li>Hà Nội</li>
+              <li>Đội 5, Ích Vịnh, Xã Đại Thanh, Thành phố Hà Nội</li>
             </ul>
           </div>
         </div>

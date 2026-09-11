@@ -42,12 +42,21 @@ async function seedFixtureData(overlay: InMemoryRentalOverlayRepository): Promis
       availability: p.availability ?? "",
       bedroomCount: p.bedroomCount,
       furnishingStatus: p.furnishingStatus,
+      bathroomCount: p.bathroomCount,
+      amenities: p.amenities,
+      locationNote: p.locationNote,
+      videoUrl: p.videoUrl,
       media: p.media,
       commission: p.commission,
       guidePerson: p.guidePerson,
       internalNotes: p.internalNotes,
       published: true,
-      createdAt: now,
+      // "Hàng Mới Lên" reads postedAt from createdAt (see merge.ts's
+      // customToAdminRecord) — a fixture entry that sets a real postedAt
+      // (lib/data/properties.ts's hoursAgo() stand-ins) should seed with
+      // THAT timestamp, not every record collapsing to "right now" the
+      // moment the dev server started.
+      createdAt: p.postedAt ?? now,
       updatedAt: now,
     };
     await overlay.upsertCustomRecord(record);

@@ -58,6 +58,10 @@ describe("BĐS admin actions", () => {
         availability: "Còn trống",
         bedroomCount: null,
         furnishingStatus: null,
+        bathroomCount: null,
+        amenities: [],
+        locationNote: null,
+        videoUrl: null,
         media: [],
         commission: "",
         guidePerson: "",
@@ -88,6 +92,10 @@ describe("BĐS admin actions", () => {
         availability: "trạng thái không tồn tại",
         bedroomCount: null,
         furnishingStatus: null,
+        bathroomCount: null,
+        amenities: [],
+        locationNote: null,
+        videoUrl: null,
         media: [],
         commission: "",
         guidePerson: "",
@@ -120,6 +128,10 @@ describe("BĐS admin actions", () => {
         availability: "Còn trống",
         bedroomCount: null,
         furnishingStatus: null,
+        bathroomCount: null,
+        amenities: [],
+        locationNote: null,
+        videoUrl: null,
         media: [],
         commission: "",
         guidePerson: "",
@@ -152,6 +164,10 @@ describe("BĐS admin actions", () => {
         availability: "Còn trống",
         bedroomCount: null,
         furnishingStatus: null,
+        bathroomCount: null,
+        amenities: ["Hồ bơi", "Gym"],
+        locationNote: "Gần trung tâm, kết nối thuận tiện",
+        videoUrl: "https://youtube.com/watch?v=abc123",
         media: [],
         commission: "",
         guidePerson: "",
@@ -165,6 +181,9 @@ describe("BĐS admin actions", () => {
     expect(created).toBeDefined();
     expect(created!.published).toBe(true);
     expect(created!.price).toBe(7_000_000);
+    expect(created!.amenities).toEqual(["Hồ bơi", "Gym"]);
+    expect(created!.locationNote).toBe("Gần trung tâm, kết nối thuận tiện");
+    expect(created!.videoUrl).toBe("https://youtube.com/watch?v=abc123");
   });
 
   it('"Lưu nháp" persists with published:false', async () => {
@@ -186,6 +205,10 @@ describe("BĐS admin actions", () => {
         availability: "Còn trống",
         bedroomCount: null,
         furnishingStatus: null,
+        bathroomCount: null,
+        amenities: [],
+        locationNote: null,
+        videoUrl: null,
         media: [],
         commission: "",
         guidePerson: "",
@@ -218,6 +241,10 @@ describe("BĐS admin actions", () => {
         availability: "Còn trống",
         bedroomCount: 2,
         furnishingStatus: "Đầy đủ",
+        bathroomCount: 1,
+        amenities: ["Hồ bơi"],
+        locationNote: "Gần trung tâm",
+        videoUrl: null,
         media: [],
         commission: "",
         guidePerson: "",
@@ -257,6 +284,10 @@ describe("BĐS admin actions", () => {
         availability: "Còn trống",
         bedroomCount: null,
         furnishingStatus: null,
+        bathroomCount: null,
+        amenities: [],
+        locationNote: null,
+        videoUrl: null,
         media: [],
         commission: "",
         guidePerson: "",
@@ -295,6 +326,10 @@ describe("BĐS admin actions", () => {
         availability: target!.availability ?? "",
         bedroomCount: target!.bedroomCount,
         furnishingStatus: target!.furnishingStatus,
+        bathroomCount: target!.bathroomCount,
+        amenities: target!.amenities,
+        locationNote: target!.locationNote,
+        videoUrl: target!.videoUrl,
         media: target!.media,
         commission: target!.commission,
         guidePerson: target!.guidePerson,
@@ -307,6 +342,6 @@ describe("BĐS admin actions", () => {
     expect(after!.length).toBe(countBefore); // no new row created
     const matches = after!.filter((r) => r.slug === target!.slug);
     expect(matches).toHaveLength(1); // no duplicate slug
-    expect(matches[0].price).toBe(99_000_000);
+    expect(matches[0]!.price).toBe(99_000_000);
   });
 });

@@ -28,8 +28,9 @@ export function useFocusTrap(open: boolean, onClose: () => void) {
       if (e.key === "Tab" && container) {
         const items = Array.from(container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR));
         if (items.length === 0) return;
-        const first = items[0];
-        const last = items[items.length - 1];
+        // Non-null: the length check above guarantees both indices exist.
+        const first = items[0]!;
+        const last = items[items.length - 1]!;
         if (e.shiftKey && document.activeElement === first) {
           e.preventDefault();
           last.focus();

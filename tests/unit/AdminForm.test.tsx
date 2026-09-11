@@ -17,13 +17,15 @@ function renderWithRouter(children: React.ReactNode) {
 }
 
 describe("BdsForm", () => {
-  it("renders exactly one INTERNAL-ONLY section containing Hoa hồng, Người dẫn, Ghi chú nội bộ", () => {
+  it("renders exactly one internal section containing Hoa hồng, Người dẫn, Ghi chú nội bộ", () => {
     renderWithRouter(<BdsForm />);
-    const heading = screen.getByText("Thông tin INTERNAL-ONLY");
+    const heading = screen.getByText("Thông tin nội bộ");
     const internalSection = heading.closest("section")!;
     expect(internalSection).toHaveTextContent("Hoa hồng");
     expect(internalSection).toHaveTextContent("Người dẫn");
     expect(internalSection).toHaveTextContent("Ghi chú nội bộ");
+    expect(internalSection).toHaveTextContent("Chỉ dùng nội bộ");
+    expect(internalSection).not.toHaveTextContent("INTERNAL");
   });
 
   it("does not render any Đặt lịch/viewing-request/lead UI", () => {

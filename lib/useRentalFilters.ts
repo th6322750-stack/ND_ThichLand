@@ -15,6 +15,24 @@ import {
  * Uses router.replace (not push) so typing in search / toggling filters doesn't spam
  * browser history — back/forward still works for actual page-to-page navigation.
  */
+// Every key rentalFiltersToParams is responsible for. A key in this set that
+// is absent from the newly built params was deliberately cleared, so it must
+// not be resurrected from the previous URL.
+const OWNED_PARAMS = new Set([
+  "q",
+  "location",
+  "type",
+  "pn",
+  "sort",
+  "price",
+  "area",
+  "priceMin",
+  "priceMax",
+  "areaMin",
+  "areaMax",
+  "page",
+]);
+
 export function useRentalFilters() {
   const router = useRouter();
   const pathname = usePathname();
@@ -24,10 +42,18 @@ export function useRentalFilters() {
 
   const push = useCallback(
     (nextFilters: RentalFilterState, nextPage: number) => {
-      const qs = rentalFiltersToParams(nextFilters, nextPage).toString();
+      const next = rentalFiltersToParams(nextFilters, nextPage);
+      // Carry over any param this module does not own — notably `luu=1`, the
+      // saved-listings view. Rebuilding the query string from the filter
+      // state alone silently dropped it, so changing any filter while
+      // browsing "Yêu thích" kicked the visitor back to the full list.
+      for (const [key, value] of searchParams.entries()) {
+        if (!next.has(key) && !OWNED_PARAMS.has(key)) next.set(key, value);
+      }
+      const qs = next.toString();
       router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
     },
-    [pathname, router],
+    [pathname, router, searchParams],
   );
 
   const setFilters = useCallback(

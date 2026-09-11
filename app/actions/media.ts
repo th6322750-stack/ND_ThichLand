@@ -60,7 +60,10 @@ export async function uploadMediaAction(formData: FormData): Promise<MediaAction
     filename: uploadedFile.name,
     mimeType: uploadedFile.type,
     sizeBytes: buffer.byteLength,
-    webViewLink: `/api/media/${encodeURIComponent(id)}`,
+    // Stores with their own CDN (Vercel Blob) hand back a public URL, and
+    // using it directly saves a serverless invocation per image view. Disk-
+    // and Drive-backed records have no such URL and keep the proxy route.
+    webViewLink: stored.publicUrl ?? `/api/media/${encodeURIComponent(id)}`,
     uploadedBy: session.sub,
     createdAt: new Date().toISOString(),
   };

@@ -71,6 +71,15 @@ export function getGoogleMediaFolderId(): string | null {
   return process.env.GOOGLE_MEDIA_FOLDER_ID ?? null;
 }
 
+/** Absolute path of a writable directory holding uploaded media bytes, for
+ * deployments that own a real disk (the VPS). When set it takes precedence
+ * over Drive — a Google service account has no storage quota of its own and
+ * cannot upload into a personal Drive folder at all. */
+export function getMediaStorageDir(): string | null {
+  const dir = process.env.MEDIA_STORAGE_DIR?.trim();
+  return dir ? dir : null;
+}
+
 export function requireGoogleMediaFolderId(): string {
   const id = getGoogleMediaFolderId();
   if (!id) {
@@ -84,6 +93,10 @@ export function getAdminAuthEnv(): AdminAuthEnv | null {
   const passwordHash = process.env.ADMIN_PASSWORD_HASH;
   const authSecret = process.env.AUTH_SECRET;
   if (!email || !passwordHash || !authSecret) return null;
+  // Short signing/encryption keys are accepted only in local/test harnesses.
+  // A real production runtime fails closed instead of silently using a weak
+  // AUTH_SECRET for both session HMAC and AES-256 key derivation.
+  if (process.env.NODE_ENV === "production" && authSecret.length < 32) return null;
   return { email, passwordHash, authSecret };
 }
 
@@ -104,6 +117,12 @@ export function getRateLimitSecret(): string | null {
   return process.env.RATE_LIMIT_SECRET ?? process.env.AUTH_SECRET ?? null;
 }
 
+/** Signs public legacy-Drive delivery URLs so an arbitrary Drive file ID
+ * cannot turn the service account into a public file proxy. */
+export function getDriveMediaProxySecret(): string | null {
+  return process.env.DRIVE_MEDIA_PROXY_SECRET ?? process.env.AUTH_SECRET ?? null;
+}
+
 /**
  * A backend feature is "live-capable" only when every secret it needs is
  * present. Repository factories use this to choose the Google-backed
@@ -117,8 +136,19 @@ export function isAdminAuthConfigured(): boolean {
   return getAdminAuthEnv() !== null;
 }
 
+/** Vercel Blob is configured by the store's own token, which Vercel injects
+ * into the project once a Blob store is attached. */
+export function isVercelBlobConfigured(): boolean {
+  return Boolean(process.env.BLOB_READ_WRITE_TOKEN?.trim());
+}
+
+/** Metadata always lives in the CMS sheet, so Google is required either way.
+ * The bytes go wherever this deployment actually has room: local disk on the
+ * VPS, Vercel Blob on Vercel, Drive only where a folder is configured (which
+ * needs a Shared Drive — a service account has no storage quota of its own). */
 export function isMediaConfigured(): boolean {
-  return isGoogleRuntimeConfigured() && getGoogleMediaFolderId() !== null;
+  if (!isGoogleRuntimeConfigured()) return false;
+  return getMediaStorageDir() !== null || isVercelBlobConfigured() || getGoogleMediaFolderId() !== null;
 }
 
 export function isTestEnv(): boolean {

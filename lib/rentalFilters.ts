@@ -1,19 +1,57 @@
 import type { PropertyListing, PropertyType } from "./types";
 
+/**
+ * Result ordering offered on /cho-thue. "default" is the source order (the
+ * order rows come out of the Sheet/CMS) — deliberately NOT labelled "mới
+ * nhất": PropertyListing has no publish/created date, so calling source
+ * order "newest" would assert an ordering fact the data doesn't carry.
+ */
+export type RentalSort = "default" | "price-asc" | "price-desc" | "area-desc";
+
+export const RENTAL_SORT_OPTIONS: { value: RentalSort; label: string }[] = [
+  { value: "default", label: "Mặc định" },
+  { value: "price-asc", label: "Giá thấp → cao" },
+  { value: "price-desc", label: "Giá cao → thấp" },
+  { value: "area-desc", label: "Diện tích lớn → nhỏ" },
+];
+
 export interface RentalFilterState {
   q: string;
   location: string;
   propertyType: PropertyType | "";
+  /**
+   * Minimum bedroom count, or null for "any". Backed by the real
+   * PropertyListing.bedroomCount field — before this existed the sidebar's
+   * "Số phòng ngủ" group was wired to local component state and silently
+   * never filtered anything.
+   */
+  bedrooms: number | null;
+  sort: RentalSort;
+  /** @deprecated bucket-id form, still read by the pre-PHA2 components/public/Filter (out of PHA2 scope) — new UI uses priceMin/priceMax. */
   priceRange: string;
+  /** @deprecated bucket-id form, still read by the pre-PHA2 components/public/Filter (out of PHA2 scope) — new UI uses areaMin/areaMax. */
   areaRange: string;
+  // PHA3 round 1: continuous Từ/Đến range, adapted onto the same authoritative
+  // `price`/`area` fields the old bucket selects already checked — null means
+  // "no bound on this side" (e.g. priceMax: null == the master's "Trên 50 triệu").
+  priceMin: number | null;
+  priceMax: number | null;
+  areaMin: number | null;
+  areaMax: number | null;
 }
 
 export const EMPTY_RENTAL_FILTERS: RentalFilterState = {
   q: "",
   location: "",
   propertyType: "",
+  bedrooms: null,
+  sort: "default",
   priceRange: "",
   areaRange: "",
+  priceMin: null,
+  priceMax: null,
+  areaMin: null,
+  areaMax: null,
 };
 
 interface NumericRange {
@@ -83,13 +121,45 @@ export function filterProperties(
     if (filters.propertyType && p.propertyType !== filters.propertyType) return false;
     if (priceRange && !inRange(p.price, priceRange)) return false;
     if (areaRange && !inRange(p.area, areaRange)) return false;
+    if (filters.priceMin !== null && p.price < filters.priceMin) return false;
+    if (filters.priceMax !== null && p.price > filters.priceMax) return false;
+    if (filters.areaMin !== null && p.area < filters.areaMin) return false;
+    if (filters.areaMax !== null && p.area > filters.areaMax) return false;
+    // A listing whose bedroom count is unknown (null) is NOT treated as a
+    // match — the same "unknown is not a plausible default" rule the rest of
+    // the data layer follows. Showing it under "2 phòng" would assert a fact
+    // the record doesn't have.
+    if (filters.bedrooms !== null && (p.bedroomCount === null || p.bedroomCount < filters.bedrooms)) return false;
     return true;
   });
 }
 
+/** Pure, stable ordering — never mutates the input array. */
+export function sortProperties(properties: PropertyListing[], sort: RentalSort): PropertyListing[] {
+  if (sort === "default") return properties;
+  const copy = [...properties];
+  switch (sort) {
+    case "price-asc":
+      return copy.sort((a, b) => a.price - b.price);
+    case "price-desc":
+      return copy.sort((a, b) => b.price - a.price);
+    case "area-desc":
+      return copy.sort((a, b) => b.area - a.area);
+  }
+}
+
 export function hasActiveRentalFilters(filters: RentalFilterState): boolean {
   return Boolean(
-    filters.q || filters.location || filters.propertyType || filters.priceRange || filters.areaRange,
+    filters.q ||
+      filters.location ||
+      filters.propertyType ||
+      filters.priceRange ||
+      filters.areaRange ||
+      filters.priceMin !== null ||
+      filters.priceMax !== null ||
+      filters.areaMin !== null ||
+      filters.areaMax !== null ||
+      filters.bedrooms !== null,
   );
 }
 
@@ -97,8 +167,14 @@ const PARAM_KEYS = {
   q: "q",
   location: "location",
   propertyType: "type",
+  bedrooms: "pn",
+  sort: "sort",
   priceRange: "price",
   areaRange: "area",
+  priceMin: "priceMin",
+  priceMax: "priceMax",
+  areaMin: "areaMin",
+  areaMax: "areaMax",
   page: "page",
 } as const;
 
@@ -107,10 +183,42 @@ export function rentalFiltersToParams(filters: RentalFilterState, page: number):
   if (filters.q) params.set(PARAM_KEYS.q, filters.q);
   if (filters.location) params.set(PARAM_KEYS.location, filters.location);
   if (filters.propertyType) params.set(PARAM_KEYS.propertyType, filters.propertyType);
+  if (filters.bedrooms !== null) params.set(PARAM_KEYS.bedrooms, String(filters.bedrooms));
+  if (filters.sort !== "default") params.set(PARAM_KEYS.sort, filters.sort);
   if (filters.priceRange) params.set(PARAM_KEYS.priceRange, filters.priceRange);
   if (filters.areaRange) params.set(PARAM_KEYS.areaRange, filters.areaRange);
+  if (filters.priceMin !== null) params.set(PARAM_KEYS.priceMin, String(filters.priceMin));
+  if (filters.priceMax !== null) params.set(PARAM_KEYS.priceMax, String(filters.priceMax));
+  if (filters.areaMin !== null) params.set(PARAM_KEYS.areaMin, String(filters.areaMin));
+  if (filters.areaMax !== null) params.set(PARAM_KEYS.areaMax, String(filters.areaMax));
   if (page > 1) params.set(PARAM_KEYS.page, String(page));
   return params;
+}
+
+function parseOptionalNumber(raw: string | null): number | null {
+  if (raw === null || raw === "") return null;
+  const n = Number(raw);
+  return Number.isFinite(n) ? n : null;
+}
+
+const KNOWN_PROPERTY_TYPES: PropertyType[] = ["Căn hộ", "Nhà", "Mặt bằng", "Văn phòng", "Xưởng", "Studio"];
+
+/** A hand-edited/stale `?type=` value degrades to "no type filter" rather than
+    silently matching nothing and looking like an empty database. */
+function parsePropertyTypeParam(raw: string | null): PropertyType | "" {
+  if (!raw) return "";
+  return (KNOWN_PROPERTY_TYPES as string[]).includes(raw) ? (raw as PropertyType) : "";
+}
+
+function parseSortParam(raw: string | null): RentalSort {
+  return RENTAL_SORT_OPTIONS.some((o) => o.value === raw) ? (raw as RentalSort) : "default";
+}
+
+function parseBedroomsParam(raw: string | null): number | null {
+  const n = parseOptionalNumber(raw);
+  if (n === null) return null;
+  const rounded = Math.floor(n);
+  return rounded >= 1 && rounded <= 20 ? rounded : null;
 }
 
 export function rentalFiltersFromParams(
@@ -120,9 +228,15 @@ export function rentalFiltersFromParams(
     filters: {
       q: params.get(PARAM_KEYS.q) ?? "",
       location: params.get(PARAM_KEYS.location) ?? "",
-      propertyType: (params.get(PARAM_KEYS.propertyType) as PropertyType | null) ?? "",
+      propertyType: parsePropertyTypeParam(params.get(PARAM_KEYS.propertyType)),
+      bedrooms: parseBedroomsParam(params.get(PARAM_KEYS.bedrooms)),
+      sort: parseSortParam(params.get(PARAM_KEYS.sort)),
       priceRange: params.get(PARAM_KEYS.priceRange) ?? "",
       areaRange: params.get(PARAM_KEYS.areaRange) ?? "",
+      priceMin: parseOptionalNumber(params.get(PARAM_KEYS.priceMin)),
+      priceMax: parseOptionalNumber(params.get(PARAM_KEYS.priceMax)),
+      areaMin: parseOptionalNumber(params.get(PARAM_KEYS.areaMin)),
+      areaMax: parseOptionalNumber(params.get(PARAM_KEYS.areaMax)),
     },
     page: Math.max(1, Number(params.get(PARAM_KEYS.page)) || 1),
   };
