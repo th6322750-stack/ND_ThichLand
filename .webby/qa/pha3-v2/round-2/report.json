@@ -1,0 +1,54 @@
+[
+  {
+    "route": "/",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 820238,
+    "diffPixelRatio": 0.521247708287658,
+    "round1DiffPixelRatio": 0.5542559918149726,
+    "absoluteImprovement": 0.033008283527314664,
+    "percentageImprovement": 0.059554220459079536,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-2\\master\\web-01-trangchu.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-2\\actual\\web-01-trangchu.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-2\\diff\\web-01-trangchu.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-2\\overlay\\web-01-trangchu.png"
+  },
+  {
+    "route": "/",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 755816,
+    "diffPixelRatio": 0.4806375466764344,
+    "round1DiffPixelRatio": 0.536405711058881,
+    "absoluteImprovement": 0.05576816438244664,
+    "percentageImprovement": 0.10396638818844528,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-2\\master\\mobile-01-trangchu.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-2\\actual\\mobile-01-trangchu.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-2\\diff\\mobile-01-trangchu.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-2\\overlay\\mobile-01-trangchu.png"
+  }
+]

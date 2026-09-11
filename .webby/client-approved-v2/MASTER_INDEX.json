@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "status": "FROZEN",
+  "driveFolder": {
+    "id": "1bWvzzaz8E6A62uUQWTJ2Gm5dTjr3hbHi",
+    "url": "https://drive.google.com/drive/folders/1bWvzzaz8E6A62uUQWTJ2Gm5dTjr3hbHi"
+  },
+  "masters": {
+    "WEB/01_TrangChu_WEB.png": {"size":[935,1683],"sha256":"219d1fc465e3e15387a2cda10b2f45ad05811a9756562c6a8a0f1853c42b46f5","driveId":"1S8lns4i3F4q91dAMHTnozl5OElX53vbt","url":"https://drive.google.com/file/d/1S8lns4i3F4q91dAMHTnozl5OElX53vbt/view?usp=drivesdk"},
+    "WEB/02_ChoThue_WEB.png": {"size":[935,1683],"sha256":"bd46c5a62e7f6e0971067d7481afabe2050686e8beffd2f3fe3253821bf947e8","driveId":"1WgTzUUcqKMmS_ETG0MeMLF9OXpf6riR7","url":"https://drive.google.com/file/d/1WgTzUUcqKMmS_ETG0MeMLF9OXpf6riR7/view?usp=drivesdk"},
+    "WEB/03_ChiTietBDS_WEB.png": {"size":[935,1683],"sha256":"65c5afc0291f204bf2288825576da4df0769d83032a04f2ded003cad9bdf3fa6","driveId":"1NTbpP-jOTjDUndM8pZnzEq-qeyWq7Kqw","url":"https://drive.google.com/file/d/1NTbpP-jOTjDUndM8pZnzEq-qeyWq7Kqw/view?usp=drivesdk"},
+    "WEB/04_DuAn_WEB.png": {"size":[935,1683],"sha256":"d57efcc7e798f32669d2669a533a2b5293ecd87c3b36168a895ba066e2298cad","driveId":"1d5vWjbkbdgh8gU3gKhf8VQY2HBeOHnG6","url":"https://drive.google.com/file/d/1d5vWjbkbdgh8gU3gKhf8VQY2HBeOHnG6/view?usp=drivesdk"},
+    "WEB/05_ChiTietDuAn_WEB.png": {"size":[935,1683],"sha256":"7bf605f727b4f53c299ae767bc0c44ca8de21644372d6a05df445d606d5bc81b","driveId":"1bxbJJVCU0XAPvmZ4vVIhV34ZYSzYyCiC","url":"https://drive.google.com/file/d/1bxbJJVCU0XAPvmZ4vVIhV34ZYSzYyCiC/view?usp=drivesdk"},
+    "MOBILE/01_TrangChu_MOBILE.png": {"size":[724,2172],"sha256":"e9dae8588f3a93e3d5dd5d9da9683e80f94f0498042532c0de27b6eab60446fd","driveId":"1oURW23sXxyKKBKUThTs10i_i3unLoMTa","url":"https://drive.google.com/file/d/1oURW23sXxyKKBKUThTs10i_i3unLoMTa/view?usp=drivesdk"},
+    "MOBILE/02_ChoThue_MOBILE.png": {"size":[724,2172],"sha256":"0edd820bc3cf132443f1f9166ee19b870a50028d5ec3ba6b96b87fdbed18bd67","driveId":"1IhCodLja2na4cVr1hn-sABozs7iObhSW","url":"https://drive.google.com/file/d/1IhCodLja2na4cVr1hn-sABozs7iObhSW/view?usp=drivesdk"},
+    "MOBILE/03_ChiTietBDS_MOBILE.png": {"size":[724,2172],"sha256":"b383bd801d8b6b614154288b6241c4946c06df510a07566e632c8482f2a4d165","driveId":"1sc8VyG6GBEABH_LZqeUjHrX1NUV--E_N","url":"https://drive.google.com/file/d/1sc8VyG6GBEABH_LZqeUjHrX1NUV--E_N/view?usp=drivesdk"},
+    "MOBILE/04_DuAn_MOBILE.png": {"size":[724,2172],"sha256":"f16b85facb9e194192b456f6bf06798523b3e26331f4c2236db09a95d72451f4","driveId":"1RYCt4YPvPc3oWom2TfkqjbOADLmJr5q8","url":"https://drive.google.com/file/d/1RYCt4YPvPc3oWom2TfkqjbOADLmJr5q8/view?usp=drivesdk"},
+    "MOBILE/05_ChiTietDuAn_MOBILE.png": {"size":[724,2172],"sha256":"26891757b4bc2e01d855ee3fad3fcb5e690dd360e8594b68141b1f2b3dce9179","driveId":"1eSxuEUXO3DfspkwBktQZXF4TnPr8VZG6","url":"https://drive.google.com/file/d/1eSxuEUXO3DfspkwBktQZXF4TnPr8VZG6/view?usp=drivesdk"}
+  },
+  "rule": "Drive binary + SHA256 is the immutable reference. Replacing a binary requires a new visual revision."
+}

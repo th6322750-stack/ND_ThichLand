@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "uiRevision": 3,
+  "family": "Be Vietnam Pro",
+  "fallback": [
+    "Noto Sans",
+    "Arial",
+    "sans-serif"
+  ],
+  "weights": [
+    400,
+    500,
+    600,
+    700,
+    800
+  ],
+  "roles": {
+    "display": {
+      "weight": 800,
+      "desktop": 56,
+      "mobile": 36,
+      "lineHeight": 1.12
+    },
+    "h1": {
+      "weight": 800,
+      "desktop": 42,
+      "mobile": 30,
+      "lineHeight": 1.18
+    },
+    "h2": {
+      "weight": 700,
+      "desktop": 32,
+      "mobile": 25,
+      "lineHeight": 1.25
+    },
+    "h3": {
+      "weight": 700,
+      "desktop": 22,
+      "mobile": 20,
+      "lineHeight": 1.32
+    },
+    "bodyLg": {
+      "weight": 400,
+      "desktop": 17,
+      "mobile": 16,
+      "lineHeight": 1.68
+    },
+    "body": {
+      "weight": 400,
+      "desktop": 15,
+      "mobile": 14,
+      "lineHeight": 1.6
+    },
+    "label": {
+      "weight": 600,
+      "desktop": 13,
+      "mobile": 13,
+      "lineHeight": 1.4
+    },
+    "button": {
+      "weight": 700,
+      "desktop": 13,
+      "mobile": 13,
+      "lineHeight": 1
+    },
+    "price": {
+      "weight": 800,
+      "desktop": 18,
+      "mobile": 18,
+      "lineHeight": 1.25
+    },
+    "adminTitle": {
+      "weight": 700,
+      "desktop": 28,
+      "mobile": 24,
+      "lineHeight": 1.25
+    }
+  }
+}

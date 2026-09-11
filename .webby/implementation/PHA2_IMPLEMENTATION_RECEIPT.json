@@ -1,0 +1,206 @@
+{
+  "schemaVersion": 1,
+  "phase": "PHA2 — CLIENT VISUAL V2",
+  "executor": "CLAUDE",
+  "role": "implementation-only, zero design authority",
+  "branch": "claude/pha2-client-visual-v2",
+  "pr": {
+    "number": 8,
+    "url": "https://github.com/th6322750-stack/ND_ThichLand/pull/8",
+    "createdByClaude": false,
+    "note": "Pre-existing PR — not created by Claude. Claude pushed a new commit to the existing head branch only."
+  },
+  "baseSha": "ea4b72a059ae1695cd236f809d0cb2544563c6e5",
+  "baseShaNote": "PHA2 CORRECTION (per explicit user instruction): the branch was initially created locally from 70bb3019e5aca6cba2c11966d06250ea04632760 (the claude/gd6-backend-cms tip) — a backend ancestor, NOT the PHA2 freeze base. The real origin/claude/pha2-client-visual-v2 (PR #8) had already been pushed with 10 prep commits on top of that same 70bb3019 tip (d55719a..a7b333f: freeze-package authority/contract/manifest/QA-protocol docs + PHA1.5 freeze receipt + PHA2 authorization). Corrected via `git rebase --onto origin/claude/pha2-client-visual-v2 70bb3019... claude/pha2-client-visual-v2` so the implementation commit now sits on ea4b72a059ae1695cd236f809d0cb2544563c6e5's descendant (a7b333f) as required. All GD6 backend/CMS/auth/provider-mode/fail-closed logic is preserved unchanged from this base.",
+  "headSha": "This commit itself (a commit cannot record its own resulting hash — see `git log -1` on claude/pha2-client-visual-v2 / PR #8 for the exact value after push).",
+  "prMerged": false,
+  "conflictResolutionNote": "The rebase produced add/add conflicts on 4 files that already existed on origin/claude/pha2-client-visual-v2 from ChatGPT's own prep commits: .webby/client-approved-v2/{ASSET_MANIFEST.json, IMPLEMENTATION_CONTRACT.json, VISUAL_AUTHORITY.md, QA_PROTOCOL.md}. Content differs only in schema/formatting (e.g. the committed IMPLEMENTATION_CONTRACT.json points visualAuthority.primary at MASTER_INDEX.json rather than a masters/ directory) — resolved by keeping the already-committed (origin) version verbatim in every case; Claude's ZIP-derived copies of these 4 specific files were discarded, not merged in, so the existing authority docs on PR #8 were not modified.",
+  "binaryProvenanceVerification": {
+    "method": "The Google Drive freeze package (2 ZIPs, provided to Claude via the user outside git) was independently verified against origin/claude/pha2-client-visual-v2's own already-committed .webby/client-approved-v2/FREEZE_RECEIPT.json, which records the authoritative Drive file IDs and SHA256 hashes.",
+    "results": [
+      "NDTHICH_PHA1_5_FREEZE_PACKAGE.zip sha256 8b0367de8d90340a958b7b92f559379fa0f63947989336cc954819324ddc5bee == FREEZE_RECEIPT.json's fullFreezePackage.sha256 — MATCH",
+      "NDTHICH_ASSETS_FROZEN_V2.zip sha256 ca0d65de44fda00b859fd8a7519aa108f66b2d2ee4ab3e39fab92fc85cac8072 == FREEZE_RECEIPT.json's assetBinaryStore.zipSha256 — MATCH",
+      "All 10 master PNG sha256 values in Claude's extracted PACKAGE_INDEX.json match origin/claude/pha2-client-visual-v2's committed MASTER_INDEX.json byte-for-byte — MATCH"
+    ],
+    "conclusion": "The exact binaries implemented against are the same ones already authorized and hash-recorded on PR #8's branch, not a substituted or tampered source."
+  },
+
+  "preflight": {
+    "branchVerified": "claude/pha2-client-visual-v2",
+    "docsReadInOrder": [
+      "_visual_input/freeze-package/VISUAL_AUTHORITY.md",
+      "_visual_input/freeze-package/PACKAGE_INDEX.json",
+      "_visual_input/freeze-package/IMPLEMENTATION_CONTRACT.json",
+      "_visual_input/freeze-package/ASSET_MANIFEST.json",
+      "_visual_input/freeze-package/QA_PROTOCOL.md",
+      "_visual_input/freeze-package/CLAUDE_PHASE2_TASK.md"
+    ],
+    "mastersVerified": "10/10 present, correct dimensions (WEB 935x1683, MOBILE 724x2172)",
+    "assetsVerified": "62/62 files (masters + assets + docs) present and readable",
+    "sha256Verification": "62/62 files byte-exact and SHA256-exact against PACKAGE_INDEX.json — verified via a one-off Node script (crypto.createHash('sha256')), all matched, zero mismatches, zero missing files",
+    "installedTo": ".webby/client-approved-v2/ (masters/, assets/, ASSET_MANIFEST.json, IMPLEMENTATION_CONTRACT.json, VISUAL_AUTHORITY.md, QA_PROTOCOL.md) — the canonical path IMPLEMENTATION_CONTRACT.json and ASSET_MANIFEST.json themselves hardcode (e.g. '.webby/client-approved-v2/masters/WEB/01_TrangChu_WEB.png'), distinct from the _visual_input/freeze-package/ staging copy the package was dropped at",
+    "assetsCopiedToPublic": "public/assets/v2/** (branding, home, project-detail, projects, properties, property-detail) — exact frozen bytes, no re-encoding/modification"
+  },
+
+  "implementedRoutes": [
+    {
+      "route": "/",
+      "master": "01_TrangChu",
+      "files": ["app/(public-v2)/page.tsx", "components/public-v2/HomeSearchBar2/index.tsx"],
+      "webCoverage": "hero, trust metrics, search bar, featured rentals (4), featured projects (4), about, testimonials, contact+map",
+      "mobileCoverage": "same sections, independently composed (not a scaled desktop) — 3-col compact grids, stacked hero"
+    },
+    {
+      "route": "/cho-thue",
+      "master": "02_ChoThue",
+      "files": [
+        "app/(public-v2)/cho-thue/page.tsx",
+        "app/(public-v2)/cho-thue/ChoThuePageInner.tsx",
+        "components/public-v2/Filter2/index.tsx",
+        "components/public-v2/FilterDrawer2/index.tsx",
+        "components/public-v2/PropertyListRow2/index.tsx",
+        "components/public-v2/Pagination2/index.tsx"
+      ],
+      "webCoverage": "hero, breadcrumb, left filter sidebar, result count + sort, vertical list rows (photo-left/info-right + Xem chi tiết), pagination",
+      "mobileCoverage": "hero, breadcrumb, Lọc/Sắp xếp controls, result count, full-bleed stacked cards with heart/status overlays, filter bottom sheet"
+    },
+    {
+      "route": "/cho-thue/[slug]",
+      "master": "03_ChiTietBDS",
+      "files": ["app/(public-v2)/cho-thue/[slug]/page.tsx", "components/public-v2/Gallery2/index.tsx"],
+      "webCoverage": "gallery (main+3 thumbs+more badge), title/price/facts, highlights, sticky contact panel, details table, map, related grid",
+      "mobileCoverage": "same sections stacked, inline 3-button contact row (Gọi ngay/Nhắn Zalo/Đặt lịch xem)"
+    },
+    {
+      "route": "/du-an",
+      "master": "04_DuAn",
+      "files": ["app/(public-v2)/du-an/page.tsx", "app/(public-v2)/du-an/DuAnPageInner.tsx", "components/public-v2/ProjectCardOverlay2/index.tsx"],
+      "webCoverage": "status tabs (roving tabindex, arrow/home/end keys), 3-col dark-overlay photo grid, about/brand block",
+      "mobileCoverage": "same tabs, single-column project stack, about block"
+    },
+    {
+      "route": "/du-an/[slug]",
+      "master": "05_ChiTietDuAn",
+      "files": ["app/(public-v2)/du-an/[slug]/page.tsx", "components/public-v2/ProjectInquiryForm2/index.tsx"],
+      "webCoverage": "hero+status, facts (Chủ đầu tư/Loại hình/Quy mô/Số lượng), inquiry form panel, tiện ích, tiến độ, gallery, map",
+      "mobileCoverage": "same sections stacked, inline inquiry form card"
+    }
+  ],
+
+  "sharedLayer": {
+    "routeGroup": "app/(public-v2)/ — a separate route group + layout.tsx (Header2/Footer2) from app/(public)/layout.tsx on purpose, so /gioi-thieu, /tin-tuc, /lien-he (out of PHA2 scope) keep the pre-existing Header/Footer completely untouched. Route PATHS are unaffected — Next.js route groups are organizational only.",
+    "components": [
+      "Header2", "Footer2", "Breadcrumb2", "TrustMetrics2", "Pagination2",
+      "PropertyCardGrid2", "PropertyListRow2", "ProjectCardOverlay2",
+      "Filter2", "FilterDrawer2", "Gallery2", "HomeSearchBar2", "ProjectInquiryForm2"
+    ],
+    "newIcons": "18 new line icons added to components/icons + public/assets/icons/ (heart, star, clock, shield, bath, sort, close, chevron-right, arrow-right, calendar, quote, pool, dumbbell, tree, grill, shop, key, person, facebook, youtube, tiktok — 21 total incl. the 3 social) matching the existing stroke/24x24 SVG convention — not photography/hero-asset generation, which remains forbidden and untouched (frozen PNGs used as-is)."
+  },
+
+  "assetVerification": {
+    "method": "Every frozen photo/brand/map-reference asset used verbatim from public/assets/v2/** (copied byte-for-byte from .webby/client-approved-v2/assets/), no re-encoding, no color/crop edits, no Claude-generated or web-sourced replacement imagery anywhere.",
+    "cardReferenceUsage": "The *-card-reference.png files (ASSET_MANIFEST.json: 'reference-only: never render the full card-reference PNG as UI content') were NOT rendered as UI — only the corresponding *-photo.png files are used in production card/gallery slots.",
+    "productionAllowedUsages": "photo, brand-reference (ndthich-logo-reference.png in Header2/Footer2), map-reference (property-detail/map.png used for both property and project detail 'Vị trí' sections, per the manifest's allowed usages)"
+  },
+
+  "fixtureMode": {
+    "flag": "VISUAL_FIXTURE_V2=true",
+    "module": "lib/visualFixtureV2.ts",
+    "isolation": "Independent of lib/server/providerMode.ts (mock/live/unavailable) and of GĐ6's lib/data/*.ts dev fixtures — a separate, explicit, QA-only gate. Never set in production; not read by any non-V2 code path. Default (unset) behavior is completely unaffected: all 5 V2 pages call the real getRentalProviders()/getProjectRepository() production data path exactly as before whenever the flag is absent.",
+    "content": "6 deterministic properties (matching the WEB/MOBILE cho-thue master's visible listings and photos) + 9 deterministic projects (matching all 9 du-an grid cards + the Sun Galaxy Complex detail example), using only the frozen photo assets."
+  },
+
+  "screenshotCaptures": {
+    "tool": "tests/visual/capture-pha2-v2.ts (persistent tool, not a temp script)",
+    "outputPaths": {
+      "browser": ".webby/qa/pha2-v2/browser/{WEB,MOBILE}/*.png",
+      "diff": ".webby/qa/pha2-v2/diff/*.png",
+      "report": ".webby/qa/pha2-v2/report.json"
+    },
+    "viewports": {
+      "web": "935x1683 CSS, deviceScaleFactor 1 (per QA_PROTOCOL.md)",
+      "mobile": "362 CSS width, deviceScaleFactor 2 -> 724 physical width (per QA_PROTOCOL.md)"
+    },
+    "captureModeInterpretationNote": "QA_PROTOCOL.md says 'capture mode: viewport screenshot' and gives a fixed reference PNG physical size (935x1683 / 724x2172). Every master PNG, however, visibly contains a full page's worth of sections (header through footer) compressed into that same fixed canvas — the same 'design-export canvas size, not a literal 1:1 browser viewport' pattern already seen in the GD6 Revision 3 masters (documented in that phase's certification). A literal fixed-viewport crop of a real, much taller implemented page would only ever compare the very top of the page against the master's entire compressed composition. This tool therefore captures fullPage (real scrollable height) at the specified WIDTH and deviceScaleFactor, so the whole implemented page is comparable section-by-section against the whole master image — an interpretation call, not a silent default, flagged here for ChatGPT's review rather than resolved unilaterally.",
+    "results": [
+      { "route": "/", "web": "59.42% raw diff, master 935x1683 vs captured 935x2873", "mobile": "58.23% raw diff, master 724x2172 vs captured 724x10872" },
+      { "route": "/cho-thue", "web": "44.81% raw diff, master 935x1683 vs captured 935x2384", "mobile": "58.66% raw diff, master 724x2172 vs captured 724x7714" },
+      { "route": "/cho-thue/[slug]", "web": "46.80% raw diff, master 935x1683 vs captured 935x2372", "mobile": "52.46% raw diff, master 724x2172 vs captured 724x7066" },
+      { "route": "/du-an", "web": "71.75% raw diff, master 935x1683 vs captured 935x2290", "mobile": "74.59% raw diff, master 724x2172 vs captured 724x12194" },
+      { "route": "/du-an/[slug]", "web": "61.54% raw diff, master 935x1683 vs captured 935x2289", "mobile": "63.60% raw diff, master 724x2172 vs captured 724x7352" }
+    ],
+    "rawDiffPercentMethodologyNote": "Per PHA2_PRE_HANDOFF_CORRECTION (explicit user instruction): the raw diff percentages above (44.81%-74.59%) are recorded as-is and are NOT characterized here as unimportant, expected, or a self-assessed PASS. The captureModeInterpretationNote above documents a factual mechanism (the diff tool compares only the first min(masterHeight, capturedHeight) rows against a master canvas that is itself shorter than the real implemented page) that contributes to why the raw percentage is high — that is a methodology fact, not a fidelity judgment. Whether the underlying implementation is visually acceptable is a determination reserved entirely for ChatGPT's PHA3 QA; this receipt does not draw that conclusion."
+  },
+
+  "selfQa": {
+    "method": "Manual side-by-side review of all 10 captures against their masters (Task 12), plus an automated horizontal-overflow sweep (Playwright getBoundingClientRect() over every element) across all 5 routes x 2 viewports.",
+    "findings": [
+      {
+        "defect": "PropertyListRow2's price+'Xem chi tiết' button row used justify-content:space-between without constraining the price <p>'s width, so at 935px width the button overflowed its own row by up to ~8px (visible as the row/page rendering 943px wide instead of 935px in the first capture pass).",
+        "fix": "Changed the row to a normal flex row where the price <p> is 'min-w-0 flex-1' (shrinks/wraps first) and the button stays 'shrink-0', instead of relying on space-between to keep both children inside the container.",
+        "verifiedBy": "Re-ran the overflow sweep after the fix: 0 elements overflow at 935px (WEB) or 362px (MOBILE) across all 5 routes."
+      },
+      {
+        "defect": "Trust metrics' first stat ('500+ Bất động sản cho thuê') used the 'building' icon, but the approved master shows a person/user icon for that stat.",
+        "fix": "Added a new 'person' icon and used it for that one stat."
+      }
+    ],
+    "overflowSweepResult": "0 overflowing elements across all 5 routes x 2 viewports (935px WEB / 362px MOBILE), final pass.",
+    "visualPass": "NOT SELF-DECLARED — per VISUAL_AUTHORITY.md and QA_PROTOCOL.md, only ChatGPT may emit PHA3_VISUAL_PASS_V2/VISUAL_PASS_V2. This receipt documents defects found and fixed by Claude; it does not certify overall visual fidelity."
+  },
+
+  "knownDeviations": [
+    {
+      "tag": "UNAPPROVED_VISUAL_DEVIATION_PENDING_CHATGPT_QA",
+      "item": "Price/area filters are single bucketed <select> dropdowns (existing PRICE_RANGES/AREA_RANGES from lib/rentalFilters.ts), not the master's dual Từ/Đến inputs + range slider.",
+      "reason": "The existing RentalFilterState/filterProperties model only supports bucketed ranges, not arbitrary from/to values — building real continuous-range filtering would be a new backend/filtering capability beyond 'implement responsive behavior required by the contract' / 'wire existing UX and backend without visual drift'. Rendering a slider that doesn't actually filter would be worse (a fake control). This deviation from the approved master is NOT authorized by Claude and is NOT self-certified — it is flagged pending explicit ChatGPT PHA3 review/decision (accept, or require real backend range-filtering work as a follow-up task). The authority documents (IMPLEMENTATION_CONTRACT.json etc.) were not altered to retroactively justify this."
+    },
+    {
+      "item": "\"Số phòng ngủ\" (bedroom count) filter renders as disabled/visual-only checkboxes ('Tất cả' checked, no real filtering).",
+      "reason": "No authoritative bedroomCount filter field exists in the current filter model — this exact limitation and reasoning is already documented verbatim in the pre-existing components/public/Filter (\"no authoritative structured source field exists yet... wiring it up would mean inferring/fabricating\"). PHA2 keeps the same non-fabrication stance for the new checkbox-styled control."
+    },
+    {
+      "item": "Project inquiry form (/du-an/[slug]) and the mobile 'Đặt lịch xem' button on /cho-thue/[slug] do not create a new Leads/Viewing CMS record.",
+      "reason": "VISUAL_AUTHORITY.md explicitly forbids a new persistence flow for a visual control alone. The project inquiry form instead calls the existing, already-approved submitContactAction (WEB_CONTACTS) with the project name folded into the message; 'Đặt lịch xem' remains a non-persistent visual affordance, matching the contract's own example."
+    },
+    {
+      "item": "Testimonials (home page) and the 4 trust-metric numbers (500+/50+/100%/24/7) are static marketing copy, not backed by any CMS/data model.",
+      "reason": "No testimonials/trust-metrics data model exists anywhere in the GĐ6 contract — these are the same category of static UI copy as the master's own hard-coded marketing numbers, not a fabricated business fact about a specific listing/project."
+    },
+    {
+      "item": "Fixture/production text content (property names, prices, project examples, addresses, phone digits) does not exactly match every master's visible text.",
+      "reason": "VISUAL_AUTHORITY.md: 'master text is not automatically production fact' — geometry/composition was matched; production always renders real backend content, and the VISUAL_FIXTURE_V2 QA-only fixture was written to match the master's example content as closely as reasonably practical for comparison purposes."
+    }
+  ],
+
+  "backendRegression": {
+    "preserved": [
+      "Google provider factories / providerMode.ts (mock/live/unavailable) — untouched",
+      "Rental parser, rental merge/overlay logic — untouched",
+      "CMS (Admin BDS/Project/News/Media) — untouched",
+      "Real admin auth (scrypt + HMAC session) — untouched",
+      "Contact backend (WEB_CONTACTS, rate limiting) — untouched; PHA2 only adds a new caller (ProjectInquiryForm2) via submitContactAction, no changes to the action itself",
+      "Media backend / delivery proxy — untouched",
+      "URL/filter state (useRentalFilters, rentalFiltersToParams/FromParams) — untouched, reused as-is by the new V2 UI",
+      "Accessibility: focus trap (useFocusTrap) reused for FilterDrawer2/Gallery2/Header2's mobile nav; tablist roving-tabindex pattern preserved verbatim in DuAnPageInner; a11y.test.tsx (axe) passes against the new / and /cho-thue V2 pages",
+      "Reduced motion / validation / security — untouched"
+    ],
+    "movedNotChanged": "app/(public)/{page.tsx,cho-thue/**,du-an/**} moved to app/(public-v2)/ (git mv) — same data-fetching calls (getRentalProviders/buildMergedRentalData/toPublicPropertyListings, getProjectRepository/toPublicProjectListings), only the JSX/UI layer was replaced."
+  },
+
+  "liveIntegrationStatus": "NOT_PERFORMED — no live Google secrets in this environment (unchanged from GĐ6). Not in scope for PHA2 (visual-only phase).",
+
+  "tests": {
+    "build": "PASS — next build (Turbopack), all routes registered correctly at unchanged URL paths",
+    "lint": "PASS — eslint . clean",
+    "typecheck": "PASS — tsc --noEmit clean",
+    "vitest": "PASS — 34 files / 235 tests (232 pre-existing + 3 new DEMO_MODE tests from a prior task), 0 failures. a11y.test.tsx and DuAnTabs.test.tsx import paths updated to app/(public-v2)/* after the route-group move.",
+    "e2eMock": "PASS — 16/16 (npm run test:e2e:mock). tests/e2e/rental-filter-drawer.spec.ts and rental-url-state.spec.ts updated to interact with the new V2 controls (checkbox-based 'Loại bất động sản' instead of a <select>, 'Lọc'/'Áp dụng bộ lọc' button text, no free-text search field on /cho-thue since the approved master doesn't show one there) — same underlying behavioral contracts (draft-discard-on-close, draft-commit-on-apply, URL-persisted filter state, deep-link reconstruction) verified against the real V2 DOM, not weakened.",
+    "e2eFailclosed": "PASS — 5/5 (npm run test:e2e:failclosed). production-fail-closed.spec.ts's /du-an heading assertion updated from the old 'Dự án của NDTHICH' text to the new master's 'Các dự án tiêu biểu' h1; the underlying fail-closed assertion (no demo project content, tabpanel has 0 links) is unchanged and still passes.",
+    "noFailClosedWeakening": "lib/server/providerMode.ts was not modified in this phase. Production without real Google configuration still resolves to \"unavailable\"."
+  },
+
+  "blockers": [],
+
+  "terminal": "PHA2_IMPLEMENTATION_READY_FOR_CHATGPT_QA"
+}

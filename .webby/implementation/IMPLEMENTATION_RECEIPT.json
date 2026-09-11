@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "executor": "CLAUDE",
+  "consumedUiCommit": "ff96ed9ea596071c14515a551cdf31d46f0b0f69",
+  "consumedUiRevision": 3,
+  "implementationCommit": "4cce82b1b8a4ee1db02a5bf6c16393136980ad0e",
+  "implementedRoutes": [
+    "/",
+    "/cho-thue",
+    "/cho-thue/[slug]",
+    "/du-an",
+    "/du-an/[slug]",
+    "/gioi-thieu",
+    "/tin-tuc",
+    "/tin-tuc/[slug]",
+    "/lien-he",
+    "/admin/login",
+    "/admin",
+    "/admin/bds",
+    "/admin/bds/new",
+    "/admin/bds/[id]",
+    "/admin/du-an",
+    "/admin/du-an/new",
+    "/admin/du-an/[id]",
+    "/admin/tin-tuc",
+    "/admin/tin-tuc/new",
+    "/admin/tin-tuc/[id]",
+    "/admin/media"
+  ],
+  "implementedComponents": [
+    "Header",
+    "Footer",
+    "Button",
+    "PropertyCard",
+    "ProjectCard",
+    "NewsCard",
+    "FormField",
+    "Filter",
+    "FilterDrawer",
+    "Gallery",
+    "SearchPanel",
+    "Pagination",
+    "Breadcrumb",
+    "ContactCTA",
+    "ContactForm",
+    "MapEmbed",
+    "StickyMobileActions",
+    "Sidebar",
+    "Topbar",
+    "StatCard",
+    "DataTable",
+    "FormSection",
+    "Uploader",
+    "BdsForm",
+    "DuAnForm",
+    "TinTucForm",
+    "MediaGrid"
+  ],
+  "buildStatus": "PASS — next build succeeded, 41 routes generated (static + SSG for all dynamic slugs), zero TypeScript errors. Re-verified on commit 4cce82b1b8a4ee1db02a5bf6c16393136980ad0e.",
+  "testStatus": "PASS — 29/29 Vitest tests (unit + axe-core accessibility sweep, 8 pages/components, zero serious/critical violations); npx tsc --noEmit clean; eslint clean. Re-verified on commit 4cce82b1b8a4ee1db02a5bf6c16393136980ad0e.",
+  "openRequests": [],
+  "blockers": [],
+  "previewUrl": null,
+  "visualEvidence": {
+    "note": "No live deployment exists, so previewUrl stays null per schema honesty. This is a self-contained static evidence page instead: real Playwright browser screenshots (production build, fullPage) embedded side-by-side with the approved .webby/visual-handoff renders, viewable directly without cloning the repo or un-gitignoring tests/visual/__screenshots__.",
+    "url": "https://claude.ai/code/artifact/e4e68b14-243b-49f8-a670-968dcfe761d6",
+    "coversRoutes": ["/cho-thue/[slug] (MOBILE + WEB)", "/du-an/[slug] (MOBILE)", "/cho-thue (MOBILE)"],
+    "generatedFromCommit": "4cce82b1b8a4ee1db02a5bf6c16393136980ad0e",
+    "captureMethod": "tests/visual/capture.ts (Playwright, fullPage) against `next build && next start` on port 3009"
+  },
+  "knownDeviations": [],
+  "approvedSourceOfTruthDecisions": [
+    {
+      "topic": "Rental facts row — Phòng ngủ / Nội thất",
+      "decision": "Facts row shows Diện tích/Phòng ngủ/Thang máy/Nội thất on both viewports, matching the approved masters' visual slots exactly (the desktop render 03_ChiTietChoThue_WEB.png shows the same four slots as the mobile render). Phòng ngủ and Nội thất have no backing field in data-source-map.json's public schema, so they render \"—\" rather than being inferred from property_type, parsed from description, or fabricated in fixture data. Diện tích binds to `area`; Thang máy binds to real `vertical_access` data.",
+      "status": "resolved-per-chatgpt-decision"
+    }
+  ],
+  "resolvedInThisPass": [
+    "/cho-thue/[slug] mobile: rebuilt as a distinct composition matching 03_ChiTietChoThue_MOBILE.png — short breadcrumb, Đặc điểm nổi bật / Phí dịch vụ / Video-media / Vị trí as separate sections instead of a desktop reflow.",
+    "/du-an/[slug] mobile: rebuilt as a distinct composition matching 05_ChiTietDuAn_MOBILE.png — short breadcrumb, generic CMS-placeholder blocks for Thông tin dự án and Tiến độ instead of the desktop's structured table.",
+    "/cho-thue mobile: mobile-specific subcopy and Bộ lọc/Mới nhất button row matching 02_ChoThue_MOBILE.png, replacing the desktop search+Tìm kiếm+select combo on that viewport."
+  ],
+  "resolvedInReopenPass": [
+    {
+      "topic": "/cho-thue/[slug] mobile — Phí dịch vụ used generic CmsPlaceholderSection instead of the real serviceFee field",
+      "severity": "MEDIUM",
+      "reportedBy": "ChatGPT visual-acceptance review, 2026-08-13",
+      "fix": "Added ServiceFeeSection — identical visual container to CmsPlaceholderSection (same heading, border, spacing) but rendering listing.serviceFee. No layout/heading/spacing change vs 03_ChiTietChoThue_MOBILE.png. Desktop was already correctly bound and is unaffected.",
+      "commit": "4cce82b1b8a4ee1db02a5bf6c16393136980ad0e"
+    },
+    {
+      "topic": "Evidence-viewability blocker — tests/visual/__screenshots__ is gitignored and previewUrl was null, so ChatGPT had no independently-viewable browser screenshots",
+      "fix": "Published a self-contained static evidence page (see visualEvidence.url) embedding real Playwright screenshots next to the approved renders, side by side, viewable directly in a browser — not a repo-hosted path.",
+      "resolved": true
+    }
+  ]
+}

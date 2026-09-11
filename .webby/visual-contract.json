@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "uiRevision": 3,
+  "authority": "CHATGPT",
+  "masterStrategy": "SVG_MASTER",
+  "visibleTruth": "Direct approved full-page PNG renders + matching SVG Masters",
+  "logo": "NO_LOGO placeholder approved for Revision 3",
+  "futureFeature": "Viewing-request/Lead excluded",
+  "mustNot": [
+    "Do not redesign visible UI",
+    "Do not substitute Be Vietnam Pro",
+    "Do not invent/crop a logo",
+    "Do not expose commission/guide/internal notes publicly",
+    "Do not add viewing-request/Lead UI",
+    "Do not replace approved icons/placeholders with generic defaults"
+  ]
+}

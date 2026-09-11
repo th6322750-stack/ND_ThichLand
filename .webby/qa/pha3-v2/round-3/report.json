@@ -1,0 +1,936 @@
+[
+  {
+    "route": "/",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 779780,
+    "diffPixelRatio": 0.49553731717934296,
+    "round2DiffPixelRatio": 0.5262737472,
+    "absoluteImprovement": 0.030736430020657013,
+    "percentageImprovement": 0.05840388236006049,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound2": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-3\\master\\web-01-trangchu.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-3\\actual\\web-01-trangchu.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-3\\diff\\web-01-trangchu.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-3\\overlay\\web-01-trangchu.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 57.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": -6
+      },
+      {
+        "name": "hero",
+        "masterBox": {
+          "x": 0,
+          "y": 64,
+          "width": 935,
+          "height": 281
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 57.5,
+          "width": 935,
+          "height": 256.03125
+        },
+        "deltaX": 0,
+        "deltaY": -6,
+        "deltaWidth": 0,
+        "deltaHeight": -25
+      },
+      {
+        "name": "trustmetrics",
+        "masterBox": {
+          "x": 0,
+          "y": 345,
+          "width": 935,
+          "height": 95
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 313.53125,
+          "width": 935,
+          "height": 134
+        },
+        "deltaX": 0,
+        "deltaY": -31,
+        "deltaWidth": 0,
+        "deltaHeight": 39
+      },
+      {
+        "name": "search",
+        "masterBox": {
+          "x": 0,
+          "y": 440,
+          "width": 935,
+          "height": 65
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 447.53125,
+          "width": 935,
+          "height": 98.5
+        },
+        "deltaX": 0,
+        "deltaY": 8,
+        "deltaWidth": 0,
+        "deltaHeight": 34
+      },
+      {
+        "name": "featured-rentals",
+        "masterBox": {
+          "x": 0,
+          "y": 505,
+          "width": 935,
+          "height": 290
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 546.03125,
+          "width": 935,
+          "height": 311.421875
+        },
+        "deltaX": 0,
+        "deltaY": 41,
+        "deltaWidth": 0,
+        "deltaHeight": 21
+      },
+      {
+        "name": "featured-projects",
+        "masterBox": {
+          "x": 0,
+          "y": 795,
+          "width": 935,
+          "height": 165
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 857.453125,
+          "width": 935,
+          "height": 197.359375
+        },
+        "deltaX": 0,
+        "deltaY": 62,
+        "deltaWidth": 0,
+        "deltaHeight": 32
+      },
+      {
+        "name": "about",
+        "masterBox": {
+          "x": 0,
+          "y": 960,
+          "width": 935,
+          "height": 205
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1054.8125,
+          "width": 935,
+          "height": 278
+        },
+        "deltaX": 0,
+        "deltaY": 95,
+        "deltaWidth": 0,
+        "deltaHeight": 73
+      },
+      {
+        "name": "testimonials",
+        "masterBox": {
+          "x": 0,
+          "y": 1165,
+          "width": 935,
+          "height": 135
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1332.8125,
+          "width": 935,
+          "height": 210
+        },
+        "deltaX": 0,
+        "deltaY": 168,
+        "deltaWidth": 0,
+        "deltaHeight": 75
+      },
+      {
+        "name": "contact-map",
+        "masterBox": {
+          "x": 0,
+          "y": 1300,
+          "width": 935,
+          "height": 200
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1542.8125,
+          "width": 935,
+          "height": 198.25
+        },
+        "deltaX": 0,
+        "deltaY": 243,
+        "deltaWidth": 0,
+        "deltaHeight": -2
+      },
+      {
+        "name": "footer",
+        "masterBox": {
+          "x": 0,
+          "y": 1500,
+          "width": 935,
+          "height": 183
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1741.0625,
+          "width": 935,
+          "height": 304.375
+        },
+        "deltaX": 0,
+        "deltaY": 241,
+        "deltaWidth": 0,
+        "deltaHeight": 121
+      }
+    ]
+  },
+  {
+    "route": "/",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 774480,
+    "diffPixelRatio": 0.492506333750496,
+    "round2DiffPixelRatio": 0.4806375467,
+    "absoluteImprovement": -0.011868787050496044,
+    "percentageImprovement": -0.02469384077874423,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound2": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-3\\master\\mobile-01-trangchu.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-3\\actual\\mobile-01-trangchu.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-3\\diff\\mobile-01-trangchu.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-3\\overlay\\mobile-01-trangchu.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 78
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 130
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 52
+      },
+      {
+        "name": "hero",
+        "masterBox": {
+          "x": 0,
+          "y": 78,
+          "width": 724,
+          "height": 282
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 130,
+          "width": 724,
+          "height": 262
+        },
+        "deltaX": 0,
+        "deltaY": 52,
+        "deltaWidth": 0,
+        "deltaHeight": -20
+      },
+      {
+        "name": "trustmetrics",
+        "masterBox": {
+          "x": 0,
+          "y": 360,
+          "width": 724,
+          "height": 100
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 392,
+          "width": 724,
+          "height": 117
+        },
+        "deltaX": 0,
+        "deltaY": 32,
+        "deltaWidth": 0,
+        "deltaHeight": 17
+      },
+      {
+        "name": "search",
+        "masterBox": {
+          "x": 0,
+          "y": 460,
+          "width": 724,
+          "height": 275
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 509,
+          "width": 724,
+          "height": 679
+        },
+        "deltaX": 0,
+        "deltaY": 49,
+        "deltaWidth": 0,
+        "deltaHeight": 404
+      },
+      {
+        "name": "featured-rentals",
+        "masterBox": {
+          "x": 0,
+          "y": 735,
+          "width": 724,
+          "height": 305
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1188,
+          "width": 724,
+          "height": 378.21875
+        },
+        "deltaX": 0,
+        "deltaY": 453,
+        "deltaWidth": 0,
+        "deltaHeight": 73
+      },
+      {
+        "name": "featured-projects",
+        "masterBox": {
+          "x": 0,
+          "y": 1040,
+          "width": 724,
+          "height": 170
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1566.21875,
+          "width": 724,
+          "height": 275.75
+        },
+        "deltaX": 0,
+        "deltaY": 526,
+        "deltaWidth": 0,
+        "deltaHeight": 106
+      },
+      {
+        "name": "about",
+        "masterBox": {
+          "x": 0,
+          "y": 1210,
+          "width": 724,
+          "height": 290
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 1841.96875,
+          "width": 724,
+          "height": 236
+        },
+        "deltaX": 0,
+        "deltaY": 632,
+        "deltaWidth": 0,
+        "deltaHeight": -54
+      },
+      {
+        "name": "testimonials",
+        "masterBox": {
+          "x": 0,
+          "y": 1500,
+          "width": 724,
+          "height": 165
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 2077.96875,
+          "width": 724,
+          "height": 197
+        },
+        "deltaX": 0,
+        "deltaY": 578,
+        "deltaWidth": 0,
+        "deltaHeight": 32
+      },
+      {
+        "name": "contact-map",
+        "masterBox": {
+          "x": 0,
+          "y": 1665,
+          "width": 724,
+          "height": 235
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 2274.96875,
+          "width": 724,
+          "height": 211.625
+        },
+        "deltaX": 0,
+        "deltaY": 610,
+        "deltaWidth": 0,
+        "deltaHeight": -23
+      },
+      {
+        "name": "footer",
+        "masterBox": {
+          "x": 0,
+          "y": 1900,
+          "width": 724,
+          "height": 272
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 2486.59375,
+          "width": 724,
+          "height": 443
+        },
+        "deltaX": 0,
+        "deltaY": 587,
+        "deltaWidth": 0,
+        "deltaHeight": 171
+      }
+    ]
+  },
+  {
+    "route": "/cho-thue",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 605441,
+    "diffPixelRatio": 0.384747760715046,
+    "round2DiffPixelRatio": 0.3847808059,
+    "absoluteImprovement": 0.00003304518495400588,
+    "percentageImprovement": 0.00008588054405861901,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound2": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-3\\master\\web-02-chothue.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-3\\actual\\web-02-chothue.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-3\\diff\\web-02-chothue.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-3\\overlay\\web-02-chothue.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 57.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": -6
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1653.78125,
+          "width": 935,
+          "height": 304.375
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      }
+    ]
+  },
+  {
+    "route": "/cho-thue",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 884516,
+    "diffPixelRatio": 0.5624802865195405,
+    "round2DiffPixelRatio": 0.5333952718,
+    "absoluteImprovement": -0.029085014719540503,
+    "percentageImprovement": -0.054528070002176764,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound2": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-3\\master\\mobile-02-chothue.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-3\\actual\\mobile-02-chothue.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-3\\diff\\mobile-02-chothue.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-3\\overlay\\mobile-02-chothue.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 78
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 130
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 52
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 3248,
+          "width": 724,
+          "height": 443
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      }
+    ]
+  },
+  {
+    "route": "/cho-thue/[slug]",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 525021,
+    "diffPixelRatio": 0.33364217831031295,
+    "round2DiffPixelRatio": 0.3877732976,
+    "absoluteImprovement": 0.05413111928968706,
+    "percentageImprovement": 0.13959475710347896,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound2": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-3\\master\\web-03-chitietbds.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-3\\actual\\web-03-chitietbds.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-3\\diff\\web-03-chitietbds.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-3\\overlay\\web-03-chitietbds.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 57.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": -6
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1487.6875,
+          "width": 935,
+          "height": 304.375
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      }
+    ]
+  },
+  {
+    "route": "/cho-thue/[slug]",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 522037,
+    "diffPixelRatio": 0.33197310318162854,
+    "round2DiffPixelRatio": 0.3296481843,
+    "absoluteImprovement": -0.002324918881628557,
+    "percentageImprovement": -0.007052727702915963,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound2": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-3\\master\\mobile-03-chitietbds.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-3\\actual\\mobile-03-chitietbds.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-3\\diff\\mobile-03-chitietbds.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-3\\overlay\\mobile-03-chitietbds.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 78
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 130
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 52
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 2790.15625,
+          "width": 724,
+          "height": 443
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      }
+    ]
+  },
+  {
+    "route": "/du-an",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 880195,
+    "diffPixelRatio": 0.5593493920011693,
+    "round2DiffPixelRatio": 0.5619377163,
+    "absoluteImprovement": 0.002588324298830713,
+    "percentageImprovement": 0.004606069718674823,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound2": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-3\\master\\web-04-duan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-3\\actual\\web-04-duan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-3\\diff\\web-04-duan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-3\\overlay\\web-04-duan.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 57.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": -6
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1724.796875,
+          "width": 935,
+          "height": 289.5
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      }
+    ]
+  },
+  {
+    "route": "/du-an",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 1094706,
+    "diffPixelRatio": 0.6961440432221239,
+    "round2DiffPixelRatio": 0.6299620738,
+    "absoluteImprovement": -0.06618196942212384,
+    "percentageImprovement": -0.10505706958342266,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound2": true,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-3\\master\\mobile-04-duan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-3\\actual\\mobile-04-duan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-3\\diff\\mobile-04-duan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-3\\overlay\\mobile-04-duan.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 78
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 130
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 52
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 2355.5,
+          "width": 724,
+          "height": 229
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      }
+    ]
+  },
+  {
+    "route": "/du-an/[slug]",
+    "viewport": "WEB",
+    "masterDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "actualDimensions": {
+      "width": 935,
+      "height": 1683
+    },
+    "dimensionPass": true,
+    "diffPixels": 762449,
+    "diffPixelRatio": 0.48452375278421206,
+    "round2DiffPixelRatio": 0.5611687812,
+    "absoluteImprovement": 0.07664502841578796,
+    "percentageImprovement": 0.1365810625671134,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound2": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-3\\master\\web-05-chitietduan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-3\\actual\\web-05-chitietduan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-3\\diff\\web-05-chitietduan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-3\\overlay\\web-05-chitietduan.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 64
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 935,
+          "height": 57.5
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": -6
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 1998.453125,
+          "width": 935,
+          "height": 304.375
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      }
+    ]
+  },
+  {
+    "route": "/du-an/[slug]",
+    "viewport": "MOBILE",
+    "masterDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "actualDimensions": {
+      "width": 724,
+      "height": 2172
+    },
+    "dimensionPass": true,
+    "diffPixels": 685647,
+    "diffPixelRatio": 0.4360157656970178,
+    "round2DiffPixelRatio": 0.5977139994,
+    "absoluteImprovement": 0.16169823370298225,
+    "percentageImprovement": 0.27052776723533145,
+    "threshold": 0.12,
+    "maxDiffPixelRatio": 0.005,
+    "automatedPass": false,
+    "regressedVsRound2": false,
+    "playwrightToHaveScreenshotPass": false,
+    "masterPath": ".webby\\qa\\pha3-v2\\round-3\\master\\mobile-05-chitietduan.png",
+    "actualPath": ".webby\\qa\\pha3-v2\\round-3\\actual\\mobile-05-chitietduan.png",
+    "diffPath": ".webby\\qa\\pha3-v2\\round-3\\diff\\mobile-05-chitietduan.png",
+    "overlayPath": ".webby\\qa\\pha3-v2\\round-3\\overlay\\mobile-05-chitietduan.png",
+    "regions": [
+      {
+        "name": "header",
+        "masterBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 78
+        },
+        "actualBox": {
+          "x": 0,
+          "y": 0,
+          "width": 724,
+          "height": 130
+        },
+        "deltaX": 0,
+        "deltaY": 0,
+        "deltaWidth": 0,
+        "deltaHeight": 52
+      },
+      {
+        "name": "footer",
+        "masterBox": null,
+        "actualBox": {
+          "x": 0,
+          "y": 2647.5,
+          "width": 724,
+          "height": 443
+        },
+        "deltaX": null,
+        "deltaY": null,
+        "deltaWidth": null,
+        "deltaHeight": null
+      }
+    ]
+  }
+]

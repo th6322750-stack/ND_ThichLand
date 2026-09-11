@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "uiRevision": 3,
+  "family": "Be Vietnam Pro",
+  "weights": [
+    400,
+    500,
+    600,
+    700,
+    800
+  ],
+  "styles": [
+    "normal"
+  ],
+  "source": "Google Fonts / google/fonts/ofl/bevietnampro",
+  "license": "OFL",
+  "binaryIncluded": false,
+  "mustNot": [
+    "Do not substitute another font",
+    "Do not infer missing weights"
+  ]
+}

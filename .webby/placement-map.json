@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "uiRevision": 3,
+  "placements": [
+    {
+      "placementId": "global.logo",
+      "assetId": "logo.no-logo",
+      "componentId": "public.header",
+      "route": "*",
+      "mustNot": [
+        "Do not invent/crop a logo; replace only in new approved revision"
+      ]
+    },
+    {
+      "placementId": "property.media",
+      "assetId": "placeholder.property",
+      "componentId": "public.property-card",
+      "route": "/cho-thue*",
+      "desktop": {
+        "aspectRatio": "4:3",
+        "objectFit": "cover",
+        "objectPosition": "center"
+      },
+      "mobile": {
+        "aspectRatio": "4:3",
+        "objectFit": "cover",
+        "objectPosition": "center"
+      }
+    }
+  ]
+}

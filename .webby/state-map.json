@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "uiRevision": 3,
+  "components": {
+    "public.header": {
+      "states": [
+        "default",
+        "scrolled",
+        "mobileDrawerOpen"
+      ],
+      "visual": {
+        "scrolled": "white 64px + subtle shadow",
+        "mobileDrawerOpen": "right drawer 88vw max360 + rgba(0,0,0,.42) backdrop"
+      }
+    },
+    "public.button.primary": {
+      "states": [
+        "default",
+        "hover",
+        "pressed",
+        "focus",
+        "disabled"
+      ],
+      "visual": {
+        "hover": "#70131B",
+        "pressed": "#5E1017",
+        "focus": "2px primary focus ring",
+        "disabled": "#ECE8E6 text #A8A19D"
+      }
+    },
+    "public.property-card": {
+      "states": [
+        "default",
+        "hover",
+        "unavailable",
+        "loading"
+      ]
+    },
+    "public.project-card": {
+      "states": [
+        "default",
+        "hover",
+        "selected"
+      ]
+    },
+    "public.news-card": {
+      "states": [
+        "default",
+        "hover",
+        "loading"
+      ]
+    },
+    "public.form-field": {
+      "states": [
+        "default",
+        "focus",
+        "filled",
+        "error",
+        "disabled"
+      ]
+    },
+    "public.filter": {
+      "states": [
+        "default",
+        "selected",
+        "drawerOpen",
+        "empty"
+      ]
+    },
+    "public.gallery": {
+      "states": [
+        "default",
+        "lightbox",
+        "loading",
+        "error"
+      ]
+    },
+    "admin.sidebar": {
+      "states": [
+        "expanded",
+        "compact",
+        "drawer"
+      ]
+    },
+    "admin.table": {
+      "states": [
+        "default",
+        "rowHover",
+        "empty",
+        "loading"
+      ]
+    },
+    "admin.form": {
+      "states": [
+        "default",
+        "dirty",
+        "saving",
+        "error",
+        "success"
+      ]
+    },
+    "admin.uploader": {
+      "states": [
+        "empty",
+        "uploading",
+        "success",
+        "error"
+      ]
+    }
+  }
+}
