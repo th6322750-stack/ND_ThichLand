@@ -57,3 +57,6 @@ _qa_shot2.mjs
 # credentials and must never be committed or pushed to the repository.
 /tmp/pdfs/
 /output/pdf/*_MAT.pdf
+
+.vercel
+.env*
