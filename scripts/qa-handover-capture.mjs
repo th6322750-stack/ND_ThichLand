@@ -60,9 +60,23 @@ const ADMIN_ROUTES = [
 
 const manifest = [];
 
+async function gotoWithRetry(page, url, attempts = 5) {
+  let response = null;
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    response = await page.goto(url, { waitUntil: "networkidle", timeout: 30000 }).catch(() => null);
+    const status = response?.status() ?? 0;
+    if (status > 0 && status < 500) return response;
+    // Google Sheets can briefly return a quota error during a full handover
+    // sweep. Exponential backoff prevents a temporary upstream 5xx from being
+    // captured as if it were the page's real UI.
+    if (attempt < attempts) await page.waitForTimeout(Math.min(15000, 2000 * 2 ** (attempt - 1)));
+  }
+  return response;
+}
+
 async function shoot(page, viewportName, folder, name, url) {
   await page.setViewportSize(VIEWPORTS[viewportName]);
-  const response = await page.goto(url, { waitUntil: "networkidle", timeout: 30000 }).catch(() => null);
+  const response = await gotoWithRetry(page, url);
   await page.waitForTimeout(400); // let fonts/late images settle
   const status = response?.status() ?? "no-response";
   const outPath = path.join(OUT_DIR, folder, viewportName, `${name}.png`);
@@ -75,7 +89,8 @@ async function shoot(page, viewportName, folder, name, url) {
 /** Scrapes the first "Xem chi tiết"-style detail link off a list page so the
  * [slug] routes are captured with real, currently-live content. */
 async function firstDetailHref(page, listPath, hrefPrefix) {
-  await page.goto(BASE_URL + listPath, { waitUntil: "networkidle", timeout: 30000 }).catch(() => null);
+  await gotoWithRetry(page, BASE_URL + listPath);
+  await page.locator(`a[href^="${hrefPrefix}"]`).first().waitFor({ state: "attached", timeout: 5000 }).catch(() => {});
   const href = await page
     .locator(`a[href^="${hrefPrefix}"]`)
     .first()

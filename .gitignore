@@ -52,3 +52,8 @@ _qa_shot2.mjs
 
 # scripts/qa-handover-capture.mjs output — generated screenshots, not source
 /qa-handover-output/
+
+# Local PDF handover working files. Confidential editions contain live
+# credentials and must never be committed or pushed to the repository.
+/tmp/pdfs/
+/output/pdf/*_MAT.pdf

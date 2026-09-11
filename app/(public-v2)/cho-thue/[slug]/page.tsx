@@ -12,6 +12,7 @@ import { getRentalProviders } from "@/lib/server/rental/providers";
 import { buildMergedRentalData } from "@/lib/server/rental/merge";
 import { toPublicPropertyListings } from "@/lib/server/rental/dto";
 import { getZaloHref } from "@/lib/zalo";
+import { splitHighlights } from "@/lib/highlights";
 import { isVisualFixtureV2Enabled, getVisualFixtureProperties } from "@/lib/visualFixtureV2";
 import type { PropertyListing } from "@/lib/types";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -106,6 +107,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
   const related = properties.filter((p) => p.slug !== listing.slug).slice(0, 4);
   const title = listing.roomNo;
   const facts = buildFacts(listing);
+  const highlightLines = splitHighlights(listing.highlights);
 
   const detailRows: [string, string][] = [
     ["Loại BĐS", listing.propertyType],
@@ -180,16 +182,16 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
             ))}
           </div>
 
-          {listing.highlights.length > 0 && (
+          {highlightLines.length > 0 && (
             <div
               className="mt-2 rounded-lg border border-[#EDEBEA] p-2 min-[900px]:mt-3 min-[900px]:border-0 min-[900px]:p-0 wide:mt-6"
               data-qa-region="highlights"
             >
               <h2 className="text-[12px] font-bold text-[#0C0D0D] min-[900px]:text-[16px] wide:text-[18px]">Thông tin nổi bật</h2>
               <ul className="mt-1 flex flex-col gap-[6px] leading-tight min-[900px]:mt-3 min-[900px]:gap-2 wide:gap-3">
-                {listing.highlights.map((h) => (
+                {highlightLines.map((h, index) => (
                   <li
-                    key={h}
+                    key={`${index}-${h}`}
                     className="flex items-start gap-1 text-[10px] text-[#3A3838] min-[900px]:gap-2 min-[900px]:text-[13px] wide:text-[16px] wide:leading-[26px]"
                   >
                     <Icon name="check" size={11} className="mt-[2px] shrink-0 text-[#23825C] min-[900px]:!h-4 min-[900px]:!w-4" /> {h}

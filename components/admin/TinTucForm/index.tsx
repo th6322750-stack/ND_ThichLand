@@ -311,7 +311,7 @@ export function TinTucForm({ initial, knownCategories = [] }: TinTucFormProps) {
               onChange={handleFileChange}
             />
             <p className="mt-2 text-body text-muted">
-              Chưa có ảnh thì bài viết vẫn đăng được — website hiển thị ảnh placeholder thay vì ảnh của bài khác.
+              Chưa có ảnh thì bài viết vẫn đăng được — website sẽ dùng ảnh mặc định.
             </p>
           </div>
 

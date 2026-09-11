@@ -13,6 +13,7 @@ import { formatArea, formatCurrencyVnd } from "@/lib/format";
 import type { AdminPropertyRecord, Availability, PropertyType } from "@/lib/types";
 import { moveItem } from "@/lib/admin/mediaOrder";
 import { useScrollToFirstError } from "@/lib/useScrollToFirstError";
+import { splitHighlights } from "@/lib/highlights";
 
 // Mirrors the closed sets app/actions/bds.ts validates against.
 const PROPERTY_TYPE_OPTIONS: PropertyType[] = ["Căn hộ", "Nhà", "Mặt bằng", "Văn phòng", "Xưởng", "Studio"];
@@ -60,10 +61,7 @@ function readInput(form: HTMLFormElement, initial: AdminPropertyRecord | undefin
     // validation in app/actions/bds.ts will reject it with a field error).
     propertyType: get("propertyType") || (initial?.propertyType ?? ""),
     description: get("description"),
-    highlights: get("highlights")
-      .split("•")
-      .map((h) => h.trim())
-      .filter(Boolean),
+    highlights: splitHighlights(get("highlights")),
     availability: get("availability") || (initial?.availability ?? ""),
     // Empty input -> null ("unknown"), never a fabricated 0/"" — an admin
     // clearing the field is a deliberate "no data" the same way a
@@ -401,13 +399,15 @@ export function BdsForm({ initial }: BdsFormProps) {
                 <p className="text-[13px] font-bold text-[#0C0D0D]">Thông tin nổi bật</p>
                 <textarea
                   name="highlights"
-                  placeholder="Ban công • Nội thất • Vào ngay"
-                  defaultValue={initial?.highlights.join(" • ")}
+                  placeholder={"Ban công\nNội thất đầy đủ\nSẵn sàng vào ở"}
+                  defaultValue={splitHighlights(initial?.highlights ?? []).join("\n")}
                   aria-label="Đặc điểm nổi bật"
                   rows={4}
                   className={`${wysiwygInput} mt-1 resize-none text-[13px] leading-relaxed text-[#3A3838] placeholder:text-[#C9C6C5]`}
                 />
-                <p className="text-body text-muted">Mỗi dòng cách nhau bằng dấu • — mỗi cụm hiện thành 1 dòng có dấu ✓ trên website.</p>
+                <p className="text-body text-muted">
+                  Mỗi dòng là 1 ý và sẽ hiện thành 1 dòng có dấu ✓ trên website. Trong Google Sheet, nhấn Alt + Enter để xuống dòng trong cùng một ô.
+                </p>
               </div>
 
               <div className="mt-4 flex gap-2">

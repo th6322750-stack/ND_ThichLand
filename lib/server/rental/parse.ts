@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import type { PropertyType } from "@/lib/types";
+import { splitHighlights } from "@/lib/highlights";
 import type { NormalizedRentalRecord, RawRentalRow, RentalParseOutcome } from "./types";
 
 // Canonical column positions per .webby/GD6_BACKEND_CONTRACT.json rentalSource.canonicalColumns (A:P).
@@ -220,10 +221,7 @@ export function parseRentalRow(row: RawRentalRow): RentalParseOutcome {
     propertyTypeRaw,
     propertyType: parsePropertyType(propertyTypeRaw),
     description: descriptionRaw,
-    highlights: highlightsRaw
-      .split(/[|;]/)
-      .map((h) => h.trim())
-      .filter(Boolean),
+    highlights: splitHighlights(highlightsRaw),
     guidePerson: guidePersonRaw,
     internalNotes: internalNotesRaw,
     bedroomCount: parseBedroomCount(bedroomSource),
