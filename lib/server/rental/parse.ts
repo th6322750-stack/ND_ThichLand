@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import type { PropertyType } from "@/lib/types";
+import type { Availability, PropertyType } from "@/lib/types";
 import { splitHighlights } from "@/lib/highlights";
 import type { NormalizedRentalRecord, RawRentalRow, RentalParseOutcome } from "./types";
 
@@ -87,8 +87,20 @@ export function parseAreaM2(raw: string): number | null {
   return Number.isFinite(num) && num > 0 ? num : null;
 }
 
+const AVAILABILITY_VALUES: readonly Availability[] = ["Còn trống", "Đã cho thuê", "Sắp trống"];
+
 export function parseAvailability(raw: string): "Còn trống" | "Đã cho thuê" | "Sắp trống" | null {
-  const lower = raw.trim().toLowerCase();
+  const trimmed = raw.trim();
+  // The admin form's own dropdown submits one of these three labels verbatim
+  // (see AVAILABILITY_OPTIONS in components/admin/BdsForm) — match that
+  // exactly before falling through to the fuzzy phrases below, which exist
+  // only to interpret free-text Google Sheets cells like "cuối tháng 9".
+  // Without this, "Đã cho thuê" and "Sắp trống" never matched any fuzzy
+  // pattern and the form rejected its own valid dropdown values.
+  const exact = AVAILABILITY_VALUES.find((value) => value.toLowerCase() === trimmed.toLowerCase());
+  if (exact) return exact;
+
+  const lower = trimmed.toLowerCase();
   if (!lower) return null;
   if (/(vào luôn|còn trống|trống ngay)/.test(lower)) return "Còn trống";
   if (/(đã hết|đã chốt|đã thuê|hết phòng)/.test(lower)) return "Đã cho thuê";
