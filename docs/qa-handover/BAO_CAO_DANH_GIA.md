@@ -2,6 +2,13 @@
 
 Ngày đánh giá: 2026-09-08
 
+> **Lưu ý khi đọc lại (cập nhật 2026-09-17).** Báo cáo này giữ nguyên kết quả
+> đúng tại ngày đánh giá, cố ý không sửa theo hiện trạng. Nhiều điểm nêu bên
+> dưới đã được xử lý sau đó — đáng kể nhất: website **không còn chạy chế độ
+> demo**, đã nối Google Sheets thật và dữ liệu admin lưu bền vững; ảnh lưu ở
+> Vercel Blob; hạ tầng đã chuyển sang project Vercel của khách. Xem
+> `HANDOVER.md` để biết hiện trạng mới nhất.
+
 ## Phạm vi và kết quả tổng quan
 
 - Đã xem 40 ảnh local: public 18 ảnh (9 màn hình × điện thoại/máy tính), admin 22 ảnh (11 màn hình × điện thoại/máy tính). Cả 40 lượt đều trả về HTTP 200.
