@@ -15,6 +15,11 @@ export default defineConfig({
     // Fifty-plus parallel files can contend for CPU on CI, so leave enough
     // room for the cryptographic work without weakening any assertion.
     testTimeout: 25000,
+    // Hooks do that same expensive work — a dozen server-action suites call
+    // `await import(...)` in beforeEach to re-evaluate modules under fresh
+    // env. The 10s default left no margin: they passed alone and timed out
+    // in the full run, which reads as a code failure but is only contention.
+    hookTimeout: 30000,
   },
   resolve: {
     alias: {
