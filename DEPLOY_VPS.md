@@ -1,5 +1,10 @@
 # Bàn giao triển khai NDTHICH LAND lên VPS
 
+> **KHÔNG ÁP DỤNG CHO HIỆN TẠI (cập nhật 2026-09-17).** Dự án đang chạy trên
+> Vercel (project `ndthich-land`), ảnh lưu ở Vercel Blob chứ không phải đĩa VPS.
+> Tài liệu này giữ lại làm tham khảo cho trường hợp sau này muốn tự vận hành máy
+> chủ riêng. Xem `HANDOVER.md` để biết hiện trạng thật.
+
 Tài liệu này dành cho người/AI phụ trách hạ tầng VPS. Phần code đã xong và đã kiểm chứng; việc còn lại thuần hạ tầng.
 
 - **Repo:** https://github.com/th6322750-stack/ND_ThichLand
