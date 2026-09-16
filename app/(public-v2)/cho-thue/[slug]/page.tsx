@@ -150,7 +150,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
           by info below (the old structure) is a FAIL. */}
       <div className="mt-2 min-[900px]:mt-5 min-[900px]:grid min-[900px]:grid-cols-[1fr_360px] min-[900px]:items-start min-[900px]:gap-8 wide:grid-cols-[1fr_420px] wide:gap-10">
         <div data-qa-region="gallery">
-          <Gallery2 images={listing.media} sideBySideOnMobile desktopAspect="3/2" />
+          <Gallery2 images={listing.media} albumName={title} sideBySideOnMobile desktopAspect="3/2" />
         </div>
 
         <div className="mt-2 min-[900px]:mt-0">

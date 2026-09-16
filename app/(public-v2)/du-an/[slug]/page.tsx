@@ -158,7 +158,7 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
           724x2172 viewport. */}
       <div className="min-[900px]:hidden">
         <div className="relative mt-2">
-          <Gallery2 images={project.media} desktopAspect="16/7" />
+          <Gallery2 images={project.media} albumName={project.name} desktopAspect="16/7" />
           <span className="pointer-events-none absolute right-2 top-2 z-10 rounded-full bg-white px-2 py-1 text-[9px] font-bold text-[#880206]">
             {projectStatusLabel(project.status)}
           </span>
@@ -210,7 +210,7 @@ export default async function DuAnDetailPageV2({ params }: { params: Promise<{ s
           form RIGHT, as one three-column band — a full-width hero first is
           a FAIL. */}
       <div className="mt-5 hidden min-[900px]:grid min-[900px]:grid-cols-[1.3fr_1fr_260px] min-[900px]:items-start min-[900px]:gap-6 wide:grid-cols-[1.3fr_1fr_320px] wide:gap-10">
-        <Gallery2 images={project.media} desktopAspect="15/16" />
+        <Gallery2 images={project.media} albumName={project.name} desktopAspect="15/16" />
 
         <div className="min-w-0">
           {/* Above the fold — same load-triggered animate-v2-rise-in stagger

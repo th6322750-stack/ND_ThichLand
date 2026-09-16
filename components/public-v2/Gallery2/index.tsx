@@ -3,9 +3,21 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useFocusTrap } from "@/lib/useFocusTrap";
+import { downloadMediaImage, downloadMediaZip } from "@/lib/downloadMedia";
+
+function DownloadIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <path d="M12 3v12M7 11l5 5 5-5M4 20h16" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
 interface Gallery2Props {
   images: string[];
+  /** Names the saved files ("can-ho-a-01.jpg"), so a visitor can tell one
+      listing's photos from another's after they land in Downloads. */
+  albumName?: string;
   // 03_ChiTietBDS_MOBILE.png puts the main photo and a stacked thumbnail
   // column SIDE BY SIDE even on mobile — the opposite of the WEB master
   // (both 03 and 05), which always stacks a thumbnail ROW below the main
@@ -20,8 +32,40 @@ interface Gallery2Props {
   desktopAspect?: string;
 }
 
-export function Gallery2({ images, sideBySideOnMobile = false, desktopAspect = "4/3" }: Gallery2Props) {
+export function Gallery2({
+  images,
+  albumName = "anh",
+  sideBySideOnMobile = false,
+  desktopAspect = "4/3",
+}: Gallery2Props) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [busy, setBusy] = useState<"one" | "all" | null>(null);
+  const [downloadError, setDownloadError] = useState<string | null>(null);
+
+  async function handleDownloadOne(index: number) {
+    setBusy("one");
+    setDownloadError(null);
+    const ok = await downloadMediaImage(images[index]!, albumName, index);
+    if (!ok) setDownloadError("Không tải được ảnh này. Vui lòng thử lại.");
+    setBusy(null);
+  }
+
+  async function handleDownloadAll() {
+    setBusy("all");
+    setDownloadError(null);
+    // A one-photo listing should hand over the photo itself, not a zip with
+    // a single file in it that the visitor then has to extract.
+    if (images.length === 1) {
+      const onlyOk = await downloadMediaImage(images[0]!, albumName, 0);
+      if (!onlyOk) setDownloadError("Không tải được ảnh. Vui lòng thử lại.");
+      setBusy(null);
+      return;
+    }
+    const { saved, failed } = await downloadMediaZip(images, albumName);
+    if (saved === 0) setDownloadError("Không tải được ảnh. Vui lòng thử lại.");
+    else if (failed > 0) setDownloadError(`Đã tải ${saved} ảnh, ${failed} ảnh lỗi.`);
+    setBusy(null);
+  }
   const open = activeIndex !== null;
   const close = () => setActiveIndex(null);
   const dialogRef = useFocusTrap(open, close);
@@ -134,6 +178,29 @@ export function Gallery2({ images, sideBySideOnMobile = false, desktopAspect = "
         <div className="mt-2 grid grid-cols-4 gap-2">{thumbs.map((src, i) => renderThumb(src, i, false))}</div>
       </div>
 
+      {/* Outside the photo buttons on purpose: a download control nested in
+          the open-lightbox button would be a button inside a button. */}
+      <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1">
+        <button
+          type="button"
+          onClick={handleDownloadAll}
+          disabled={busy !== null}
+          className="inline-flex min-h-[44px] items-center gap-2 rounded-md border border-[#E3E1E1] px-4 text-[13px] font-semibold text-[#0C0D0D] transition-colors duration-fast ease-base hover:border-[#0C0D0D] disabled:opacity-50"
+        >
+          <DownloadIcon />
+          {busy === "all"
+            ? "Đang chuẩn bị…"
+            : images.length === 1
+              ? "Tải ảnh"
+              : `Tải tất cả ảnh (${images.length})`}
+        </button>
+        {downloadError && (
+          <span role="status" className="text-[12px] text-[#8A1D1D]">
+            {downloadError}
+          </span>
+        )}
+      </div>
+
       {open && (
         <>
           <div className="fixed inset-0 z-lightbox-backdrop bg-black" aria-hidden="true" onClick={close} />
@@ -152,14 +219,26 @@ export function Gallery2({ images, sideBySideOnMobile = false, desktopAspect = "
               <span className="text-[13px] font-medium tabular-nums text-white/80">
                 {activeIndex! + 1} / {images.length}
               </span>
-              <button
-                type="button"
-                aria-label="Đóng"
-                onClick={close}
-                className="flex h-[44px] w-[44px] items-center justify-center rounded-full text-[22px] leading-none text-white/80 transition-colors duration-fast ease-base hover:bg-white/10 hover:text-white"
-              >
-                ✕
-              </button>
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  aria-label={`Tải ảnh ${activeIndex! + 1} về máy`}
+                  onClick={() => handleDownloadOne(activeIndex!)}
+                  disabled={busy !== null}
+                  className="flex h-[44px] items-center justify-center gap-2 rounded-full px-4 text-[13px] font-medium text-white/80 transition-colors duration-fast ease-base hover:bg-white/10 hover:text-white disabled:opacity-50"
+                >
+                  <DownloadIcon />
+                  {busy === "one" ? "Đang tải…" : "Tải ảnh"}
+                </button>
+                <button
+                  type="button"
+                  aria-label="Đóng"
+                  onClick={close}
+                  className="flex h-[44px] w-[44px] items-center justify-center rounded-full text-[22px] leading-none text-white/80 transition-colors duration-fast ease-base hover:bg-white/10 hover:text-white"
+                >
+                  ✕
+                </button>
+              </div>
             </div>
 
             <div
