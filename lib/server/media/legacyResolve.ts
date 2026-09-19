@@ -1,6 +1,7 @@
 // No "server-only" guard — see lib/server/env.ts for why.
-import { isGoogleRuntimeConfigured } from "@/lib/server/env";
+import { getDriveMediaProxySecret, isGoogleRuntimeConfigured } from "@/lib/server/env";
 import { getDriveFileMetadata, listDriveFolderFiles } from "@/lib/server/google/drive";
+import { signDriveMediaFileId } from "./driveProxySignature";
 
 export const MEDIA_PLACEHOLDER = "/assets/placeholders/property-placeholder.svg";
 
@@ -42,22 +43,35 @@ async function resolveUncached(trimmed: string): Promise<LegacyMediaResolution> 
     return placeholder("Google Drive chưa cấu hình runtime — giữ placeholder.");
   }
 
+  const proxySecret = getDriveMediaProxySecret();
+  if (!proxySecret) {
+    return placeholder("Media proxy chưa cấu hình chữ ký — giữ placeholder.");
+  }
+
+  const publicUrl = (fileId: string) =>
+    `/api/drive-media/${encodeURIComponent(fileId)}?sig=${signDriveMediaFileId(fileId, proxySecret)}`;
+
   try {
     if (folderMatch) {
-      const files = await listDriveFolderFiles(folderMatch[1]);
+      // Non-null: group 1 (`[\w-]+`) is mandatory in DRIVE_FOLDER_RE.
+      const folderId = folderMatch[1]!;
+      const files = await listDriveFolderFiles(folderId);
       const images = files.filter((f): f is typeof f & { id: string } => Boolean(f.id) && Boolean(f.mimeType?.startsWith(IMAGE_MIME_PREFIX)));
       if (images.length === 0) {
-        return placeholder(`Thư mục Drive không có ảnh truy cập được: ${folderMatch[1]}`);
+        return placeholder(`Thư mục Drive không có ảnh truy cập được: ${folderId}`);
       }
-      return { media: images.map((f) => `/api/drive-media/${f.id}`) };
+      return { media: images.map((f) => publicUrl(f.id)) };
     }
 
-    const fileId = fileMatch![1];
+    // Non-null: group 1 (`[\w-]+`) is mandatory in both DRIVE_FILE_RE and
+    // DRIVE_OPEN_ID_RE, and fileMatch was already confirmed truthy above
+    // (the `!folderMatch && !fileMatch` guard).
+    const fileId = fileMatch![1]!;
     const meta = await getDriveFileMetadata(fileId);
     if (!meta || !meta.mimeType.startsWith(IMAGE_MIME_PREFIX)) {
       return placeholder(`Không truy cập được file Drive: ${fileId}`);
     }
-    return { media: [`/api/drive-media/${fileId}`] };
+    return { media: [publicUrl(fileId)] };
   } catch {
     return placeholder(`Lỗi truy cập Drive cho link media: ${trimmed}`);
   }

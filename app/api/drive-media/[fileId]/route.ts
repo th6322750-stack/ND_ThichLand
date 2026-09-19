@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import { isGoogleRuntimeConfigured } from "@/lib/server/env";
+import { getDriveMediaProxySecret, isGoogleRuntimeConfigured } from "@/lib/server/env";
 import { getDriveFileStream, streamToBuffer } from "@/lib/server/google/drive";
+import { verifyDriveMediaSignature } from "@/lib/server/media/driveProxySignature";
 
 export const dynamic = "force-dynamic";
 
@@ -10,12 +11,18 @@ export const dynamic = "force-dynamic";
  * serves the admin-managed WEB_MEDIA catalog. These files were never
  * uploaded through our Admin and have no catalog row of their own.
  */
-export async function GET(_req: Request, { params }: { params: Promise<{ fileId: string }> }) {
-  if (!isGoogleRuntimeConfigured()) {
+export async function GET(req: Request, { params }: { params: Promise<{ fileId: string }> }) {
+  const proxySecret = getDriveMediaProxySecret();
+  if (!isGoogleRuntimeConfigured() || !proxySecret) {
     return new NextResponse("Not found", { status: 404 });
   }
 
   const { fileId } = await params;
+  const signature = new URL(req.url).searchParams.get("sig");
+  if (!signature || !verifyDriveMediaSignature(fileId, signature, proxySecret)) {
+    return new NextResponse("Not found", { status: 404 });
+  }
+
   try {
     const { stream, mimeType } = await getDriveFileStream(fileId);
     const buffer = await streamToBuffer(stream);

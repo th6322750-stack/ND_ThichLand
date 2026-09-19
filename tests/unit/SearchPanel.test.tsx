@@ -32,7 +32,8 @@ describe("SearchPanel", () => {
     await user.click(screen.getByRole("button", { name: "Tìm kiếm" }));
 
     expect(push).toHaveBeenCalledTimes(1);
-    const href = push.mock.calls[0][0] as string;
+    // Non-null: the assertion above guarantees exactly one call exists.
+    const href = push.mock.calls[0]![0] as string;
     expect(href.startsWith("/cho-thue?")).toBe(true);
     const params = new URLSearchParams(href.split("?")[1]);
     expect(params.get("type")).toBe("Studio");

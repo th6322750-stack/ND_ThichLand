@@ -3,9 +3,9 @@ import { render } from "@testing-library/react";
 import { axe } from "vitest-axe";
 import { AppRouterContext } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { PathnameContext, SearchParamsContext } from "next/dist/shared/lib/hooks-client-context.shared-runtime";
-import HomePage from "@/app/(public)/page";
-import ChoThuePage from "@/app/(public)/cho-thue/page";
-import DuAnPage from "@/app/(public)/du-an/page";
+import HomePage from "@/app/(public-v2)/page";
+import ChoThuePage from "@/app/(public-v2)/cho-thue/page";
+import DuAnPage from "@/app/(public-v2)/du-an/page";
 import GioiThieuPage from "@/app/(public)/gioi-thieu/page";
 import TinTucPage from "@/app/(public)/tin-tuc/page";
 import LienHePage from "@/app/(public)/lien-he/page";
@@ -34,7 +34,12 @@ function withRouter(children: React.ReactNode, pathname = "/", search = "") {
 }
 
 function expectNoSeriousViolations(container: Element) {
-  return axe(container).then((results) => {
+  // `iframes: false` — the homepage's contact panel embeds a Google Map, and
+  // jsdom never gives that <iframe> a real content document, so axe's
+  // cross-frame probe throws "Respondable target must be a frame in the
+  // current window" before any rule runs. The frame's own a11y surface here
+  // is its title attribute, which this container-level scan still checks.
+  return axe(container, { iframes: false }).then((results) => {
     const serious = results.violations.filter(
       (v) => v.impact === "serious" || v.impact === "critical",
     );
@@ -42,6 +47,21 @@ function expectNoSeriousViolations(container: Element) {
       console.error(JSON.stringify(serious, null, 2));
     }
     expect(serious).toHaveLength(0);
+
+    // axe's own detection ceiling is well short of 100% — rules it can't
+    // resolve automatically (color-contrast doesn't even run under JSDOM;
+    // see the real-browser Playwright layer for that) land here instead of
+    // in `violations`, and silently dropping this array is how a real gap
+    // stays invisible forever. Not a failing assertion — these need a human
+    // judgment call, not a bot's pass/fail — but printed so it can't be
+    // missed the way a truly ignored array is.
+    if (results.incomplete.length > 0) {
+      console.warn(
+        `axe: ${results.incomplete.length} rule(s) need manual review — ${results.incomplete
+          .map((i) => i.id)
+          .join(", ")}`,
+      );
+    }
   });
 }
 
@@ -57,12 +77,13 @@ describe("accessibility sweep", () => {
   });
 
   it("projects list page has no serious axe violations", async () => {
-    const { container } = render(await DuAnPage());
+    // /du-an owns URL state now, so it needs the router contexts too.
+    const { container } = render(withRouter(await DuAnPage(), "/du-an"));
     await expectNoSeriousViolations(container);
   });
 
   it("about page has no serious axe violations", async () => {
-    const { container } = render(<GioiThieuPage />);
+    const { container } = render(await GioiThieuPage());
     await expectNoSeriousViolations(container);
   });
 
@@ -72,7 +93,7 @@ describe("accessibility sweep", () => {
   });
 
   it("contact page has no serious axe violations", async () => {
-    const { container } = render(<LienHePage />);
+    const { container } = render(await LienHePage());
     await expectNoSeriousViolations(container);
   });
 

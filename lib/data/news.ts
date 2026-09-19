@@ -1,6 +1,15 @@
 import type { NewsArticle } from "../types";
 
-const PLACEHOLDER = "/assets/placeholders/news-placeholder.svg";
+// Real approved demo photography (same Round 8 set already used elsewhere),
+// one per article so the news list/detail pages show a real cover instead
+// of a blank placeholder tile during a client demo.
+const R8 = (n: string) => `/assets/round8-web/${n}`;
+const COVER_RENTAL_TIPS = R8("R8_09-pho-thi-hien-dai-luc-chang-vang.webp");
+const COVER_APARTMENT_CHECKLIST = R8("R8_17-noi-that-can-ho-cao-cap.webp");
+const COVER_STOREFRONT_TREND = R8("R8_05-quang-truong-hien-dai-duoi-thap-kinh.webp");
+const COVER_SERVICE_FEE = R8("R8_14-san-chung-cu-xanh-mat.webp");
+const COVER_OFFICE_CRITERIA = R8("R8_04-toa-nha-kinh-giua-quang-truong-xanh.webp");
+const COVER_COMPANY_NEWS = R8("R8_01-toa-thap-ven-song-luc-hoang-hon.webp");
 
 export const news: NewsArticle[] = [
   {
@@ -24,7 +33,7 @@ export const news: NewsArticle[] = [
         body: "Xác nhận thời hạn, cọc, lịch thanh toán và các chi phí phát sinh trước khi ký hợp đồng.",
       },
     ],
-    cover: PLACEHOLDER,
+    cover: COVER_RENTAL_TIPS,
   },
   {
     slug: "checklist-xem-can-ho-truoc-khi-ky-hop-dong",
@@ -47,7 +56,7 @@ export const news: NewsArticle[] = [
         body: "Thống nhất thời hạn, cọc, lịch thanh toán và chi phí phát sinh. Mọi điều khoản cuối cùng cần được xác nhận trong hợp đồng.",
       },
     ],
-    cover: PLACEHOLDER,
+    cover: COVER_APARTMENT_CHECKLIST,
   },
   {
     slug: "xu-huong-mat-bang-kinh-doanh-tai-ha-noi",
@@ -70,7 +79,7 @@ export const news: NewsArticle[] = [
         body: "Giá thuê được công khai rõ ràng giúp bên thuê dễ so sánh giữa các khu vực.",
       },
     ],
-    cover: PLACEHOLDER,
+    cover: COVER_STOREFRONT_TREND,
   },
   {
     slug: "cach-doc-chi-phi-dich-vu-khi-thue",
@@ -93,7 +102,7 @@ export const news: NewsArticle[] = [
         body: "Đảm bảo các khoản phí dịch vụ được ghi rõ trong hợp đồng trước khi ký.",
       },
     ],
-    cover: PLACEHOLDER,
+    cover: COVER_SERVICE_FEE,
   },
   {
     slug: "cac-tieu-chi-chon-van-phong-hieu-qua",
@@ -116,7 +125,7 @@ export const news: NewsArticle[] = [
         body: "Kiểm tra hệ thống điện, mạng, thang máy và an ninh trước khi ký hợp đồng thuê.",
       },
     ],
-    cover: PLACEHOLDER,
+    cover: COVER_OFFICE_CRITERIA,
   },
   {
     slug: "tin-du-an-va-hoat-dong-ndthich",
@@ -139,7 +148,6 @@ export const news: NewsArticle[] = [
         body: "Công ty tiếp tục mở rộng nguồn bất động sản cho thuê và danh mục dự án.",
       },
     ],
-    cover: PLACEHOLDER,
+    cover: COVER_COMPANY_NEWS,
   },
 ];
-

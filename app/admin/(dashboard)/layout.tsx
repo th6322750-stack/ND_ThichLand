@@ -9,6 +9,8 @@ import { AdminShell } from "@/components/admin/AdminShell";
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboardLayout({ children }: { children: React.ReactNode }) {
-  await requireAdminPage();
-  return <AdminShell>{children}</AdminShell>;
+  const session = await requireAdminPage();
+  // The topbar showed a hardcoded "AD" chip. It now shows the account that is
+  // actually signed in, which matters the moment there is more than one.
+  return <AdminShell accountEmail={session.sub}>{children}</AdminShell>;
 }

@@ -9,7 +9,35 @@ interface FieldErrors {
   phone?: string;
 }
 
-export function ContactForm() {
+interface ContactFormProps {
+  nameLabel?: string;
+  phoneLabel?: string;
+  needLabel?: string;
+  needPlaceholder?: string;
+  areaLabel?: string;
+  areaPlaceholder?: string;
+  messageLabel?: string;
+  submitLabel?: string;
+  submittingLabel?: string;
+  nameRequiredError?: string;
+  phoneRequiredError?: string;
+  successMessage?: string;
+}
+
+export function ContactForm({
+  nameLabel = "Họ và tên",
+  phoneLabel = "Số điện thoại",
+  needLabel = "Nhu cầu",
+  needPlaceholder = "Thuê / dự án / tư vấn chung",
+  areaLabel = "Khu vực quan tâm",
+  areaPlaceholder = "Hà Nội...",
+  messageLabel = "Nội dung",
+  submitLabel = "Gửi yêu cầu",
+  submittingLabel = "Đang gửi...",
+  nameRequiredError = "Vui lòng nhập họ và tên",
+  phoneRequiredError = "Vui lòng nhập số điện thoại",
+  successMessage = "Đã gửi yêu cầu tư vấn. NDTHICH sẽ liên hệ lại sớm nhất.",
+}: ContactFormProps = {}) {
   const nameRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -24,8 +52,8 @@ export function ContactForm() {
     const phone = String(form.get("phone") ?? "").trim();
 
     const nextErrors: FieldErrors = {};
-    if (!name) nextErrors.name = "Vui lòng nhập họ và tên";
-    if (!phone) nextErrors.phone = "Vui lòng nhập số điện thoại";
+    if (!name) nextErrors.name = nameRequiredError;
+    if (!phone) nextErrors.phone = phoneRequiredError;
 
     setErrors(nextErrors);
     setFormError(undefined);
@@ -63,7 +91,7 @@ export function ContactForm() {
   if (submitted) {
     return (
       <div className="rounded-md border border-success bg-soft p-6 text-body text-ink" role="status">
-        Đã gửi yêu cầu tư vấn. NDTHICH sẽ liên hệ lại sớm nhất.
+        {successMessage}
       </div>
     );
   }
@@ -71,13 +99,13 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit} noValidate>
       <div className="grid grid-cols-1 gap-6 tablet:grid-cols-2">
-        <FormField ref={nameRef} label="Họ và tên" name="name" required error={errors.name} />
-        <FormField ref={phoneRef} label="Số điện thoại" name="phone" type="tel" required error={errors.phone} />
-        <FormField label="Nhu cầu" name="need" placeholder="Thuê / dự án / tư vấn chung" />
-        <FormField label="Khu vực quan tâm" name="area" placeholder="Hà Nội..." />
+        <FormField ref={nameRef} label={nameLabel} name="name" required error={errors.name} />
+        <FormField ref={phoneRef} label={phoneLabel} name="phone" type="tel" required error={errors.phone} />
+        <FormField label={needLabel} name="need" placeholder={needPlaceholder} />
+        <FormField label={areaLabel} name="area" placeholder={areaPlaceholder} />
       </div>
       <div className="mt-6">
-        <FormField label="Nội dung" name="message" type="textarea" />
+        <FormField label={messageLabel} name="message" type="textarea" />
       </div>
       {/* Honeypot: visually hidden, off-screen rather than display:none so
           it still registers as "filled" if a bot's CSS-blind script tabs
@@ -103,7 +131,7 @@ export function ContactForm() {
         disabled={submitting}
         className="mt-6 rounded-md bg-primary px-6 py-3 text-button uppercase text-surface hover:bg-primaryHover disabled:opacity-60"
       >
-        {submitting ? "Đang gửi..." : "Gửi yêu cầu"}
+        {submitting ? submittingLabel : submitLabel}
       </button>
     </form>
   );

@@ -81,6 +81,12 @@ function customToAdminRecord(c: CustomBdsRecord): AdminPropertyRecord {
     media: c.media,
     bedroomCount: c.bedroomCount,
     furnishingStatus: c.furnishingStatus,
+    bathroomCount: c.bathroomCount,
+    amenities: c.amenities,
+    locationNote: c.locationNote,
+    videoUrl: c.videoUrl,
+    availableFrom: c.availableFrom,
+    postedAt: c.createdAt,
     commission: c.commission,
     guidePerson: c.guidePerson,
     internalNotes: c.internalNotes,
@@ -151,6 +157,20 @@ export async function buildMergedRentalData(
       media,
       bedroomCount: record.bedroomCount,
       furnishingStatus: record.furnishingStatus,
+      // No sheet column/parser exists for this — a source-derived record
+      // always starts null; an admin override patch is the only way to set
+      // it (same as any other admin correction to a sheet row).
+      bathroomCount: null,
+      // Same reasoning — Tiện ích/Vị trí/Video tabs are admin-override-only.
+      amenities: [],
+      locationNote: null,
+      videoUrl: null,
+      // Same admin-override-only path: the source sheet carries the status
+      // phrase but no separate move-in date column.
+      availableFrom: null,
+      // No POSTED_AT column in the sheet — stays unknown unless an admin
+      // override patch sets it (same mechanism as bathroomCount above).
+      postedAt: null,
       commission: record.commission,
       guidePerson: record.guidePerson,
       internalNotes: record.internalNotes,
