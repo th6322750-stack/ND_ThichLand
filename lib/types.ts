@@ -40,6 +40,14 @@ export interface PropertyListing {
   // qualifies for the new-listings section, same as any other unfabricated
   // unknown value in this codebase.
   postedAt: string | null;
+  // Client-requested: when a room is expected to be free ("cuối tháng 10",
+  // "15/10/2026", "sau Tết"). Free text on purpose — the source sheet
+  // already expresses availability in exactly those phrases, and a date
+  // picker would force a precision the landlord usually doesn't have. Same
+  // admin-override-only path as bathroomCount; null hides the row entirely
+  // rather than rendering "Đang cập nhật" in an otherwise always-filled
+  // facts table.
+  availableFrom: string | null;
 }
 
 export interface AdminPropertyRecord extends Omit<PropertyListing, "propertyType" | "availability"> {

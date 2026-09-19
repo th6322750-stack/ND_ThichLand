@@ -39,6 +39,15 @@ export const CMS_HEADERS: Record<(typeof CMS_TABS)[keyof typeof CMS_TABS], strin
     "published",
     "created_at",
     "updated_at",
+    // Appended over time as the CMS grew (see CustomBdsRecord) — these four
+    // were being written by the repository without ever being declared here,
+    // so a freshly bootstrapped sheet got headers that stopped short of the
+    // data the app actually writes.
+    "bathroom_count",
+    "amenities_json",
+    "location_note",
+    "video_url",
+    "available_from",
   ],
   [CMS_TABS.projects]: [
     "id",

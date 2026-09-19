@@ -116,6 +116,12 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
     ["Phí dịch vụ", listing.serviceFee],
     ["Thang", listing.verticalAccess],
     ["Tình trạng", listing.availability],
+    // Only when it was actually filled in — every other row here is a
+    // required field, so a permanently blank seventh row would read as a
+    // broken page rather than as missing information.
+    ...(listing.availableFrom
+      ? ([["Thời gian dự kiến vào ở", listing.availableFrom]] as [string, string][])
+      : []),
   ];
 
   const seoDescription = listing.description ||

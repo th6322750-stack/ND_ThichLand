@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Icon2 as Icon } from "@/components/public-v2/Icon2";
+import { AvailabilityTag2 } from "@/components/public-v2/AvailabilityTag2";
 import { formatCurrencyVnd } from "@/lib/format";
 import { firstMedia, PROPERTY_PLACEHOLDER } from "@/lib/media";
 import type { PropertyListing } from "@/lib/types";
@@ -93,6 +94,11 @@ export function PropertyCardGrid2({
         <p className="mt-1 line-clamp-1 text-[11px] leading-[17px] text-[#5F5D5D] min-[900px]:mt-1 min-[900px]:text-[11px] min-[900px]:leading-normal wide:text-[13px] wide:leading-[19px]">
           {specs.join(" • ")}
         </p>
+        <AvailabilityTag2
+          availability={listing.availability}
+          availableFrom={listing.availableFrom}
+          className="mt-1 max-w-full truncate"
+        />
         {/* Deliberately no larger than the room name above it. The price used
             to outrun the title at every width (18px vs 16px at >=1440, bold
             and in the brand red on top of that), so the card read as a price

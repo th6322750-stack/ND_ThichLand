@@ -43,6 +43,9 @@ export interface CustomBdsRecord {
   amenities: string[];
   locationNote: string | null;
   videoUrl: string | null;
+  // Appended at the end for the same reason as bathroomCount above — an
+  // existing row simply has no cell here and reads back as null.
+  availableFrom: string | null;
 }
 
 export interface RentalOverlayRepository {
@@ -108,6 +111,7 @@ function customRowToRecord(row: string[]): CustomBdsRecord | null {
     amenitiesJson,
     locationNote,
     videoUrl,
+    availableFrom,
   ] = row;
   if (!id) return null;
   return {
@@ -137,6 +141,7 @@ function customRowToRecord(row: string[]): CustomBdsRecord | null {
     amenities: safeJsonArray(amenitiesJson),
     locationNote: locationNote || null,
     videoUrl: videoUrl || null,
+    availableFrom: availableFrom || null,
   };
 }
 
@@ -168,6 +173,7 @@ function customRecordToRow(r: CustomBdsRecord): (string | number)[] {
     JSON.stringify(r.amenities),
     r.locationNote ?? "",
     r.videoUrl ?? "",
+    r.availableFrom ?? "",
   ];
 }
 

@@ -72,6 +72,7 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       amenities: ["Hồ bơi", "Gym", "Công viên nội khu", "Siêu thị", "An ninh 24/7"],
       locationNote: "Gần Lotte Mart Nam Sài Gòn, Vivo City và các trường quốc tế, di chuyển vào trung tâm Quận 1 khoảng 15 phút.",
       videoUrl: null,
+      availableFrom: null,
       postedAt: null,
     },
     {
@@ -95,6 +96,7 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       amenities: ["Hẻm xe hơi", "Sân để xe riêng"],
       locationNote: "Khu dân cư an ninh, gần chợ và trường học Phường An Phú, thuận tiện di chuyển sang Quận 1 qua cầu Thủ Thiêm.",
       videoUrl: null,
+      availableFrom: null,
       postedAt: null,
     },
     {
@@ -117,6 +119,7 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       amenities: [],
       locationNote: "Mặt tiền đường lớn, khu dân cư đông đúc, lượng người qua lại cao, phù hợp kinh doanh F&B/bán lẻ.",
       videoUrl: null,
+      availableFrom: null,
       postedAt: null,
     },
     {
@@ -139,6 +142,7 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       amenities: ["Thang máy", "Bảo vệ tòa nhà", "Chỗ để xe"],
       locationNote: "Nằm trong khu vực trung tâm Phú Nhuận, gần các tuyến đường chính, thuận tiện di chuyển.",
       videoUrl: null,
+      availableFrom: null,
       postedAt: null,
     },
     {
@@ -161,6 +165,7 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       amenities: ["Sân bãi rộng", "Trần cao"],
       locationNote: "Gần quốc lộ và cảng, xe container ra vào thuận tiện.",
       videoUrl: null,
+      availableFrom: null,
       postedAt: null,
     },
     {
@@ -183,6 +188,7 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       amenities: ["Camera an ninh 24/7", "Máy giặt chung", "Wifi miễn phí"],
       locationNote: "Gần sân bay Tân Sơn Nhất, khu vực an ninh, thuận tiện di chuyển.",
       videoUrl: null,
+      availableFrom: null,
       postedAt: null,
     },
     // 2 more demo listings so /cho-thue's fixture list exceeds PAGE_SIZE
@@ -210,6 +216,7 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       amenities: ["Hồ bơi", "Công viên ven sông", "An ninh 24/7"],
       locationNote: "View sông, gần trung tâm Quận 2, kết nối thuận tiện qua cầu Thủ Thiêm.",
       videoUrl: null,
+      availableFrom: null,
       postedAt: null,
     },
     {
@@ -232,6 +239,7 @@ export function getVisualFixtureProperties(): PropertyListing[] {
       amenities: [],
       locationNote: "Mặt tiền đường lớn, khu dân cư sầm uất, thuận tiện kinh doanh.",
       videoUrl: null,
+      availableFrom: null,
       postedAt: null,
     },
   ];

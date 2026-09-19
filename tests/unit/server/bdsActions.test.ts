@@ -66,6 +66,7 @@ describe("BĐS admin actions", () => {
         commission: "",
         guidePerson: "",
         internalNotes: "",
+        availableFrom: null,
       },
       true,
     );
@@ -100,6 +101,7 @@ describe("BĐS admin actions", () => {
         commission: "",
         guidePerson: "",
         internalNotes: "",
+        availableFrom: null,
       },
       true,
     );
@@ -136,6 +138,7 @@ describe("BĐS admin actions", () => {
         commission: "",
         guidePerson: "",
         internalNotes: "",
+        availableFrom: null,
       },
       true,
     );
@@ -172,6 +175,7 @@ describe("BĐS admin actions", () => {
         commission: "",
         guidePerson: "",
         internalNotes: "",
+        availableFrom: null,
       },
       true,
     );
@@ -213,6 +217,7 @@ describe("BĐS admin actions", () => {
         commission: "",
         guidePerson: "",
         internalNotes: "",
+        availableFrom: null,
       },
       false,
     );
@@ -249,6 +254,7 @@ describe("BĐS admin actions", () => {
         commission: "",
         guidePerson: "",
         internalNotes: "",
+        availableFrom: null,
       },
       true,
     );
@@ -292,6 +298,7 @@ describe("BĐS admin actions", () => {
         commission: "",
         guidePerson: "",
         internalNotes: "",
+        availableFrom: null,
       },
       true,
     );
@@ -300,6 +307,93 @@ describe("BĐS admin actions", () => {
     const list = await listAdminBdsAction();
     const deleted = list!.find((r) => r.slug === "phong-se-xoa");
     expect(deleted!.published).toBe(false);
+  });
+
+  // Reported by the client: editing an old, already-let room made it
+  // reappear under "Hàng Mới Lên". saveBdsAction rebuilt the record from
+  // scratch on every save, stamping createdAt — which postedAt is derived
+  // from — with the moment of the edit.
+  it("editing a record keeps its original posted date", async () => {
+    signInAsAdmin();
+    const { saveBdsAction, listAdminBdsAction } = await import("@/app/actions/bds");
+    const before = await listAdminBdsAction();
+    const target = before!.find((r) => !r.sourceId && r.postedAt !== null);
+    expect(target).toBeDefined();
+    const originalPostedAt = target!.postedAt;
+
+    await saveBdsAction(
+      {
+        slug: target!.slug,
+        roomNo: target!.roomNo,
+        location: target!.location,
+        address: target!.address,
+        priceRaw: "12.345.000",
+        serviceFee: target!.serviceFee,
+        areaRaw: `${target!.area}m2`,
+        verticalAccess: target!.verticalAccess,
+        propertyType: target!.propertyType ?? "",
+        description: target!.description,
+        highlights: target!.highlights,
+        availability: target!.availability ?? "",
+        bedroomCount: target!.bedroomCount,
+        furnishingStatus: target!.furnishingStatus,
+        bathroomCount: target!.bathroomCount,
+        amenities: target!.amenities,
+        locationNote: target!.locationNote,
+        videoUrl: target!.videoUrl,
+        availableFrom: target!.availableFrom,
+        media: target!.media,
+        commission: target!.commission,
+        guidePerson: target!.guidePerson,
+        internalNotes: target!.internalNotes,
+      },
+      true,
+    );
+
+    const after = await listAdminBdsAction();
+    const edited = after!.find((r) => r.slug === target!.slug);
+    // The edit really landed — otherwise the date assertion below would pass
+    // for the wrong reason.
+    expect(edited!.price).toBe(12_345_000);
+    expect(edited!.postedAt).toBe(originalPostedAt);
+  });
+
+  it("stores the move-in date an operator types and shows it on the public listing", async () => {
+    signInAsAdmin();
+    const { saveBdsAction, listAdminBdsAction } = await import("@/app/actions/bds");
+    await saveBdsAction(
+      {
+        slug: "phong-sap-trong-test",
+        roomNo: "P.TEST-AVAILABLE-FROM",
+        location: "Hà Nội",
+        address: "A",
+        priceRaw: "4.000.000",
+        serviceFee: "",
+        areaRaw: "22m2",
+        verticalAccess: "",
+        propertyType: "Studio",
+        description: "",
+        highlights: [],
+        availability: "Sắp trống",
+        bedroomCount: null,
+        furnishingStatus: null,
+        bathroomCount: null,
+        amenities: [],
+        locationNote: null,
+        videoUrl: null,
+        // Free text on purpose — a date picker would reject this.
+        availableFrom: "cuối tháng 10",
+        media: [],
+        commission: "",
+        guidePerson: "",
+        internalNotes: "",
+      },
+      true,
+    );
+
+    const list = await listAdminBdsAction();
+    const created = list!.find((r) => r.slug === "phong-sap-trong-test");
+    expect(created!.availableFrom).toBe("cuối tháng 10");
   });
 
   it("editing an existing (fixture-seeded) record updates it in place — no orphaned duplicate", async () => {
@@ -330,6 +424,7 @@ describe("BĐS admin actions", () => {
         amenities: target!.amenities,
         locationNote: target!.locationNote,
         videoUrl: target!.videoUrl,
+        availableFrom: target!.availableFrom,
         media: target!.media,
         commission: target!.commission,
         guidePerson: target!.guidePerson,

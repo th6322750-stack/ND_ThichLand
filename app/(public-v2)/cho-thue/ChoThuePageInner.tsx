@@ -48,10 +48,16 @@ export function ChoThuePageInner({ properties, now }: { properties: PropertyList
   // sheet-sourced listings have no posted-date column, see
   // lib/server/rental/merge.ts) within the last 24h. Empty array hides the
   // whole section rather than showing a stale or fabricated "new" claim.
+  // An already-let room is excluded whatever its date: the client reported
+  // rented rooms surfacing here, and "hàng mới lên" promises something you
+  // can still rent, not merely something recently touched.
   const newListings = useMemo(() => {
     const cutoff = new Date(now).getTime() - 24 * 60 * 60 * 1000;
     return properties
-      .filter((p): p is typeof p & { postedAt: string } => p.postedAt !== null && new Date(p.postedAt).getTime() >= cutoff)
+      .filter(
+        (p): p is typeof p & { postedAt: string } =>
+          p.postedAt !== null && new Date(p.postedAt).getTime() >= cutoff && p.availability !== "Đã cho thuê",
+      )
       .sort((a, b) => new Date(b.postedAt).getTime() - new Date(a.postedAt).getTime());
   }, [properties, now]);
   const filtered = useMemo(() => {

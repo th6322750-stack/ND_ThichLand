@@ -85,6 +85,7 @@ describe("production runtime without Google/Drive config fails closed", () => {
         serviceFee: "", areaRaw: "10m2", verticalAccess: "", propertyType: "Nhà", description: "",
         highlights: [], availability: "Còn trống", bedroomCount: null, furnishingStatus: null,
         bathroomCount: null, amenities: [], locationNote: null, videoUrl: null,
+        availableFrom: null,
         media: [], commission: "", guidePerson: "", internalNotes: "",
       },
       true,

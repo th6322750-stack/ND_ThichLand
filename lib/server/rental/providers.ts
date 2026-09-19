@@ -56,6 +56,7 @@ async function seedFixtureData(overlay: InMemoryRentalOverlayRepository): Promis
       // (lib/data/properties.ts's hoursAgo() stand-ins) should seed with
       // THAT timestamp, not every record collapsing to "right now" the
       // moment the dev server started.
+      availableFrom: p.availableFrom,
       createdAt: p.postedAt ?? now,
       updatedAt: now,
     };

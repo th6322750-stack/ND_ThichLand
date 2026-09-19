@@ -43,6 +43,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    availableFrom: null,
     postedAt: hoursAgo(2),
   },
   {
@@ -65,6 +66,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    availableFrom: null,
     postedAt: hoursAgo(6),
   },
   {
@@ -87,6 +89,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    availableFrom: null,
     postedAt: hoursAgo(11),
   },
   {
@@ -109,6 +112,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    availableFrom: null,
     postedAt: hoursAgo(19),
   },
   {
@@ -131,6 +135,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    availableFrom: null,
     postedAt: hoursAgo(30),
   },
   {
@@ -153,6 +158,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    availableFrom: null,
     postedAt: hoursAgo(72),
   },
   {
@@ -175,6 +181,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    availableFrom: null,
     postedAt: hoursAgo(72),
   },
   {
@@ -197,6 +204,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    availableFrom: null,
     postedAt: hoursAgo(72),
   },
   {
@@ -219,6 +227,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    availableFrom: null,
     postedAt: hoursAgo(72),
   },
   {
@@ -241,6 +250,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    availableFrom: null,
     postedAt: hoursAgo(72),
   },
   {
@@ -263,6 +273,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    availableFrom: null,
     postedAt: hoursAgo(72),
   },
   {
@@ -285,6 +296,7 @@ export const properties: PropertyListing[] = [
     amenities: [],
     locationNote: null,
     videoUrl: null,
+    availableFrom: null,
     postedAt: hoursAgo(72),
   },
 ];

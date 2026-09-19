@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Icon2 as Icon } from "@/components/public-v2/Icon2";
 import { SaveListingButton } from "@/components/public-v2/SaveListingButton";
+import { AvailabilityTag2 } from "@/components/public-v2/AvailabilityTag2";
 import { formatCurrencyVnd } from "@/lib/format";
 import { firstMedia, PROPERTY_PLACEHOLDER } from "@/lib/media";
 import { getZaloHref } from "@/lib/zalo";
@@ -75,6 +76,11 @@ export function PropertyListRow2({ listing, priority = false }: { listing: Prope
         <p className="mt-1 flex items-center gap-1 text-[12px] text-[#5F5D5D] min-[900px]:mt-1 min-[900px]:text-[12px] wide:text-[13px]">
           <Icon name="pin" size={12} className="shrink-0 min-[900px]:!h-3 min-[900px]:!w-3" /> {listing.location}
         </p>
+        <AvailabilityTag2
+          availability={listing.availability}
+          availableFrom={listing.availableFrom}
+          className="mt-1 self-start"
+        />
         <p className="mt-1 hidden items-center gap-1 text-[9px] text-[#5F5D5D] min-[900px]:mt-1 min-[900px]:flex min-[900px]:gap-1 min-[900px]:text-[12px] wide:text-[13px]">
           <Icon name="area" size={9} className="min-[900px]:!h-3 min-[900px]:!w-3" /> {specs.join(" • ")}
         </p>

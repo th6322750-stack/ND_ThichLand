@@ -34,6 +34,7 @@ export function toPublicPropertyListing(record: AdminPropertyRecord): PropertyLi
     amenities: record.amenities,
     locationNote: record.locationNote,
     videoUrl: record.videoUrl,
+    availableFrom: record.availableFrom,
     postedAt: record.postedAt,
   };
 }

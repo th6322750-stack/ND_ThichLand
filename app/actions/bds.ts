@@ -41,6 +41,7 @@ export interface BdsFormInput {
   commission: string;
   guidePerson: string;
   internalNotes: string;
+  availableFrom: string | null;
 }
 
 export interface BdsActionResult {
@@ -98,6 +99,9 @@ const bdsFormSchema = z
     amenities: z.array(z.string()),
     locationNote: z.string().nullable(),
     videoUrl: z.string().nullable(),
+    // Free text by design (see PropertyListing.availableFrom) — validating it
+    // as a date would reject exactly the phrasing the business uses.
+    availableFrom: z.string().nullable(),
     media: z.array(z.string()),
     commission: z.string(),
     guidePerson: z.string(),
@@ -182,6 +186,7 @@ export async function saveBdsAction(input: BdsFormInput, publish: boolean): Prom
         amenities: input.amenities,
         locationNote: input.locationNote,
         videoUrl: input.videoUrl,
+        availableFrom: input.availableFrom,
         media: input.media,
         published: publish,
       },
@@ -198,18 +203,16 @@ export async function saveBdsAction(input: BdsFormInput, publish: boolean): Prom
         fieldErrors: { roomNo: "Mã/số phòng cần có ít nhất một chữ cái hoặc số" },
       };
     }
+    const previous = (await overlay.listCustomRecords()).find((r) => r.id === `custom:${slug}`);
     // Creating a second record whose name slugifies to an existing id used to
     // overwrite the first one without warning. Refuse instead — the operator
     // can rename, or open the existing record and edit it.
-    if (!input.slug) {
-      const existing = await overlay.listCustomRecords();
-      if (existing.some((r) => r.id === `custom:${slug}`)) {
-        return {
-          ok: false,
-          error: "Vui lòng kiểm tra lại thông tin.",
-          fieldErrors: { roomNo: `Đã có BĐS dùng đường dẫn "${slug}". Đổi mã/tên khác, hoặc mở bản ghi đó ra sửa.` },
-        };
-      }
+    if (!input.slug && previous) {
+      return {
+        ok: false,
+        error: "Vui lòng kiểm tra lại thông tin.",
+        fieldErrors: { roomNo: `Đã có BĐS dùng đường dẫn "${slug}". Đổi mã/tên khác, hoặc mở bản ghi đó ra sửa.` },
+      };
     }
     const record: CustomBdsRecord = {
       id: `custom:${slug}`,
@@ -234,12 +237,17 @@ export async function saveBdsAction(input: BdsFormInput, publish: boolean): Prom
       amenities: input.amenities,
       locationNote: input.locationNote,
       videoUrl: input.videoUrl,
+      availableFrom: input.availableFrom,
       media: input.media,
       commission: input.commission,
       guidePerson: input.guidePerson,
       internalNotes: input.internalNotes,
       published: publish,
-      createdAt: now,
+      // Editing must not re-date the listing. postedAt is derived from this
+      // (merge.ts), so overwriting it on every save pushed months-old — and
+      // already-let — rooms back into "Hàng Mới Lên", which is exactly what
+      // the client reported.
+      createdAt: previous?.createdAt || now,
       updatedAt: now,
     };
     await overlay.upsertCustomRecord(record);

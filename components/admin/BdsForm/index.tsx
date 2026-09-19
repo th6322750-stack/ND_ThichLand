@@ -77,6 +77,7 @@ function readInput(form: HTMLFormElement, initial: AdminPropertyRecord | undefin
       .filter(Boolean),
     locationNote: get("locationNote") || null,
     videoUrl: get("videoUrl") || null,
+    availableFrom: get("availableFrom") || null,
     media,
     commission: get("commission"),
     guidePerson: get("guidePerson"),
@@ -503,6 +504,22 @@ export function BdsForm({ initial }: BdsFormProps) {
                   {fieldErrors.availability}
                 </p>
               )}
+              {/* Free text, not a date picker: the landlord usually knows
+                  "cuối tháng 10", not a calendar day. Left blank the row
+                  simply doesn't appear on the public page. */}
+              <div className="flex items-center justify-between px-4 py-3 text-[13px]">
+                <span className="text-[#5F5D5D]">Thời gian dự kiến vào ở</span>
+                <input
+                  name="availableFrom"
+                  placeholder="VD: cuối tháng 10"
+                  defaultValue={initial?.availableFrom ?? ""}
+                  aria-label="Thời gian dự kiến vào ở"
+                  className="w-[200px] rounded-md border border-[#EDEBEA] px-2 py-1 text-right font-bold text-[#0C0D0D] outline-none transition-colors duration-fast ease-base placeholder:text-[#C9C6C5] focus:border-[#880206]"
+                />
+              </div>
+              <p className="px-4 pb-3 text-right text-[11px] text-[#8A8787]">
+                Để trống nếu chưa biết. VD: cuối tháng 10, 15/10/2026, sau Tết.
+              </p>
             </div>
           </div>
 

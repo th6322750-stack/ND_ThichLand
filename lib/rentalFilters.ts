@@ -1,4 +1,4 @@
-import type { PropertyListing, PropertyType } from "./types";
+import type { Availability, PropertyListing, PropertyType } from "./types";
 
 /**
  * Result ordering offered on /cho-thue. "default" is the source order (the
@@ -134,17 +134,37 @@ export function filterProperties(
   });
 }
 
+/**
+ * Availability outranks whatever ordering the visitor picked: a room that is
+ * already let is not what they came for, so it sits at the bottom of every
+ * mode. Before this, order came straight from the sheet's row positions, so
+ * a rented room could head the list purely by where it happened to sit.
+ */
+const AVAILABILITY_RANK: Record<Availability, number> = {
+  "Còn trống": 0,
+  "Sắp trống": 1,
+  "Đã cho thuê": 2,
+};
+
+function byAvailability(a: PropertyListing, b: PropertyListing): number {
+  return AVAILABILITY_RANK[a.availability] - AVAILABILITY_RANK[b.availability];
+}
+
 /** Pure, stable ordering — never mutates the input array. */
 export function sortProperties(properties: PropertyListing[], sort: RentalSort): PropertyListing[] {
-  if (sort === "default") return properties;
   const copy = [...properties];
   switch (sort) {
+    // Array#sort is stable, so within one availability group the records keep
+    // their source order — "Mặc định" still means "the order the sheet lists
+    // them in", just grouped.
+    case "default":
+      return copy.sort(byAvailability);
     case "price-asc":
-      return copy.sort((a, b) => a.price - b.price);
+      return copy.sort((a, b) => byAvailability(a, b) || a.price - b.price);
     case "price-desc":
-      return copy.sort((a, b) => b.price - a.price);
+      return copy.sort((a, b) => byAvailability(a, b) || b.price - a.price);
     case "area-desc":
-      return copy.sort((a, b) => b.area - a.area);
+      return copy.sort((a, b) => byAvailability(a, b) || b.area - a.area);
   }
 }
 

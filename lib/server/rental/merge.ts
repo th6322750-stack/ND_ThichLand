@@ -85,6 +85,7 @@ function customToAdminRecord(c: CustomBdsRecord): AdminPropertyRecord {
     amenities: c.amenities,
     locationNote: c.locationNote,
     videoUrl: c.videoUrl,
+    availableFrom: c.availableFrom,
     postedAt: c.createdAt,
     commission: c.commission,
     guidePerson: c.guidePerson,
@@ -164,6 +165,9 @@ export async function buildMergedRentalData(
       amenities: [],
       locationNote: null,
       videoUrl: null,
+      // Same admin-override-only path: the source sheet carries the status
+      // phrase but no separate move-in date column.
+      availableFrom: null,
       // No POSTED_AT column in the sheet — stays unknown unless an admin
       // override patch sets it (same mechanism as bathroomCount above).
       postedAt: null,
