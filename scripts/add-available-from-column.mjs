@@ -79,28 +79,27 @@ if (columnCount < MIN_COLUMNS) {
   });
 }
 
-// Written straight after the last existing header, so the header row lines
-// up with the cell order lib/server/rental/overlay.ts actually writes.
-const targetColumnIndex = headers.length;
-const targetA1 = columnLetter(targetColumnIndex) + "1";
+// Fixed columns W..AA (23..27), NOT "after the last header". The four
+// fields before this one were written by the repository for a long time
+// without ever being declared in CMS_HEADERS, so the live sheet can hold
+// data in columns 23-26 under blank headers — and appending after
+// `headers.length` would then drop available_from into column W, silently
+// misaligned with the cell order overlay.ts writes.
+const TRAILING_HEADERS = [
+  "bathroom_count",
+  "amenities_json",
+  "location_note",
+  "video_url",
+  HEADER,
+];
 await sheets.spreadsheets.values.update({
   spreadsheetId,
-  range: `${TAB}!${targetA1}`,
+  range: `${TAB}!W1:AA1`,
   valueInputOption: "RAW",
-  requestBody: { values: [[HEADER]] },
+  requestBody: { values: [TRAILING_HEADERS] },
 });
 
-console.log(`Đã ghi "${HEADER}" vào ô ${targetA1}.`);
+console.log(`Đã ghi tiêu đề cột 23-27 (W1:AA1): ${TRAILING_HEADERS.join(", ")}`);
 
 const verify = await sheets.spreadsheets.values.get({ spreadsheetId, range: `${TAB}!1:1` });
 console.log("Tiêu đề sau khi cập nhật:", (verify.data.values?.[0] ?? []).join(" | "));
-
-function columnLetter(index) {
-  let n = index;
-  let out = "";
-  do {
-    out = String.fromCharCode(65 + (n % 26)) + out;
-    n = Math.floor(n / 26) - 1;
-  } while (n >= 0);
-  return out;
-}
