@@ -198,17 +198,19 @@ export class GoogleRentalOverlayRepository implements RentalOverlayRepository {
 
   async listCustomRecords(): Promise<CustomBdsRecord[]> {
     const { cmsSpreadsheetId } = requireGoogleSpreadsheetEnv();
-    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.bdsCustom}!A2:Z`);
+    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.bdsCustom}!A2:AD`);
     return values.map(customRowToRecord).filter((r): r is CustomBdsRecord => r !== null);
   }
 
   async upsertCustomRecord(record: CustomBdsRecord): Promise<void> {
     const { cmsSpreadsheetId } = requireGoogleSpreadsheetEnv();
-    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.bdsCustom}!A2:Z`);
+    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.bdsCustom}!A2:AD`);
     const rowIndex = values.findIndex((row) => row[0] === record.id);
     const row = customRecordToRow(record);
     if (rowIndex >= 0) {
-      await updateSheetRange(cmsSpreadsheetId, `${CMS_TABS.bdsCustom}!A${rowIndex + 2}:Z${rowIndex + 2}`, row);
+      // A..AD, not A..Z: the row is 27 cells wide now that available_from
+      // was appended, and a 26-column range silently drops the last one.
+      await updateSheetRange(cmsSpreadsheetId, `${CMS_TABS.bdsCustom}!A${rowIndex + 2}:AD${rowIndex + 2}`, row);
     } else {
       await appendSheetRow(cmsSpreadsheetId, CMS_TABS.bdsCustom, row);
     }
