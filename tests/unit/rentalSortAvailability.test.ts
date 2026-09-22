@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { sortProperties, RENTAL_SORT_OPTIONS, type RentalSort } from "@/lib/rentalFilters";
+import { isShowcasable, sortProperties, RENTAL_SORT_OPTIONS, type RentalSort } from "@/lib/rentalFilters";
 import type { Availability, PropertyListing } from "@/lib/types";
 
 function listing(slug: string, availability: Availability, price: number, area: number): PropertyListing {
@@ -83,5 +83,30 @@ describe("sortProperties — availability outranks the chosen ordering", () => {
     sortProperties(input, "default");
 
     expect(input.map((p) => p.slug)).toEqual(snapshot);
+  });
+});
+
+// The client, after seeing let rooms on the homepage: "còn cái nào hết phòng
+// thì nó chỉ hiện bảng chung, ko hiện ở trên đầu".
+describe("isShowcasable — what may appear in a promotional strip", () => {
+  it("keeps rooms a visitor can actually rent", () => {
+    expect(isShowcasable(listing("a", "Còn trống", 1_000_000, 10))).toBe(true);
+    expect(isShowcasable(listing("b", "Sắp trống", 1_000_000, 10))).toBe(true);
+  });
+
+  it("drops a let room, which belongs in the full table only", () => {
+    expect(isShowcasable(listing("c", "Đã cho thuê", 1_000_000, 10))).toBe(false);
+  });
+
+  // Filtering, not sorting: a fixed-size slice off the top of a sorted list
+  // still surfaces let rooms once the available ones run out.
+  it("removes let rooms from a slice instead of just ranking them last", () => {
+    const all = [
+      listing("thue-1", "Đã cho thuê", 1_000_000, 10),
+      listing("thue-2", "Đã cho thuê", 2_000_000, 10),
+      listing("trong-1", "Còn trống", 3_000_000, 10),
+    ];
+
+    expect(all.filter(isShowcasable).slice(0, 8).map((p) => p.slug)).toEqual(["trong-1"]);
   });
 });

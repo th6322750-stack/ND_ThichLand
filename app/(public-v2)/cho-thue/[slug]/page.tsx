@@ -13,6 +13,7 @@ import { buildMergedRentalData } from "@/lib/server/rental/merge";
 import { toPublicPropertyListings } from "@/lib/server/rental/dto";
 import { getZaloHref } from "@/lib/zalo";
 import { splitHighlights } from "@/lib/highlights";
+import { isShowcasable } from "@/lib/rentalFilters";
 import { isVisualFixtureV2Enabled, getVisualFixtureProperties } from "@/lib/visualFixtureV2";
 import type { PropertyListing } from "@/lib/types";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -104,7 +105,7 @@ export default async function ChoThueDetailPageV2({ params }: { params: Promise<
   const listing = properties.find((p) => p.slug === slug);
   if (!listing) notFound();
 
-  const related = properties.filter((p) => p.slug !== listing.slug).slice(0, 4);
+  const related = properties.filter((p) => p.slug !== listing.slug && isShowcasable(p)).slice(0, 4);
   const title = listing.roomNo;
   const facts = buildFacts(listing);
   const highlightLines = splitHighlights(listing.highlights);

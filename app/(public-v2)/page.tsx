@@ -15,7 +15,7 @@ import { getSiteSettingsRepository } from "@/lib/server/settings/providers";
 import { getRentalProviders } from "@/lib/server/rental/providers";
 import { buildMergedRentalData } from "@/lib/server/rental/merge";
 import { toPublicPropertyListings } from "@/lib/server/rental/dto";
-import { getLocationOptions, getPropertyTypeOptions } from "@/lib/rentalFilters";
+import { getLocationOptions, getPropertyTypeOptions, isShowcasable } from "@/lib/rentalFilters";
 import { getNewsRepository } from "@/lib/server/news/providers";
 import { toPublicNewsArticles } from "@/lib/server/news/dto";
 import { getProjectRepository } from "@/lib/server/projects/providers";
@@ -79,7 +79,7 @@ export default async function HomePageV2() {
   // 8, not 4: at the 4-up desktop breakpoint exactly four slides fill the
   // track, so the carousel had nothing to advance to and correctly hid its
   // own controls. Two pages' worth is what makes it move.
-  const featuredProperties = properties.slice(0, 8);
+  const featuredProperties = properties.filter(isShowcasable).slice(0, 8);
   // Round 8 asset map, section 3 "HOME Featured Rentals": R8_05-08.
   // Decorative filler ONLY for a listing with no photo of its own — a real
   // listing always shows its own photo (see the call site below), because a

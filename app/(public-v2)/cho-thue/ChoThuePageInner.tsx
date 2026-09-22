@@ -21,6 +21,7 @@ import {
   getLocationOptions,
   getPropertyTypeOptions,
   hasActiveRentalFilters,
+  isShowcasable,
   sortProperties,
   RENTAL_SORT_OPTIONS,
   type RentalSort,
@@ -56,7 +57,7 @@ export function ChoThuePageInner({ properties, now }: { properties: PropertyList
     return properties
       .filter(
         (p): p is typeof p & { postedAt: string } =>
-          p.postedAt !== null && new Date(p.postedAt).getTime() >= cutoff && p.availability !== "Đã cho thuê",
+          p.postedAt !== null && new Date(p.postedAt).getTime() >= cutoff && isShowcasable(p),
       )
       .sort((a, b) => new Date(b.postedAt).getTime() - new Date(a.postedAt).getTime());
   }, [properties, now]);

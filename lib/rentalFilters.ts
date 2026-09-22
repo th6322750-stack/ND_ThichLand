@@ -150,6 +150,18 @@ function byAvailability(a: PropertyListing, b: PropertyListing): number {
   return AVAILABILITY_RANK[a.availability] - AVAILABILITY_RANK[b.availability];
 }
 
+/**
+ * Whether a listing may appear in a *showcase* — the homepage's featured
+ * strip, "Hàng Mới Lên", the related grid on a detail page. The client's
+ * rule, in their words: a let room "chỉ hiện bảng chung, ko hiện ở trên
+ * đầu". The full listing table still shows it (sorted to the bottom); the
+ * promotional surfaces drop it outright, because a fixed-size slice off the
+ * top would otherwise still pick one up.
+ */
+export function isShowcasable(listing: PropertyListing): boolean {
+  return listing.availability !== "Đã cho thuê";
+}
+
 /** Pure, stable ordering — never mutates the input array. */
 export function sortProperties(properties: PropertyListing[], sort: RentalSort): PropertyListing[] {
   const copy = [...properties];
