@@ -34,6 +34,26 @@ export interface CustomBdsRecord {
   published: boolean;
   createdAt: string;
   updatedAt: string;
+  // Appended at the end of the row (not inserted mid-sequence) so existing
+  // WEB_BDS_CUSTOM rows in the live sheet keep their column alignment —
+  // an old row simply has no cell here, which reads back as null.
+  bathroomCount: number | null;
+  // Also appended at the end (same reasoning as bathroomCount above) —
+  // backs the Tiện ích/Vị trí/Video tabs on /cho-thue/[slug].
+  amenities: string[];
+  locationNote: string | null;
+  videoUrl: string | null;
+  // Appended at the end for the same reason as bathroomCount above — an
+  // existing row simply has no cell here and reads back as null.
+  availableFrom: string | null;
+  /**
+   * Tombstone. "Xóa" in the admin used to only clear `published`, which left
+   * the record sitting in the admin list looking undeleted — the client
+   * reported pressing delete and watching nothing happen. The row itself is
+   * still kept (a mis-click must be recoverable straight from the Sheet);
+   * the merge layer is what drops it from view.
+   */
+  deletedAt: string | null;
 }
 
 export interface RentalOverlayRepository {
@@ -95,6 +115,12 @@ function customRowToRecord(row: string[]): CustomBdsRecord | null {
     published,
     createdAt,
     updatedAt,
+    bathroomCount,
+    amenitiesJson,
+    locationNote,
+    videoUrl,
+    availableFrom,
+    deletedAt,
   ] = row;
   if (!id) return null;
   return {
@@ -120,6 +146,12 @@ function customRowToRecord(row: string[]): CustomBdsRecord | null {
     published: published === "true",
     createdAt: createdAt ?? "",
     updatedAt: updatedAt ?? "",
+    bathroomCount: bathroomCount ? Number(bathroomCount) : null,
+    amenities: safeJsonArray(amenitiesJson),
+    locationNote: locationNote || null,
+    videoUrl: videoUrl || null,
+    availableFrom: availableFrom || null,
+    deletedAt: deletedAt || null,
   };
 }
 
@@ -147,6 +179,12 @@ function customRecordToRow(r: CustomBdsRecord): (string | number)[] {
     String(r.published),
     r.createdAt,
     r.updatedAt,
+    r.bathroomCount ?? "",
+    JSON.stringify(r.amenities),
+    r.locationNote ?? "",
+    r.videoUrl ?? "",
+    r.availableFrom ?? "",
+    r.deletedAt ?? "",
   ];
 }
 
@@ -171,17 +209,19 @@ export class GoogleRentalOverlayRepository implements RentalOverlayRepository {
 
   async listCustomRecords(): Promise<CustomBdsRecord[]> {
     const { cmsSpreadsheetId } = requireGoogleSpreadsheetEnv();
-    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.bdsCustom}!A2:V`);
+    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.bdsCustom}!A2:AD`);
     return values.map(customRowToRecord).filter((r): r is CustomBdsRecord => r !== null);
   }
 
   async upsertCustomRecord(record: CustomBdsRecord): Promise<void> {
     const { cmsSpreadsheetId } = requireGoogleSpreadsheetEnv();
-    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.bdsCustom}!A2:V`);
+    const values = await readSheetRange(cmsSpreadsheetId, `${CMS_TABS.bdsCustom}!A2:AD`);
     const rowIndex = values.findIndex((row) => row[0] === record.id);
     const row = customRecordToRow(record);
     if (rowIndex >= 0) {
-      await updateSheetRange(cmsSpreadsheetId, `${CMS_TABS.bdsCustom}!A${rowIndex + 2}:V${rowIndex + 2}`, row);
+      // A..AD, not A..Z: the row is 27 cells wide now that available_from
+      // was appended, and a 26-column range silently drops the last one.
+      await updateSheetRange(cmsSpreadsheetId, `${CMS_TABS.bdsCustom}!A${rowIndex + 2}:AD${rowIndex + 2}`, row);
     } else {
       await appendSheetRow(cmsSpreadsheetId, CMS_TABS.bdsCustom, row);
     }
@@ -191,7 +231,8 @@ export class GoogleRentalOverlayRepository implements RentalOverlayRepository {
     const records = await this.listCustomRecords();
     const existing = records.find((r) => r.id === id);
     if (!existing) return;
-    await this.upsertCustomRecord({ ...existing, published: false, updatedAt: new Date().toISOString() });
+    const now = new Date().toISOString();
+    await this.upsertCustomRecord({ ...existing, published: false, deletedAt: now, updatedAt: now });
   }
 }
 
@@ -217,6 +258,8 @@ export class InMemoryRentalOverlayRepository implements RentalOverlayRepository 
 
   async softDeleteCustomRecord(id: string): Promise<void> {
     const existing = this.custom.get(id);
-    if (existing) this.custom.set(id, { ...existing, published: false, updatedAt: new Date().toISOString() });
+    if (!existing) return;
+    const now = new Date().toISOString();
+    this.custom.set(id, { ...existing, published: false, deletedAt: now, updatedAt: now });
   }
 }

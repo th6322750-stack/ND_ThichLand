@@ -47,6 +47,35 @@ describe("parseRentalRow — normal canonical row", () => {
     expect(outcome.record.furnishingStatus).toBe("Đầy đủ");
     expect(outcome.record.highlights).toEqual(["Ban công", "Vào ngay"]);
   });
+
+  it("turns line breaks in the Sheet cell into separate highlights", () => {
+    const cells = [
+      "Tòa A",
+      "Còn trống",
+      "Đà Nẵng",
+      "Panoma 1",
+      "",
+      "P.1201",
+      "20.000.000",
+      "",
+      "Theo tháng",
+      "80m2",
+      "Thang máy",
+      "Căn hộ",
+      "Căn hộ view sông",
+      "🌊 View sông Hàn\n✨ Full nội thất\n🏖️ Gần biển Mỹ Khê",
+      "",
+      "",
+    ];
+    const outcome = parseRentalRow(row(11, cells));
+    expect(outcome.kind).toBe("valid");
+    if (outcome.kind !== "valid") return;
+    expect(outcome.record.highlights).toEqual([
+      "🌊 View sông Hàn",
+      "✨ Full nội thất",
+      "🏖️ Gần biển Mỹ Khê",
+    ]);
+  });
 });
 
 describe("parseRentalRow — separator/note rows", () => {

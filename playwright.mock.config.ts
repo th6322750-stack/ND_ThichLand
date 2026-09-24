@@ -16,7 +16,7 @@ import { TEST_ADMIN_EMAIL, TEST_ADMIN_PASSWORD_HASH, TEST_AUTH_SECRET } from "./
 // See playwright.failclosed.config.ts for the separate "no config at all"
 // production-behavior suite, and playwright.live.config.ts for the
 // reserved (not yet runnable) live-secrets suite.
-const PORT = 3100;
+const PORT = Number(process.env.PLAYWRIGHT_TEST_PORT ?? 3100);
 
 export default defineConfig({
   testDir: "./tests/e2e",
@@ -30,6 +30,8 @@ export default defineConfig({
     reuseExistingServer: false,
     timeout: 60_000,
     env: {
+      NEXT_DIST_DIR: ".next-playwright-mock",
+      NEXT_PUBLIC_SITE_URL: `http://localhost:${PORT}`,
       ADMIN_EMAIL: TEST_ADMIN_EMAIL,
       ADMIN_PASSWORD_HASH: TEST_ADMIN_PASSWORD_HASH,
       AUTH_SECRET: TEST_AUTH_SECRET,

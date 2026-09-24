@@ -58,10 +58,15 @@ describe("BĐS admin actions", () => {
         availability: "Còn trống",
         bedroomCount: null,
         furnishingStatus: null,
+        bathroomCount: null,
+        amenities: [],
+        locationNote: null,
+        videoUrl: null,
         media: [],
         commission: "",
         guidePerson: "",
         internalNotes: "",
+        availableFrom: null,
       },
       true,
     );
@@ -88,10 +93,15 @@ describe("BĐS admin actions", () => {
         availability: "trạng thái không tồn tại",
         bedroomCount: null,
         furnishingStatus: null,
+        bathroomCount: null,
+        amenities: [],
+        locationNote: null,
+        videoUrl: null,
         media: [],
         commission: "",
         guidePerson: "",
         internalNotes: "",
+        availableFrom: null,
       },
       true,
     );
@@ -120,10 +130,15 @@ describe("BĐS admin actions", () => {
         availability: "Còn trống",
         bedroomCount: null,
         furnishingStatus: null,
+        bathroomCount: null,
+        amenities: [],
+        locationNote: null,
+        videoUrl: null,
         media: [],
         commission: "",
         guidePerson: "",
         internalNotes: "",
+        availableFrom: null,
       },
       true,
     );
@@ -152,10 +167,15 @@ describe("BĐS admin actions", () => {
         availability: "Còn trống",
         bedroomCount: null,
         furnishingStatus: null,
+        bathroomCount: null,
+        amenities: ["Hồ bơi", "Gym"],
+        locationNote: "Gần trung tâm, kết nối thuận tiện",
+        videoUrl: "https://youtube.com/watch?v=abc123",
         media: [],
         commission: "",
         guidePerson: "",
         internalNotes: "",
+        availableFrom: null,
       },
       true,
     );
@@ -165,6 +185,9 @@ describe("BĐS admin actions", () => {
     expect(created).toBeDefined();
     expect(created!.published).toBe(true);
     expect(created!.price).toBe(7_000_000);
+    expect(created!.amenities).toEqual(["Hồ bơi", "Gym"]);
+    expect(created!.locationNote).toBe("Gần trung tâm, kết nối thuận tiện");
+    expect(created!.videoUrl).toBe("https://youtube.com/watch?v=abc123");
   });
 
   it('"Lưu nháp" persists with published:false', async () => {
@@ -186,10 +209,15 @@ describe("BĐS admin actions", () => {
         availability: "Còn trống",
         bedroomCount: null,
         furnishingStatus: null,
+        bathroomCount: null,
+        amenities: [],
+        locationNote: null,
+        videoUrl: null,
         media: [],
         commission: "",
         guidePerson: "",
         internalNotes: "",
+        availableFrom: null,
       },
       false,
     );
@@ -218,10 +246,15 @@ describe("BĐS admin actions", () => {
         availability: "Còn trống",
         bedroomCount: 2,
         furnishingStatus: "Đầy đủ",
+        bathroomCount: 1,
+        amenities: ["Hồ bơi"],
+        locationNote: "Gần trung tâm",
+        videoUrl: null,
         media: [],
         commission: "",
         guidePerson: "",
         internalNotes: "",
+        availableFrom: null,
       },
       true,
     );
@@ -238,7 +271,9 @@ describe("BĐS admin actions", () => {
     expect((await deleteCustomBdsRecordAction("custom:x")).ok).toBe(false);
   });
 
-  it("deleteCustomBdsRecordAction soft-deletes — record no longer appears published", async () => {
+  // The client pressed "Xóa" and watched the row stay put: only `published`
+  // was cleared, so it came back relabelled "Nháp" and looked undeletable.
+  it("deleteCustomBdsRecordAction removes the record from the admin list", async () => {
     signInAsAdmin();
     const { saveBdsAction, deleteCustomBdsRecordAction, listAdminBdsAction } = await import("@/app/actions/bds");
     await saveBdsAction(
@@ -257,6 +292,139 @@ describe("BĐS admin actions", () => {
         availability: "Còn trống",
         bedroomCount: null,
         furnishingStatus: null,
+        bathroomCount: null,
+        amenities: [],
+        locationNote: null,
+        videoUrl: null,
+        media: [],
+        commission: "",
+        guidePerson: "",
+        internalNotes: "",
+        availableFrom: null,
+      },
+      true,
+    );
+    const result = await deleteCustomBdsRecordAction("custom:phong-se-xoa");
+    expect(result.ok).toBe(true);
+    const list = await listAdminBdsAction();
+    expect(list!.find((r) => r.slug === "phong-se-xoa")).toBeUndefined();
+  });
+
+  it("saving a listing again brings back one that had been deleted", async () => {
+    signInAsAdmin();
+    const { saveBdsAction, deleteCustomBdsRecordAction, listAdminBdsAction } = await import("@/app/actions/bds");
+    const input = {
+      slug: "phong-xoa-roi-tao-lai",
+      roomNo: "P.TEST-REVIVE",
+      location: "Hà Nội",
+      address: "A",
+      priceRaw: "3.000.000",
+      serviceFee: "",
+      areaRaw: "20m2",
+      verticalAccess: "",
+      propertyType: "Studio",
+      description: "",
+      highlights: [],
+      availability: "Còn trống",
+      bedroomCount: null,
+      furnishingStatus: null,
+      bathroomCount: null,
+      amenities: [],
+      locationNote: null,
+      videoUrl: null,
+      availableFrom: null,
+      media: [],
+      commission: "",
+      guidePerson: "",
+      internalNotes: "",
+    };
+
+    await saveBdsAction(input, true);
+    await deleteCustomBdsRecordAction("custom:phong-xoa-roi-tao-lai");
+    expect((await listAdminBdsAction())!.find((r) => r.slug === "phong-xoa-roi-tao-lai")).toBeUndefined();
+
+    // Without clearing the tombstone on save, the operator would be left with
+    // a slug that silently refuses to come back.
+    await saveBdsAction(input, true);
+    const revived = (await listAdminBdsAction())!.find((r) => r.slug === "phong-xoa-roi-tao-lai");
+    expect(revived).toBeDefined();
+    expect(revived!.published).toBe(true);
+  });
+
+  // Reported by the client: editing an old, already-let room made it
+  // reappear under "Hàng Mới Lên". saveBdsAction rebuilt the record from
+  // scratch on every save, stamping createdAt — which postedAt is derived
+  // from — with the moment of the edit.
+  it("editing a record keeps its original posted date", async () => {
+    signInAsAdmin();
+    const { saveBdsAction, listAdminBdsAction } = await import("@/app/actions/bds");
+    const before = await listAdminBdsAction();
+    const target = before!.find((r) => !r.sourceId && r.postedAt !== null);
+    expect(target).toBeDefined();
+    const originalPostedAt = target!.postedAt;
+
+    await saveBdsAction(
+      {
+        slug: target!.slug,
+        roomNo: target!.roomNo,
+        location: target!.location,
+        address: target!.address,
+        priceRaw: "12.345.000",
+        serviceFee: target!.serviceFee,
+        areaRaw: `${target!.area}m2`,
+        verticalAccess: target!.verticalAccess,
+        propertyType: target!.propertyType ?? "",
+        description: target!.description,
+        highlights: target!.highlights,
+        availability: target!.availability ?? "",
+        bedroomCount: target!.bedroomCount,
+        furnishingStatus: target!.furnishingStatus,
+        bathroomCount: target!.bathroomCount,
+        amenities: target!.amenities,
+        locationNote: target!.locationNote,
+        videoUrl: target!.videoUrl,
+        availableFrom: target!.availableFrom,
+        media: target!.media,
+        commission: target!.commission,
+        guidePerson: target!.guidePerson,
+        internalNotes: target!.internalNotes,
+      },
+      true,
+    );
+
+    const after = await listAdminBdsAction();
+    const edited = after!.find((r) => r.slug === target!.slug);
+    // The edit really landed — otherwise the date assertion below would pass
+    // for the wrong reason.
+    expect(edited!.price).toBe(12_345_000);
+    expect(edited!.postedAt).toBe(originalPostedAt);
+  });
+
+  it("stores the move-in date an operator types and shows it on the public listing", async () => {
+    signInAsAdmin();
+    const { saveBdsAction, listAdminBdsAction } = await import("@/app/actions/bds");
+    await saveBdsAction(
+      {
+        slug: "phong-sap-trong-test",
+        roomNo: "P.TEST-AVAILABLE-FROM",
+        location: "Hà Nội",
+        address: "A",
+        priceRaw: "4.000.000",
+        serviceFee: "",
+        areaRaw: "22m2",
+        verticalAccess: "",
+        propertyType: "Studio",
+        description: "",
+        highlights: [],
+        availability: "Sắp trống",
+        bedroomCount: null,
+        furnishingStatus: null,
+        bathroomCount: null,
+        amenities: [],
+        locationNote: null,
+        videoUrl: null,
+        // Free text on purpose — a date picker would reject this.
+        availableFrom: "cuối tháng 10",
         media: [],
         commission: "",
         guidePerson: "",
@@ -264,11 +432,10 @@ describe("BĐS admin actions", () => {
       },
       true,
     );
-    const result = await deleteCustomBdsRecordAction("custom:phong-se-xoa");
-    expect(result.ok).toBe(true);
+
     const list = await listAdminBdsAction();
-    const deleted = list!.find((r) => r.slug === "phong-se-xoa");
-    expect(deleted!.published).toBe(false);
+    const created = list!.find((r) => r.slug === "phong-sap-trong-test");
+    expect(created!.availableFrom).toBe("cuối tháng 10");
   });
 
   it("editing an existing (fixture-seeded) record updates it in place — no orphaned duplicate", async () => {
@@ -295,6 +462,11 @@ describe("BĐS admin actions", () => {
         availability: target!.availability ?? "",
         bedroomCount: target!.bedroomCount,
         furnishingStatus: target!.furnishingStatus,
+        bathroomCount: target!.bathroomCount,
+        amenities: target!.amenities,
+        locationNote: target!.locationNote,
+        videoUrl: target!.videoUrl,
+        availableFrom: target!.availableFrom,
         media: target!.media,
         commission: target!.commission,
         guidePerson: target!.guidePerson,
@@ -307,6 +479,6 @@ describe("BĐS admin actions", () => {
     expect(after!.length).toBe(countBefore); // no new row created
     const matches = after!.filter((r) => r.slug === target!.slug);
     expect(matches).toHaveLength(1); // no duplicate slug
-    expect(matches[0].price).toBe(99_000_000);
+    expect(matches[0]!.price).toBe(99_000_000);
   });
 });

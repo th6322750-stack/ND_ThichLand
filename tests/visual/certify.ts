@@ -109,9 +109,12 @@ async function diffOne(item: Capture, capturedPath: string): Promise<DiffResult>
       const bIdx = (y * captured.info.width + x) * 4;
       const outIdx = (y * comparedWidth + x) * 4;
 
-      const dr = Math.abs(approved.data[aIdx] - captured.data[bIdx]);
-      const dg = Math.abs(approved.data[aIdx + 1] - captured.data[bIdx + 1]);
-      const db = Math.abs(approved.data[aIdx + 2] - captured.data[bIdx + 2]);
+      // Non-null: x < comparedWidth and y < comparedHeight (the overlap of
+      // both images) keep aIdx/bIdx and their +1/+2 offsets inside each
+      // buffer's own width*height*4 bounds.
+      const dr = Math.abs(approved.data[aIdx]! - captured.data[bIdx]!);
+      const dg = Math.abs(approved.data[aIdx + 1]! - captured.data[bIdx + 1]!);
+      const db = Math.abs(approved.data[aIdx + 2]! - captured.data[bIdx + 2]!);
       const isDiff = dr > CHANNEL_DIFF_THRESHOLD || dg > CHANNEL_DIFF_THRESHOLD || db > CHANNEL_DIFF_THRESHOLD;
 
       if (isDiff) {
@@ -122,7 +125,7 @@ async function diffOne(item: Capture, capturedPath: string): Promise<DiffResult>
         diffBuffer[outIdx + 3] = 255;
       } else {
         // Faded grayscale of the approved pixel for spatial context.
-        const gray = Math.round((approved.data[aIdx] + approved.data[aIdx + 1] + approved.data[aIdx + 2]) / 3);
+        const gray = Math.round((approved.data[aIdx]! + approved.data[aIdx + 1]! + approved.data[aIdx + 2]!) / 3);
         const faded = Math.round(gray * 0.35 + 255 * 0.65);
         diffBuffer[outIdx] = faded;
         diffBuffer[outIdx + 1] = faded;

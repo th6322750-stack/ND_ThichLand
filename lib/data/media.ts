@@ -15,6 +15,7 @@ export const mediaFixtures: Omit<MediaRecord, "createdAt">[] = Array.from({ leng
   filename: `media-${String(i + 1).padStart(2, "0")}.jpg`,
   mimeType: "image/svg+xml",
   sizeBytes: 0,
-  webViewLink: PLACEHOLDERS[i % PLACEHOLDERS.length],
+  // Non-null: i % PLACEHOLDERS.length is always in [0, length) by construction.
+  webViewLink: PLACEHOLDERS[i % PLACEHOLDERS.length]!,
   uploadedBy: "seed",
 }));

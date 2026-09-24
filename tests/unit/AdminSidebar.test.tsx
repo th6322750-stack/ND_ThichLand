@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { AppRouterContext } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { Sidebar } from "@/components/admin/Sidebar";
@@ -26,18 +26,39 @@ function renderWithRouter(push = vi.fn()) {
 }
 
 describe("Admin Sidebar", () => {
-  it("renders all five primary nav items with accessible names", () => {
+  it("renders the primary nav items without the redundant Media tab", () => {
     renderWithRouter();
-    ["Dashboard", "BĐS cho thuê", "Dự án", "Tin tức", "Media"].forEach((label) => {
+    [
+      "Dashboard",
+      "Dự án",
+      "BĐS cho thuê",
+      "Tin tức",
+      "Trang Về chúng tôi",
+      "Trang Liên hệ",
+      "Cài đặt chung",
+    ].forEach((label) => {
       expect(screen.getAllByRole("link", { name: label }).length).toBeGreaterThan(0);
     });
+    expect(screen.queryByRole("link", { name: "Media" })).not.toBeInTheDocument();
+  });
+
+  it("places Dự án above BĐS cho thuê", () => {
+    renderWithRouter();
+    // Non-null: getAllByRole throws if it finds nothing, so [0] always exists.
+    const firstNav = screen.getAllByRole("navigation", { name: "Điều hướng quản trị" })[0]!;
+    const labels = within(firstNav)
+      .getAllByRole("link")
+      .map((link) => link.getAttribute("aria-label") ?? link.textContent);
+
+    expect(labels.indexOf("Dự án")).toBeLessThan(labels.indexOf("BĐS cho thuê"));
   });
 
   it("logs out and navigates to /admin/login when Đăng xuất is clicked", async () => {
     const user = userEvent.setup();
     const push = vi.fn();
     renderWithRouter(push);
-    await user.click(screen.getAllByRole("button", { name: "Đăng xuất" })[0]);
+    // Non-null: getAllByRole throws if it finds nothing, so [0] always exists.
+    await user.click(screen.getAllByRole("button", { name: "Đăng xuất" })[0]!);
     expect(push).toHaveBeenCalledWith("/admin/login");
   });
 });

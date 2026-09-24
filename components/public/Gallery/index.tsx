@@ -49,7 +49,8 @@ export function Gallery({ images, layout = "mosaic" }: GalleryProps) {
             className="relative col-span-2 row-span-2 aspect-[4/3] overflow-hidden rounded-md"
             onClick={() => setActiveIndex(0)}
           >
-            <Image src={images[0]} alt="" fill className="object-cover" unoptimized />
+            {/* Non-null: the `images.length === 0` guard above already returned. */}
+            <Image src={images[0]!} alt="" fill className="object-cover" unoptimized />
           </button>
           {images.slice(1, 5).map((src, i) => (
             <button
@@ -105,8 +106,10 @@ export function Gallery({ images, layout = "mosaic" }: GalleryProps) {
             className="fixed inset-0 z-lightbox-content flex flex-col items-center justify-center gap-4 p-6"
           >
             <div className="relative h-[70vh] w-full max-w-4xl">
+              {/* Non-null: every setActiveIndex call above sets it from a
+                  real images index or a modulo of images.length. */}
               <Image
-                src={images[activeIndex!]}
+                src={images[activeIndex!]!}
                 alt={`${activeIndex! + 1} / ${images.length}`}
                 fill
                 className="object-contain"
@@ -117,7 +120,7 @@ export function Gallery({ images, layout = "mosaic" }: GalleryProps) {
               <button
                 type="button"
                 aria-label="Ảnh trước"
-                className="flex h-11 w-11 items-center justify-center text-2xl"
+                className="flex h-[44px] w-[44px] items-center justify-center text-2xl"
                 onClick={() => setActiveIndex((i) => (i === null ? i : (i - 1 + images.length) % images.length))}
               >
                 ‹
@@ -126,7 +129,7 @@ export function Gallery({ images, layout = "mosaic" }: GalleryProps) {
               <button
                 type="button"
                 aria-label="Ảnh sau"
-                className="flex h-11 w-11 items-center justify-center text-2xl"
+                className="flex h-[44px] w-[44px] items-center justify-center text-2xl"
                 onClick={() => setActiveIndex((i) => (i === null ? i : (i + 1) % images.length))}
               >
                 ›
@@ -135,7 +138,7 @@ export function Gallery({ images, layout = "mosaic" }: GalleryProps) {
             <button
               type="button"
               aria-label="Đóng"
-              className="absolute right-6 top-6 flex h-11 w-11 items-center justify-center text-surface"
+              className="absolute right-6 top-6 flex h-[44px] w-[44px] items-center justify-center text-surface"
               onClick={close}
             >
               ✕

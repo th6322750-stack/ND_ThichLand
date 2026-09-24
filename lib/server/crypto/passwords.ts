@@ -33,8 +33,10 @@ export async function verifyPassword(password: string, storedHash: string): Prom
   let salt: Buffer;
   let expected: Buffer;
   try {
-    salt = Buffer.from(saltHex, "hex");
-    expected = Buffer.from(hashHex, "hex");
+    // Non-null: the `parts.length !== 6` check above already guarantees
+    // every destructured element up to index 5 exists.
+    salt = Buffer.from(saltHex!, "hex");
+    expected = Buffer.from(hashHex!, "hex");
   } catch {
     return false;
   }

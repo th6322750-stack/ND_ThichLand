@@ -9,6 +9,9 @@ export const CMS_TABS = {
   news: "WEB_NEWS",
   contacts: "WEB_CONTACTS",
   media: "WEB_MEDIA",
+  settings: "WEB_SETTINGS",
+  pageContent: "WEB_PAGE_CONTENT",
+  adminSecurity: "WEB_ADMIN_SECURITY",
 } as const;
 
 export const CMS_HEADERS: Record<(typeof CMS_TABS)[keyof typeof CMS_TABS], string[]> = {
@@ -36,6 +39,16 @@ export const CMS_HEADERS: Record<(typeof CMS_TABS)[keyof typeof CMS_TABS], strin
     "published",
     "created_at",
     "updated_at",
+    // Appended over time as the CMS grew (see CustomBdsRecord) — these four
+    // were being written by the repository without ever being declared here,
+    // so a freshly bootstrapped sheet got headers that stopped short of the
+    // data the app actually writes.
+    "bathroom_count",
+    "amenities_json",
+    "location_note",
+    "video_url",
+    "available_from",
+    "deleted_at",
   ],
   [CMS_TABS.projects]: [
     "id",
@@ -52,6 +65,17 @@ export const CMS_HEADERS: Record<(typeof CMS_TABS)[keyof typeof CMS_TABS], strin
     "published",
     "created_at",
     "updated_at",
+    "progress_photos_json",
+    "unit_types_json",
+    "property_type",
+    "scale",
+    "unit_count",
+    "highlights_json",
+    "map_query",
+    "masterplan_image",
+    "show_masterplan",
+    "apartment_area",
+    "legal_status",
   ],
   [CMS_TABS.news]: [
     "id",
@@ -78,5 +102,29 @@ export const CMS_HEADERS: Record<(typeof CMS_TABS)[keyof typeof CMS_TABS], strin
     "web_view_link",
     "uploaded_by",
     "created_at",
+  ],
+  // Single-row tab: row 2 holds the whole record. Company contact details
+  // that used to be hardcoded in three separate components.
+  [CMS_TABS.settings]: [
+    "address",
+    "map_query",
+    "phone_primary",
+    "phone_secondary",
+    "email",
+    "hours_weekday",
+    "hours_weekend",
+    "updated_at",
+    "profile_pdf_url",
+  ],
+  // One row per editable public page. Structured repeating blocks live in
+  // JSON so adding a stat/value/card never shifts unrelated CMS columns.
+  [CMS_TABS.pageContent]: ["page_key", "content_json", "updated_at"],
+  // Single-row, server-only record. The TOTP seed is encrypted with
+  // AUTH_SECRET before it reaches Sheets; passwords remain scrypt hashes.
+  [CMS_TABS.adminSecurity]: [
+    "password_hash",
+    "totp_secret_ciphertext",
+    "totp_enabled",
+    "updated_at",
   ],
 };
