@@ -16,7 +16,7 @@ export function BdsRowActions({ record }: { record: AdminPropertyRecord }) {
     const isSourceRow = Boolean(record.sourceId);
     const confirmMsg = isSourceRow
       ? `Ẩn "${record.roomNo}" khỏi danh sách công khai? (Không xóa dòng gốc trên Sheet)`
-      : `Xóa "${record.roomNo}"? Bản ghi sẽ được ẩn khỏi danh sách công khai.`;
+      : `Xóa "${record.roomNo}"? Tin sẽ biến mất khỏi danh sách này và khỏi website. Dòng dữ liệu vẫn được giữ lại trong Google Sheet nếu cần khôi phục.`;
     if (!window.confirm(confirmMsg)) return;
 
     setBusy(true);

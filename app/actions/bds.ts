@@ -203,7 +203,11 @@ export async function saveBdsAction(input: BdsFormInput, publish: boolean): Prom
         fieldErrors: { roomNo: "Mã/số phòng cần có ít nhất một chữ cái hoặc số" },
       };
     }
-    const previous = (await overlay.listCustomRecords()).find((r) => r.id === `custom:${slug}`);
+    // A deleted record is treated as gone: reusing its slug starts a fresh
+    // listing rather than inheriting the dates of the one that was removed.
+    const previous = (await overlay.listCustomRecords()).find(
+      (r) => r.id === `custom:${slug}` && !r.deletedAt,
+    );
     // Creating a second record whose name slugifies to an existing id used to
     // overwrite the first one without warning. Refuse instead — the operator
     // can rename, or open the existing record and edit it.
@@ -249,6 +253,10 @@ export async function saveBdsAction(input: BdsFormInput, publish: boolean): Prom
       // the client reported.
       createdAt: previous?.createdAt || now,
       updatedAt: now,
+      // Saving is the opposite of deleting: writing over a tombstoned row
+      // brings it back rather than leaving an invisible record the operator
+      // can never see again.
+      deletedAt: null,
     };
     await overlay.upsertCustomRecord(record);
   }

@@ -57,6 +57,7 @@ async function seedFixtureData(overlay: InMemoryRentalOverlayRepository): Promis
       // THAT timestamp, not every record collapsing to "right now" the
       // moment the dev server started.
       availableFrom: p.availableFrom,
+      deletedAt: null,
       createdAt: p.postedAt ?? now,
       updatedAt: now,
     };

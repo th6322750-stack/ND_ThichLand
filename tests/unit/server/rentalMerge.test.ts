@@ -123,6 +123,7 @@ describe("buildMergedRentalData", () => {
       locationNote: "Gần trung tâm",
       videoUrl: null,
       availableFrom: null,
+      deletedAt: null,
       media: [],
       commission: "",
       guidePerson: "",
@@ -147,15 +148,17 @@ describe("buildMergedRentalData", () => {
       price: 1_000_000, serviceFee: "", area: 20, verticalAccess: "", propertyType: "Nhà",
       description: "", highlights: [], availability: "Còn trống", bedroomCount: null,
       furnishingStatus: null, bathroomCount: null, amenities: [], locationNote: null, videoUrl: null,
-      availableFrom: null,
+      availableFrom: null, deletedAt: null,
       media: [], commission: "", guidePerson: "", internalNotes: "",
       published: true, createdAt: "2026-08-14T00:00:00.000Z", updatedAt: "2026-08-14T00:00:00.000Z",
     };
     await overlay.upsertCustomRecord(custom);
     await overlay.softDeleteCustomRecord("custom-2");
     const merged = await buildMergedRentalData(source, overlay);
-    const stillPresent = merged.admin.find((r) => r.slug === "se-bi-xoa");
-    expect(stillPresent?.published).toBe(false);
+    // Gone from the admin list too, not merely unpublished — the assertion
+    // used to accept the record still being there, which is the bug the
+    // client hit: "Xóa" left the row in place, relabelled "Nháp".
+    expect(merged.admin.find((r) => r.slug === "se-bi-xoa")).toBeUndefined();
     expect(toPublicPropertyListings(merged.admin)).toHaveLength(0);
   });
 });
@@ -236,7 +239,7 @@ describe("buildMergedRentalData — publish eligibility never fabricates status/
       price: 5_000_000, serviceFee: "", area: 25, verticalAccess: "", propertyType: "loại lạ",
       description: "", highlights: [], availability: "Còn trống", bedroomCount: null,
       furnishingStatus: null, bathroomCount: null, amenities: [], locationNote: null, videoUrl: null,
-      availableFrom: null,
+      availableFrom: null, deletedAt: null,
       media: [], commission: "", guidePerson: "", internalNotes: "",
       published: true, createdAt: "2026-08-14T00:00:00.000Z", updatedAt: "2026-08-14T00:00:00.000Z",
     };

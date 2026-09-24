@@ -189,7 +189,10 @@ export async function buildMergedRentalData(
     fromSource.push(admin);
   }
 
-  const fromCustom = customRecords.map(customToAdminRecord);
+  // A deleted record leaves the admin list entirely. Only `published` was
+  // cleared before, so "Xóa" looked like it had done nothing — the row stayed
+  // put, merely relabelled "Nháp", indistinguishable from a real draft.
+  const fromCustom = customRecords.filter((c) => !c.deletedAt).map(customToAdminRecord);
 
   return {
     admin: [...fromSource, ...fromCustom],

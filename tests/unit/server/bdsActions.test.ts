@@ -271,7 +271,9 @@ describe("BĐS admin actions", () => {
     expect((await deleteCustomBdsRecordAction("custom:x")).ok).toBe(false);
   });
 
-  it("deleteCustomBdsRecordAction soft-deletes — record no longer appears published", async () => {
+  // The client pressed "Xóa" and watched the row stay put: only `published`
+  // was cleared, so it came back relabelled "Nháp" and looked undeletable.
+  it("deleteCustomBdsRecordAction removes the record from the admin list", async () => {
     signInAsAdmin();
     const { saveBdsAction, deleteCustomBdsRecordAction, listAdminBdsAction } = await import("@/app/actions/bds");
     await saveBdsAction(
@@ -305,8 +307,48 @@ describe("BĐS admin actions", () => {
     const result = await deleteCustomBdsRecordAction("custom:phong-se-xoa");
     expect(result.ok).toBe(true);
     const list = await listAdminBdsAction();
-    const deleted = list!.find((r) => r.slug === "phong-se-xoa");
-    expect(deleted!.published).toBe(false);
+    expect(list!.find((r) => r.slug === "phong-se-xoa")).toBeUndefined();
+  });
+
+  it("saving a listing again brings back one that had been deleted", async () => {
+    signInAsAdmin();
+    const { saveBdsAction, deleteCustomBdsRecordAction, listAdminBdsAction } = await import("@/app/actions/bds");
+    const input = {
+      slug: "phong-xoa-roi-tao-lai",
+      roomNo: "P.TEST-REVIVE",
+      location: "Hà Nội",
+      address: "A",
+      priceRaw: "3.000.000",
+      serviceFee: "",
+      areaRaw: "20m2",
+      verticalAccess: "",
+      propertyType: "Studio",
+      description: "",
+      highlights: [],
+      availability: "Còn trống",
+      bedroomCount: null,
+      furnishingStatus: null,
+      bathroomCount: null,
+      amenities: [],
+      locationNote: null,
+      videoUrl: null,
+      availableFrom: null,
+      media: [],
+      commission: "",
+      guidePerson: "",
+      internalNotes: "",
+    };
+
+    await saveBdsAction(input, true);
+    await deleteCustomBdsRecordAction("custom:phong-xoa-roi-tao-lai");
+    expect((await listAdminBdsAction())!.find((r) => r.slug === "phong-xoa-roi-tao-lai")).toBeUndefined();
+
+    // Without clearing the tombstone on save, the operator would be left with
+    // a slug that silently refuses to come back.
+    await saveBdsAction(input, true);
+    const revived = (await listAdminBdsAction())!.find((r) => r.slug === "phong-xoa-roi-tao-lai");
+    expect(revived).toBeDefined();
+    expect(revived!.published).toBe(true);
   });
 
   // Reported by the client: editing an old, already-let room made it

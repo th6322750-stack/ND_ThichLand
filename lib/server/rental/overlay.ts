@@ -46,6 +46,14 @@ export interface CustomBdsRecord {
   // Appended at the end for the same reason as bathroomCount above — an
   // existing row simply has no cell here and reads back as null.
   availableFrom: string | null;
+  /**
+   * Tombstone. "Xóa" in the admin used to only clear `published`, which left
+   * the record sitting in the admin list looking undeleted — the client
+   * reported pressing delete and watching nothing happen. The row itself is
+   * still kept (a mis-click must be recoverable straight from the Sheet);
+   * the merge layer is what drops it from view.
+   */
+  deletedAt: string | null;
 }
 
 export interface RentalOverlayRepository {
@@ -112,6 +120,7 @@ function customRowToRecord(row: string[]): CustomBdsRecord | null {
     locationNote,
     videoUrl,
     availableFrom,
+    deletedAt,
   ] = row;
   if (!id) return null;
   return {
@@ -142,6 +151,7 @@ function customRowToRecord(row: string[]): CustomBdsRecord | null {
     locationNote: locationNote || null,
     videoUrl: videoUrl || null,
     availableFrom: availableFrom || null,
+    deletedAt: deletedAt || null,
   };
 }
 
@@ -174,6 +184,7 @@ function customRecordToRow(r: CustomBdsRecord): (string | number)[] {
     r.locationNote ?? "",
     r.videoUrl ?? "",
     r.availableFrom ?? "",
+    r.deletedAt ?? "",
   ];
 }
 
@@ -220,7 +231,8 @@ export class GoogleRentalOverlayRepository implements RentalOverlayRepository {
     const records = await this.listCustomRecords();
     const existing = records.find((r) => r.id === id);
     if (!existing) return;
-    await this.upsertCustomRecord({ ...existing, published: false, updatedAt: new Date().toISOString() });
+    const now = new Date().toISOString();
+    await this.upsertCustomRecord({ ...existing, published: false, deletedAt: now, updatedAt: now });
   }
 }
 
@@ -246,6 +258,8 @@ export class InMemoryRentalOverlayRepository implements RentalOverlayRepository 
 
   async softDeleteCustomRecord(id: string): Promise<void> {
     const existing = this.custom.get(id);
-    if (existing) this.custom.set(id, { ...existing, published: false, updatedAt: new Date().toISOString() });
+    if (!existing) return;
+    const now = new Date().toISOString();
+    this.custom.set(id, { ...existing, published: false, deletedAt: now, updatedAt: now });
   }
 }

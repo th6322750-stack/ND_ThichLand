@@ -48,6 +48,7 @@ export const CMS_HEADERS: Record<(typeof CMS_TABS)[keyof typeof CMS_TABS], strin
     "location_note",
     "video_url",
     "available_from",
+    "deleted_at",
   ],
   [CMS_TABS.projects]: [
     "id",
